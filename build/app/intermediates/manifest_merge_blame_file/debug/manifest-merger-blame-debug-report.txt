@@ -1,0 +1,209 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.example.wisely_diary"
+4    android:versionCode="1"
+5    android:versionName="1.0.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="21"
+9        android:targetSdkVersion="34" />
+10    <!--
+11         The INTERNET permission is required for development. Specifically,
+12         the Flutter tool needs it to communicate with the running application
+13         to allow setting breakpoints, to provide hot reload, etc.
+14    -->
+15    <uses-permission android:name="android.permission.INTERNET" />
+15-->C:\00_ILGI\code\wisely-diary\frontend1\android\app\src\debug\AndroidManifest.xml:6:5-66
+15-->C:\00_ILGI\code\wisely-diary\frontend1\android\app\src\debug\AndroidManifest.xml:6:22-64
+16    <!--
+17     Required to query activities that can process text, see:
+18         https://developer.android.com/training/package-visibility and
+19         https://developer.android.com/reference/android/content/Intent#ACTION_PROCESS_TEXT.
+20
+21         In particular, this is used by the Flutter engine in io.flutter.plugin.text.ProcessTextPlugin.
+22    -->
+23    <queries>
+23-->C:\00_ILGI\code\wisely-diary\frontend1\android\app\src\main\AndroidManifest.xml:39:5-44:15
+24        <intent>
+24-->C:\00_ILGI\code\wisely-diary\frontend1\android\app\src\main\AndroidManifest.xml:40:9-43:18
+25            <action android:name="android.intent.action.PROCESS_TEXT" />
+25-->C:\00_ILGI\code\wisely-diary\frontend1\android\app\src\main\AndroidManifest.xml:41:13-72
+25-->C:\00_ILGI\code\wisely-diary\frontend1\android\app\src\main\AndroidManifest.xml:41:21-70
+26
+27            <data android:mimeType="text/plain" />
+27-->C:\00_ILGI\code\wisely-diary\frontend1\android\app\src\main\AndroidManifest.xml:42:13-50
+27-->C:\00_ILGI\code\wisely-diary\frontend1\android\app\src\main\AndroidManifest.xml:42:19-48
+28        </intent>
+29    </queries>
+30
+31    <permission
+31-->[androidx.core:core:1.13.1] C:\Users\eurdr\.gradle\caches\transforms-3\2f6a5506f4dac22f7ab67b13b215ea43\transformed\core-1.13.1\AndroidManifest.xml:22:5-24:47
+32        android:name="com.example.wisely_diary.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+32-->[androidx.core:core:1.13.1] C:\Users\eurdr\.gradle\caches\transforms-3\2f6a5506f4dac22f7ab67b13b215ea43\transformed\core-1.13.1\AndroidManifest.xml:23:9-81
+33        android:protectionLevel="signature" />
+33-->[androidx.core:core:1.13.1] C:\Users\eurdr\.gradle\caches\transforms-3\2f6a5506f4dac22f7ab67b13b215ea43\transformed\core-1.13.1\AndroidManifest.xml:24:9-44
+34
+35    <uses-permission android:name="com.example.wisely_diary.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+35-->[androidx.core:core:1.13.1] C:\Users\eurdr\.gradle\caches\transforms-3\2f6a5506f4dac22f7ab67b13b215ea43\transformed\core-1.13.1\AndroidManifest.xml:26:5-97
+35-->[androidx.core:core:1.13.1] C:\Users\eurdr\.gradle\caches\transforms-3\2f6a5506f4dac22f7ab67b13b215ea43\transformed\core-1.13.1\AndroidManifest.xml:26:22-94
+36
+37    <application
+38        android:name="android.app.Application"
+39        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+39-->[androidx.core:core:1.13.1] C:\Users\eurdr\.gradle\caches\transforms-3\2f6a5506f4dac22f7ab67b13b215ea43\transformed\core-1.13.1\AndroidManifest.xml:28:18-86
+40        android:debuggable="true"
+41        android:icon="@mipmap/ic_launcher"
+42        android:label="wisely_diary" >
+43        <activity
+44            android:name="com.example.wisely_diary.MainActivity"
+45            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+46            android:exported="true"
+47            android:hardwareAccelerated="true"
+48            android:launchMode="singleTop"
+49            android:taskAffinity=""
+50            android:theme="@style/LaunchTheme"
+51            android:windowSoftInputMode="adjustResize" >
+52
+53            <!--
+54                 Specifies an Android theme to apply to this Activity as soon as
+55                 the Android process has started. This theme is visible to the user
+56                 while the Flutter UI initializes. After that, this theme continues
+57                 to determine the Window background behind the Flutter UI.
+58            -->
+59            <meta-data
+60                android:name="io.flutter.embedding.android.NormalTheme"
+61                android:resource="@style/NormalTheme" />
+62
+63            <intent-filter>
+64                <action android:name="android.intent.action.MAIN" />
+65
+66                <category android:name="android.intent.category.LAUNCHER" />
+67            </intent-filter>
+68        </activity>
+69        <!--
+70             Don't delete the meta-data below.
+71             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java
+72        -->
+73        <meta-data
+74            android:name="flutterEmbedding"
+75            android:value="2" />
+76
+77        <activity
+77-->[:url_launcher_android] C:\00_ILGI\code\wisely-diary\frontend1\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:10:9-13:74
+78            android:name="io.flutter.plugins.urllauncher.WebViewActivity"
+78-->[:url_launcher_android] C:\00_ILGI\code\wisely-diary\frontend1\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:11:13-74
+79            android:exported="false"
+79-->[:url_launcher_android] C:\00_ILGI\code\wisely-diary\frontend1\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:12:13-37
+80            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+80-->[:url_launcher_android] C:\00_ILGI\code\wisely-diary\frontend1\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:13:13-71
+81
+82        <uses-library
+82-->[androidx.window:window:1.0.0-beta04] C:\Users\eurdr\.gradle\caches\transforms-3\f302e75fb7efd781bcf1a29281c188da\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:25:9-27:40
+83            android:name="androidx.window.extensions"
+83-->[androidx.window:window:1.0.0-beta04] C:\Users\eurdr\.gradle\caches\transforms-3\f302e75fb7efd781bcf1a29281c188da\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:26:13-54
+84            android:required="false" />
+84-->[androidx.window:window:1.0.0-beta04] C:\Users\eurdr\.gradle\caches\transforms-3\f302e75fb7efd781bcf1a29281c188da\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:27:13-37
+85        <uses-library
+85-->[androidx.window:window:1.0.0-beta04] C:\Users\eurdr\.gradle\caches\transforms-3\f302e75fb7efd781bcf1a29281c188da\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:28:9-30:40
+86            android:name="androidx.window.sidecar"
+86-->[androidx.window:window:1.0.0-beta04] C:\Users\eurdr\.gradle\caches\transforms-3\f302e75fb7efd781bcf1a29281c188da\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:29:13-51
+87            android:required="false" />
+87-->[androidx.window:window:1.0.0-beta04] C:\Users\eurdr\.gradle\caches\transforms-3\f302e75fb7efd781bcf1a29281c188da\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:30:13-37
+88
+89        <activity
+89-->[com.google.android.gms:play-services-auth:21.0.0] C:\Users\eurdr\.gradle\caches\transforms-3\72e0d9946a6207425806986245880361\transformed\jetified-play-services-auth-21.0.0\AndroidManifest.xml:23:9-27:75
+90            android:name="com.google.android.gms.auth.api.signin.internal.SignInHubActivity"
+90-->[com.google.android.gms:play-services-auth:21.0.0] C:\Users\eurdr\.gradle\caches\transforms-3\72e0d9946a6207425806986245880361\transformed\jetified-play-services-auth-21.0.0\AndroidManifest.xml:24:13-93
+91            android:excludeFromRecents="true"
+91-->[com.google.android.gms:play-services-auth:21.0.0] C:\Users\eurdr\.gradle\caches\transforms-3\72e0d9946a6207425806986245880361\transformed\jetified-play-services-auth-21.0.0\AndroidManifest.xml:25:13-46
+92            android:exported="false"
+92-->[com.google.android.gms:play-services-auth:21.0.0] C:\Users\eurdr\.gradle\caches\transforms-3\72e0d9946a6207425806986245880361\transformed\jetified-play-services-auth-21.0.0\AndroidManifest.xml:26:13-37
+93            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+93-->[com.google.android.gms:play-services-auth:21.0.0] C:\Users\eurdr\.gradle\caches\transforms-3\72e0d9946a6207425806986245880361\transformed\jetified-play-services-auth-21.0.0\AndroidManifest.xml:27:13-72
+94        <!--
+95            Service handling Google Sign-In user revocation. For apps that do not integrate with
+96            Google Sign-In, this service will never be started.
+97        -->
+98        <service
+98-->[com.google.android.gms:play-services-auth:21.0.0] C:\Users\eurdr\.gradle\caches\transforms-3\72e0d9946a6207425806986245880361\transformed\jetified-play-services-auth-21.0.0\AndroidManifest.xml:33:9-37:51
+99            android:name="com.google.android.gms.auth.api.signin.RevocationBoundService"
+99-->[com.google.android.gms:play-services-auth:21.0.0] C:\Users\eurdr\.gradle\caches\transforms-3\72e0d9946a6207425806986245880361\transformed\jetified-play-services-auth-21.0.0\AndroidManifest.xml:34:13-89
+100            android:exported="true"
+100-->[com.google.android.gms:play-services-auth:21.0.0] C:\Users\eurdr\.gradle\caches\transforms-3\72e0d9946a6207425806986245880361\transformed\jetified-play-services-auth-21.0.0\AndroidManifest.xml:35:13-36
+101            android:permission="com.google.android.gms.auth.api.signin.permission.REVOCATION_NOTIFICATION"
+101-->[com.google.android.gms:play-services-auth:21.0.0] C:\Users\eurdr\.gradle\caches\transforms-3\72e0d9946a6207425806986245880361\transformed\jetified-play-services-auth-21.0.0\AndroidManifest.xml:36:13-107
+102            android:visibleToInstantApps="true" />
+102-->[com.google.android.gms:play-services-auth:21.0.0] C:\Users\eurdr\.gradle\caches\transforms-3\72e0d9946a6207425806986245880361\transformed\jetified-play-services-auth-21.0.0\AndroidManifest.xml:37:13-48
+103
+104        <activity
+104-->[com.google.android.gms:play-services-base:18.0.1] C:\Users\eurdr\.gradle\caches\transforms-3\3b2d428fede6c5e3dd9018d5c02cc047\transformed\jetified-play-services-base-18.0.1\AndroidManifest.xml:20:9-22:45
+105            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+105-->[com.google.android.gms:play-services-base:18.0.1] C:\Users\eurdr\.gradle\caches\transforms-3\3b2d428fede6c5e3dd9018d5c02cc047\transformed\jetified-play-services-base-18.0.1\AndroidManifest.xml:20:19-85
+106            android:exported="false"
+106-->[com.google.android.gms:play-services-base:18.0.1] C:\Users\eurdr\.gradle\caches\transforms-3\3b2d428fede6c5e3dd9018d5c02cc047\transformed\jetified-play-services-base-18.0.1\AndroidManifest.xml:22:19-43
+107            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+107-->[com.google.android.gms:play-services-base:18.0.1] C:\Users\eurdr\.gradle\caches\transforms-3\3b2d428fede6c5e3dd9018d5c02cc047\transformed\jetified-play-services-base-18.0.1\AndroidManifest.xml:21:19-78
+108
+109        <meta-data
+109-->[com.google.android.gms:play-services-basement:18.2.0] C:\Users\eurdr\.gradle\caches\transforms-3\88dbd55d68aa64142427667a0b0fd3ea\transformed\jetified-play-services-basement-18.2.0\AndroidManifest.xml:21:9-23:69
+110            android:name="com.google.android.gms.version"
+110-->[com.google.android.gms:play-services-basement:18.2.0] C:\Users\eurdr\.gradle\caches\transforms-3\88dbd55d68aa64142427667a0b0fd3ea\transformed\jetified-play-services-basement-18.2.0\AndroidManifest.xml:22:13-58
+111            android:value="@integer/google_play_services_version" />
+111-->[com.google.android.gms:play-services-basement:18.2.0] C:\Users\eurdr\.gradle\caches\transforms-3\88dbd55d68aa64142427667a0b0fd3ea\transformed\jetified-play-services-basement-18.2.0\AndroidManifest.xml:23:13-66
+112
+113        <provider
+113-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\eurdr\.gradle\caches\transforms-3\77b04ab641bc809f6845dd10c6b5dd1f\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:24:9-32:20
+114            android:name="androidx.startup.InitializationProvider"
+114-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\eurdr\.gradle\caches\transforms-3\77b04ab641bc809f6845dd10c6b5dd1f\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:25:13-67
+115            android:authorities="com.example.wisely_diary.androidx-startup"
+115-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\eurdr\.gradle\caches\transforms-3\77b04ab641bc809f6845dd10c6b5dd1f\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:26:13-68
+116            android:exported="false" >
+116-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\eurdr\.gradle\caches\transforms-3\77b04ab641bc809f6845dd10c6b5dd1f\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:27:13-37
+117            <meta-data
+117-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\eurdr\.gradle\caches\transforms-3\77b04ab641bc809f6845dd10c6b5dd1f\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:29:13-31:52
+118                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+118-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\eurdr\.gradle\caches\transforms-3\77b04ab641bc809f6845dd10c6b5dd1f\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:30:17-85
+119                android:value="androidx.startup" />
+119-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\eurdr\.gradle\caches\transforms-3\77b04ab641bc809f6845dd10c6b5dd1f\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:31:17-49
+120        </provider>
+121
+122        <receiver
+122-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\eurdr\.gradle\caches\transforms-3\77b04ab641bc809f6845dd10c6b5dd1f\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:34:9-52:20
+123            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+123-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\eurdr\.gradle\caches\transforms-3\77b04ab641bc809f6845dd10c6b5dd1f\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:35:13-76
+124            android:directBootAware="false"
+124-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\eurdr\.gradle\caches\transforms-3\77b04ab641bc809f6845dd10c6b5dd1f\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:36:13-44
+125            android:enabled="true"
+125-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\eurdr\.gradle\caches\transforms-3\77b04ab641bc809f6845dd10c6b5dd1f\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:37:13-35
+126            android:exported="true"
+126-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\eurdr\.gradle\caches\transforms-3\77b04ab641bc809f6845dd10c6b5dd1f\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:38:13-36
+127            android:permission="android.permission.DUMP" >
+127-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\eurdr\.gradle\caches\transforms-3\77b04ab641bc809f6845dd10c6b5dd1f\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:39:13-57
+128            <intent-filter>
+128-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\eurdr\.gradle\caches\transforms-3\77b04ab641bc809f6845dd10c6b5dd1f\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:40:13-42:29
+129                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+129-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\eurdr\.gradle\caches\transforms-3\77b04ab641bc809f6845dd10c6b5dd1f\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:41:17-91
+129-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\eurdr\.gradle\caches\transforms-3\77b04ab641bc809f6845dd10c6b5dd1f\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:41:25-88
+130            </intent-filter>
+131            <intent-filter>
+131-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\eurdr\.gradle\caches\transforms-3\77b04ab641bc809f6845dd10c6b5dd1f\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:43:13-45:29
+132                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+132-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\eurdr\.gradle\caches\transforms-3\77b04ab641bc809f6845dd10c6b5dd1f\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:44:17-85
+132-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\eurdr\.gradle\caches\transforms-3\77b04ab641bc809f6845dd10c6b5dd1f\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:44:25-82
+133            </intent-filter>
+134            <intent-filter>
+134-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\eurdr\.gradle\caches\transforms-3\77b04ab641bc809f6845dd10c6b5dd1f\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:46:13-48:29
+135                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+135-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\eurdr\.gradle\caches\transforms-3\77b04ab641bc809f6845dd10c6b5dd1f\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:47:17-88
+135-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\eurdr\.gradle\caches\transforms-3\77b04ab641bc809f6845dd10c6b5dd1f\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:47:25-85
+136            </intent-filter>
+137            <intent-filter>
+137-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\eurdr\.gradle\caches\transforms-3\77b04ab641bc809f6845dd10c6b5dd1f\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:49:13-51:29
+138                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+138-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\eurdr\.gradle\caches\transforms-3\77b04ab641bc809f6845dd10c6b5dd1f\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:50:17-95
+138-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\eurdr\.gradle\caches\transforms-3\77b04ab641bc809f6845dd10c6b5dd1f\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:50:25-92
+139            </intent-filter>
+140        </receiver>
+141    </application>
+142
+143</manifest>
