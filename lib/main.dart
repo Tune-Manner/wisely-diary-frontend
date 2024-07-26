@@ -4,6 +4,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'WelcomePage.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await Supabase.initialize(
     url: 'https://rgsasjlstibbmhvrjoiv.supabase.co',
     anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJnc2FzamxzdGliYm1odnJqb2l2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjE3MDU2MjksImV4cCI6MjAzNzI4MTYyOX0.UlabKu0o_X1QnMsq8av05DKNRc4fjOAb01fcMpkcuRs',
@@ -40,9 +41,21 @@ class _HomePageState extends State<HomePage> {
 
     supabase.auth.onAuthStateChange.listen((data) {
       setState(() {
-        _userId = data.session?.user.id;
+        _userId = data.session?.user?.id;
       });
     });
+  }
+
+  Future<void> _signOut() async {
+    await supabase.auth.signOut();
+    final GoogleSignIn googleSignIn = GoogleSignIn();
+    await googleSignIn.signOut();
+
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => MainApp()),
+          (Route<dynamic> route) => false,
+    );
   }
 
   @override
@@ -55,18 +68,8 @@ class _HomePageState extends State<HomePage> {
             Text(_userId ?? 'Not signed in'),
             ElevatedButton(
               onPressed: () async {
-                /// TODO: update the Web client ID with your own.
-                ///
-                /// Web Client ID that you registered with Google Cloud.
                 const webClientId = '250529177786-ufcdttr2mssq4tleorq6d6r44eh24k71.apps.googleusercontent.com';
-
-                /// TODO: update the iOS client ID with your own.
-                ///
-                /// iOS Client ID that you registered with Google Cloud.
                 const iosClientId = '250529177786-j7sdpq73vmd9cqtlcc6fq02rl1oscqe7.apps.googleusercontent.com';
-
-                // Google sign in on Android will work without providing the Android
-                // Client ID registered on Google Cloud.
 
                 final GoogleSignIn googleSignIn = GoogleSignIn(
                   clientId: iosClientId,
@@ -90,7 +93,6 @@ class _HomePageState extends State<HomePage> {
                   accessToken: accessToken,
                 );
 
-                // 로그인 성공 후 WelcomePage로 네비게이트
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -99,6 +101,10 @@ class _HomePageState extends State<HomePage> {
                 );
               },
               child: Text('Sign in with Google'),
+            ),
+            ElevatedButton(
+              onPressed: _userId == null ? null : _signOut,
+              child: Text('Sign out'),
             ),
           ],
         ),
