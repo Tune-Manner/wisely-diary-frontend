@@ -129,25 +129,6 @@
                     }
                 },
                 {
-                    "source": "C:\\00_ILGI\\code\\wisely-diary\\frontend1\\android\\app\\src\\main\\res\\values\\styles.xml",
-                    "from": {
-                        "startLines": "3,14",
-                        "startColumns": "4,4",
-                        "startOffsets": "176,832",
-                        "endLines": "7,16",
-                        "endColumns": "12,12",
-                        "endOffsets": "483,998"
-                    },
-                    "to": {
-                        "startLines": "147,151",
-                        "startColumns": "4,4",
-                        "startOffsets": "10377,10558",
-                        "endLines": "150,153",
-                        "endColumns": "12,12",
-                        "endOffsets": "10553,10722"
-                    }
-                },
-                {
                     "source": "C:\\Users\\eurdr\\.gradle\\caches\\transforms-3\\69635902d600ff315c2d2b7f75af662f\\transformed\\jetified-startup-runtime-1.1.1\\res\\values\\values.xml",
                     "from": {
                         "startLines": "2",
@@ -215,6 +196,25 @@
                         "startOffsets": "6958,8730",
                         "endColumns": "67,166",
                         "endOffsets": "7021,8892"
+                    }
+                },
+                {
+                    "source": "C:\\00_ILGI\\code\\frontend\\android\\app\\src\\main\\res\\values\\styles.xml",
+                    "from": {
+                        "startLines": "3,14",
+                        "startColumns": "4,4",
+                        "startOffsets": "176,832",
+                        "endLines": "7,16",
+                        "endColumns": "12,12",
+                        "endOffsets": "483,998"
+                    },
+                    "to": {
+                        "startLines": "147,151",
+                        "startColumns": "4,4",
+                        "startOffsets": "10377,10558",
+                        "endLines": "150,153",
+                        "endColumns": "12,12",
+                        "endOffsets": "10553,10722"
                     }
                 }
             ]
