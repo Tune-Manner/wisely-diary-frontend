@@ -7,7 +7,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Supabase.initialize(
     url: 'https://rgsasjlstibbmhvrjoiv.supabase.co',
-    anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJnc2FzamxzdGliYm1odnJqb2l2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjE3MDU2MjksImV4cCI6MjAzNzI4MTYyOX0.UlabKu0o_X1QnMsq8av05DKNRc4fjOAb01fcMpkcuRs',
+    anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJnc2FzamxzdGliYm1odnJqb2l2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjE3MDU2MjksImV4cCI6MjM3MjgxNjI5fQ.UlabKu0o_X1QnMsq8av05DKNRc4fjOAb01fcMpkcuRs',
   );
   runApp(MainApp());
 }
@@ -58,6 +58,25 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  Future<void> _saveUserToDatabase(User user) async {
+    final userData = {
+      'member_code': int.parse(user.id.hashCode.toString()), // member_code가 bigint이므로 int로 변환
+      'member_email': user.email,
+      'join_at': DateTime.now().toIso8601String(),
+      'member_name': user.userMetadata?['full_name'],
+      'member_status': 'active', // 기본 상태를 active로 설정
+      'password':'password'
+      // 비밀번호는 Google OAuth를 사용하는 경우 필요하지 않으므로 포함하지 않음
+      // withdraw_at은 사용자가 탈퇴할 때 업데이트
+    };
+
+    final response = await supabase
+        .from('member')
+        .upsert(userData)
+        .maybeSingle();
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -87,11 +106,14 @@ class _HomePageState extends State<HomePage> {
                   throw 'No ID Token found.';
                 }
 
-                await supabase.auth.signInWithIdToken(
+                final response = await supabase.auth.signInWithIdToken(
                   provider: OAuthProvider.google,
                   idToken: idToken,
                   accessToken: accessToken,
                 );
+
+                final user = response.user;
+                await _saveUserToDatabase(user!);
 
                 Navigator.push(
                   context,
