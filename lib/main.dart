@@ -83,6 +83,22 @@ class _HomePageState extends State<HomePage> {
         .maybeSingle();
   }
 
+  Future<void> _saveKakaoUserToDatabase(kakao.User user) async {
+    final userData = {
+      'member_code': user.id,
+      'member_email': user.kakaoAccount?.email,
+      'join_at': DateTime.now().toIso8601String(),
+      'member_name': user.kakaoAccount?.profile?.nickname,
+      'member_status': 'active',
+      'password': 'password'
+    };
+
+    final response = await supabase
+        .from('member')
+        .upsert(userData)
+        .maybeSingle();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -142,6 +158,15 @@ class _HomePageState extends State<HomePage> {
               ElevatedButton(
                 onPressed: () async {
                   await viewModel.login();
+                  if (viewModel.user != null) {
+                    await _saveKakaoUserToDatabase(viewModel.user!);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => WelcomePage(userId: viewModel.user!.kakaoAccount!.profile!.nickname),
+                      ),
+                    );
+                  }
                   setState(() {});
                 },
                 child: const Text('Login with Kakao'),
