@@ -1,0 +1,1 @@
+ C:\\00_ILGI\\code\\frontend\\.dart_tool\\flutter_build\\525d96620b1a30ac0cc92db47e575feb\\native_assets.yaml: 
