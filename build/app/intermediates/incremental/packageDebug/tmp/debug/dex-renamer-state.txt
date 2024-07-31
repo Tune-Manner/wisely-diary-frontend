@@ -1,9 +1,9 @@
-#Fri Jul 26 13:02:48 KST 2024
-base.0=C\:\\00_ILGI\\code\\wisely-diary\\frontend1\\build\\app\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
-base.1=C\:\\00_ILGI\\code\\wisely-diary\\frontend1\\build\\app\\intermediates\\dex\\debug\\mergeLibDexDebug\\0\\classes.dex
-base.2=C\:\\00_ILGI\\code\\wisely-diary\\frontend1\\build\\app\\intermediates\\dex\\debug\\mergeProjectDexDebug\\0\\classes.dex
-base.3=C\:\\00_ILGI\\code\\wisely-diary\\frontend1\\build\\app\\intermediates\\dex\\debug\\mergeProjectDexDebug\\1\\classes.dex
-base.4=C\:\\00_ILGI\\code\\wisely-diary\\frontend1\\build\\app\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes2.dex
+#Wed Jul 31 14:24:42 KST 2024
+base.0=C\:\\00_ILGI\\code\\frontend\\build\\app\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
+base.1=C\:\\00_ILGI\\code\\frontend\\build\\app\\intermediates\\dex\\debug\\mergeLibDexDebug\\0\\classes.dex
+base.2=C\:\\00_ILGI\\code\\frontend\\build\\app\\intermediates\\dex\\debug\\mergeProjectDexDebug\\0\\classes.dex
+base.3=C\:\\00_ILGI\\code\\frontend\\build\\app\\intermediates\\dex\\debug\\mergeProjectDexDebug\\1\\classes.dex
+base.4=C\:\\00_ILGI\\code\\frontend\\build\\app\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes2.dex
 path.0=classes.dex
 path.1=0/classes.dex
 path.2=0/classes.dex
