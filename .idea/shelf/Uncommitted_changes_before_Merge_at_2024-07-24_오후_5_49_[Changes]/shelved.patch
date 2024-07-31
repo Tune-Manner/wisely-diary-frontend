@@ -1,0 +1,909 @@
+Index: android/app/build.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>plugins {\r\n    id \"com.android.application\"\r\n    id \"kotlin-android\"\r\n    // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.\r\n    id \"dev.flutter.flutter-gradle-plugin\"\r\n}\r\n\r\ndef localProperties = new Properties()\r\ndef localPropertiesFile = rootProject.file(\"local.properties\")\r\nif (localPropertiesFile.exists()) {\r\n    localPropertiesFile.withReader(\"UTF-8\") { reader ->\r\n        localProperties.load(reader)\r\n    }\r\n}\r\n\r\ndef flutterVersionCode = localProperties.getProperty(\"flutter.versionCode\")\r\nif (flutterVersionCode == null) {\r\n    flutterVersionCode = \"1\"\r\n}\r\n\r\ndef flutterVersionName = localProperties.getProperty(\"flutter.versionName\")\r\nif (flutterVersionName == null) {\r\n    flutterVersionName = \"1.0\"\r\n}\r\n\r\nandroid {\r\n    namespace = \"com.example.wisely_diary\"\r\n    compileSdk = flutter.compileSdkVersion\r\n    ndkVersion = flutter.ndkVersion\r\n\r\n    compileOptions {\r\n        sourceCompatibility = JavaVersion.VERSION_1_8\r\n        targetCompatibility = JavaVersion.VERSION_1_8\r\n    }\r\n\r\n    defaultConfig {\r\n        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).\r\n        applicationId = \"com.example.wisely_diary\"\r\n        // You can update the following values to match your application needs.\r\n        // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.\r\n        minSdk = flutter.minSdkVersion\r\n        targetSdk = flutter.targetSdkVersion\r\n        versionCode = flutterVersionCode.toInteger()\r\n        versionName = flutterVersionName\r\n    }\r\n\r\n    buildTypes {\r\n        release {\r\n            // TODO: Add your own signing config for the release build.\r\n            // Signing with the debug keys for now, so `flutter run --release` works.\r\n            signingConfig = signingConfigs.debug\r\n        }\r\n    }\r\n}\r\n\r\nflutter {\r\n    source = \"../..\"\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/android/app/build.gradle b/android/app/build.gradle
+--- a/android/app/build.gradle	(revision 0ba20be98da936cd043434c897fc688978c77fcd)
++++ b/android/app/build.gradle	(date 1721810942430)
+@@ -4,7 +4,9 @@
+     // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
+     id "dev.flutter.flutter-gradle-plugin"
+ }
+-
++dependencies {
++    implementation "com.kakao.sdk:v2-user:2.8.6"
++}
+ def localProperties = new Properties()
+ def localPropertiesFile = rootProject.file("local.properties")
+ if (localPropertiesFile.exists()) {
+@@ -56,3 +58,5 @@
+ flutter {
+     source = "../.."
+ }
++
++
+Index: windows/flutter/generated_plugin_registrant.cc
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>//\r\n//  Generated file. Do not edit.\r\n//\r\n\r\n// clang-format off\r\n\r\n#include \"generated_plugin_registrant.h\"\r\n\r\n\r\nvoid RegisterPlugins(flutter::PluginRegistry* registry) {\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/windows/flutter/generated_plugin_registrant.cc b/windows/flutter/generated_plugin_registrant.cc
+--- a/windows/flutter/generated_plugin_registrant.cc	(revision 0ba20be98da936cd043434c897fc688978c77fcd)
++++ b/windows/flutter/generated_plugin_registrant.cc	(date 1721810942447)
+@@ -6,6 +6,15 @@
+ 
+ #include "generated_plugin_registrant.h"
+ 
++#include <app_links/app_links_plugin_c_api.h>
++#include <flutter_secure_storage_windows/flutter_secure_storage_windows_plugin.h>
++#include <url_launcher_windows/url_launcher_windows.h>
+ 
+ void RegisterPlugins(flutter::PluginRegistry* registry) {
++  AppLinksPluginCApiRegisterWithRegistrar(
++      registry->GetRegistrarForPlugin("AppLinksPluginCApi"));
++  FlutterSecureStorageWindowsPluginRegisterWithRegistrar(
++      registry->GetRegistrarForPlugin("FlutterSecureStorageWindowsPlugin"));
++  UrlLauncherWindowsRegisterWithRegistrar(
++      registry->GetRegistrarForPlugin("UrlLauncherWindows"));
+ }
+Index: windows/flutter/generated_plugins.cmake
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>#\r\n# Generated file, do not edit.\r\n#\r\n\r\nlist(APPEND FLUTTER_PLUGIN_LIST\r\n)\r\n\r\nlist(APPEND FLUTTER_FFI_PLUGIN_LIST\r\n)\r\n\r\nset(PLUGIN_BUNDLED_LIBRARIES)\r\n\r\nforeach(plugin ${FLUTTER_PLUGIN_LIST})\r\n  add_subdirectory(flutter/ephemeral/.plugin_symlinks/${plugin}/windows plugins/${plugin})\r\n  target_link_libraries(${BINARY_NAME} PRIVATE ${plugin}_plugin)\r\n  list(APPEND PLUGIN_BUNDLED_LIBRARIES $<TARGET_FILE:${plugin}_plugin>)\r\n  list(APPEND PLUGIN_BUNDLED_LIBRARIES ${${plugin}_bundled_libraries})\r\nendforeach(plugin)\r\n\r\nforeach(ffi_plugin ${FLUTTER_FFI_PLUGIN_LIST})\r\n  add_subdirectory(flutter/ephemeral/.plugin_symlinks/${ffi_plugin}/windows plugins/${ffi_plugin})\r\n  list(APPEND PLUGIN_BUNDLED_LIBRARIES ${${ffi_plugin}_bundled_libraries})\r\nendforeach(ffi_plugin)\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/windows/flutter/generated_plugins.cmake b/windows/flutter/generated_plugins.cmake
+--- a/windows/flutter/generated_plugins.cmake	(revision 0ba20be98da936cd043434c897fc688978c77fcd)
++++ b/windows/flutter/generated_plugins.cmake	(date 1721810942450)
+@@ -3,6 +3,9 @@
+ #
+ 
+ list(APPEND FLUTTER_PLUGIN_LIST
++  app_links
++  flutter_secure_storage_windows
++  url_launcher_windows
+ )
+ 
+ list(APPEND FLUTTER_FFI_PLUGIN_LIST
+Index: pubspec.lock
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+># Generated by pub\r\n# See https://dart.dev/tools/pub/glossary#lockfile\r\npackages:\r\n  async:\r\n    dependency: transitive\r\n    description:\r\n      name: async\r\n      sha256: \"947bfcf187f74dbc5e146c9eb9c0f10c9f8b30743e341481c1e2ed3ecc18c20c\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"2.11.0\"\r\n  boolean_selector:\r\n    dependency: transitive\r\n    description:\r\n      name: boolean_selector\r\n      sha256: \"6cfb5af12253eaf2b368f07bacc5a80d1301a071c73360d746b7f2e32d762c66\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"2.1.1\"\r\n  characters:\r\n    dependency: transitive\r\n    description:\r\n      name: characters\r\n      sha256: \"04a925763edad70e8443c99234dc3328f442e811f1d8fd1a72f1c8ad0f69a605\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"1.3.0\"\r\n  clock:\r\n    dependency: transitive\r\n    description:\r\n      name: clock\r\n      sha256: cb6d7f03e1de671e34607e909a7213e31d7752be4fb66a86d29fe1eb14bfb5cf\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"1.1.1\"\r\n  collection:\r\n    dependency: transitive\r\n    description:\r\n      name: collection\r\n      sha256: ee67cb0715911d28db6bf4af1026078bd6f0128b07a5f66fb2ed94ec6783c09a\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"1.18.0\"\r\n  cupertino_icons:\r\n    dependency: \"direct main\"\r\n    description:\r\n      name: cupertino_icons\r\n      sha256: ba631d1c7f7bef6b729a622b7b752645a2d076dba9976925b8f25725a30e1ee6\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"1.0.8\"\r\n  fake_async:\r\n    dependency: transitive\r\n    description:\r\n      name: fake_async\r\n      sha256: \"511392330127add0b769b75a987850d136345d9227c6b94c96a04cf4a391bf78\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"1.3.1\"\r\n  flutter:\r\n    dependency: \"direct main\"\r\n    description: flutter\r\n    source: sdk\r\n    version: \"0.0.0\"\r\n  flutter_lints:\r\n    dependency: \"direct dev\"\r\n    description:\r\n      name: flutter_lints\r\n      sha256: \"9e8c3858111da373efc5aa341de011d9bd23e2c5c5e0c62bccf32438e192d7b1\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"3.0.2\"\r\n  flutter_test:\r\n    dependency: \"direct dev\"\r\n    description: flutter\r\n    source: sdk\r\n    version: \"0.0.0\"\r\n  leak_tracker:\r\n    dependency: transitive\r\n    description:\r\n      name: leak_tracker\r\n      sha256: \"7f0df31977cb2c0b88585095d168e689669a2cc9b97c309665e3386f3e9d341a\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"10.0.4\"\r\n  leak_tracker_flutter_testing:\r\n    dependency: transitive\r\n    description:\r\n      name: leak_tracker_flutter_testing\r\n      sha256: \"06e98f569d004c1315b991ded39924b21af84cf14cc94791b8aea337d25b57f8\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"3.0.3\"\r\n  leak_tracker_testing:\r\n    dependency: transitive\r\n    description:\r\n      name: leak_tracker_testing\r\n      sha256: \"6ba465d5d76e67ddf503e1161d1f4a6bc42306f9d66ca1e8f079a47290fb06d3\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"3.0.1\"\r\n  lints:\r\n    dependency: transitive\r\n    description:\r\n      name: lints\r\n      sha256: cbf8d4b858bb0134ef3ef87841abdf8d63bfc255c266b7bf6b39daa1085c4290\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"3.0.0\"\r\n  matcher:\r\n    dependency: transitive\r\n    description:\r\n      name: matcher\r\n      sha256: d2323aa2060500f906aa31a895b4030b6da3ebdcc5619d14ce1aada65cd161cb\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"0.12.16+1\"\r\n  material_color_utilities:\r\n    dependency: transitive\r\n    description:\r\n      name: material_color_utilities\r\n      sha256: \"0e0a020085b65b6083975e499759762399b4475f766c21668c4ecca34ea74e5a\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"0.8.0\"\r\n  meta:\r\n    dependency: transitive\r\n    description:\r\n      name: meta\r\n      sha256: \"7687075e408b093f36e6bbf6c91878cc0d4cd10f409506f7bc996f68220b9136\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"1.12.0\"\r\n  path:\r\n    dependency: transitive\r\n    description:\r\n      name: path\r\n      sha256: \"087ce49c3f0dc39180befefc60fdb4acd8f8620e5682fe2476afd0b3688bb4af\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"1.9.0\"\r\n  sky_engine:\r\n    dependency: transitive\r\n    description: flutter\r\n    source: sdk\r\n    version: \"0.0.99\"\r\n  source_span:\r\n    dependency: transitive\r\n    description:\r\n      name: source_span\r\n      sha256: \"53e943d4206a5e30df338fd4c6e7a077e02254531b138a15aec3bd143c1a8b3c\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"1.10.0\"\r\n  stack_trace:\r\n    dependency: transitive\r\n    description:\r\n      name: stack_trace\r\n      sha256: \"73713990125a6d93122541237550ee3352a2d84baad52d375a4cad2eb9b7ce0b\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"1.11.1\"\r\n  stream_channel:\r\n    dependency: transitive\r\n    description:\r\n      name: stream_channel\r\n      sha256: ba2aa5d8cc609d96bbb2899c28934f9e1af5cddbd60a827822ea467161eb54e7\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"2.1.2\"\r\n  string_scanner:\r\n    dependency: transitive\r\n    description:\r\n      name: string_scanner\r\n      sha256: \"556692adab6cfa87322a115640c11f13cb77b3f076ddcc5d6ae3c20242bedcde\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"1.2.0\"\r\n  term_glyph:\r\n    dependency: transitive\r\n    description:\r\n      name: term_glyph\r\n      sha256: a29248a84fbb7c79282b40b8c72a1209db169a2e0542bce341da992fe1bc7e84\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"1.2.1\"\r\n  test_api:\r\n    dependency: transitive\r\n    description:\r\n      name: test_api\r\n      sha256: \"9955ae474176f7ac8ee4e989dadfb411a58c30415bcfb648fa04b2b8a03afa7f\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"0.7.0\"\r\n  vector_math:\r\n    dependency: transitive\r\n    description:\r\n      name: vector_math\r\n      sha256: \"80b3257d1492ce4d091729e3a67a60407d227c27241d6927be0130c98e741803\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"2.1.4\"\r\n  vm_service:\r\n    dependency: transitive\r\n    description:\r\n      name: vm_service\r\n      sha256: \"3923c89304b715fb1eb6423f017651664a03bf5f4b29983627c4da791f74a4ec\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"14.2.1\"\r\nsdks:\r\n  dart: \">=3.4.4 <4.0.0\"\r\n  flutter: \">=3.18.0-18.0.pre.54\"\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/pubspec.lock b/pubspec.lock
+--- a/pubspec.lock	(revision 0ba20be98da936cd043434c897fc688978c77fcd)
++++ b/pubspec.lock	(date 1721810942442)
+@@ -1,6 +1,14 @@
+ # Generated by pub
+ # See https://dart.dev/tools/pub/glossary#lockfile
+ packages:
++  app_links:
++    dependency: transitive
++    description:
++      name: app_links
++      sha256: "3ced568a5d9e309e99af71285666f1f3117bddd0bd5b3317979dccc1a40cada4"
++      url: "https://pub.dev"
++    source: hosted
++    version: "3.5.1"
+   async:
+     dependency: transitive
+     description:
+@@ -41,6 +49,14 @@
+       url: "https://pub.dev"
+     source: hosted
+     version: "1.18.0"
++  crypto:
++    dependency: transitive
++    description:
++      name: crypto
++      sha256: ff625774173754681d66daaf4a448684fb04b78f902da9cb3d308c19cc5e8bab
++      url: "https://pub.dev"
++    source: hosted
++    version: "3.0.3"
+   cupertino_icons:
+     dependency: "direct main"
+     description:
+@@ -57,6 +73,22 @@
+       url: "https://pub.dev"
+     source: hosted
+     version: "1.3.1"
++  ffi:
++    dependency: transitive
++    description:
++      name: ffi
++      sha256: "493f37e7df1804778ff3a53bd691d8692ddf69702cf4c1c1096a2e41b4779e21"
++      url: "https://pub.dev"
++    source: hosted
++    version: "2.1.2"
++  file:
++    dependency: transitive
++    description:
++      name: file
++      sha256: "5fc22d7c25582e38ad9a8515372cd9a93834027aacf1801cf01164dac0ffa08c"
++      url: "https://pub.dev"
++    source: hosted
++    version: "7.0.0"
+   flutter:
+     dependency: "direct main"
+     description: flutter
+@@ -66,15 +98,124 @@
+     dependency: "direct dev"
+     description:
+       name: flutter_lints
+-      sha256: "9e8c3858111da373efc5aa341de011d9bd23e2c5c5e0c62bccf32438e192d7b1"
++      sha256: "3f41d009ba7172d5ff9be5f6e6e6abb4300e263aab8866d2a0842ed2a70f8f0c"
++      url: "https://pub.dev"
++    source: hosted
++    version: "4.0.0"
++  flutter_secure_storage:
++    dependency: "direct main"
++    description:
++      name: flutter_secure_storage
++      sha256: "165164745e6afb5c0e3e3fcc72a012fb9e58496fb26ffb92cf22e16a821e85d0"
++      url: "https://pub.dev"
++    source: hosted
++    version: "9.2.2"
++  flutter_secure_storage_linux:
++    dependency: transitive
++    description:
++      name: flutter_secure_storage_linux
++      sha256: "4d91bfc23047422cbcd73ac684bc169859ee766482517c22172c86596bf1464b"
+       url: "https://pub.dev"
+     source: hosted
+-    version: "3.0.2"
++    version: "1.2.1"
++  flutter_secure_storage_macos:
++    dependency: transitive
++    description:
++      name: flutter_secure_storage_macos
++      sha256: "1693ab11121a5f925bbea0be725abfcfbbcf36c1e29e571f84a0c0f436147a81"
++      url: "https://pub.dev"
++    source: hosted
++    version: "3.1.2"
++  flutter_secure_storage_platform_interface:
++    dependency: transitive
++    description:
++      name: flutter_secure_storage_platform_interface
++      sha256: cf91ad32ce5adef6fba4d736a542baca9daf3beac4db2d04be350b87f69ac4a8
++      url: "https://pub.dev"
++    source: hosted
++    version: "1.1.2"
++  flutter_secure_storage_web:
++    dependency: transitive
++    description:
++      name: flutter_secure_storage_web
++      sha256: f4ebff989b4f07b2656fb16b47852c0aab9fed9b4ec1c70103368337bc1886a9
++      url: "https://pub.dev"
++    source: hosted
++    version: "1.2.1"
++  flutter_secure_storage_windows:
++    dependency: transitive
++    description:
++      name: flutter_secure_storage_windows
++      sha256: b20b07cb5ed4ed74fc567b78a72936203f587eba460af1df11281c9326cd3709
++      url: "https://pub.dev"
++    source: hosted
++    version: "3.1.2"
+   flutter_test:
+     dependency: "direct dev"
+     description: flutter
+     source: sdk
+     version: "0.0.0"
++  flutter_web_plugins:
++    dependency: transitive
++    description: flutter
++    source: sdk
++    version: "0.0.0"
++  functions_client:
++    dependency: transitive
++    description:
++      name: functions_client
++      sha256: "48659e5c6a4bbe02659102bf6406a0cf39142202deae65aacfa78688f2e68946"
++      url: "https://pub.dev"
++    source: hosted
++    version: "2.2.0"
++  gotrue:
++    dependency: transitive
++    description:
++      name: gotrue
++      sha256: a8784341bcc08f88ba7a4b04a40a37059c7e71c315f058d45c31d09e8a951194
++      url: "https://pub.dev"
++    source: hosted
++    version: "2.8.3"
++  gtk:
++    dependency: transitive
++    description:
++      name: gtk
++      sha256: e8ce9ca4b1df106e4d72dad201d345ea1a036cc12c360f1a7d5a758f78ffa42c
++      url: "https://pub.dev"
++    source: hosted
++    version: "2.1.0"
++  http:
++    dependency: "direct main"
++    description:
++      name: http
++      sha256: b9c29a161230ee03d3ccf545097fccd9b87a5264228c5d348202e0f0c28f9010
++      url: "https://pub.dev"
++    source: hosted
++    version: "1.2.2"
++  http_parser:
++    dependency: transitive
++    description:
++      name: http_parser
++      sha256: "2aa08ce0341cc9b354a498388e30986515406668dbcc4f7c950c3e715496693b"
++      url: "https://pub.dev"
++    source: hosted
++    version: "4.0.2"
++  js:
++    dependency: transitive
++    description:
++      name: js
++      sha256: f2c445dce49627136094980615a031419f7f3eb393237e4ecd97ac15dea343f3
++      url: "https://pub.dev"
++    source: hosted
++    version: "0.6.7"
++  jwt_decode:
++    dependency: transitive
++    description:
++      name: jwt_decode
++      sha256: d2e9f68c052b2225130977429d30f187aa1981d789c76ad104a32243cfdebfbb
++      url: "https://pub.dev"
++    source: hosted
++    version: "0.3.1"
+   leak_tracker:
+     dependency: transitive
+     description:
+@@ -103,10 +244,10 @@
+     dependency: transitive
+     description:
+       name: lints
+-      sha256: cbf8d4b858bb0134ef3ef87841abdf8d63bfc255c266b7bf6b39daa1085c4290
++      sha256: "976c774dd944a42e83e2467f4cc670daef7eed6295b10b36ae8c85bcbf828235"
+       url: "https://pub.dev"
+     source: hosted
+-    version: "3.0.0"
++    version: "4.0.0"
+   matcher:
+     dependency: transitive
+     description:
+@@ -131,6 +272,14 @@
+       url: "https://pub.dev"
+     source: hosted
+     version: "1.12.0"
++  mime:
++    dependency: transitive
++    description:
++      name: mime
++      sha256: "2e123074287cc9fd6c09de8336dae606d1ddb88d9ac47358826db698c176a1f2"
++      url: "https://pub.dev"
++    source: hosted
++    version: "1.0.5"
+   path:
+     dependency: transitive
+     description:
+@@ -139,6 +288,158 @@
+       url: "https://pub.dev"
+     source: hosted
+     version: "1.9.0"
++  path_provider:
++    dependency: transitive
++    description:
++      name: path_provider
++      sha256: c9e7d3a4cd1410877472158bee69963a4579f78b68c65a2b7d40d1a7a88bb161
++      url: "https://pub.dev"
++    source: hosted
++    version: "2.1.3"
++  path_provider_android:
++    dependency: transitive
++    description:
++      name: path_provider_android
++      sha256: "30c5aa827a6ae95ce2853cdc5fe3971daaac00f6f081c419c013f7f57bff2f5e"
++      url: "https://pub.dev"
++    source: hosted
++    version: "2.2.7"
++  path_provider_foundation:
++    dependency: transitive
++    description:
++      name: path_provider_foundation
++      sha256: f234384a3fdd67f989b4d54a5d73ca2a6c422fa55ae694381ae0f4375cd1ea16
++      url: "https://pub.dev"
++    source: hosted
++    version: "2.4.0"
++  path_provider_linux:
++    dependency: transitive
++    description:
++      name: path_provider_linux
++      sha256: f7a1fe3a634fe7734c8d3f2766ad746ae2a2884abe22e241a8b301bf5cac3279
++      url: "https://pub.dev"
++    source: hosted
++    version: "2.2.1"
++  path_provider_platform_interface:
++    dependency: transitive
++    description:
++      name: path_provider_platform_interface
++      sha256: "88f5779f72ba699763fa3a3b06aa4bf6de76c8e5de842cf6f29e2e06476c2334"
++      url: "https://pub.dev"
++    source: hosted
++    version: "2.1.2"
++  path_provider_windows:
++    dependency: transitive
++    description:
++      name: path_provider_windows
++      sha256: bd6f00dbd873bfb70d0761682da2b3a2c2fccc2b9e84c495821639601d81afe7
++      url: "https://pub.dev"
++    source: hosted
++    version: "2.3.0"
++  platform:
++    dependency: transitive
++    description:
++      name: platform
++      sha256: "9b71283fc13df574056616011fb138fd3b793ea47cc509c189a6c3fa5f8a1a65"
++      url: "https://pub.dev"
++    source: hosted
++    version: "3.1.5"
++  plugin_platform_interface:
++    dependency: transitive
++    description:
++      name: plugin_platform_interface
++      sha256: "4820fbfdb9478b1ebae27888254d445073732dae3d6ea81f0b7e06d5dedc3f02"
++      url: "https://pub.dev"
++    source: hosted
++    version: "2.1.8"
++  postgrest:
++    dependency: transitive
++    description:
++      name: postgrest
++      sha256: f1f78470a74c611811132ff12acdef9c08b3ec65b61e88161a057d6cc5fbbd83
++      url: "https://pub.dev"
++    source: hosted
++    version: "2.1.2"
++  realtime_client:
++    dependency: transitive
++    description:
++      name: realtime_client
++      sha256: a99b7817e203c57ada746e9fe113820410cf84d9029f4310c57737aae890b0f7
++      url: "https://pub.dev"
++    source: hosted
++    version: "2.2.0"
++  retry:
++    dependency: transitive
++    description:
++      name: retry
++      sha256: "822e118d5b3aafed083109c72d5f484c6dc66707885e07c0fbcb8b986bba7efc"
++      url: "https://pub.dev"
++    source: hosted
++    version: "3.1.2"
++  rxdart:
++    dependency: transitive
++    description:
++      name: rxdart
++      sha256: "0c7c0cedd93788d996e33041ffecda924cc54389199cde4e6a34b440f50044cb"
++      url: "https://pub.dev"
++    source: hosted
++    version: "0.27.7"
++  shared_preferences:
++    dependency: transitive
++    description:
++      name: shared_preferences
++      sha256: d3bbe5553a986e83980916ded2f0b435ef2e1893dfaa29d5a7a790d0eca12180
++      url: "https://pub.dev"
++    source: hosted
++    version: "2.2.3"
++  shared_preferences_android:
++    dependency: transitive
++    description:
++      name: shared_preferences_android
++      sha256: "93d0ec9dd902d85f326068e6a899487d1f65ffcd5798721a95330b26c8131577"
++      url: "https://pub.dev"
++    source: hosted
++    version: "2.2.3"
++  shared_preferences_foundation:
++    dependency: transitive
++    description:
++      name: shared_preferences_foundation
++      sha256: "0a8a893bf4fd1152f93fec03a415d11c27c74454d96e2318a7ac38dd18683ab7"
++      url: "https://pub.dev"
++    source: hosted
++    version: "2.4.0"
++  shared_preferences_linux:
++    dependency: transitive
++    description:
++      name: shared_preferences_linux
++      sha256: "9f2cbcf46d4270ea8be39fa156d86379077c8a5228d9dfdb1164ae0bb93f1faa"
++      url: "https://pub.dev"
++    source: hosted
++    version: "2.3.2"
++  shared_preferences_platform_interface:
++    dependency: transitive
++    description:
++      name: shared_preferences_platform_interface
++      sha256: "034650b71e73629ca08a0bd789fd1d83cc63c2d1e405946f7cef7bc37432f93a"
++      url: "https://pub.dev"
++    source: hosted
++    version: "2.4.0"
++  shared_preferences_web:
++    dependency: transitive
++    description:
++      name: shared_preferences_web
++      sha256: d762709c2bbe80626ecc819143013cc820fa49ca5e363620ee20a8b15a3e3daf
++      url: "https://pub.dev"
++    source: hosted
++    version: "2.2.1"
++  shared_preferences_windows:
++    dependency: transitive
++    description:
++      name: shared_preferences_windows
++      sha256: "841ad54f3c8381c480d0c9b508b89a34036f512482c407e6df7a9c4aa2ef8f59"
++      url: "https://pub.dev"
++    source: hosted
++    version: "2.3.2"
+   sky_engine:
+     dependency: transitive
+     description: flutter
+@@ -160,6 +461,14 @@
+       url: "https://pub.dev"
+     source: hosted
+     version: "1.11.1"
++  storage_client:
++    dependency: transitive
++    description:
++      name: storage_client
++      sha256: e37f1b9d40f43078d12bd2d1b6b08c2c16fbdbafc58b57bc44922da6ea3f5625
++      url: "https://pub.dev"
++    source: hosted
++    version: "2.0.2"
+   stream_channel:
+     dependency: transitive
+     description:
+@@ -176,6 +485,22 @@
+       url: "https://pub.dev"
+     source: hosted
+     version: "1.2.0"
++  supabase:
++    dependency: transitive
++    description:
++      name: supabase
++      sha256: "91196ce9137e726ba137419318e4cd8c5266922729c991b40bd9a592b2867002"
++      url: "https://pub.dev"
++    source: hosted
++    version: "2.2.5"
++  supabase_flutter:
++    dependency: "direct main"
++    description:
++      name: supabase_flutter
++      sha256: "4ce9a251448a8d03d5bdcbd8700d480b378ad451dab9ce637e41a01ee58ec1b9"
++      url: "https://pub.dev"
++    source: hosted
++    version: "2.5.9"
+   term_glyph:
+     dependency: transitive
+     description:
+@@ -192,6 +517,78 @@
+       url: "https://pub.dev"
+     source: hosted
+     version: "0.7.0"
++  typed_data:
++    dependency: transitive
++    description:
++      name: typed_data
++      sha256: facc8d6582f16042dd49f2463ff1bd6e2c9ef9f3d5da3d9b087e244a7b564b3c
++      url: "https://pub.dev"
++    source: hosted
++    version: "1.3.2"
++  url_launcher:
++    dependency: transitive
++    description:
++      name: url_launcher
++      sha256: "21b704ce5fa560ea9f3b525b43601c678728ba46725bab9b01187b4831377ed3"
++      url: "https://pub.dev"
++    source: hosted
++    version: "6.3.0"
++  url_launcher_android:
++    dependency: transitive
++    description:
++      name: url_launcher_android
++      sha256: "95d8027db36a0e52caf55680f91e33ea6aa12a3ce608c90b06f4e429a21067ac"
++      url: "https://pub.dev"
++    source: hosted
++    version: "6.3.5"
++  url_launcher_ios:
++    dependency: transitive
++    description:
++      name: url_launcher_ios
++      sha256: e43b677296fadce447e987a2f519dcf5f6d1e527dc35d01ffab4fff5b8a7063e
++      url: "https://pub.dev"
++    source: hosted
++    version: "6.3.1"
++  url_launcher_linux:
++    dependency: transitive
++    description:
++      name: url_launcher_linux
++      sha256: ab360eb661f8879369acac07b6bb3ff09d9471155357da8443fd5d3cf7363811
++      url: "https://pub.dev"
++    source: hosted
++    version: "3.1.1"
++  url_launcher_macos:
++    dependency: transitive
++    description:
++      name: url_launcher_macos
++      sha256: "9a1a42d5d2d95400c795b2914c36fdcb525870c752569438e4ebb09a2b5d90de"
++      url: "https://pub.dev"
++    source: hosted
++    version: "3.2.0"
++  url_launcher_platform_interface:
++    dependency: transitive
++    description:
++      name: url_launcher_platform_interface
++      sha256: "552f8a1e663569be95a8190206a38187b531910283c3e982193e4f2733f01029"
++      url: "https://pub.dev"
++    source: hosted
++    version: "2.3.2"
++  url_launcher_web:
++    dependency: transitive
++    description:
++      name: url_launcher_web
++      sha256: "7fd2f55fe86cea2897b963e864dc01a7eb0719ecc65fcef4c1cc3d686d718bb2"
++      url: "https://pub.dev"
++    source: hosted
++    version: "2.2.0"
++  url_launcher_windows:
++    dependency: transitive
++    description:
++      name: url_launcher_windows
++      sha256: "49c10f879746271804767cb45551ec5592cdab00ee105c06dddde1a98f73b185"
++      url: "https://pub.dev"
++    source: hosted
++    version: "3.1.2"
+   vector_math:
+     dependency: transitive
+     description:
+@@ -208,6 +605,46 @@
+       url: "https://pub.dev"
+     source: hosted
+     version: "14.2.1"
++  web:
++    dependency: transitive
++    description:
++      name: web
++      sha256: d43c1d6b787bf0afad444700ae7f4db8827f701bc61c255ac8d328c6f4d52062
++      url: "https://pub.dev"
++    source: hosted
++    version: "1.0.0"
++  web_socket_channel:
++    dependency: transitive
++    description:
++      name: web_socket_channel
++      sha256: d88238e5eac9a42bb43ca4e721edba3c08c6354d4a53063afaa568516217621b
++      url: "https://pub.dev"
++    source: hosted
++    version: "2.4.0"
++  win32:
++    dependency: transitive
++    description:
++      name: win32
++      sha256: a79dbe579cb51ecd6d30b17e0cae4e0ea15e2c0e66f69ad4198f22a6789e94f4
++      url: "https://pub.dev"
++    source: hosted
++    version: "5.5.1"
++  xdg_directories:
++    dependency: transitive
++    description:
++      name: xdg_directories
++      sha256: faea9dee56b520b55a566385b84f2e8de55e7496104adada9962e0bd11bcff1d
++      url: "https://pub.dev"
++    source: hosted
++    version: "1.0.4"
++  yet_another_json_isolate:
++    dependency: transitive
++    description:
++      name: yet_another_json_isolate
++      sha256: e727502a2640d65b4b8a8a6cb48af9dd0cbe644ba4b3ee667c7f4afa0c1d6069
++      url: "https://pub.dev"
++    source: hosted
++    version: "2.0.0"
+ sdks:
+   dart: ">=3.4.4 <4.0.0"
+-  flutter: ">=3.18.0-18.0.pre.54"
++  flutter: ">=3.22.0"
+Index: lib/auth/login_page.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/lib/auth/login_page.dart b/lib/auth/login_page.dart
+new file mode 100644
+--- /dev/null	(date 1721810942433)
++++ b/lib/auth/login_page.dart	(date 1721810942433)
+@@ -0,0 +1,38 @@
++import 'package:flutter/material.dart';
++import 'package:supabase_flutter/supabase_flutter.dart';
++import 'package:flutter_secure_storage/flutter_secure_storage.dart';
++import 'package:supabase_flutter/supabase_flutter.dart';
++
++class LoginPage extends StatelessWidget {
++  final SupabaseClient supabase = Supabase.instance.client;
++  final FlutterSecureStorage secureStorage = FlutterSecureStorage();
++
++  Future<void> loginWithKakao() async {
++    // Implement Kakao Login logic here
++    // On success, authenticate with Supabase
++    final response = await supabase.auth.signIn(
++      provider: Provider.kakao,
++    );
++    if (response.error == null) {
++      secureStorage.write(key: 'userToken', value: response.data.token);
++      // Navigate to home page
++    } else {
++      // Handle error
++    }
++  }
++
++  @override
++  Widget build(BuildContext context) {
++    return Scaffold(
++      appBar: AppBar(
++        title: Text('Login'),
++      ),
++      body: Center(
++        child: ElevatedButton(
++          onPressed: loginWithKakao,
++          child: Text('Login with Kakao'),
++        ),
++      ),
++    );
++  }
++}
+\ No newline at end of file
+Index: macos/Flutter/GeneratedPluginRegistrant.swift
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>//\r\n//  Generated file. Do not edit.\r\n//\r\n\r\nimport FlutterMacOS\r\nimport Foundation\r\n\r\n\r\nfunc RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/macos/Flutter/GeneratedPluginRegistrant.swift b/macos/Flutter/GeneratedPluginRegistrant.swift
+--- a/macos/Flutter/GeneratedPluginRegistrant.swift	(revision 0ba20be98da936cd043434c897fc688978c77fcd)
++++ b/macos/Flutter/GeneratedPluginRegistrant.swift	(date 1721810942439)
+@@ -5,6 +5,16 @@
+ import FlutterMacOS
+ import Foundation
+ 
++import app_links
++import flutter_secure_storage_macos
++import path_provider_foundation
++import shared_preferences_foundation
++import url_launcher_macos
+ 
+ func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
++  AppLinksMacosPlugin.register(with: registry.registrar(forPlugin: "AppLinksMacosPlugin"))
++  FlutterSecureStoragePlugin.register(with: registry.registrar(forPlugin: "FlutterSecureStoragePlugin"))
++  PathProviderPlugin.register(with: registry.registrar(forPlugin: "PathProviderPlugin"))
++  SharedPreferencesPlugin.register(with: registry.registrar(forPlugin: "SharedPreferencesPlugin"))
++  UrlLauncherPlugin.register(with: registry.registrar(forPlugin: "UrlLauncherPlugin"))
+ }
+Index: linux/flutter/generated_plugin_registrant.cc
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>//\r\n//  Generated file. Do not edit.\r\n//\r\n\r\n// clang-format off\r\n\r\n#include \"generated_plugin_registrant.h\"\r\n\r\n\r\nvoid fl_register_plugins(FlPluginRegistry* registry) {\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/linux/flutter/generated_plugin_registrant.cc b/linux/flutter/generated_plugin_registrant.cc
+--- a/linux/flutter/generated_plugin_registrant.cc	(revision 0ba20be98da936cd043434c897fc688978c77fcd)
++++ b/linux/flutter/generated_plugin_registrant.cc	(date 1721810942437)
+@@ -6,6 +6,18 @@
+ 
+ #include "generated_plugin_registrant.h"
+ 
++#include <flutter_secure_storage_linux/flutter_secure_storage_linux_plugin.h>
++#include <gtk/gtk_plugin.h>
++#include <url_launcher_linux/url_launcher_plugin.h>
+ 
+ void fl_register_plugins(FlPluginRegistry* registry) {
++  g_autoptr(FlPluginRegistrar) flutter_secure_storage_linux_registrar =
++      fl_plugin_registry_get_registrar_for_plugin(registry, "FlutterSecureStorageLinuxPlugin");
++  flutter_secure_storage_linux_plugin_register_with_registrar(flutter_secure_storage_linux_registrar);
++  g_autoptr(FlPluginRegistrar) gtk_registrar =
++      fl_plugin_registry_get_registrar_for_plugin(registry, "GtkPlugin");
++  gtk_plugin_register_with_registrar(gtk_registrar);
++  g_autoptr(FlPluginRegistrar) url_launcher_linux_registrar =
++      fl_plugin_registry_get_registrar_for_plugin(registry, "UrlLauncherPlugin");
++  url_launcher_plugin_register_with_registrar(url_launcher_linux_registrar);
+ }
+Index: linux/flutter/generated_plugins.cmake
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>#\r\n# Generated file, do not edit.\r\n#\r\n\r\nlist(APPEND FLUTTER_PLUGIN_LIST\r\n)\r\n\r\nlist(APPEND FLUTTER_FFI_PLUGIN_LIST\r\n)\r\n\r\nset(PLUGIN_BUNDLED_LIBRARIES)\r\n\r\nforeach(plugin ${FLUTTER_PLUGIN_LIST})\r\n  add_subdirectory(flutter/ephemeral/.plugin_symlinks/${plugin}/linux plugins/${plugin})\r\n  target_link_libraries(${BINARY_NAME} PRIVATE ${plugin}_plugin)\r\n  list(APPEND PLUGIN_BUNDLED_LIBRARIES $<TARGET_FILE:${plugin}_plugin>)\r\n  list(APPEND PLUGIN_BUNDLED_LIBRARIES ${${plugin}_bundled_libraries})\r\nendforeach(plugin)\r\n\r\nforeach(ffi_plugin ${FLUTTER_FFI_PLUGIN_LIST})\r\n  add_subdirectory(flutter/ephemeral/.plugin_symlinks/${ffi_plugin}/linux plugins/${ffi_plugin})\r\n  list(APPEND PLUGIN_BUNDLED_LIBRARIES ${${ffi_plugin}_bundled_libraries})\r\nendforeach(ffi_plugin)\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/linux/flutter/generated_plugins.cmake b/linux/flutter/generated_plugins.cmake
+--- a/linux/flutter/generated_plugins.cmake	(revision 0ba20be98da936cd043434c897fc688978c77fcd)
++++ b/linux/flutter/generated_plugins.cmake	(date 1721810942438)
+@@ -3,6 +3,9 @@
+ #
+ 
+ list(APPEND FLUTTER_PLUGIN_LIST
++  flutter_secure_storage_linux
++  gtk
++  url_launcher_linux
+ )
+ 
+ list(APPEND FLUTTER_FFI_PLUGIN_LIST
+Index: lib/main.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import 'package:flutter/material.dart';\r\n\r\nvoid main() {\r\n  runApp(const MyApp());\r\n}\r\n\r\nclass MyApp extends StatelessWidget {\r\n  const MyApp({super.key});\r\n\r\n  // This widget is the root of your application.\r\n  @override\r\n  Widget build(BuildContext context) {\r\n\r\n    return MaterialApp(\r\n      title: 'Flutter Demo',\r\n      theme: ThemeData(\r\n        // This is the theme of your application.\r\n        //\r\n        // TRY THIS: Try running your application with \"flutter run\". You'll see\r\n        // the application has a purple toolbar. Then, without quitting the app,\r\n        // try changing the seedColor in the colorScheme below to Colors.green\r\n        // and then invoke \"hot reload\" (save your changes or press the \"hot\r\n        // reload\" button in a Flutter-supported IDE, or press \"r\" if you used\r\n        // the command line to start the app).\r\n        //\r\n        // Notice that the counter didn't reset back to zero; the application\r\n        // state is not lost during the reload. To reset the state, use hot\r\n        // restart instead.\r\n        //\r\n        // This works for code too, not just values: Most code changes can be\r\n        // tested with just a hot reload.\r\n        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),\r\n        useMaterial3: true,\r\n      ),\r\n      home: const MyHomePage(title: '일기로운슬기생활 '),\r\n    );\r\n  }\r\n}\r\n\r\nclass MyHomePage extends StatefulWidget {\r\n  const MyHomePage({super.key, required this.title});\r\n\r\n  // This widget is the home page of your application. It is stateful, meaning\r\n  // that it has a State object (defined below) that contains fields that affect\r\n  // how it looks.\r\n\r\n  // This class is the configuration for the state. It holds the values (in this\r\n  // case the title) provided by the parent (in this case the App widget) and\r\n  // used by the build method of the State. Fields in a Widget subclass are\r\n  // always marked \"final\".\r\n\r\n  final String title;\r\n\r\n  @override\r\n  State<MyHomePage> createState() => _MyHomePageState();\r\n}\r\n\r\nclass _MyHomePageState extends State<MyHomePage> {\r\n  int _counter = 0;\r\n\r\n  void _incrementCounter() {\r\n    setState(() {\r\n      // This call to setState tells the Flutter framework that something has\r\n      // changed in this State, which causes it to rerun the build method below\r\n      // so that the display can reflect the updated values. If we changed\r\n      // _counter without calling setState(), then the build method would not be\r\n      // called again, and so nothing would appear to happen.\r\n      _counter++;\r\n    });\r\n  }\r\n\r\n  @override\r\n  Widget build(BuildContext context) {\r\n    // This method is rerun every time setState is called, for instance as done\r\n    // by the _incrementCounter method above.\r\n    //\r\n    // The Flutter framework has been optimized to make rerunning build methods\r\n    // fast, so that you can just rebuild anything that needs updating rather\r\n    // than having to individually change instances of widgets.\r\n    return Scaffold(\r\n      appBar: AppBar(\r\n        // TRY THIS: Try changing the color here to a specific color (to\r\n        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar\r\n        // change color while the other colors stay the same.\r\n        backgroundColor: Theme.of(context).colorScheme.inversePrimary,\r\n        // Here we take the value from the MyHomePage object that was created by\r\n        // the App.build method, and use it to set our appbar title.\r\n        title: Text(widget.title),\r\n      ),\r\n      body: Center(\r\n        // Center is a layout widget. It takes a single child and positions it\r\n        // in the middle of the parent.\r\n        child: Column(\r\n          // Column is also a layout widget. It takes a list of children and\r\n          // arranges them vertically. By default, it sizes itself to fit its\r\n          // children horizontally, and tries to be as tall as its parent.\r\n          //\r\n          // Column has various properties to control how it sizes itself and\r\n          // how it positions its children. Here we use mainAxisAlignment to\r\n          // center the children vertically; the main axis here is the vertical\r\n          // axis because Columns are vertical (the cross axis would be\r\n          // horizontal).\r\n          //\r\n          // TRY THIS: Invoke \"debug painting\" (choose the \"Toggle Debug Paint\"\r\n          // action in the IDE, or press \"p\" in the console), to see the\r\n          // wireframe for each widget.\r\n          mainAxisAlignment: MainAxisAlignment.center,\r\n          children: <Widget>[\r\n            const Text(\r\n              'You have pushed the button this many times:',\r\n            ),\r\n            Text(\r\n              '$_counter',\r\n              style: Theme.of(context).textTheme.headlineMedium,\r\n            ),\r\n          ],\r\n        ),\r\n      ),\r\n      floatingActionButton: FloatingActionButton(\r\n        onPressed: _incrementCounter,\r\n        tooltip: 'Increment',\r\n        child: const Icon(Icons.add),\r\n      ), // This trailing comma makes auto-formatting nicer for build methods.\r\n    );\r\n  }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/lib/main.dart b/lib/main.dart
+--- a/lib/main.dart	(revision 0ba20be98da936cd043434c897fc688978c77fcd)
++++ b/lib/main.dart	(date 1721810942435)
+@@ -1,38 +1,26 @@
+ import 'package:flutter/material.dart';
++import 'package:supabase_flutter/supabase_flutter.dart';
+ 
+-void main() {
++void main() async {
++  WidgetsFlutterBinding.ensureInitialized();
++  await Supabase.initialize(
++    url: 'YOUR_SUPABASE_URL',
++    anonKey: 'YOUR_SUPABASE_ANON_KEY',
++  );
+   runApp(const MyApp());
+ }
+ 
+ class MyApp extends StatelessWidget {
+   const MyApp({super.key});
+ 
+-  // This widget is the root of your application.
+   @override
+   Widget build(BuildContext context) {
+-
+     return MaterialApp(
+-      title: 'Flutter Demo',
++      title: 'Social Login App',
+       theme: ThemeData(
+-        // This is the theme of your application.
+-        //
+-        // TRY THIS: Try running your application with "flutter run". You'll see
+-        // the application has a purple toolbar. Then, without quitting the app,
+-        // try changing the seedColor in the colorScheme below to Colors.green
+-        // and then invoke "hot reload" (save your changes or press the "hot
+-        // reload" button in a Flutter-supported IDE, or press "r" if you used
+-        // the command line to start the app).
+-        //
+-        // Notice that the counter didn't reset back to zero; the application
+-        // state is not lost during the reload. To reset the state, use hot
+-        // restart instead.
+-        //
+-        // This works for code too, not just values: Most code changes can be
+-        // tested with just a hot reload.
+-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+-        useMaterial3: true,
++        primarySwatch: Colors.blue,
+       ),
+-      home: const MyHomePage(title: '일기로운슬기생활 '),
++      home: const MyHomePage(title: '슬기로'),
+     );
+   }
+ }
+@@ -40,15 +28,6 @@
+ class MyHomePage extends StatefulWidget {
+   const MyHomePage({super.key, required this.title});
+ 
+-  // This widget is the home page of your application. It is stateful, meaning
+-  // that it has a State object (defined below) that contains fields that affect
+-  // how it looks.
+-
+-  // This class is the configuration for the state. It holds the values (in this
+-  // case the title) provided by the parent (in this case the App widget) and
+-  // used by the build method of the State. Fields in a Widget subclass are
+-  // always marked "final".
+-
+   final String title;
+ 
+   @override
+@@ -60,50 +39,19 @@
+ 
+   void _incrementCounter() {
+     setState(() {
+-      // This call to setState tells the Flutter framework that something has
+-      // changed in this State, which causes it to rerun the build method below
+-      // so that the display can reflect the updated values. If we changed
+-      // _counter without calling setState(), then the build method would not be
+-      // called again, and so nothing would appear to happen.
+       _counter++;
+     });
+   }
+ 
+   @override
+   Widget build(BuildContext context) {
+-    // This method is rerun every time setState is called, for instance as done
+-    // by the _incrementCounter method above.
+-    //
+-    // The Flutter framework has been optimized to make rerunning build methods
+-    // fast, so that you can just rebuild anything that needs updating rather
+-    // than having to individually change instances of widgets.
+     return Scaffold(
+       appBar: AppBar(
+-        // TRY THIS: Try changing the color here to a specific color (to
+-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
+-        // change color while the other colors stay the same.
+         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+-        // Here we take the value from the MyHomePage object that was created by
+-        // the App.build method, and use it to set our appbar title.
+         title: Text(widget.title),
+       ),
+       body: Center(
+-        // Center is a layout widget. It takes a single child and positions it
+-        // in the middle of the parent.
+         child: Column(
+-          // Column is also a layout widget. It takes a list of children and
+-          // arranges them vertically. By default, it sizes itself to fit its
+-          // children horizontally, and tries to be as tall as its parent.
+-          //
+-          // Column has various properties to control how it sizes itself and
+-          // how it positions its children. Here we use mainAxisAlignment to
+-          // center the children vertically; the main axis here is the vertical
+-          // axis because Columns are vertical (the cross axis would be
+-          // horizontal).
+-          //
+-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
+-          // action in the IDE, or press "p" in the console), to see the
+-          // wireframe for each widget.
+           mainAxisAlignment: MainAxisAlignment.center,
+           children: <Widget>[
+             const Text(
+@@ -120,7 +68,7 @@
+         onPressed: _incrementCounter,
+         tooltip: 'Increment',
+         child: const Icon(Icons.add),
+-      ), // This trailing comma makes auto-formatting nicer for build methods.
++      ),
+     );
+   }
+ }
+Index: pubspec.yaml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>name: wisely_diary\r\ndescription: \"A new Flutter project.\"\r\n# The following line prevents the package from being accidentally published to\r\n# pub.dev using `flutter pub publish`. This is preferred for private packages.\r\npublish_to: 'none' # Remove this line if you wish to publish to pub.dev\r\n\r\n# The following defines the version and build number for your application.\r\n# A version number is three numbers separated by dots, like 1.2.43\r\n# followed by an optional build number separated by a +.\r\n# Both the version and the builder number may be overridden in flutter\r\n# build by specifying --build-name and --build-number, respectively.\r\n# In Android, build-name is used as versionName while build-number used as versionCode.\r\n# Read more about Android versioning at https://developer.android.com/studio/publish/versioning\r\n# In iOS, build-name is used as CFBundleShortVersionString while build-number is used as CFBundleVersion.\r\n# Read more about iOS versioning at\r\n# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html\r\n# In Windows, build-name is used as the major, minor, and patch parts\r\n# of the product and file versions while build-number is used as the build suffix.\r\nversion: 1.0.0+1\r\n\r\nenvironment:\r\n  sdk: '>=3.4.4 <4.0.0'\r\n\r\n# Dependencies specify other packages that your package needs in order to work.\r\n# To automatically upgrade your package dependencies to the latest versions\r\n# consider running `flutter pub upgrade --major-versions`. Alternatively,\r\n# dependencies can be manually updated by changing the version numbers below to\r\n# the latest version available on pub.dev. To see which dependencies have newer\r\n# versions available, run `flutter pub outdated`.\r\ndependencies:\r\n  flutter:\r\n    sdk: flutter\r\n\r\n\r\n  # The following adds the Cupertino Icons font to your application.\r\n  # Use with the CupertinoIcons class for iOS style icons.\r\n  cupertino_icons: ^1.0.6\r\n\r\ndev_dependencies:\r\n  flutter_test:\r\n    sdk: flutter\r\n\r\n  # The \"flutter_lints\" package below contains a set of recommended lints to\r\n  # encourage good coding practices. The lint set provided by the package is\r\n  # activated in the `analysis_options.yaml` file located at the root of your\r\n  # package. See that file for information about deactivating specific lint\r\n  # rules and activating additional ones.\r\n  flutter_lints: ^3.0.0\r\n\r\n# For information on the generic Dart part of this file, see the\r\n# following page: https://dart.dev/tools/pub/pubspec\r\n\r\n# The following section is specific to Flutter packages.\r\nflutter:\r\n\r\n  # The following line ensures that the Material Icons font is\r\n  # included with your application, so that you can use the icons in\r\n  # the material Icons class.\r\n  uses-material-design: true\r\n\r\n  # To add assets to your application, add an assets section, like this:\r\n  # assets:\r\n  #   - images/a_dot_burr.jpeg\r\n  #   - images/a_dot_ham.jpeg\r\n\r\n  # An image asset can refer to one or more resolution-specific \"variants\", see\r\n  # https://flutter.dev/assets-and-images/#resolution-aware\r\n\r\n  # For details regarding adding assets from package dependencies, see\r\n  # https://flutter.dev/assets-and-images/#from-packages\r\n\r\n  # To add custom fonts to your application, add a fonts section here,\r\n  # in this \"flutter\" section. Each entry in this list should have a\r\n  # \"family\" key with the font family name, and a \"fonts\" key with a\r\n  # list giving the asset and other descriptors for the font. For\r\n  # example:\r\n  # fonts:\r\n  #   - family: Schyler\r\n  #     fonts:\r\n  #       - asset: fonts/Schyler-Regular.ttf\r\n  #       - asset: fonts/Schyler-Italic.ttf\r\n  #         style: italic\r\n  #   - family: Trajan Pro\r\n  #     fonts:\r\n  #       - asset: fonts/TrajanPro.ttf\r\n  #       - asset: fonts/TrajanPro_Bold.ttf\r\n  #         weight: 700\r\n  #\r\n  # For details regarding fonts from package dependencies,\r\n  # see https://flutter.dev/custom-fonts/#from-packages\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/pubspec.yaml b/pubspec.yaml
+--- a/pubspec.yaml	(revision 0ba20be98da936cd043434c897fc688978c77fcd)
++++ b/pubspec.yaml	(date 1721810942445)
+@@ -28,9 +28,14 @@
+ # the latest version available on pub.dev. To see which dependencies have newer
+ # versions available, run `flutter pub outdated`.
+ dependencies:
++
+   flutter:
+     sdk: flutter
+ 
++  supabase_flutter: ^2.5.9
++  http: ^1.2.2
++  flutter_secure_storage: ^9.2.2
++
+ 
+   # The following adds the Cupertino Icons font to your application.
+   # Use with the CupertinoIcons class for iOS style icons.
+@@ -45,7 +50,7 @@
+   # activated in the `analysis_options.yaml` file located at the root of your
+   # package. See that file for information about deactivating specific lint
+   # rules and activating additional ones.
+-  flutter_lints: ^3.0.0
++  flutter_lints: ^4.0.0
+ 
+ # For information on the generic Dart part of this file, see the
+ # following page: https://dart.dev/tools/pub/pubspec
