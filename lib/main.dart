@@ -1,4 +1,6 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart' as kakao;
@@ -67,28 +69,10 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> _saveUserToDatabase(gotrue.User user) async {
     final userData = {
-      'member_code': int.parse(user.id.hashCode.toString()), // member_code가 bigint이므로 int로 변환
+      'member_code': int.parse(user.id.hashCode.toString()),
       'member_email': user.email,
       'join_at': DateTime.now().toIso8601String(),
       'member_name': user.userMetadata?['full_name'],
-      'member_status': 'active', // 기본 상태를 active로 설정
-      'password': 'password'
-      // 비밀번호는 Google OAuth를 사용하는 경우 필요하지 않으므로 포함하지 않음
-      // withdraw_at은 사용자가 탈퇴할 때 업데이트
-    };
-
-    final response = await supabase
-        .from('member')
-        .upsert(userData)
-        .maybeSingle();
-  }
-
-  Future<void> _saveKakaoUserToDatabase(kakao.User user) async {
-    final userData = {
-      'member_code': user.id,
-      'member_email': user.kakaoAccount?.email,
-      'join_at': DateTime.now().toIso8601String(),
-      'member_name': user.kakaoAccount?.profile?.nickname,
       'member_status': 'active',
       'password': 'password'
     };
@@ -99,89 +83,131 @@ class _HomePageState extends State<HomePage> {
         .maybeSingle();
   }
 
+  Future<void> _saveKakaoUserToDatabase(gotrue.User user, String memberName) async {
+    final userData = {
+      'member_code': int.parse(user.id.hashCode.toString()),
+      'member_email': user.email,
+      'join_at': DateTime.now().toIso8601String(),
+      'member_name': memberName,
+      'member_status': 'active',
+      'password': 'password'
+    };
+
+    final response = await supabase
+        .from('member')
+        .upsert(userData)
+        .maybeSingle();
+
+    // 사용자 메타데이터 업데이트
+    final updateResponse = await supabase.auth.updateUser(UserAttributes(
+      data: {'full_name': memberName},
+    ));
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
+        body: Center(
         child: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Image.network(viewModel.user?.kakaoAccount?.profile?.profileImageUrl ?? ''),
-              Text(
-                '${viewModel.isLogined}',
-                style: Theme.of(context).textTheme.headlineLarge,
-              ),
-              ElevatedButton(
-                onPressed: () async {
-                  const webClientId = '250529177786-ufcdttr2mssq4tleorq6d6r44eh24k71.apps.googleusercontent.com';
-                  const iosClientId = '250529177786-j7sdpq73vmd9cqtlcc6fq02rl1oscqe7.apps.googleusercontent.com';
+        child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+        ElevatedButton(
+        onPressed: () async {
+      const webClientId = '250529177786-ufcdttr2mssq4tleorq6d6r44eh24k71.apps.googleusercontent.com';
+      const iosClientId = '250529177786-j7sdpq73vmd9cqtlcc6fq02rl1oscqe7.apps.googleusercontent.com';
 
-                  final GoogleSignIn googleSignIn = GoogleSignIn(
-                    clientId: iosClientId,
-                    serverClientId: webClientId,
-                  );
-                  final googleUser = await googleSignIn.signIn();
-                  final googleAuth = await googleUser!.authentication;
-                  final accessToken = googleAuth.accessToken;
-                  final idToken = googleAuth.idToken;
+      final GoogleSignIn googleSignIn = GoogleSignIn(
+        clientId: iosClientId,
+        serverClientId: webClientId,
+      );
+      final googleUser = await googleSignIn.signIn();
+      final googleAuth = await googleUser!.authentication;
+      final accessToken = googleAuth.accessToken;
+      final idToken = googleAuth.idToken;
 
-                  if (accessToken == null) {
-                    throw 'No Access Token found.';
-                  }
-                  if (idToken == null) {
-                    throw 'No ID Token found.';
-                  }
+      if (accessToken == null) {
+        throw 'No Access Token found.';
+      }
+      if (idToken == null) {
+        throw 'No ID Token found.';
+      }
 
-                  final response = await supabase.auth.signInWithIdToken(
-                    provider: OAuthProvider.google,
-                    idToken: idToken,
-                    accessToken: accessToken,
-                  );
+      final response = await supabase.auth.signInWithIdToken(
+        provider: OAuthProvider.google,
+        idToken: idToken,
+        accessToken: accessToken,
+      );
 
-                  final user = response.user;
-                  await _saveUserToDatabase(user!);
+      final user = response.user;
+      await _saveUserToDatabase(user!);
 
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => WelcomePage(userId: googleUser.displayName),
-                    ),
-                  );
-                },
-                child: Text('Sign in with Google'),
-              ),
-              ElevatedButton(
-                onPressed: _userId == null ? null : _signOut,
-                child: Text('Sign out'),
-              ),
-              ElevatedButton(
-                onPressed: () async {
-                  await viewModel.login();
-                  if (viewModel.user != null) {
-                    await _saveKakaoUserToDatabase(viewModel.user!);
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => WelcomePage(userId: viewModel.user!.kakaoAccount!.profile!.nickname),
-                      ),
-                    );
-                  }
-                  setState(() {});
-                },
-                child: const Text('Login with Kakao'),
-              ),
-              ElevatedButton(
-                onPressed: () async {
-                  await viewModel.logout();
-                  setState(() {});
-                },
-                child: const Text('Logout from Kakao'),
-              ),
-            ],
-          ),
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) =>
+              WelcomePage(userId: googleUser.displayName),
         ),
+      );
+    },
+    child: Text('Sign in with Google'),
+    ),
+    ElevatedButton(
+    onPressed: () async {
+    try {
+    // 카카오 로그인
+    OAuthToken kakaoToken = await UserApi.instance
+        .loginWithKakaoAccount();
+    final accessToken = kakaoToken.accessToken;
+    final idToken = kakaoToken.idToken;
+
+    if (accessToken == null || idToken == null) {
+    throw 'No Access Token or ID Token found.';
+    }
+
+    // 카카오 사용자 정보 가져오기
+    final kakaoUser = await UserApi.instance.me();
+    final memberName = kakaoUser.kakaoAccount?.profile
+        ?.nickname ?? 'Unknown';
+
+    // Supabase auth에 사용자 등록
+    final response = await supabase.auth.signInWithIdToken(
+    provider: OAuthProvider.kakao,
+    idToken: idToken,
+    accessToken: accessToken,
+    );
+
+    // 사용자 정보를 데이터베이스에 저장
+    final user = response.user;
+    await _saveKakaoUserToDatabase(user!, memberName);
+
+    // WelcomePage로 이동하여 닉네임을 전달
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) =>
+            WelcomePage(userId: memberName),
       ),
+    );
+    } catch (e) {
+      print('Error during Kakao login: $e');
+    }
+    },
+      child: Text('Sign in with Kakao'),
+    ),
+          if (_userId != null)
+            ElevatedButton(
+              onPressed: _signOut,
+              child: Text('Sign out'),
+            ),
+        ],
+        ),
+        ),
+        ),
     );
   }
 }
+
+
+
