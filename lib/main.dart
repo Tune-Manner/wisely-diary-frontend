@@ -83,7 +83,8 @@ class _HomePageState extends State<HomePage> {
         .maybeSingle();
   }
 
-  Future<void> _saveKakaoUserToDatabase(gotrue.User user, String memberName) async {
+  Future<void> _saveKakaoUserToDatabase(gotrue.User user,
+      String memberName) async {
     final userData = {
       'member_code': int.parse(user.id.hashCode.toString()),
       'member_email': user.email,
@@ -102,109 +103,138 @@ class _HomePageState extends State<HomePage> {
     final updateResponse = await supabase.auth.updateUser(UserAttributes(
       data: {'full_name': memberName},
     ));
-
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Center(
+      body: Center(
         child: SingleChildScrollView(
-        child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-        ElevatedButton(
-        onPressed: () async {
-      const webClientId = '250529177786-ufcdttr2mssq4tleorq6d6r44eh24k71.apps.googleusercontent.com';
-      const iosClientId = '250529177786-j7sdpq73vmd9cqtlcc6fq02rl1oscqe7.apps.googleusercontent.com';
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ElevatedButton.icon(
+                icon: Image.asset(
+                  'assets/google_logo.png', // 구글 로고 이미지 경로
+                  height: 24.0,
+                  width: 24.0,
+                ),
+                label: Text('Google로 시작하기'),
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.black,
+                  backgroundColor: Colors.white,
+                  minimumSize: Size(200, 50), // 버튼 넓이 조정
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                ),
+                onPressed: () async {
+                  const webClientId =
+                      '250529177786-ufcdttr2mssq4tleorq6d6r44eh24k71.apps.googleusercontent.com';
+                  const iosClientId =
+                      '250529177786-j7sdpq73vmd9cqtlcc6fq02rl1oscqe7.apps.googleusercontent.com';
 
-      final GoogleSignIn googleSignIn = GoogleSignIn(
-        clientId: iosClientId,
-        serverClientId: webClientId,
-      );
-      final googleUser = await googleSignIn.signIn();
-      final googleAuth = await googleUser!.authentication;
-      final accessToken = googleAuth.accessToken;
-      final idToken = googleAuth.idToken;
+                  final GoogleSignIn googleSignIn = GoogleSignIn(
+                    clientId: iosClientId,
+                    serverClientId: webClientId,
+                  );
+                  final googleUser = await googleSignIn.signIn();
+                  final googleAuth = await googleUser!.authentication;
+                  final accessToken = googleAuth.accessToken;
+                  final idToken = googleAuth.idToken;
 
-      if (accessToken == null) {
-        throw 'No Access Token found.';
-      }
-      if (idToken == null) {
-        throw 'No ID Token found.';
-      }
+                  if (accessToken == null) {
+                    throw 'No Access Token found.';
+                  }
+                  if (idToken == null) {
+                    throw 'No ID Token found.';
+                  }
 
-      final response = await supabase.auth.signInWithIdToken(
-        provider: OAuthProvider.google,
-        idToken: idToken,
-        accessToken: accessToken,
-      );
+                  final response = await supabase.auth.signInWithIdToken(
+                    provider: OAuthProvider.google,
+                    idToken: idToken,
+                    accessToken: accessToken,
+                  );
 
-      final user = response.user;
-      await _saveUserToDatabase(user!);
+                  final user = response.user;
+                  await _saveUserToDatabase(user!);
 
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) =>
-              WelcomePage(userId: googleUser.displayName),
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          WelcomePage(userId: googleUser.displayName),
+                    ),
+                  );
+                },
+              ),
+              SizedBox(height: 16.0),
+              ElevatedButton.icon(
+                icon: Image.asset(
+                  'assets/kakao_logo.png', // 카카오 로고 이미지 경로
+                  height: 24.0,
+                  width: 24.0,
+                ),
+                label: Text('카카오로 시작하기'),
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.black,
+                  backgroundColor: Color(0xFFFFE812),
+                  minimumSize: Size(200, 50), // 버튼 넓이 조정
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                ),
+                onPressed: () async {
+                  try {
+                    // 카카오 로그인
+                    OAuthToken kakaoToken = await UserApi.instance
+                        .loginWithKakaoAccount();
+                    final accessToken = kakaoToken.accessToken;
+                    final idToken = kakaoToken.idToken;
+
+                    if (accessToken == null || idToken == null) {
+                      throw 'No Access Token or ID Token found.';
+                    }
+
+                    // 카카오 사용자 정보 가져오기
+                    final kakaoUser = await UserApi.instance.me();
+                    final memberName = kakaoUser.kakaoAccount?.profile
+                        ?.nickname ??
+                        'Unknown';
+
+                    // Supabase auth에 사용자 등록
+                    final response = await supabase.auth.signInWithIdToken(
+                      provider: OAuthProvider.kakao,
+                      idToken: idToken,
+                      accessToken: accessToken,
+                    );
+
+                    // 사용자 정보를 데이터베이스에 저장
+                    final user = response.user;
+                    await _saveKakaoUserToDatabase(user!, memberName);
+
+                    // WelcomePage로 이동하여 닉네임을 전달
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            WelcomePage(userId: memberName),
+                      ),
+                    );
+                  } catch (e) {
+                    print('Error during Kakao login: $e');
+                  }
+                },
+              ),
+              if (_userId != null)
+                ElevatedButton(
+                  onPressed: _signOut,
+                  child: Text('Sign out'),
+                ),
+            ],
+          ),
         ),
-      );
-    },
-    child: Text('Sign in with Google'),
-    ),
-    ElevatedButton(
-    onPressed: () async {
-    try {
-    // 카카오 로그인
-    OAuthToken kakaoToken = await UserApi.instance
-        .loginWithKakaoAccount();
-    final accessToken = kakaoToken.accessToken;
-    final idToken = kakaoToken.idToken;
-
-    if (accessToken == null || idToken == null) {
-    throw 'No Access Token or ID Token found.';
-    }
-
-    // 카카오 사용자 정보 가져오기
-    final kakaoUser = await UserApi.instance.me();
-    final memberName = kakaoUser.kakaoAccount?.profile
-        ?.nickname ?? 'Unknown';
-
-    // Supabase auth에 사용자 등록
-    final response = await supabase.auth.signInWithIdToken(
-    provider: OAuthProvider.kakao,
-    idToken: idToken,
-    accessToken: accessToken,
-    );
-
-    // 사용자 정보를 데이터베이스에 저장
-    final user = response.user;
-    await _saveKakaoUserToDatabase(user!, memberName);
-
-    // WelcomePage로 이동하여 닉네임을 전달
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) =>
-            WelcomePage(userId: memberName),
       ),
-    );
-    } catch (e) {
-      print('Error during Kakao login: $e');
-    }
-    },
-      child: Text('Sign in with Kakao'),
-    ),
-          if (_userId != null)
-            ElevatedButton(
-              onPressed: _signOut,
-              child: Text('Sign out'),
-            ),
-        ],
-        ),
-        ),
-        ),
     );
   }
 }
