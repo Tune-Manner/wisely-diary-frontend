@@ -58,7 +58,10 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
-
+  fonts:
+    - family: HSSaemaul
+      fonts:
+        - asset: assets/fonts/HSSaemaul-Regular.woff
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
@@ -66,6 +69,7 @@ flutter:
   assets:
     - assets/google_logo.png
     - assets/kakao_logo.png
+    - assets/wisely-diary-logo.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:

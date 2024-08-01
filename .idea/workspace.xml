@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="056ff6d4-db61-4bdc-bb3d-9270c1effb9f" name="Changes" comment="feat: design button UI" />
+    <list default="true" id="056ff6d4-db61-4bdc-bb3d-9270c1effb9f" name="Changes" comment="feat: push before pullrequest" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -75,7 +75,7 @@
     "dart.analysis.tool.window.visible": "false",
     "ignore.virus.scanning.warn.message": "true",
     "io.flutter.reload.alreadyRun": "true",
-    "last_opened_file_path": "C:/00_ILGI/code/frontend/assets",
+    "last_opened_file_path": "C:/00_ILGI/backend",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -191,6 +191,7 @@
       <workItem from="1722391701425" duration="318000" />
       <workItem from="1722392125130" duration="9751000" />
       <workItem from="1722403387826" duration="1177000" />
+      <workItem from="1722404636796" duration="683000" />
     </task>
     <task id="LOCAL-00001" summary="feat : login page">
       <created>1721904537085</created>
@@ -283,7 +284,21 @@
       <option name="project" value="LOCAL" />
       <updated>1722403715032</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="feat: push before pullrequest">
+      <created>1722404728129</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1722404728129</updated>
+    </task>
+    <task id="LOCAL-00015" summary="feat: push before pullrequest">
+      <created>1722404779152</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1722404779152</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -323,7 +338,8 @@
     <MESSAGE value="feat: add KaKao login UI" />
     <MESSAGE value="feat: add kakao login function" />
     <MESSAGE value="feat: design button UI" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: design button UI" />
+    <MESSAGE value="feat: push before pullrequest" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: push before pullrequest" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
