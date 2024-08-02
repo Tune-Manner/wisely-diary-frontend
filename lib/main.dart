@@ -8,6 +8,7 @@ import 'package:gotrue/src/types/user.dart' as gotrue;
 import 'WelcomePage.dart';
 import 'kakao/kakao_login.dart';
 import 'kakao/main_view_model.dart';
+import 'test_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -74,7 +75,8 @@ class _HomePageState extends State<HomePage> {
       'join_at': DateTime.now().toIso8601String(),
       'member_name': user.userMetadata?['full_name'],
       'member_status': 'active',
-      'password': 'password'
+      'password': 'password',
+      'member_id':user.id
     };
 
     final response = await supabase
@@ -91,7 +93,8 @@ class _HomePageState extends State<HomePage> {
       'join_at': DateTime.now().toIso8601String(),
       'member_name': memberName,
       'member_status': 'active',
-      'password': 'password'
+      'password': 'password',
+      'member_id':user.id
     };
 
     final response = await supabase
@@ -135,6 +138,19 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.grey, // 선의 색상
               ),
               SizedBox(height: 60.0), // 구분선과 버튼 사이의 간격 조정
+              ElevatedButton(
+                child: Text('테스트 페이지로 이동'),
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.white, backgroundColor: Colors.blue,
+                  minimumSize: Size(350, 50),
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => TestPage()),
+                  );
+                },
+              ),
               ElevatedButton.icon(
                 icon: Image.asset(
                   'assets/google_logo.png', // 구글 로고 이미지 경로
