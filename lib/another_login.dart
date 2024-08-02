@@ -7,9 +7,9 @@ class AnotherLogin extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Another Login'),
+        title: const Text('Another Login'),
       ),
-      body: Center(
+      body: const Center(
         child: Text('Another Login Page'),
       ),
     );

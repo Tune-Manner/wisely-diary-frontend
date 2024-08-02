@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -8,6 +7,7 @@ import 'package:gotrue/src/types/user.dart' as gotrue;
 import 'WelcomePage.dart';
 import 'kakao/kakao_login.dart';
 import 'kakao/main_view_model.dart';
+import 'alarm/alarmSettingPage.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,7 +17,7 @@ void main() async {
   );
   kakao.KakaoSdk.init(nativeAppKey: '2eb8687682cf67f94363bcca7b3125a4');
 
-  runApp(MainApp());
+  runApp(const MainApp());
 }
 
 final supabase = Supabase.instance.client;
@@ -27,9 +27,12 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       home: HomePage(),
     );
+    // return MaterialApp(
+    //   home: AlarmSettingPage(), // 테스트용
+    // );
   }
 }
 
@@ -50,7 +53,7 @@ class _HomePageState extends State<HomePage> {
 
     supabase.auth.onAuthStateChange.listen((data) {
       setState(() {
-        _userId = data.session?.user?.id;
+        _userId = data.session?.user.id;
       });
     });
   }
@@ -62,7 +65,7 @@ class _HomePageState extends State<HomePage> {
 
     Navigator.pushAndRemoveUntil(
       context,
-      MaterialPageRoute(builder: (context) => MainApp()),
+      MaterialPageRoute(builder: (context) => const MainApp()),
           (Route<dynamic> route) => false,
     );
   }
@@ -119,11 +122,11 @@ class _HomePageState extends State<HomePage> {
                   height: 24.0,
                   width: 24.0,
                 ),
-                label: Text('Google로 시작하기'),
+                label: const Text('Google로 시작하기'),
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.black,
                   backgroundColor: Colors.white,
-                  minimumSize: Size(200, 50), // 버튼 넓이 조정
+                  minimumSize: const Size(200, 50), // 버튼 넓이 조정
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8.0),
                   ),
@@ -168,18 +171,18 @@ class _HomePageState extends State<HomePage> {
                   );
                 },
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               ElevatedButton.icon(
                 icon: Image.asset(
                   'assets/kakao_logo.png', // 카카오 로고 이미지 경로
                   height: 24.0,
                   width: 24.0,
                 ),
-                label: Text('카카오로 시작하기'),
+                label: const Text('카카오로 시작하기'),
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.black,
-                  backgroundColor: Color(0xFFFFE812),
-                  minimumSize: Size(200, 50), // 버튼 넓이 조정
+                  backgroundColor: const Color(0xFFFFE812),
+                  minimumSize: const Size(200, 50), // 버튼 넓이 조정
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8.0),
                   ),
@@ -192,7 +195,7 @@ class _HomePageState extends State<HomePage> {
                     final accessToken = kakaoToken.accessToken;
                     final idToken = kakaoToken.idToken;
 
-                    if (accessToken == null || idToken == null) {
+                    if (idToken == null) {
                       throw 'No Access Token or ID Token found.';
                     }
 
@@ -229,7 +232,7 @@ class _HomePageState extends State<HomePage> {
               if (_userId != null)
                 ElevatedButton(
                   onPressed: _signOut,
-                  child: Text('Sign out'),
+                  child: const Text('Sign out'),
                 ),
             ],
           ),
