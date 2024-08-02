@@ -57,6 +57,7 @@ class _WelcomePageState extends State<WelcomePage> {
               .from('diary')
               .select()
               .eq('member_code', memberCode.toString())
+              .eq('diary_status','EXIST')
               .order('created_at', ascending: false);
 
           print("Diary 쿼리 결과: $response");
