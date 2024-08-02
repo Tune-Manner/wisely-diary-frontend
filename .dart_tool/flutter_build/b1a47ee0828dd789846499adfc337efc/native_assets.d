@@ -1,0 +1,1 @@
+ C:\\hi_python\\wisely-diary-frontend\\.dart_tool\\flutter_build\\b1a47ee0828dd789846499adfc337efc\\native_assets.yaml: 

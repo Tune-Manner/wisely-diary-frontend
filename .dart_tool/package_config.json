@@ -644,7 +644,11 @@
       "languageVersion": "3.4"
     }
   ],
+<<<<<<< HEAD
   "generated": "2024-08-02T01:42:55.430983Z",
+=======
+  "generated": "2024-08-01T04:04:41.525275Z",
+>>>>>>> origin/main
   "generator": "pub",
   "generatorVersion": "3.4.4",
   "flutterRoot": "file:///C:/javaStudy/flutter",

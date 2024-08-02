@@ -1,9 +1,18 @@
+<<<<<<< HEAD
 #Fri Aug 02 10:46:35 KST 2024
 base.0=C\:\\hi_python\\wisely-diary-frontend\\build\\app\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
 base.1=C\:\\hi_python\\wisely-diary-frontend\\build\\app\\intermediates\\dex\\debug\\mergeLibDexDebug\\0\\classes.dex
 base.2=C\:\\hi_python\\wisely-diary-frontend\\build\\app\\intermediates\\dex\\debug\\mergeProjectDexDebug\\0\\classes.dex
 base.3=C\:\\hi_python\\wisely-diary-frontend\\build\\app\\intermediates\\dex\\debug\\mergeProjectDexDebug\\1\\classes.dex
 base.4=C\:\\hi_python\\wisely-diary-frontend\\build\\app\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes2.dex
+=======
+#Thu Aug 01 12:13:15 KST 2024
+base.0=C\:\\00_ILGI\\code\\frontend\\build\\app\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
+base.1=C\:\\00_ILGI\\code\\frontend\\build\\app\\intermediates\\dex\\debug\\mergeLibDexDebug\\0\\classes.dex
+base.2=C\:\\00_ILGI\\code\\frontend\\build\\app\\intermediates\\dex\\debug\\mergeProjectDexDebug\\0\\classes.dex
+base.3=C\:\\00_ILGI\\code\\frontend\\build\\app\\intermediates\\dex\\debug\\mergeProjectDexDebug\\1\\classes.dex
+base.4=C\:\\00_ILGI\\code\\frontend\\build\\app\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes2.dex
+>>>>>>> origin/main
 path.0=classes.dex
 path.1=0/classes.dex
 path.2=0/classes.dex

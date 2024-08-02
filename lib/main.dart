@@ -111,22 +111,60 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFFFDFBF0), // 배경 색상 추가
       body: Center(
         child: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
+              Image.asset(
+                'assets/wisely-diary-logo.png',
+                height: 200.0,
+                width: 300.0,
+              ),
+              SizedBox(height: 0.0), // 텍스트와 구분선 사이의 간격 조정
+              Text(
+                '일기로운 슬기생활',
+                style: TextStyle(
+                  fontFamily: 'HSSaemaul',
+                  fontSize: 50.0,
+                  height: 0.01
+                ),
+              ),
+              SizedBox(height: 70.0), // 텍스트와 구분선 사이의 간격 조정
+              Container(
+                width: 350.0, // 선의 길이 조정
+                height: 1.0, // 선의 두께 조정
+                color: Colors.grey, // 선의 색상
+              ),
+              SizedBox(height: 60.0), // 구분선과 버튼 사이의 간격 조정
               ElevatedButton.icon(
                 icon: Image.asset(
                   'assets/google_logo.png', // 구글 로고 이미지 경로
                   height: 24.0,
                   width: 24.0,
+                  fit: BoxFit.contain,
                 ),
+                label: Text(
+                    'Google로 시작하기',
+                  style: TextStyle(
+                      fontFamily: 'HSSaemaul',
+                      fontSize: 25.0,
+                      height: 0.01
+                  ),
+                ),
+<<<<<<< HEAD
                 label: const Text('Google로 시작하기'),
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.black,
                   backgroundColor: Colors.white,
                   minimumSize: const Size(200, 50), // 버튼 넓이 조정
+=======
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.black,
+                  backgroundColor: Colors.white,
+                  minimumSize: Size(350, 50), // 버튼 넓이 조정
+>>>>>>> origin/main
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8.0),
                   ),
@@ -178,11 +216,22 @@ class _HomePageState extends State<HomePage> {
                   height: 24.0,
                   width: 24.0,
                 ),
+<<<<<<< HEAD
                 label: const Text('카카오로 시작하기'),
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.black,
                   backgroundColor: const Color(0xFFFFE812),
                   minimumSize: const Size(200, 50), // 버튼 넓이 조정
+=======
+                label: Text(
+                    '카카오로 시작하기'
+
+                ),
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.black,
+                  backgroundColor: Color(0xFFFFE812),
+                  minimumSize: Size(350, 50), // 버튼 넓이 조정
+>>>>>>> origin/main
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8.0),
                   ),
@@ -229,11 +278,19 @@ class _HomePageState extends State<HomePage> {
                   }
                 },
               ),
+<<<<<<< HEAD
               if (_userId != null)
                 ElevatedButton(
                   onPressed: _signOut,
                   child: const Text('Sign out'),
                 ),
+=======
+              // if (_userId != null)
+              //   ElevatedButton(
+              //     onPressed: _signOut,
+              //     child: Text('Sign out'),
+              //   ),
+>>>>>>> origin/main
             ],
           ),
         ),
@@ -241,6 +298,3 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-
-
-
