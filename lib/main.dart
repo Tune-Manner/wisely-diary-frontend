@@ -153,18 +153,10 @@ class _HomePageState extends State<HomePage> {
                       height: 0.01
                   ),
                 ),
-<<<<<<< HEAD
-                label: const Text('Google로 시작하기'),
-                style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.black,
-                  backgroundColor: Colors.white,
-                  minimumSize: const Size(200, 50), // 버튼 넓이 조정
-=======
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.black,
                   backgroundColor: Colors.white,
                   minimumSize: Size(350, 50), // 버튼 넓이 조정
->>>>>>> origin/main
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8.0),
                   ),
@@ -216,13 +208,6 @@ class _HomePageState extends State<HomePage> {
                   height: 24.0,
                   width: 24.0,
                 ),
-<<<<<<< HEAD
-                label: const Text('카카오로 시작하기'),
-                style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.black,
-                  backgroundColor: const Color(0xFFFFE812),
-                  minimumSize: const Size(200, 50), // 버튼 넓이 조정
-=======
                 label: Text(
                     '카카오로 시작하기'
 
@@ -231,7 +216,6 @@ class _HomePageState extends State<HomePage> {
                   foregroundColor: Colors.black,
                   backgroundColor: Color(0xFFFFE812),
                   minimumSize: Size(350, 50), // 버튼 넓이 조정
->>>>>>> origin/main
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8.0),
                   ),
@@ -278,19 +262,11 @@ class _HomePageState extends State<HomePage> {
                   }
                 },
               ),
-<<<<<<< HEAD
-              if (_userId != null)
-                ElevatedButton(
-                  onPressed: _signOut,
-                  child: const Text('Sign out'),
-                ),
-=======
               // if (_userId != null)
               //   ElevatedButton(
               //     onPressed: _signOut,
               //     child: Text('Sign out'),
               //   ),
->>>>>>> origin/main
             ],
           ),
         ),
