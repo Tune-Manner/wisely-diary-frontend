@@ -2,7 +2,7 @@
 name: "⚙️[Setup] 개발 환경 설정"
 about: 이 템플릿은 개발 환경을 설정할 때 사용됩니다.
 title: "⚙️[Setup] 개발 환경 설정"
-labels: test
+labels: ''
 assignees: ''
 
 ---
