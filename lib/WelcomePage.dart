@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'cartoon/CartoonCreationPage.dart';
 import 'main.dart';
+
 
 class WelcomePage extends StatefulWidget {
   final String? userId;
@@ -57,7 +59,7 @@ class _WelcomePageState extends State<WelcomePage> {
               .from('diary')
               .select()
               .eq('member_code', memberCode.toString())
-              .eq('diary_status','EXIST')
+              .eq('diary_status', 'EXIST')
               .order('created_at', ascending: false);
 
           print("Diary 쿼리 결과: $response");
@@ -70,7 +72,7 @@ class _WelcomePageState extends State<WelcomePage> {
         } else {
           print("회원 정보를 찾을 수 없습니다.");
         }
-      } catch (e,stackTrace) {
+      } catch (e, stackTrace) {
         print("오류 발생: $e");
         print("스택트레이스: $stackTrace");
       }
@@ -105,9 +107,26 @@ class _WelcomePageState extends State<WelcomePage> {
         children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text('${widget.userId ?? 'Guest'}님 환영합니다!',
+            child: Text(
+              '${widget.userId ?? 'Guest'}님 환영합니다!',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
+          ),
+          ElevatedButton(
+            child: Text('만화 생성'),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) =>
+                      CartoonCreationPage(
+                        diarySummaryCode: diaries.isNotEmpty
+                            ? diaries[0]['diary_code']
+                            : null,
+                      ),
+                ),
+              );
+            },
           ),
           Expanded(
             child: ListView.builder(
