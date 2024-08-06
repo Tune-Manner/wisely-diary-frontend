@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'dart:convert';
 import 'CartoonResultPage.dart';
 
@@ -17,6 +18,7 @@ class _CartoonCreationPageState extends State<CartoonCreationPage> {
   bool isLoading = false;
 
   Future<void> createCartoon() async {
+    final user = Supabase.instance.client.auth.currentUser;
     setState(() {
       isLoading = true;
     });
@@ -37,6 +39,7 @@ class _CartoonCreationPageState extends State<CartoonCreationPage> {
           builder: (context) => CartoonResultPage(
             cartoonUrl: response.body,
             diarySummaryCode: 5,
+            userName:user?.userMetadata?['name']??'사용자',
           ),
         ));
       } else {
