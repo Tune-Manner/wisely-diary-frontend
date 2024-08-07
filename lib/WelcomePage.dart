@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'calendar/calendar.dart';
 import 'cartoon/CartoonCreationPage.dart';
 import 'main.dart';
 
@@ -112,21 +113,38 @@ class _WelcomePageState extends State<WelcomePage> {
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
           ),
-          ElevatedButton(
-            child: Text('만화 생성'),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      CartoonCreationPage(
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                child: Text('만화 생성'),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => CartoonCreationPage(
                         diarySummaryCode: diaries.isNotEmpty
                             ? diaries[0]['diary_code']
                             : null,
                       ),
-                ),
-              );
-            },
+                    ),
+                  );
+                },
+              ),
+              SizedBox(width: 10), // 버튼 사이의 간격
+              ElevatedButton.icon(
+                icon: Icon(Icons.calendar_today),
+                label: Text('달력'),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => CalendarPage(), // CalendarPage 위젯으로 이동
+                    ),
+                  );
+                },
+              ),
+            ],
           ),
           Expanded(
             child: ListView.builder(
