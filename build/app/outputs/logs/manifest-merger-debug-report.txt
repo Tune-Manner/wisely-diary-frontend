@@ -1,10 +1,10 @@
 -- Merging decision tree log ---
 application
-INJECTED from C:\00_ILGI\code\frontend\android\app\src\main\AndroidManifest.xml:2:5-47:19
-MERGED from [:kakao_flutter_sdk_common] C:\00_ILGI\code\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:26:5-53:19
-MERGED from [:kakao_flutter_sdk_common] C:\00_ILGI\code\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:26:5-53:19
-MERGED from [:url_launcher_android] C:\00_ILGI\code\frontend\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-14:19
-MERGED from [:url_launcher_android] C:\00_ILGI\code\frontend\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-14:19
+INJECTED from C:\00_ILGI\frontend\android\app\src\main\AndroidManifest.xml:2:5-47:19
+MERGED from [:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:26:5-53:19
+MERGED from [:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:26:5-53:19
+MERGED from [:url_launcher_android] C:\00_ILGI\frontend\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-14:19
+MERGED from [:url_launcher_android] C:\00_ILGI\frontend\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-14:19
 MERGED from [androidx.window:window:1.0.0-beta04] C:\Users\eurdr\.gradle\caches\transforms-3\f302e75fb7efd781bcf1a29281c188da\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:24:5-31:19
 MERGED from [androidx.window:window:1.0.0-beta04] C:\Users\eurdr\.gradle\caches\transforms-3\f302e75fb7efd781bcf1a29281c188da\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:24:5-31:19
 MERGED from [com.google.android.gms:play-services-auth:21.0.0] C:\Users\eurdr\.gradle\caches\transforms-3\72e0d9946a6207425806986245880361\transformed\jetified-play-services-auth-21.0.0\AndroidManifest.xml:22:5-38:19
@@ -30,20 +30,20 @@ MERGED from [androidx.constraintlayout:constraintlayout:1.1.3] C:\Users\eurdr\.g
 	android:appComponentFactory
 		ADDED from [androidx.core:core:1.13.1] C:\Users\eurdr\.gradle\caches\transforms-3\2f6a5506f4dac22f7ab67b13b215ea43\transformed\core-1.13.1\AndroidManifest.xml:28:18-86
 	android:name
-		INJECTED from C:\00_ILGI\code\frontend\android\app\src\main\AndroidManifest.xml
+		INJECTED from C:\00_ILGI\frontend\android\app\src\main\AndroidManifest.xml
 manifest
-ADDED from C:\00_ILGI\code\frontend\android\app\src\main\AndroidManifest.xml:1:1-59:12
-INJECTED from C:\00_ILGI\code\frontend\android\app\src\main\AndroidManifest.xml:1:1-59:12
-INJECTED from C:\00_ILGI\code\frontend\android\app\src\main\AndroidManifest.xml:1:1-59:12
-INJECTED from C:\00_ILGI\code\frontend\android\app\src\main\AndroidManifest.xml:1:1-59:12
-MERGED from C:\00_ILGI\code\frontend\android\app\src\main\AndroidManifest.xml:1:1-59:12
-MERGED from [:app_links] C:\00_ILGI\code\frontend\build\app_links\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
-MERGED from [:flutter_secure_storage] C:\00_ILGI\code\frontend\build\flutter_secure_storage\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-11:12
-MERGED from [:google_sign_in_android] C:\00_ILGI\code\frontend\build\google_sign_in_android\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-11:12
-MERGED from [:kakao_flutter_sdk_common] C:\00_ILGI\code\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-55:12
-MERGED from [:path_provider_android] C:\00_ILGI\code\frontend\build\path_provider_android\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
-MERGED from [:shared_preferences_android] C:\00_ILGI\code\frontend\build\shared_preferences_android\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
-MERGED from [:url_launcher_android] C:\00_ILGI\code\frontend\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-16:12
+ADDED from C:\00_ILGI\frontend\android\app\src\main\AndroidManifest.xml:1:1-59:12
+INJECTED from C:\00_ILGI\frontend\android\app\src\main\AndroidManifest.xml:1:1-59:12
+INJECTED from C:\00_ILGI\frontend\android\app\src\main\AndroidManifest.xml:1:1-59:12
+INJECTED from C:\00_ILGI\frontend\android\app\src\main\AndroidManifest.xml:1:1-59:12
+MERGED from C:\00_ILGI\frontend\android\app\src\main\AndroidManifest.xml:1:1-59:12
+MERGED from [:app_links] C:\00_ILGI\frontend\build\app_links\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
+MERGED from [:flutter_secure_storage] C:\00_ILGI\frontend\build\flutter_secure_storage\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-11:12
+MERGED from [:google_sign_in_android] C:\00_ILGI\frontend\build\google_sign_in_android\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-11:12
+MERGED from [:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-55:12
+MERGED from [:path_provider_android] C:\00_ILGI\frontend\build\path_provider_android\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
+MERGED from [:shared_preferences_android] C:\00_ILGI\frontend\build\shared_preferences_android\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
+MERGED from [:url_launcher_android] C:\00_ILGI\frontend\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-16:12
 MERGED from [androidx.window:window-java:1.0.0-beta04] C:\Users\eurdr\.gradle\caches\transforms-3\2a215381204751055df81b6269e717b7\transformed\jetified-window-java-1.0.0-beta04\AndroidManifest.xml:17:1-23:12
 MERGED from [androidx.window:window:1.0.0-beta04] C:\Users\eurdr\.gradle\caches\transforms-3\f302e75fb7efd781bcf1a29281c188da\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:17:1-33:12
 MERGED from [androidx.appcompat:appcompat:1.0.2] C:\Users\eurdr\.gradle\caches\transforms-3\dade08a306c92479ccdb37ac57dca3eb\transformed\appcompat-1.0.2\AndroidManifest.xml:17:1-22:12
@@ -90,55 +90,55 @@ MERGED from [androidx.arch.core:core-runtime:2.2.0] C:\Users\eurdr\.gradle\cache
 MERGED from [org.microg:safe-parcel:1.7.0] C:\Users\eurdr\.gradle\caches\transforms-3\1349f434a5d1b51687e1cb2c4fbfb728\transformed\jetified-safe-parcel-1.7.0\AndroidManifest.xml:6:1-14:12
 MERGED from [androidx.constraintlayout:constraintlayout:1.1.3] C:\Users\eurdr\.gradle\caches\transforms-3\c30f1fb224b16a5401671789b034389e\transformed\constraintlayout-1.1.3\AndroidManifest.xml:2:1-11:12
 MERGED from [androidx.annotation:annotation-experimental:1.4.0] C:\Users\eurdr\.gradle\caches\transforms-3\bd9b8afb5ccab932cf8ed25b1b7c2f57\transformed\jetified-annotation-experimental-1.4.0\AndroidManifest.xml:2:1-7:12
-INJECTED from C:\00_ILGI\code\frontend\android\app\src\debug\AndroidManifest.xml:1:1-8:12
-INJECTED from C:\00_ILGI\code\frontend\android\app\src\debug\AndroidManifest.xml:1:1-8:12
-INJECTED from C:\00_ILGI\code\frontend\android\app\src\debug\AndroidManifest.xml:1:1-8:12
+INJECTED from C:\00_ILGI\frontend\android\app\src\debug\AndroidManifest.xml:1:1-8:12
+INJECTED from C:\00_ILGI\frontend\android\app\src\debug\AndroidManifest.xml:1:1-8:12
+INJECTED from C:\00_ILGI\frontend\android\app\src\debug\AndroidManifest.xml:1:1-8:12
 	package
-		ADDED from C:\00_ILGI\code\frontend\android\app\src\main\AndroidManifest.xml:1:70-104
-		INJECTED from C:\00_ILGI\code\frontend\android\app\src\main\AndroidManifest.xml
-		INJECTED from C:\00_ILGI\code\frontend\android\app\src\debug\AndroidManifest.xml
+		ADDED from C:\00_ILGI\frontend\android\app\src\main\AndroidManifest.xml:1:70-104
+		INJECTED from C:\00_ILGI\frontend\android\app\src\main\AndroidManifest.xml
+		INJECTED from C:\00_ILGI\frontend\android\app\src\debug\AndroidManifest.xml
 	android:versionName
-		INJECTED from C:\00_ILGI\code\frontend\android\app\src\main\AndroidManifest.xml
-		ADDED from C:\00_ILGI\code\frontend\android\app\src\main\AndroidManifest.xml:1:1-59:12
-		INJECTED from C:\00_ILGI\code\frontend\android\app\src\debug\AndroidManifest.xml
+		INJECTED from C:\00_ILGI\frontend\android\app\src\main\AndroidManifest.xml
+		ADDED from C:\00_ILGI\frontend\android\app\src\main\AndroidManifest.xml:1:1-59:12
+		INJECTED from C:\00_ILGI\frontend\android\app\src\debug\AndroidManifest.xml
 	android:versionCode
-		INJECTED from C:\00_ILGI\code\frontend\android\app\src\main\AndroidManifest.xml
-		ADDED from C:\00_ILGI\code\frontend\android\app\src\main\AndroidManifest.xml:1:1-59:12
-		INJECTED from C:\00_ILGI\code\frontend\android\app\src\debug\AndroidManifest.xml
+		INJECTED from C:\00_ILGI\frontend\android\app\src\main\AndroidManifest.xml
+		ADDED from C:\00_ILGI\frontend\android\app\src\main\AndroidManifest.xml:1:1-59:12
+		INJECTED from C:\00_ILGI\frontend\android\app\src\debug\AndroidManifest.xml
 	xmlns:android
-		ADDED from C:\00_ILGI\code\frontend\android\app\src\main\AndroidManifest.xml:1:11-69
+		ADDED from C:\00_ILGI\frontend\android\app\src\main\AndroidManifest.xml:1:11-69
 queries
-ADDED from C:\00_ILGI\code\frontend\android\app\src\main\AndroidManifest.xml:53:5-58:15
-MERGED from [:kakao_flutter_sdk_common] C:\00_ILGI\code\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-24:15
-MERGED from [:kakao_flutter_sdk_common] C:\00_ILGI\code\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-24:15
+ADDED from C:\00_ILGI\frontend\android\app\src\main\AndroidManifest.xml:53:5-58:15
+MERGED from [:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-24:15
+MERGED from [:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-24:15
 intent#action:name:android.intent.action.PROCESS_TEXT+data:mimeType:text/plain
-ADDED from C:\00_ILGI\code\frontend\android\app\src\main\AndroidManifest.xml:54:9-57:18
+ADDED from C:\00_ILGI\frontend\android\app\src\main\AndroidManifest.xml:54:9-57:18
 action#android.intent.action.PROCESS_TEXT
-ADDED from C:\00_ILGI\code\frontend\android\app\src\main\AndroidManifest.xml:55:13-72
+ADDED from C:\00_ILGI\frontend\android\app\src\main\AndroidManifest.xml:55:13-72
 	android:name
-		ADDED from C:\00_ILGI\code\frontend\android\app\src\main\AndroidManifest.xml:55:21-70
+		ADDED from C:\00_ILGI\frontend\android\app\src\main\AndroidManifest.xml:55:21-70
 data
-ADDED from C:\00_ILGI\code\frontend\android\app\src\main\AndroidManifest.xml:56:13-50
+ADDED from C:\00_ILGI\frontend\android\app\src\main\AndroidManifest.xml:56:13-50
 	android:mimeType
-		ADDED from C:\00_ILGI\code\frontend\android\app\src\main\AndroidManifest.xml:56:19-48
+		ADDED from C:\00_ILGI\frontend\android\app\src\main\AndroidManifest.xml:56:19-48
 uses-sdk
-INJECTED from C:\00_ILGI\code\frontend\android\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
-INJECTED from C:\00_ILGI\code\frontend\android\app\src\main\AndroidManifest.xml
-INJECTED from C:\00_ILGI\code\frontend\android\app\src\main\AndroidManifest.xml
-MERGED from [:app_links] C:\00_ILGI\code\frontend\build\app_links\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
-MERGED from [:app_links] C:\00_ILGI\code\frontend\build\app_links\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
-MERGED from [:flutter_secure_storage] C:\00_ILGI\code\frontend\build\flutter_secure_storage\intermediates\merged_manifest\debug\AndroidManifest.xml:6:5-9:53
-MERGED from [:flutter_secure_storage] C:\00_ILGI\code\frontend\build\flutter_secure_storage\intermediates\merged_manifest\debug\AndroidManifest.xml:6:5-9:53
-MERGED from [:google_sign_in_android] C:\00_ILGI\code\frontend\build\google_sign_in_android\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
-MERGED from [:google_sign_in_android] C:\00_ILGI\code\frontend\build\google_sign_in_android\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
-MERGED from [:kakao_flutter_sdk_common] C:\00_ILGI\code\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
-MERGED from [:kakao_flutter_sdk_common] C:\00_ILGI\code\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
-MERGED from [:path_provider_android] C:\00_ILGI\code\frontend\build\path_provider_android\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
-MERGED from [:path_provider_android] C:\00_ILGI\code\frontend\build\path_provider_android\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
-MERGED from [:shared_preferences_android] C:\00_ILGI\code\frontend\build\shared_preferences_android\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
-MERGED from [:shared_preferences_android] C:\00_ILGI\code\frontend\build\shared_preferences_android\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
-MERGED from [:url_launcher_android] C:\00_ILGI\code\frontend\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
-MERGED from [:url_launcher_android] C:\00_ILGI\code\frontend\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+INJECTED from C:\00_ILGI\frontend\android\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from C:\00_ILGI\frontend\android\app\src\main\AndroidManifest.xml
+INJECTED from C:\00_ILGI\frontend\android\app\src\main\AndroidManifest.xml
+MERGED from [:app_links] C:\00_ILGI\frontend\build\app_links\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:app_links] C:\00_ILGI\frontend\build\app_links\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:flutter_secure_storage] C:\00_ILGI\frontend\build\flutter_secure_storage\intermediates\merged_manifest\debug\AndroidManifest.xml:6:5-9:53
+MERGED from [:flutter_secure_storage] C:\00_ILGI\frontend\build\flutter_secure_storage\intermediates\merged_manifest\debug\AndroidManifest.xml:6:5-9:53
+MERGED from [:google_sign_in_android] C:\00_ILGI\frontend\build\google_sign_in_android\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:google_sign_in_android] C:\00_ILGI\frontend\build\google_sign_in_android\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:path_provider_android] C:\00_ILGI\frontend\build\path_provider_android\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:path_provider_android] C:\00_ILGI\frontend\build\path_provider_android\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:shared_preferences_android] C:\00_ILGI\frontend\build\shared_preferences_android\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:shared_preferences_android] C:\00_ILGI\frontend\build\shared_preferences_android\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:url_launcher_android] C:\00_ILGI\frontend\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:url_launcher_android] C:\00_ILGI\frontend\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [androidx.window:window-java:1.0.0-beta04] C:\Users\eurdr\.gradle\caches\transforms-3\2a215381204751055df81b6269e717b7\transformed\jetified-window-java-1.0.0-beta04\AndroidManifest.xml:19:5-21:41
 MERGED from [androidx.window:window-java:1.0.0-beta04] C:\Users\eurdr\.gradle\caches\transforms-3\2a215381204751055df81b6269e717b7\transformed\jetified-window-java-1.0.0-beta04\AndroidManifest.xml:19:5-21:41
 MERGED from [androidx.window:window:1.0.0-beta04] C:\Users\eurdr\.gradle\caches\transforms-3\f302e75fb7efd781bcf1a29281c188da\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:20:5-22:41
@@ -231,113 +231,113 @@ MERGED from [androidx.constraintlayout:constraintlayout:1.1.3] C:\Users\eurdr\.g
 MERGED from [androidx.constraintlayout:constraintlayout:1.1.3] C:\Users\eurdr\.gradle\caches\transforms-3\c30f1fb224b16a5401671789b034389e\transformed\constraintlayout-1.1.3\AndroidManifest.xml:5:5-7:41
 MERGED from [androidx.annotation:annotation-experimental:1.4.0] C:\Users\eurdr\.gradle\caches\transforms-3\bd9b8afb5ccab932cf8ed25b1b7c2f57\transformed\jetified-annotation-experimental-1.4.0\AndroidManifest.xml:5:5-44
 MERGED from [androidx.annotation:annotation-experimental:1.4.0] C:\Users\eurdr\.gradle\caches\transforms-3\bd9b8afb5ccab932cf8ed25b1b7c2f57\transformed\jetified-annotation-experimental-1.4.0\AndroidManifest.xml:5:5-44
-INJECTED from C:\00_ILGI\code\frontend\android\app\src\debug\AndroidManifest.xml
-INJECTED from C:\00_ILGI\code\frontend\android\app\src\debug\AndroidManifest.xml
+INJECTED from C:\00_ILGI\frontend\android\app\src\debug\AndroidManifest.xml
+INJECTED from C:\00_ILGI\frontend\android\app\src\debug\AndroidManifest.xml
 	tools:overrideLibrary
-		ADDED from [:flutter_secure_storage] C:\00_ILGI\code\frontend\build\flutter_secure_storage\intermediates\merged_manifest\debug\AndroidManifest.xml:9:9-50
+		ADDED from [:flutter_secure_storage] C:\00_ILGI\frontend\build\flutter_secure_storage\intermediates\merged_manifest\debug\AndroidManifest.xml:9:9-50
 	android:targetSdkVersion
-		INJECTED from C:\00_ILGI\code\frontend\android\app\src\main\AndroidManifest.xml
-		INJECTED from C:\00_ILGI\code\frontend\android\app\src\debug\AndroidManifest.xml
+		INJECTED from C:\00_ILGI\frontend\android\app\src\main\AndroidManifest.xml
+		INJECTED from C:\00_ILGI\frontend\android\app\src\debug\AndroidManifest.xml
 	android:minSdkVersion
-		INJECTED from C:\00_ILGI\code\frontend\android\app\src\main\AndroidManifest.xml
-		INJECTED from C:\00_ILGI\code\frontend\android\app\src\debug\AndroidManifest.xml
+		INJECTED from C:\00_ILGI\frontend\android\app\src\main\AndroidManifest.xml
+		INJECTED from C:\00_ILGI\frontend\android\app\src\debug\AndroidManifest.xml
 uses-permission#android.permission.INTERNET
-ADDED from C:\00_ILGI\code\frontend\android\app\src\debug\AndroidManifest.xml:7:5-66
-MERGED from [:google_sign_in_android] C:\00_ILGI\code\frontend\build\google_sign_in_android\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-67
-MERGED from [:google_sign_in_android] C:\00_ILGI\code\frontend\build\google_sign_in_android\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-67
+ADDED from C:\00_ILGI\frontend\android\app\src\debug\AndroidManifest.xml:7:5-66
+MERGED from [:google_sign_in_android] C:\00_ILGI\frontend\build\google_sign_in_android\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-67
+MERGED from [:google_sign_in_android] C:\00_ILGI\frontend\build\google_sign_in_android\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-67
 	android:name
-		ADDED from C:\00_ILGI\code\frontend\android\app\src\debug\AndroidManifest.xml:7:22-64
+		ADDED from C:\00_ILGI\frontend\android\app\src\debug\AndroidManifest.xml:7:22-64
 package#com.kakao.talk
-ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\code\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:10:9-50
+ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:10:9-50
 	android:name
-		ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\code\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:10:18-47
+		ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:10:18-47
 package#com.kakao.talk.alpha
-ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\code\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:11:9-56
+ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:11:9-56
 	android:name
-		ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\code\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:11:18-53
+		ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:11:18-53
 package#com.kakao.talk.sandbox
-ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\code\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:12:9-58
+ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:12:9-58
 	android:name
-		ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\code\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:12:18-55
+		ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:12:18-55
 package#com.kakao.onetalk
-ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\code\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:13:9-53
+ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:13:9-53
 	android:name
-		ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\code\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:13:18-50
+		ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:13:18-50
 package#com.locnall.KimGiSa
-ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\code\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:14:9-55
+ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:14:9-55
 	android:name
-		ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\code\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:14:18-52
+		ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:14:18-52
 package#com.lguplus.navi
-ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\code\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:15:9-52
+ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:15:9-52
 	android:name
-		ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\code\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:15:18-49
+		ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:15:18-49
 intent#action:name:android.intent.action.VIEW+category:name:android.intent.category.BROWSABLE+data:scheme:https
-ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\code\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:17:9-23:18
+ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:17:9-23:18
 action#android.intent.action.VIEW
-ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\code\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:18:13-65
+ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:18:13-65
 	android:name
-		ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\code\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:18:21-62
+		ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:18:21-62
 category#android.intent.category.BROWSABLE
-ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\code\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:20:13-74
+ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:20:13-74
 	android:name
-		ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\code\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:20:23-71
+		ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:20:23-71
 activity#com.kakao.sdk.flutter.TalkAuthCodeActivity
-ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\code\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:27:9-32:56
+ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:27:9-32:56
 	android:launchMode
-		ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\code\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:31:13-44
+		ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:31:13-44
 	android:exported
-		ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\code\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:30:13-37
+		ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:30:13-37
 	android:configChanges
-		ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\code\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:29:13-81
+		ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:29:13-81
 	android:theme
-		ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\code\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:32:13-53
+		ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:32:13-53
 	android:name
-		ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\code\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:28:13-70
+		ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:28:13-70
 activity#com.kakao.sdk.flutter.CustomTabsActivity
-ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\code\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:33:9-37:56
+ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:33:9-37:56
 	android:launchMode
-		ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\code\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:36:13-44
+		ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:36:13-44
 	android:exported
-		ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\code\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:35:13-36
+		ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:35:13-36
 	android:theme
-		ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\code\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:37:13-53
+		ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:37:13-53
 	android:name
-		ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\code\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:34:13-68
+		ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:34:13-68
 activity#com.kakao.sdk.flutter.AuthCodeCustomTabsActivity
-MERGED from [:kakao_flutter_sdk_common] C:\00_ILGI\code\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:38:9-42:56
-MERGED from [:kakao_flutter_sdk_common] C:\00_ILGI\code\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:38:9-42:56
+MERGED from [:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:38:9-42:56
+MERGED from [:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:38:9-42:56
 	android:launchMode
-		ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\code\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:41:13-44
+		ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:41:13-44
 	android:theme
-		ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\code\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:42:13-53
+		ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:42:13-53
 activity#com.kakao.sdk.flutter.FollowChannelHandlerActivity
-ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\code\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:43:9-47:56
+ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:43:9-47:56
 	android:launchMode
-		ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\code\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:46:13-44
+		ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:46:13-44
 	android:exported
-		ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\code\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:45:13-36
+		ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:45:13-36
 	android:theme
-		ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\code\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:47:13-53
+		ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:47:13-53
 	android:name
-		ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\code\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:44:13-78
+		ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:44:13-78
 activity#com.kakao.sdk.flutter.AppsHandlerActivity
-ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\code\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:48:9-52:56
+ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:48:9-52:56
 	android:launchMode
-		ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\code\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:51:13-44
+		ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:51:13-44
 	android:exported
-		ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\code\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:50:13-36
+		ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:50:13-36
 	android:theme
-		ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\code\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:52:13-53
+		ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:52:13-53
 	android:name
-		ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\code\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:49:13-69
+		ADDED from [:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:49:13-69
 activity#io.flutter.plugins.urllauncher.WebViewActivity
-ADDED from [:url_launcher_android] C:\00_ILGI\code\frontend\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:10:9-13:74
+ADDED from [:url_launcher_android] C:\00_ILGI\frontend\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:10:9-13:74
 	android:exported
-		ADDED from [:url_launcher_android] C:\00_ILGI\code\frontend\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:12:13-37
+		ADDED from [:url_launcher_android] C:\00_ILGI\frontend\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:12:13-37
 	android:theme
-		ADDED from [:url_launcher_android] C:\00_ILGI\code\frontend\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:13:13-71
+		ADDED from [:url_launcher_android] C:\00_ILGI\frontend\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:13:13-71
 	android:name
-		ADDED from [:url_launcher_android] C:\00_ILGI\code\frontend\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:11:13-74
+		ADDED from [:url_launcher_android] C:\00_ILGI\frontend\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:11:13-74
 uses-library#androidx.window.extensions
 ADDED from [androidx.window:window:1.0.0-beta04] C:\Users\eurdr\.gradle\caches\transforms-3\f302e75fb7efd781bcf1a29281c188da\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:25:9-27:40
 	android:required
