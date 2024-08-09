@@ -423,22 +423,22 @@
                     }
                 },
                 {
-                    "source": "C:\\00_ILGI\\code\\frontend\\build\\kakao_flutter_sdk_common\\intermediates\\packaged_res\\debug\\values\\values.xml",
+                    "source": "C:\\00_ILGI\\frontend\\android\\app\\src\\main\\res\\values\\styles.xml",
                     "from": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "100",
-                        "endLines": "12",
-                        "endColumns": "12",
-                        "endOffsets": "773"
+                        "startLines": "3,14",
+                        "startColumns": "4,4",
+                        "startOffsets": "176,832",
+                        "endLines": "7,16",
+                        "endColumns": "12,12",
+                        "endOffsets": "483,998"
                     },
                     "to": {
-                        "startLines": "1857",
-                        "startColumns": "4",
-                        "startOffsets": "121027",
-                        "endLines": "1867",
-                        "endColumns": "12",
-                        "endOffsets": "121700"
+                        "startLines": "1548,1552",
+                        "startColumns": "4,4",
+                        "startOffsets": "97672,97853",
+                        "endLines": "1551,1554",
+                        "endColumns": "12,12",
+                        "endOffsets": "97848,98017"
                     }
                 },
                 {
@@ -480,25 +480,6 @@
                     }
                 },
                 {
-                    "source": "C:\\00_ILGI\\code\\frontend\\android\\app\\src\\main\\res\\values\\styles.xml",
-                    "from": {
-                        "startLines": "3,14",
-                        "startColumns": "4,4",
-                        "startOffsets": "176,832",
-                        "endLines": "7,16",
-                        "endColumns": "12,12",
-                        "endOffsets": "483,998"
-                    },
-                    "to": {
-                        "startLines": "1548,1552",
-                        "startColumns": "4,4",
-                        "startOffsets": "97672,97853",
-                        "endLines": "1551,1554",
-                        "endColumns": "12,12",
-                        "endOffsets": "97848,98017"
-                    }
-                },
-                {
                     "source": "C:\\Users\\eurdr\\.gradle\\caches\\transforms-3\\718f3a8de8257a6c57358cd84974c26a\\transformed\\jetified-activity-1.5.1\\res\\values\\values.xml",
                     "from": {
                         "startLines": "2",
@@ -532,6 +513,25 @@
                         "endLines": "378,384,407,2775,2779",
                         "endColumns": "56,64,63,24,24",
                         "endOffsets": "22617,22882,24090,164281,164430"
+                    }
+                },
+                {
+                    "source": "C:\\00_ILGI\\frontend\\build\\kakao_flutter_sdk_common\\intermediates\\packaged_res\\debug\\values\\values.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "100",
+                        "endLines": "12",
+                        "endColumns": "12",
+                        "endOffsets": "773"
+                    },
+                    "to": {
+                        "startLines": "1857",
+                        "startColumns": "4",
+                        "startOffsets": "121027",
+                        "endLines": "1867",
+                        "endColumns": "12",
+                        "endOffsets": "121700"
                     }
                 },
                 {
@@ -6616,7 +6616,7 @@
             "outputFile": "com.example.wisely_diary.app-merged_res-7:/values-night-v8_values-night-v8.arsc.flat",
             "map": [
                 {
-                    "source": "C:\\00_ILGI\\code\\frontend\\android\\app\\src\\main\\res\\values-night\\styles.xml",
+                    "source": "C:\\00_ILGI\\frontend\\android\\app\\src\\main\\res\\values-night\\styles.xml",
                     "from": {
                         "startLines": "3,14",
                         "startColumns": "4,4",

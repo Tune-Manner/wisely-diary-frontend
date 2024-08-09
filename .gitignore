@@ -17,7 +17,7 @@ ios/.flutter-plugins-dependencies
 
 # IntelliJ IDEA
 *.iml
-.idea/
+**/.idea/
 *.ipr
 *.iws
 
