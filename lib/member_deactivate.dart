@@ -1,15 +1,55 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
 import 'main.dart';
 
-class MemberDeactivatePage extends StatelessWidget {
+class MemberDeactivatePage extends StatefulWidget {
   const MemberDeactivatePage({Key? key}) : super(key: key);
+
+  @override
+  _MemberDeactivatePageState createState() => _MemberDeactivatePageState();
+}
+
+class _MemberDeactivatePageState extends State<MemberDeactivatePage> {
+  bool _isAgreed = false;
+
+  Future<void> _showConfirmationDialog(BuildContext context) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext dialogContext) {
+        return AlertDialog(
+          title: Text('회원 탈퇴 확인'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text('정말 탈퇴하시겠습니까?'),
+                Text('이 작업은 되돌릴 수 없습니다.'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text('취소'),
+              onPressed: () {
+                Navigator.of(dialogContext).pop();
+              },
+            ),
+            TextButton(
+              child: Text('확인'),
+              onPressed: () {
+                Navigator.of(dialogContext).pop();
+                _deactivateAccount(context);
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   Future<void> _deactivateAccount(BuildContext context) async {
     final user = Supabase.instance.client.auth.currentUser;
-
     if (user != null) {
       try {
         // 1. member 테이블에서 해당 사용자의 member_status를 'deactivate'로 수정
@@ -17,14 +57,12 @@ class MemberDeactivatePage extends StatelessWidget {
             .from('member')
             .update({'member_status': 'deactive'})
             .eq('member_id', user.id);
-
         print("회원 탈퇴 결과: $response");
 
         // 2. Supabase 인증에서 사용자 삭제
         final supabaseUrl = 'https://rgsasjlstibbmhvrjoiv.supabase.co';
         final supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJnc2FzamxzdGliYm1odnJqb2l2Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcyMTcwNTYyOSwiZXhwIjoyMDM3MjgxNjI5fQ.KTyocsc_Pdl3v-J0T1O56Z_yeSCvi9G9TrnZ4k0FIlc';
         final deleteUrl = '$supabaseUrl/auth/v1/admin/users/${user.id}';
-
         final deleteResponse = await http.delete(
           Uri.parse(deleteUrl),
           headers: {
@@ -33,17 +71,9 @@ class MemberDeactivatePage extends StatelessWidget {
           },
         );
 
-        // if (deleteResponse.statusCode == 204) {
-        //   print("사용자 삭제 성공");
-        // } else {
-        //   print("사용자 삭제 실패: ${deleteResponse.body}");
-        //   throw Exception('사용자 삭제 실패');
-        // }
-
         // 3. 로그아웃 처리
         await Supabase.instance.client.auth.signOut();
 
-        print("1-1");
         // 탈퇴 후 메인 페이지로 이동
         Navigator.pushAndRemoveUntil(
           context,
@@ -53,7 +83,6 @@ class MemberDeactivatePage extends StatelessWidget {
       } catch (e, stackTrace) {
         print("탈퇴 중 오류 발생: $e");
         print("스택트레이스: $stackTrace");
-        // 오류 메시지 표시
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('회원 탈퇴 중 오류가 발생했습니다. 다시 시도해주세요.'),
@@ -67,37 +96,126 @@ class MemberDeactivatePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('회원 탈퇴'),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () => Navigator.pop(context),
+        ),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.menu),
+            onPressed: () {
+              // 메뉴 동작 구현
+            },
+          ),
+        ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Text(
-              '정말로 회원 탈퇴를 하시겠습니까?',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center,
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.red, // 버튼 색상
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Center(
+                child: Icon(
+                  Icons.person_off_outlined,
+                  size: 80,
+                  color: Colors.blue,
+                ),
               ),
-              onPressed: () => _deactivateAccount(context),
-              child: Text('회원 탈퇴'),
+              SizedBox(height: 20),
+              Text(
+                '회원탈퇴',
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 10),
+              Text(
+                '서비스 탈퇴 전 아래의 안내 사항을 꼭 확인해주세요.',
+                style: TextStyle(fontSize: 16),
+              ),
+              SizedBox(height: 20),
+              _buildInfoTable('탈퇴 후 아래 정보는 모두 삭제됩니다'),
+              // SizedBox(height: 20),
+              // _buildInfoTable('탈퇴 후에 일부 정보는 남아 있습니다'),
+              SizedBox(height: 20),
+              Row(
+                children: [
+                  Checkbox(
+                    value: _isAgreed,
+                    onChanged: (bool? value) {
+                      setState(() {
+                        _isAgreed = value ?? false;
+                      });
+                    },
+                  ),
+                  Expanded(
+                    child: Text(
+                      '위의 내용을 모두 확인하였으며, 회원 탈퇴에 동의합니다.',
+                      style: TextStyle(fontSize: 14),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 20),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: _isAgreed ? Colors.grey : Colors.grey.shade300,
+                    padding: EdgeInsets.symmetric(vertical: 16),
+                  ),
+                  onPressed: _isAgreed ? () => _showConfirmationDialog(context) : null,
+                  child: Text('회원탈퇴', style: TextStyle(color: _isAgreed ? Colors.white : Colors.grey)),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildInfoTable(String title) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Text('✓', style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold)),
+            SizedBox(width: 8),
+            Text(title, style: TextStyle(fontWeight: FontWeight.bold)),
+          ],
+        ),
+        SizedBox(height: 8),
+        Table(
+          border: TableBorder.all(color: Colors.grey.shade300),
+          children: [
+            TableRow(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text('프로필 정보', style: TextStyle(fontWeight: FontWeight.bold)),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text('계정, 이메일, 이름'),
+                ),
+              ],
             ),
-            SizedBox(height: 10),
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: Text('취소', style: TextStyle(color: Colors.black)),
+            TableRow(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text('활동 내역', style: TextStyle(fontWeight: FontWeight.bold)),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text('작성 컨텐츠(일기, 만화, 편지, 음악)'),
+                ),
+              ],
             ),
           ],
         ),
-      ),
+      ],
     );
   }
 }
