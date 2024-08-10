@@ -154,15 +154,24 @@ class _MemberDeactivatePageState extends State<MemberDeactivatePage> {
                 ],
               ),
               SizedBox(height: 20),
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: _isAgreed ? Colors.grey : Colors.grey.shade300,
-                    padding: EdgeInsets.symmetric(vertical: 16),
+              Center(
+                child: SizedBox(
+                  width: 200, // 원하는 가로 길이로 설정
+                  height: 42, // 원하는 높이로 설정
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: _isAgreed ? Colors.grey : Colors.grey.shade300,
+                      padding: EdgeInsets.symmetric(vertical: 12), // 높이를 줄이기 위해 패딩 조정
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8), // 모서리 둥글기 조정
+                      ),
+                    ),
+                    onPressed: _isAgreed ? () => _showConfirmationDialog(context) : null,
+                    child: Text(
+                      '회원탈퇴',
+                      style: TextStyle(color: _isAgreed ? Colors.white : Colors.grey),
+                    ),
                   ),
-                  onPressed: _isAgreed ? () => _showConfirmationDialog(context) : null,
-                  child: Text('회원탈퇴', style: TextStyle(color: _isAgreed ? Colors.white : Colors.grey)),
                 ),
               ),
             ],
