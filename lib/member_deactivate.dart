@@ -116,10 +116,10 @@ class _MemberDeactivatePageState extends State<MemberDeactivatePage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Center(
-                child: Icon(
-                  Icons.person_off_outlined,
-                  size: 80,
-                  color: Colors.blue,
+                child: Image.asset(
+                  'assets/emotions/sad.png',
+                  width: 150,
+                  height: 150,
                 ),
               ),
               SizedBox(height: 20),
@@ -134,8 +134,6 @@ class _MemberDeactivatePageState extends State<MemberDeactivatePage> {
               ),
               SizedBox(height: 20),
               _buildInfoTable('탈퇴 후 아래 정보는 모두 삭제됩니다'),
-              // SizedBox(height: 20),
-              // _buildInfoTable('탈퇴 후에 일부 정보는 남아 있습니다'),
               SizedBox(height: 20),
               Row(
                 children: [

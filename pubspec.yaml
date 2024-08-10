@@ -74,6 +74,7 @@ flutter:
     - assets/google_logo.png
     - assets/kakao_logo.png
     - assets/wisely-diary-logo.png
+    - assets/emotions/sad.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:
