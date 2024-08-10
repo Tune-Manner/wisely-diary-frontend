@@ -10,6 +10,7 @@ attr activityAction
 attr activityName
 attr alpha
 attr alwaysExpand
+attr animationBackgroundColor
 attr buttonSize
 attr circleCrop
 attr clearTop
@@ -17,6 +18,7 @@ attr colorScheme
 attr coordinatorLayoutStyle
 attr drawerLayoutStyle
 attr elevation
+attr finishPrimaryWithPlaceholder
 attr finishPrimaryWithSecondary
 attr finishSecondaryWithPrimary
 attr font
@@ -49,11 +51,16 @@ attr secondaryActivityAction
 attr secondaryActivityName
 attr shortcutMatchRequired
 attr splitLayoutDirection
-attr splitMinSmallestWidth
-attr splitMinWidth
+attr splitMaxAspectRatioInLandscape
+attr splitMaxAspectRatioInPortrait
+attr splitMinHeightDp
+attr splitMinSmallestWidthDp
+attr splitMinWidthDp
 attr splitRatio
 attr statusBarBackground
+attr stickyPlaceholder
 attr swipeRefreshLayoutProgressSpinnerBackgroundColor
+attr tag
 attr ttcIndex
 color androidx_core_ripple_material_light
 color androidx_core_secondary_text_default_material_light
@@ -179,14 +186,19 @@ id action_divider
 id action_image
 id action_text
 id actions
+id adjacent
 id adjust_height
 id adjust_width
 id all
+id always
+id alwaysAllow
+id alwaysDisallow
 id androidx_window_activity_scope
 id async
 id auto
 id blocking
 id bottom
+id bottomToTop
 id cancel_action
 id center
 id center_horizontal
@@ -218,6 +230,7 @@ id locale
 id ltr
 id media_actions
 id media_controller_compat_view_tag
+id never
 id none
 id normal
 id notification_background
@@ -250,6 +263,7 @@ id text2
 id time
 id title
 id top
+id topToBottom
 id view_tree_lifecycle_owner
 id view_tree_on_back_pressed_dispatcher_owner
 id view_tree_saved_state_registry_owner
@@ -277,6 +291,7 @@ layout notification_template_media
 layout notification_template_media_custom
 layout notification_template_part_chronometer
 layout notification_template_part_time
+string androidx_startup
 string call_notification_answer_action
 string call_notification_answer_video_action
 string call_notification_decline_action
@@ -317,7 +332,7 @@ style Widget_Compat_NotificationActionContainer
 style Widget_Compat_NotificationActionText
 style Widget_Support_CoordinatorLayout
 styleable ActivityFilter activityAction activityName
-styleable ActivityRule alwaysExpand
+styleable ActivityRule alwaysExpand tag
 styleable Capability queryPatterns shortcutMatchRequired
 styleable ColorStateListItem alpha android_alpha android_color android_lStar lStar
 styleable CoordinatorLayout keylines statusBarBackground
@@ -332,6 +347,6 @@ styleable GradientColorItem android_color android_offset
 styleable LoadingImageView circleCrop imageAspectRatio imageAspectRatioAdjust
 styleable SignInButton buttonSize colorScheme scopeUris
 styleable SplitPairFilter primaryActivityName secondaryActivityAction secondaryActivityName
-styleable SplitPairRule clearTop finishPrimaryWithSecondary finishSecondaryWithPrimary splitLayoutDirection splitMinSmallestWidth splitMinWidth splitRatio
-styleable SplitPlaceholderRule placeholderActivityName splitLayoutDirection splitMinSmallestWidth splitMinWidth splitRatio
+styleable SplitPairRule animationBackgroundColor clearTop finishPrimaryWithSecondary finishSecondaryWithPrimary splitLayoutDirection splitMaxAspectRatioInLandscape splitMaxAspectRatioInPortrait splitMinHeightDp splitMinSmallestWidthDp splitMinWidthDp splitRatio tag
+styleable SplitPlaceholderRule animationBackgroundColor finishPrimaryWithPlaceholder placeholderActivityName splitLayoutDirection splitMaxAspectRatioInLandscape splitMaxAspectRatioInPortrait splitMinHeightDp splitMinSmallestWidthDp splitMinWidthDp splitRatio stickyPlaceholder tag
 styleable SwipeRefreshLayout swipeRefreshLayoutProgressSpinnerBackgroundColor

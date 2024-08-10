@@ -4,7 +4,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'calendar/calendar.dart';
 import 'cartoon/CartoonCreationPage.dart';
 import 'main.dart';
-
+import 'member_deactivate.dart';
 
 class WelcomePage extends StatefulWidget {
   final String? userId;
@@ -16,7 +16,6 @@ class WelcomePage extends StatefulWidget {
 
 class _WelcomePageState extends State<WelcomePage> {
   List<Map<String, dynamic>> diaries = [];
-
 
   @override
   void initState() {
@@ -140,6 +139,18 @@ class _WelcomePageState extends State<WelcomePage> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => CalendarPage(), // CalendarPage 위젯으로 이동
+                    ),
+                  );
+                },
+              ),
+              SizedBox(width: 10), // 버튼 사이의 간격
+              ElevatedButton(
+                child: Text('회원 탈퇴'),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => MemberDeactivatePage(), // MemberDeactivatePage로 이동
                     ),
                   );
                 },

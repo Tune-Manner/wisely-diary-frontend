@@ -4,7 +4,7 @@
             "outputFile": "com.example.wisely_diary.app-mergeDebugResources-5:/values-v24/values-v24.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\eurdr\\.gradle\\caches\\transforms-3\\dade08a306c92479ccdb37ac57dca3eb\\transformed\\appcompat-1.0.2\\res\\values-v24\\values-v24.xml",
+                    "source": "C:\\Users\\eurdr\\.gradle\\caches\\transforms-3\\59fd27a6549036a0f72ba4b650ed3fa6\\transformed\\appcompat-1.0.2\\res\\values-v24\\values-v24.xml",
                     "from": {
                         "startLines": "2,3",
                         "startColumns": "4,4",

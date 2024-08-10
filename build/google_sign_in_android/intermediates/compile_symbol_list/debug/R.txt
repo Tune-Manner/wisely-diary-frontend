@@ -9,6 +9,7 @@ int attr activityAction 0x0
 int attr activityName 0x0
 int attr alpha 0x0
 int attr alwaysExpand 0x0
+int attr animationBackgroundColor 0x0
 int attr buttonSize 0x0
 int attr circleCrop 0x0
 int attr clearTop 0x0
@@ -16,6 +17,7 @@ int attr colorScheme 0x0
 int attr coordinatorLayoutStyle 0x0
 int attr drawerLayoutStyle 0x0
 int attr elevation 0x0
+int attr finishPrimaryWithPlaceholder 0x0
 int attr finishPrimaryWithSecondary 0x0
 int attr finishSecondaryWithPrimary 0x0
 int attr font 0x0
@@ -48,11 +50,16 @@ int attr secondaryActivityAction 0x0
 int attr secondaryActivityName 0x0
 int attr shortcutMatchRequired 0x0
 int attr splitLayoutDirection 0x0
-int attr splitMinSmallestWidth 0x0
-int attr splitMinWidth 0x0
+int attr splitMaxAspectRatioInLandscape 0x0
+int attr splitMaxAspectRatioInPortrait 0x0
+int attr splitMinHeightDp 0x0
+int attr splitMinSmallestWidthDp 0x0
+int attr splitMinWidthDp 0x0
 int attr splitRatio 0x0
 int attr statusBarBackground 0x0
+int attr stickyPlaceholder 0x0
 int attr swipeRefreshLayoutProgressSpinnerBackgroundColor 0x0
+int attr tag 0x0
 int attr ttcIndex 0x0
 int color androidx_core_ripple_material_light 0x0
 int color androidx_core_secondary_text_default_material_light 0x0
@@ -178,14 +185,19 @@ int id action_divider 0x0
 int id action_image 0x0
 int id action_text 0x0
 int id actions 0x0
+int id adjacent 0x0
 int id adjust_height 0x0
 int id adjust_width 0x0
 int id all 0x0
+int id always 0x0
+int id alwaysAllow 0x0
+int id alwaysDisallow 0x0
 int id androidx_window_activity_scope 0x0
 int id async 0x0
 int id auto 0x0
 int id blocking 0x0
 int id bottom 0x0
+int id bottomToTop 0x0
 int id cancel_action 0x0
 int id center 0x0
 int id center_horizontal 0x0
@@ -217,6 +229,7 @@ int id locale 0x0
 int id ltr 0x0
 int id media_actions 0x0
 int id media_controller_compat_view_tag 0x0
+int id never 0x0
 int id none 0x0
 int id normal 0x0
 int id notification_background 0x0
@@ -249,6 +262,7 @@ int id text2 0x0
 int id time 0x0
 int id title 0x0
 int id top 0x0
+int id topToBottom 0x0
 int id view_tree_lifecycle_owner 0x0
 int id view_tree_on_back_pressed_dispatcher_owner 0x0
 int id view_tree_saved_state_registry_owner 0x0
@@ -276,6 +290,7 @@ int layout notification_template_media 0x0
 int layout notification_template_media_custom 0x0
 int layout notification_template_part_chronometer 0x0
 int layout notification_template_part_time 0x0
+int string androidx_startup 0x0
 int string call_notification_answer_action 0x0
 int string call_notification_answer_video_action 0x0
 int string call_notification_decline_action 0x0
@@ -318,8 +333,9 @@ int style Widget_Support_CoordinatorLayout 0x0
 int[] styleable ActivityFilter { 0x0, 0x0 }
 int styleable ActivityFilter_activityAction 0
 int styleable ActivityFilter_activityName 1
-int[] styleable ActivityRule { 0x0 }
+int[] styleable ActivityRule { 0x0, 0x0 }
 int styleable ActivityRule_alwaysExpand 0
+int styleable ActivityRule_tag 1
 int[] styleable Capability { 0x0, 0x0 }
 int styleable Capability_queryPatterns 0
 int styleable Capability_shortcutMatchRequired 1
@@ -396,19 +412,31 @@ int[] styleable SplitPairFilter { 0x0, 0x0, 0x0 }
 int styleable SplitPairFilter_primaryActivityName 0
 int styleable SplitPairFilter_secondaryActivityAction 1
 int styleable SplitPairFilter_secondaryActivityName 2
-int[] styleable SplitPairRule { 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0 }
-int styleable SplitPairRule_clearTop 0
-int styleable SplitPairRule_finishPrimaryWithSecondary 1
-int styleable SplitPairRule_finishSecondaryWithPrimary 2
-int styleable SplitPairRule_splitLayoutDirection 3
-int styleable SplitPairRule_splitMinSmallestWidth 4
-int styleable SplitPairRule_splitMinWidth 5
-int styleable SplitPairRule_splitRatio 6
-int[] styleable SplitPlaceholderRule { 0x0, 0x0, 0x0, 0x0, 0x0 }
-int styleable SplitPlaceholderRule_placeholderActivityName 0
-int styleable SplitPlaceholderRule_splitLayoutDirection 1
-int styleable SplitPlaceholderRule_splitMinSmallestWidth 2
-int styleable SplitPlaceholderRule_splitMinWidth 3
-int styleable SplitPlaceholderRule_splitRatio 4
+int[] styleable SplitPairRule { 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0 }
+int styleable SplitPairRule_animationBackgroundColor 0
+int styleable SplitPairRule_clearTop 1
+int styleable SplitPairRule_finishPrimaryWithSecondary 2
+int styleable SplitPairRule_finishSecondaryWithPrimary 3
+int styleable SplitPairRule_splitLayoutDirection 4
+int styleable SplitPairRule_splitMaxAspectRatioInLandscape 5
+int styleable SplitPairRule_splitMaxAspectRatioInPortrait 6
+int styleable SplitPairRule_splitMinHeightDp 7
+int styleable SplitPairRule_splitMinSmallestWidthDp 8
+int styleable SplitPairRule_splitMinWidthDp 9
+int styleable SplitPairRule_splitRatio 10
+int styleable SplitPairRule_tag 11
+int[] styleable SplitPlaceholderRule { 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0 }
+int styleable SplitPlaceholderRule_animationBackgroundColor 0
+int styleable SplitPlaceholderRule_finishPrimaryWithPlaceholder 1
+int styleable SplitPlaceholderRule_placeholderActivityName 2
+int styleable SplitPlaceholderRule_splitLayoutDirection 3
+int styleable SplitPlaceholderRule_splitMaxAspectRatioInLandscape 4
+int styleable SplitPlaceholderRule_splitMaxAspectRatioInPortrait 5
+int styleable SplitPlaceholderRule_splitMinHeightDp 6
+int styleable SplitPlaceholderRule_splitMinSmallestWidthDp 7
+int styleable SplitPlaceholderRule_splitMinWidthDp 8
+int styleable SplitPlaceholderRule_splitRatio 9
+int styleable SplitPlaceholderRule_stickyPlaceholder 10
+int styleable SplitPlaceholderRule_tag 11
 int[] styleable SwipeRefreshLayout { 0x0 }
 int styleable SwipeRefreshLayout_swipeRefreshLayoutProgressSpinnerBackgroundColor 0

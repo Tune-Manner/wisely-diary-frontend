@@ -171,6 +171,9 @@
             android:authorities="com.example.wisely_diary.androidx-startup"
             android:exported="false" >
             <meta-data
+                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+                android:value="androidx.startup" />
+            <meta-data
                 android:name="androidx.profileinstaller.ProfileInstallerInitializer"
                 android:value="androidx.startup" />
         </provider>
