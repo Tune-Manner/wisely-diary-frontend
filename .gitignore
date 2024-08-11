@@ -55,4 +55,9 @@ build/
 *.bin 
 "build/app/intermediates/assets/debug/flutter_assets/kernel_blob.bin" 
 "build/app/outputs/apk/debug/app-debug.apk" 
-*.dill
+*.dill".dart_tool/" 
+"build/" 
+"*.dill" 
+"*.apk" 
+"*.bin" 
+".idea/" 
