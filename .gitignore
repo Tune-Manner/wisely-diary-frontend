@@ -61,3 +61,7 @@ build/
 "*.apk" 
 "*.bin" 
 ".idea/" 
+"*credentials*.json" 
+"*.key" 
+"*.p12" 
+"*.pem" 
