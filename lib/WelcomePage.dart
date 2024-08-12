@@ -3,7 +3,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'cartoon/CartoonCreationPage.dart';
 import 'main.dart';
-import 'package:wisely_diary/main.dart' show setupFCM, MainApp;
+import 'package:wisely_diary/main.dart' show MainApp;
 import 'alarm/alarmSettingPage.dart ';
 import 'diary/diaryNoImgPage.dart';
 
