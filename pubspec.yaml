@@ -84,6 +84,10 @@ flutter:
     - assets/kakao_logo.png
     - assets/wisely-diary-logo.png
     - .env
+    - assets/cuttoon_icon.png
+    - assets/gift_icon.png
+    - assets/letter_icon.png
+    - assets/music_icon.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:
