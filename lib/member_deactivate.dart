@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'main.dart';
@@ -60,8 +61,10 @@ class _MemberDeactivatePageState extends State<MemberDeactivatePage> {
         print("회원 탈퇴 결과: $response");
 
         // 2. Supabase 인증에서 사용자 삭제
-        final supabaseUrl = 'https://rgsasjlstibbmhvrjoiv.supabase.co';
-        final supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJnc2FzamxzdGliYm1odnJqb2l2Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcyMTcwNTYyOSwiZXhwIjoyMDM3MjgxNjI5fQ.KTyocsc_Pdl3v-J0T1O56Z_yeSCvi9G9TrnZ4k0FIlc';
+        // await dotenv.load(); // .env 파일 로드
+
+        final supabaseUrl = "https://rgsasjlstibbmhvrjoiv.supabase.co";
+        final supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJnc2FzamxzdGliYm1odnJqb2l2Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcyMTcwNTYyOSwiZXhwIjoyMDM3MjgxNjI5fQ.KTyocsc_Pdl3v-J0T1O56Z_yeSCvi9G9TrnZ4k0FIlc";
         final deleteUrl = '$supabaseUrl/auth/v1/admin/users/${user.id}';
         final deleteResponse = await http.delete(
           Uri.parse(deleteUrl),
