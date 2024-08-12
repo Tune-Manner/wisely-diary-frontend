@@ -156,7 +156,7 @@ class _WelcomePageState extends State<WelcomePage> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => DiaryNoImgPage(), // DiaryNoImgPage는 diaryNoImgPage.dart의 클래스 이름이라고 가정
+                  builder: (context) => DiaryNoImgPage(),
                 ),
               );
             },
