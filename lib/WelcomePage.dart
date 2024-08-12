@@ -6,6 +6,7 @@ import 'cartoon/CartoonCreationPage.dart';
 import 'main.dart';
 import 'package:wisely_diary/main.dart' show setupFCM, MainApp;
 import 'alarm/alarmSettingPage.dart ';
+import 'diary/diaryNoImgPage.dart';
 
 
 class WelcomePage extends StatefulWidget {
@@ -146,6 +147,17 @@ class _WelcomePageState extends State<WelcomePage> {
                 context,
                 MaterialPageRoute(
                   builder: (context) => AlarmSettingPage(),
+                ),
+              );
+            },
+          ),
+          ElevatedButton(
+            child: Text('일기 보기'),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => DiaryNoImgPage(), // DiaryNoImgPage는 diaryNoImgPage.dart의 클래스 이름이라고 가정
                 ),
               );
             },
