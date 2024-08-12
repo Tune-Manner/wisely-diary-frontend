@@ -7,7 +7,7 @@ class DiaryNoImgPage extends StatefulWidget {
 
 class _DiaryNoImgPageState extends State<DiaryNoImgPage> {
   OverlayEntry? _overlayEntry;
-  bool _isOverlayVisible = false;  // 추가: 오버레이 가시성 상태를 관리하는 변수
+  bool _isOverlayVisible = false;  // 오버레이 가시성 상태를 관리하는 변수
 
   void _toggleGiftMenu() {
     setState(() {
@@ -39,8 +39,8 @@ class _DiaryNoImgPageState extends State<DiaryNoImgPage> {
               boxShadow: [
                 BoxShadow(
                   color: Colors.black.withOpacity(0.2),
-                  spreadRadius: 5,
-                  blurRadius: 7,
+                  spreadRadius: 1,
+                  blurRadius: 3,
                   offset: Offset(0, 3),
                 ),
               ],
