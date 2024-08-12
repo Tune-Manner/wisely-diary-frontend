@@ -108,6 +108,9 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text(' '),
+      ),
       backgroundColor: Color(0xFFFDFBF0), // 배경 색상 추가
       body: Center(
         child: SingleChildScrollView(
@@ -123,9 +126,9 @@ class _HomePageState extends State<HomePage> {
               Text(
                 '일기로운 슬기생활',
                 style: TextStyle(
-                  fontFamily: 'HSSaemaul',
-                  fontSize: 50.0,
-                  height: 0.01
+                    fontFamily: 'HSSaemaul',
+                    fontSize: 50.0,
+                    height: 0.01
                 ),
               ),
               SizedBox(height: 70.0), // 텍스트와 구분선 사이의 간격 조정
@@ -143,7 +146,7 @@ class _HomePageState extends State<HomePage> {
                   fit: BoxFit.contain,
                 ),
                 label: Text(
-                    'Google로 시작하기',
+                  'Google로 시작하기',
                   style: TextStyle(
                       fontFamily: 'HSSaemaul',
                       fontSize: 25.0,
@@ -207,7 +210,6 @@ class _HomePageState extends State<HomePage> {
                 ),
                 label: Text(
                     '카카오로 시작하기'
-
                 ),
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.black,
@@ -266,6 +268,84 @@ class _HomePageState extends State<HomePage> {
               //   ),
             ],
           ),
+        ),
+      ),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.yellow[0],
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    height: 50.0,  // 이미지 높이
+                    width: 130.0,   // 이미지 너비
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage('assets/profile_placeholder.png'),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 2.0),
+                  Text(
+                    '홍길동',
+                    style: TextStyle(fontSize: 17.0, fontWeight: FontWeight.w500),
+                  ),
+                  SizedBox(height: 3.0),
+                  Text(
+                      'tune@mail.com',
+                      style: TextStyle(fontSize: 12.0),
+                  ),
+                ],
+              ),
+            ),
+            ListTile(
+              leading: Icon(Icons.person),
+              title: Text(
+                '마이페이지',
+                style: TextStyle(fontSize: 15.0),
+              ),
+              onTap: () {
+                Navigator.pop(context); // 사이드바 닫기
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.analytics),
+              title: Text(
+                  '감정 통계',
+                style: TextStyle(fontSize: 15.0),
+              ),
+              onTap: () {
+                Navigator.pop(context); // 사이드바 닫기
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.notifications),
+              title: Text(
+                  '알림 설정',
+                style: TextStyle(fontSize: 15.0),
+              ),
+              onTap: () {
+                Navigator.pop(context); // 사이드바 닫기
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.logout),
+              title: Text(
+                  '로그아웃',
+                  style: TextStyle(fontSize: 15.0),
+              ),
+              onTap: () {
+                _signOut();
+              },
+            ),
+          ],
         ),
       ),
     );
