@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'cartoon/CartoonCreationPage.dart';
 import 'main.dart';
 import 'package:wisely_diary/main.dart' show setupFCM, MainApp;
