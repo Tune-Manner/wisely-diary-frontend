@@ -100,6 +100,7 @@ class _DiaryNoImgPageState extends State<DiaryNoImgPage> {
     }
   }
 
+
   void _toggleGiftMenu() {
     setState(() {
       if (!_isOverlayVisible) {
