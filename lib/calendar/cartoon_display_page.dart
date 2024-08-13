@@ -10,6 +10,7 @@ class CartoonDisplayPage extends StatelessWidget {
     final filename = path.basename(imagePath); // 파일 이름만 추출
     final imageUrl = 'http://10.0.2.2:8080/cartoonImage/$filename';
 
+
     return Image.network(
       imageUrl,
       errorBuilder: (context, error, stackTrace) {
