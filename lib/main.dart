@@ -70,12 +70,10 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> _saveUserToDatabase(gotrue.User user) async {
     final userData = {
-      'member_code': int.parse(user.id.hashCode.toString()),
       'member_email': user.email,
       'join_at': DateTime.now().toIso8601String(),
       'member_name': user.userMetadata?['full_name'],
       'member_status': 'active',
-      'password': 'password',
       'member_id':user.id
     };
 
@@ -88,12 +86,10 @@ class _HomePageState extends State<HomePage> {
   Future<void> _saveKakaoUserToDatabase(gotrue.User user,
       String memberName) async {
     final userData = {
-      'member_code': int.parse(user.id.hashCode.toString()),
       'member_email': user.email,
       'join_at': DateTime.now().toIso8601String(),
       'member_name': memberName,
       'member_status': 'active',
-      'password': 'password',
       'member_id':user.id
     };
 

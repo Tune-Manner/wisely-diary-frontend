@@ -67,251 +67,273 @@
 42            <data android:scheme="https" />
 42-->C:\00_ILGI\frontend\android\app\src\main\AndroidManifest.xml:56:13-50
 43        </intent>
-44    </queries>
-45
-46    <permission
-46-->[androidx.core:core:1.13.1] C:\Users\eurdr\.gradle\caches\transforms-3\fac84cd5ecf1ec88a8c98571217c9350\transformed\core-1.13.1\AndroidManifest.xml:22:5-24:47
-47        android:name="com.example.wisely_diary.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
-47-->[androidx.core:core:1.13.1] C:\Users\eurdr\.gradle\caches\transforms-3\fac84cd5ecf1ec88a8c98571217c9350\transformed\core-1.13.1\AndroidManifest.xml:23:9-81
-48        android:protectionLevel="signature" />
-48-->[androidx.core:core:1.13.1] C:\Users\eurdr\.gradle\caches\transforms-3\fac84cd5ecf1ec88a8c98571217c9350\transformed\core-1.13.1\AndroidManifest.xml:24:9-44
-49
-50    <uses-permission android:name="com.example.wisely_diary.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
-50-->[androidx.core:core:1.13.1] C:\Users\eurdr\.gradle\caches\transforms-3\fac84cd5ecf1ec88a8c98571217c9350\transformed\core-1.13.1\AndroidManifest.xml:26:5-97
-50-->[androidx.core:core:1.13.1] C:\Users\eurdr\.gradle\caches\transforms-3\fac84cd5ecf1ec88a8c98571217c9350\transformed\core-1.13.1\AndroidManifest.xml:26:22-94
-51
-52    <application
-53        android:name="android.app.Application"
-54        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-54-->[androidx.core:core:1.13.1] C:\Users\eurdr\.gradle\caches\transforms-3\fac84cd5ecf1ec88a8c98571217c9350\transformed\core-1.13.1\AndroidManifest.xml:28:18-86
-55        android:debuggable="true"
-56        android:icon="@mipmap/ic_launcher"
-57        android:label="wisely_diary" >
-58
-59        <!-- 카카오 로그인 커스텀 URL 스킴 설정 -->
-60        <activity
-61            android:name="com.kakao.sdk.flutter.AuthCodeCustomTabsActivity"
-62            android:exported="true"
-63            android:launchMode="singleTask"
-63-->[:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:41:13-44
-64            android:theme="@style/TransparentCompat" >
-64-->[:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:42:13-53
-65            <intent-filter android:label="flutter_web_auth" >
-66                <action android:name="android.intent.action.VIEW" />
-66-->[:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:18:13-65
-66-->[:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:18:21-62
-67
-68                <category android:name="android.intent.category.DEFAULT" />
-69                <category android:name="android.intent.category.BROWSABLE" />
-69-->[:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:20:13-74
-69-->[:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:20:23-71
-70
-71                <!-- "kakao${YOUR_NATIVE_APP_KEY}://oauth" 형식의 앱 실행 스킴 설정 -->
-72                <!-- 카카오 로그인 Redirect URI -->
-73                <data
-73-->C:\00_ILGI\frontend\android\app\src\main\AndroidManifest.xml:56:13-50
-74                    android:host="oauth"
-75                    android:scheme="kakao2eb8687682cf67f94363bcca7b3125a4" />
-76            </intent-filter>
-77        </activity>
-78        <activity
-79            android:name="com.example.wisely_diary.MainActivity"
-80            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
-81            android:exported="true"
-82            android:hardwareAccelerated="true"
-83            android:launchMode="singleTop"
-84            android:taskAffinity=""
-85            android:theme="@style/LaunchTheme"
-86            android:windowSoftInputMode="adjustResize" >
-87
-88            <!--
-89                 Specifies an Android theme to apply to this Activity as soon as
-90                 the Android process has started. This theme is visible to the user
-91                 while the Flutter UI initializes. After that, this theme continues
-92                 to determine the Window background behind the Flutter UI.
-93            -->
-94            <meta-data
-95                android:name="io.flutter.embedding.android.NormalTheme"
-96                android:resource="@style/NormalTheme" />
-97
-98            <intent-filter>
-99                <action android:name="android.intent.action.MAIN" />
-100
-101                <category android:name="android.intent.category.LAUNCHER" />
-102            </intent-filter>
-103        </activity>
-104        <!--
-105             Don't delete the meta-data below.
-106             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java
-107        -->
-108        <meta-data
-109            android:name="flutterEmbedding"
-110            android:value="2" />
+44        <intent>
+44-->[androidx.media2:media2-session:1.2.1] C:\Users\eurdr\.gradle\caches\transforms-3\12bd02ad98f9b9ae2f849eb52aca1dcb\transformed\jetified-media2-session-1.2.1\AndroidManifest.xml:25:9-27:18
+45            <action android:name="android.media.browse.MediaBrowserService" />
+45-->[androidx.media2:media2-session:1.2.1] C:\Users\eurdr\.gradle\caches\transforms-3\12bd02ad98f9b9ae2f849eb52aca1dcb\transformed\jetified-media2-session-1.2.1\AndroidManifest.xml:26:13-79
+45-->[androidx.media2:media2-session:1.2.1] C:\Users\eurdr\.gradle\caches\transforms-3\12bd02ad98f9b9ae2f849eb52aca1dcb\transformed\jetified-media2-session-1.2.1\AndroidManifest.xml:26:21-76
+46        </intent>
+47        <intent>
+47-->[androidx.media2:media2-session:1.2.1] C:\Users\eurdr\.gradle\caches\transforms-3\12bd02ad98f9b9ae2f849eb52aca1dcb\transformed\jetified-media2-session-1.2.1\AndroidManifest.xml:28:9-30:18
+48            <action android:name="androidx.media2.session.MediaSessionService" />
+48-->[androidx.media2:media2-session:1.2.1] C:\Users\eurdr\.gradle\caches\transforms-3\12bd02ad98f9b9ae2f849eb52aca1dcb\transformed\jetified-media2-session-1.2.1\AndroidManifest.xml:29:13-82
+48-->[androidx.media2:media2-session:1.2.1] C:\Users\eurdr\.gradle\caches\transforms-3\12bd02ad98f9b9ae2f849eb52aca1dcb\transformed\jetified-media2-session-1.2.1\AndroidManifest.xml:29:21-79
+49        </intent>
+50        <intent>
+50-->[androidx.media2:media2-session:1.2.1] C:\Users\eurdr\.gradle\caches\transforms-3\12bd02ad98f9b9ae2f849eb52aca1dcb\transformed\jetified-media2-session-1.2.1\AndroidManifest.xml:31:9-33:18
+51            <action android:name="androidx.media2.session.MediaLibraryService" />
+51-->[androidx.media2:media2-session:1.2.1] C:\Users\eurdr\.gradle\caches\transforms-3\12bd02ad98f9b9ae2f849eb52aca1dcb\transformed\jetified-media2-session-1.2.1\AndroidManifest.xml:32:13-82
+51-->[androidx.media2:media2-session:1.2.1] C:\Users\eurdr\.gradle\caches\transforms-3\12bd02ad98f9b9ae2f849eb52aca1dcb\transformed\jetified-media2-session-1.2.1\AndroidManifest.xml:32:21-79
+52        </intent>
+53    </queries>
+54
+55    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+55-->[com.google.android.exoplayer:exoplayer-core:2.18.7] C:\Users\eurdr\.gradle\caches\transforms-3\365e0704d44dd12370e51eedec7f2668\transformed\jetified-exoplayer-core-2.18.7\AndroidManifest.xml:24:5-79
+55-->[com.google.android.exoplayer:exoplayer-core:2.18.7] C:\Users\eurdr\.gradle\caches\transforms-3\365e0704d44dd12370e51eedec7f2668\transformed\jetified-exoplayer-core-2.18.7\AndroidManifest.xml:24:22-76
+56
+57    <permission
+57-->[androidx.core:core:1.13.1] C:\Users\eurdr\.gradle\caches\transforms-3\fac84cd5ecf1ec88a8c98571217c9350\transformed\core-1.13.1\AndroidManifest.xml:22:5-24:47
+58        android:name="com.example.wisely_diary.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+58-->[androidx.core:core:1.13.1] C:\Users\eurdr\.gradle\caches\transforms-3\fac84cd5ecf1ec88a8c98571217c9350\transformed\core-1.13.1\AndroidManifest.xml:23:9-81
+59        android:protectionLevel="signature" />
+59-->[androidx.core:core:1.13.1] C:\Users\eurdr\.gradle\caches\transforms-3\fac84cd5ecf1ec88a8c98571217c9350\transformed\core-1.13.1\AndroidManifest.xml:24:9-44
+60
+61    <uses-permission android:name="com.example.wisely_diary.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+61-->[androidx.core:core:1.13.1] C:\Users\eurdr\.gradle\caches\transforms-3\fac84cd5ecf1ec88a8c98571217c9350\transformed\core-1.13.1\AndroidManifest.xml:26:5-97
+61-->[androidx.core:core:1.13.1] C:\Users\eurdr\.gradle\caches\transforms-3\fac84cd5ecf1ec88a8c98571217c9350\transformed\core-1.13.1\AndroidManifest.xml:26:22-94
+62
+63    <application
+64        android:name="android.app.Application"
+65        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+65-->[androidx.core:core:1.13.1] C:\Users\eurdr\.gradle\caches\transforms-3\fac84cd5ecf1ec88a8c98571217c9350\transformed\core-1.13.1\AndroidManifest.xml:28:18-86
+66        android:debuggable="true"
+67        android:icon="@mipmap/ic_launcher"
+68        android:label="wisely_diary" >
+69
+70        <!-- 카카오 로그인 커스텀 URL 스킴 설정 -->
+71        <activity
+72            android:name="com.kakao.sdk.flutter.AuthCodeCustomTabsActivity"
+73            android:exported="true"
+74            android:launchMode="singleTask"
+74-->[:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:41:13-44
+75            android:theme="@style/TransparentCompat" >
+75-->[:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:42:13-53
+76            <intent-filter android:label="flutter_web_auth" >
+77                <action android:name="android.intent.action.VIEW" />
+77-->[:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:18:13-65
+77-->[:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:18:21-62
+78
+79                <category android:name="android.intent.category.DEFAULT" />
+80                <category android:name="android.intent.category.BROWSABLE" />
+80-->[:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:20:13-74
+80-->[:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:20:23-71
+81
+82                <!-- "kakao${YOUR_NATIVE_APP_KEY}://oauth" 형식의 앱 실행 스킴 설정 -->
+83                <!-- 카카오 로그인 Redirect URI -->
+84                <data
+84-->C:\00_ILGI\frontend\android\app\src\main\AndroidManifest.xml:56:13-50
+85                    android:host="oauth"
+86                    android:scheme="kakao2eb8687682cf67f94363bcca7b3125a4" />
+87            </intent-filter>
+88        </activity>
+89        <activity
+90            android:name="com.example.wisely_diary.MainActivity"
+91            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+92            android:exported="true"
+93            android:hardwareAccelerated="true"
+94            android:launchMode="singleTop"
+95            android:taskAffinity=""
+96            android:theme="@style/LaunchTheme"
+97            android:windowSoftInputMode="adjustResize" >
+98
+99            <!--
+100                 Specifies an Android theme to apply to this Activity as soon as
+101                 the Android process has started. This theme is visible to the user
+102                 while the Flutter UI initializes. After that, this theme continues
+103                 to determine the Window background behind the Flutter UI.
+104            -->
+105            <meta-data
+106                android:name="io.flutter.embedding.android.NormalTheme"
+107                android:resource="@style/NormalTheme" />
+108
+109            <intent-filter>
+110                <action android:name="android.intent.action.MAIN" />
 111
-112        <activity
-112-->[:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:27:9-32:56
-113            android:name="com.kakao.sdk.flutter.TalkAuthCodeActivity"
-113-->[:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:28:13-70
-114            android:configChanges="orientation|screenSize|keyboardHidden|uiMode"
-114-->[:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:29:13-81
-115            android:exported="false"
-115-->[:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:30:13-37
-116            android:launchMode="singleTask"
-116-->[:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:31:13-44
-117            android:theme="@style/TransparentCompat" />
-117-->[:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:32:13-53
-118        <activity
-118-->[:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:33:9-37:56
-119            android:name="com.kakao.sdk.flutter.CustomTabsActivity"
-119-->[:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:34:13-68
-120            android:exported="true"
-120-->[:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:35:13-36
-121            android:launchMode="singleTask"
-121-->[:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:36:13-44
-122            android:theme="@style/TransparentCompat" />
-122-->[:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:37:13-53
+112                <category android:name="android.intent.category.LAUNCHER" />
+113            </intent-filter>
+114        </activity>
+115        <!--
+116             Don't delete the meta-data below.
+117             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java
+118        -->
+119        <meta-data
+120            android:name="flutterEmbedding"
+121            android:value="2" />
+122
 123        <activity
-123-->[:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:43:9-47:56
-124            android:name="com.kakao.sdk.flutter.FollowChannelHandlerActivity"
-124-->[:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:44:13-78
-125            android:exported="true"
-125-->[:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:45:13-36
-126            android:launchMode="singleTask"
-126-->[:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:46:13-44
-127            android:theme="@style/TransparentCompat" />
-127-->[:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:47:13-53
-128        <activity
-128-->[:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:48:9-52:56
-129            android:name="com.kakao.sdk.flutter.AppsHandlerActivity"
-129-->[:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:49:13-69
-130            android:exported="true"
-130-->[:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:50:13-36
-131            android:launchMode="singleTask"
-131-->[:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:51:13-44
-132            android:theme="@style/TransparentCompat" />
-132-->[:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:52:13-53
-133        <activity
-133-->[:url_launcher_android] C:\00_ILGI\frontend\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:10:9-13:74
-134            android:name="io.flutter.plugins.urllauncher.WebViewActivity"
-134-->[:url_launcher_android] C:\00_ILGI\frontend\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:11:13-74
-135            android:exported="false"
-135-->[:url_launcher_android] C:\00_ILGI\frontend\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:12:13-37
-136            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
-136-->[:url_launcher_android] C:\00_ILGI\frontend\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:13:13-71
-137
-138        <uses-library
-138-->[androidx.window:window:1.2.0] C:\Users\eurdr\.gradle\caches\transforms-3\d47b1192960df52846144d82ac9e1d6f\transformed\jetified-window-1.2.0\AndroidManifest.xml:23:9-25:40
-139            android:name="androidx.window.extensions"
-139-->[androidx.window:window:1.2.0] C:\Users\eurdr\.gradle\caches\transforms-3\d47b1192960df52846144d82ac9e1d6f\transformed\jetified-window-1.2.0\AndroidManifest.xml:24:13-54
-140            android:required="false" />
-140-->[androidx.window:window:1.2.0] C:\Users\eurdr\.gradle\caches\transforms-3\d47b1192960df52846144d82ac9e1d6f\transformed\jetified-window-1.2.0\AndroidManifest.xml:25:13-37
-141        <uses-library
-141-->[androidx.window:window:1.2.0] C:\Users\eurdr\.gradle\caches\transforms-3\d47b1192960df52846144d82ac9e1d6f\transformed\jetified-window-1.2.0\AndroidManifest.xml:26:9-28:40
-142            android:name="androidx.window.sidecar"
-142-->[androidx.window:window:1.2.0] C:\Users\eurdr\.gradle\caches\transforms-3\d47b1192960df52846144d82ac9e1d6f\transformed\jetified-window-1.2.0\AndroidManifest.xml:27:13-51
-143            android:required="false" />
-143-->[androidx.window:window:1.2.0] C:\Users\eurdr\.gradle\caches\transforms-3\d47b1192960df52846144d82ac9e1d6f\transformed\jetified-window-1.2.0\AndroidManifest.xml:28:13-37
-144
-145        <activity
-145-->[com.google.android.gms:play-services-auth:21.0.0] C:\Users\eurdr\.gradle\caches\transforms-3\53ecb9efe195b458f1e2b854e4e7e3b5\transformed\jetified-play-services-auth-21.0.0\AndroidManifest.xml:23:9-27:75
-146            android:name="com.google.android.gms.auth.api.signin.internal.SignInHubActivity"
-146-->[com.google.android.gms:play-services-auth:21.0.0] C:\Users\eurdr\.gradle\caches\transforms-3\53ecb9efe195b458f1e2b854e4e7e3b5\transformed\jetified-play-services-auth-21.0.0\AndroidManifest.xml:24:13-93
-147            android:excludeFromRecents="true"
-147-->[com.google.android.gms:play-services-auth:21.0.0] C:\Users\eurdr\.gradle\caches\transforms-3\53ecb9efe195b458f1e2b854e4e7e3b5\transformed\jetified-play-services-auth-21.0.0\AndroidManifest.xml:25:13-46
-148            android:exported="false"
-148-->[com.google.android.gms:play-services-auth:21.0.0] C:\Users\eurdr\.gradle\caches\transforms-3\53ecb9efe195b458f1e2b854e4e7e3b5\transformed\jetified-play-services-auth-21.0.0\AndroidManifest.xml:26:13-37
-149            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-149-->[com.google.android.gms:play-services-auth:21.0.0] C:\Users\eurdr\.gradle\caches\transforms-3\53ecb9efe195b458f1e2b854e4e7e3b5\transformed\jetified-play-services-auth-21.0.0\AndroidManifest.xml:27:13-72
-150        <!--
-151            Service handling Google Sign-In user revocation. For apps that do not integrate with
-152            Google Sign-In, this service will never be started.
-153        -->
-154        <service
-154-->[com.google.android.gms:play-services-auth:21.0.0] C:\Users\eurdr\.gradle\caches\transforms-3\53ecb9efe195b458f1e2b854e4e7e3b5\transformed\jetified-play-services-auth-21.0.0\AndroidManifest.xml:33:9-37:51
-155            android:name="com.google.android.gms.auth.api.signin.RevocationBoundService"
-155-->[com.google.android.gms:play-services-auth:21.0.0] C:\Users\eurdr\.gradle\caches\transforms-3\53ecb9efe195b458f1e2b854e4e7e3b5\transformed\jetified-play-services-auth-21.0.0\AndroidManifest.xml:34:13-89
-156            android:exported="true"
-156-->[com.google.android.gms:play-services-auth:21.0.0] C:\Users\eurdr\.gradle\caches\transforms-3\53ecb9efe195b458f1e2b854e4e7e3b5\transformed\jetified-play-services-auth-21.0.0\AndroidManifest.xml:35:13-36
-157            android:permission="com.google.android.gms.auth.api.signin.permission.REVOCATION_NOTIFICATION"
-157-->[com.google.android.gms:play-services-auth:21.0.0] C:\Users\eurdr\.gradle\caches\transforms-3\53ecb9efe195b458f1e2b854e4e7e3b5\transformed\jetified-play-services-auth-21.0.0\AndroidManifest.xml:36:13-107
-158            android:visibleToInstantApps="true" />
-158-->[com.google.android.gms:play-services-auth:21.0.0] C:\Users\eurdr\.gradle\caches\transforms-3\53ecb9efe195b458f1e2b854e4e7e3b5\transformed\jetified-play-services-auth-21.0.0\AndroidManifest.xml:37:13-48
-159
-160        <activity
-160-->[com.google.android.gms:play-services-base:18.0.1] C:\Users\eurdr\.gradle\caches\transforms-3\14b322704d4e2bf3df95bc180f2fad1b\transformed\jetified-play-services-base-18.0.1\AndroidManifest.xml:20:9-22:45
-161            android:name="com.google.android.gms.common.api.GoogleApiActivity"
-161-->[com.google.android.gms:play-services-base:18.0.1] C:\Users\eurdr\.gradle\caches\transforms-3\14b322704d4e2bf3df95bc180f2fad1b\transformed\jetified-play-services-base-18.0.1\AndroidManifest.xml:20:19-85
-162            android:exported="false"
-162-->[com.google.android.gms:play-services-base:18.0.1] C:\Users\eurdr\.gradle\caches\transforms-3\14b322704d4e2bf3df95bc180f2fad1b\transformed\jetified-play-services-base-18.0.1\AndroidManifest.xml:22:19-43
-163            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-163-->[com.google.android.gms:play-services-base:18.0.1] C:\Users\eurdr\.gradle\caches\transforms-3\14b322704d4e2bf3df95bc180f2fad1b\transformed\jetified-play-services-base-18.0.1\AndroidManifest.xml:21:19-78
-164
-165        <meta-data
-165-->[com.google.android.gms:play-services-basement:18.2.0] C:\Users\eurdr\.gradle\caches\transforms-3\3b260e5a9df9fa5ca5f8e8383a8cb069\transformed\jetified-play-services-basement-18.2.0\AndroidManifest.xml:21:9-23:69
-166            android:name="com.google.android.gms.version"
-166-->[com.google.android.gms:play-services-basement:18.2.0] C:\Users\eurdr\.gradle\caches\transforms-3\3b260e5a9df9fa5ca5f8e8383a8cb069\transformed\jetified-play-services-basement-18.2.0\AndroidManifest.xml:22:13-58
-167            android:value="@integer/google_play_services_version" />
-167-->[com.google.android.gms:play-services-basement:18.2.0] C:\Users\eurdr\.gradle\caches\transforms-3\3b260e5a9df9fa5ca5f8e8383a8cb069\transformed\jetified-play-services-basement-18.2.0\AndroidManifest.xml:23:13-66
-168
-169        <provider
-169-->[androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\eurdr\.gradle\caches\transforms-3\d674cd90e13def17f77b3f8010d35e09\transformed\jetified-lifecycle-process-2.7.0\AndroidManifest.xml:24:9-32:20
-170            android:name="androidx.startup.InitializationProvider"
-170-->[androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\eurdr\.gradle\caches\transforms-3\d674cd90e13def17f77b3f8010d35e09\transformed\jetified-lifecycle-process-2.7.0\AndroidManifest.xml:25:13-67
-171            android:authorities="com.example.wisely_diary.androidx-startup"
-171-->[androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\eurdr\.gradle\caches\transforms-3\d674cd90e13def17f77b3f8010d35e09\transformed\jetified-lifecycle-process-2.7.0\AndroidManifest.xml:26:13-68
-172            android:exported="false" >
-172-->[androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\eurdr\.gradle\caches\transforms-3\d674cd90e13def17f77b3f8010d35e09\transformed\jetified-lifecycle-process-2.7.0\AndroidManifest.xml:27:13-37
-173            <meta-data
-173-->[androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\eurdr\.gradle\caches\transforms-3\d674cd90e13def17f77b3f8010d35e09\transformed\jetified-lifecycle-process-2.7.0\AndroidManifest.xml:29:13-31:52
-174                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
-174-->[androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\eurdr\.gradle\caches\transforms-3\d674cd90e13def17f77b3f8010d35e09\transformed\jetified-lifecycle-process-2.7.0\AndroidManifest.xml:30:17-78
-175                android:value="androidx.startup" />
-175-->[androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\eurdr\.gradle\caches\transforms-3\d674cd90e13def17f77b3f8010d35e09\transformed\jetified-lifecycle-process-2.7.0\AndroidManifest.xml:31:17-49
-176            <meta-data
-176-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\eurdr\.gradle\caches\transforms-3\166e5df34c1c015ef6ddeae137513a3f\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:29:13-31:52
-177                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
-177-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\eurdr\.gradle\caches\transforms-3\166e5df34c1c015ef6ddeae137513a3f\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:30:17-85
-178                android:value="androidx.startup" />
-178-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\eurdr\.gradle\caches\transforms-3\166e5df34c1c015ef6ddeae137513a3f\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:31:17-49
-179        </provider>
-180
-181        <receiver
-181-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\eurdr\.gradle\caches\transforms-3\166e5df34c1c015ef6ddeae137513a3f\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:34:9-52:20
-182            android:name="androidx.profileinstaller.ProfileInstallReceiver"
-182-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\eurdr\.gradle\caches\transforms-3\166e5df34c1c015ef6ddeae137513a3f\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:35:13-76
-183            android:directBootAware="false"
-183-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\eurdr\.gradle\caches\transforms-3\166e5df34c1c015ef6ddeae137513a3f\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:36:13-44
-184            android:enabled="true"
-184-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\eurdr\.gradle\caches\transforms-3\166e5df34c1c015ef6ddeae137513a3f\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:37:13-35
-185            android:exported="true"
-185-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\eurdr\.gradle\caches\transforms-3\166e5df34c1c015ef6ddeae137513a3f\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:38:13-36
-186            android:permission="android.permission.DUMP" >
-186-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\eurdr\.gradle\caches\transforms-3\166e5df34c1c015ef6ddeae137513a3f\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:39:13-57
-187            <intent-filter>
-187-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\eurdr\.gradle\caches\transforms-3\166e5df34c1c015ef6ddeae137513a3f\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:40:13-42:29
-188                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
-188-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\eurdr\.gradle\caches\transforms-3\166e5df34c1c015ef6ddeae137513a3f\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:41:17-91
-188-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\eurdr\.gradle\caches\transforms-3\166e5df34c1c015ef6ddeae137513a3f\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:41:25-88
-189            </intent-filter>
-190            <intent-filter>
-190-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\eurdr\.gradle\caches\transforms-3\166e5df34c1c015ef6ddeae137513a3f\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:43:13-45:29
-191                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
-191-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\eurdr\.gradle\caches\transforms-3\166e5df34c1c015ef6ddeae137513a3f\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:44:17-85
-191-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\eurdr\.gradle\caches\transforms-3\166e5df34c1c015ef6ddeae137513a3f\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:44:25-82
-192            </intent-filter>
-193            <intent-filter>
-193-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\eurdr\.gradle\caches\transforms-3\166e5df34c1c015ef6ddeae137513a3f\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:46:13-48:29
-194                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
-194-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\eurdr\.gradle\caches\transforms-3\166e5df34c1c015ef6ddeae137513a3f\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:47:17-88
-194-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\eurdr\.gradle\caches\transforms-3\166e5df34c1c015ef6ddeae137513a3f\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:47:25-85
-195            </intent-filter>
-196            <intent-filter>
-196-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\eurdr\.gradle\caches\transforms-3\166e5df34c1c015ef6ddeae137513a3f\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:49:13-51:29
-197                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
-197-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\eurdr\.gradle\caches\transforms-3\166e5df34c1c015ef6ddeae137513a3f\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:50:17-95
-197-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\eurdr\.gradle\caches\transforms-3\166e5df34c1c015ef6ddeae137513a3f\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:50:25-92
-198            </intent-filter>
-199        </receiver>
-200    </application>
-201
-202</manifest>
+123-->[:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:27:9-32:56
+124            android:name="com.kakao.sdk.flutter.TalkAuthCodeActivity"
+124-->[:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:28:13-70
+125            android:configChanges="orientation|screenSize|keyboardHidden|uiMode"
+125-->[:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:29:13-81
+126            android:exported="false"
+126-->[:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:30:13-37
+127            android:launchMode="singleTask"
+127-->[:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:31:13-44
+128            android:theme="@style/TransparentCompat" />
+128-->[:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:32:13-53
+129        <activity
+129-->[:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:33:9-37:56
+130            android:name="com.kakao.sdk.flutter.CustomTabsActivity"
+130-->[:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:34:13-68
+131            android:exported="true"
+131-->[:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:35:13-36
+132            android:launchMode="singleTask"
+132-->[:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:36:13-44
+133            android:theme="@style/TransparentCompat" />
+133-->[:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:37:13-53
+134        <activity
+134-->[:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:43:9-47:56
+135            android:name="com.kakao.sdk.flutter.FollowChannelHandlerActivity"
+135-->[:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:44:13-78
+136            android:exported="true"
+136-->[:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:45:13-36
+137            android:launchMode="singleTask"
+137-->[:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:46:13-44
+138            android:theme="@style/TransparentCompat" />
+138-->[:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:47:13-53
+139        <activity
+139-->[:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:48:9-52:56
+140            android:name="com.kakao.sdk.flutter.AppsHandlerActivity"
+140-->[:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:49:13-69
+141            android:exported="true"
+141-->[:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:50:13-36
+142            android:launchMode="singleTask"
+142-->[:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:51:13-44
+143            android:theme="@style/TransparentCompat" />
+143-->[:kakao_flutter_sdk_common] C:\00_ILGI\frontend\build\kakao_flutter_sdk_common\intermediates\merged_manifest\debug\AndroidManifest.xml:52:13-53
+144        <activity
+144-->[:url_launcher_android] C:\00_ILGI\frontend\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:10:9-13:74
+145            android:name="io.flutter.plugins.urllauncher.WebViewActivity"
+145-->[:url_launcher_android] C:\00_ILGI\frontend\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:11:13-74
+146            android:exported="false"
+146-->[:url_launcher_android] C:\00_ILGI\frontend\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:12:13-37
+147            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+147-->[:url_launcher_android] C:\00_ILGI\frontend\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:13:13-71
+148
+149        <uses-library
+149-->[androidx.window:window:1.2.0] C:\Users\eurdr\.gradle\caches\transforms-3\d47b1192960df52846144d82ac9e1d6f\transformed\jetified-window-1.2.0\AndroidManifest.xml:23:9-25:40
+150            android:name="androidx.window.extensions"
+150-->[androidx.window:window:1.2.0] C:\Users\eurdr\.gradle\caches\transforms-3\d47b1192960df52846144d82ac9e1d6f\transformed\jetified-window-1.2.0\AndroidManifest.xml:24:13-54
+151            android:required="false" />
+151-->[androidx.window:window:1.2.0] C:\Users\eurdr\.gradle\caches\transforms-3\d47b1192960df52846144d82ac9e1d6f\transformed\jetified-window-1.2.0\AndroidManifest.xml:25:13-37
+152        <uses-library
+152-->[androidx.window:window:1.2.0] C:\Users\eurdr\.gradle\caches\transforms-3\d47b1192960df52846144d82ac9e1d6f\transformed\jetified-window-1.2.0\AndroidManifest.xml:26:9-28:40
+153            android:name="androidx.window.sidecar"
+153-->[androidx.window:window:1.2.0] C:\Users\eurdr\.gradle\caches\transforms-3\d47b1192960df52846144d82ac9e1d6f\transformed\jetified-window-1.2.0\AndroidManifest.xml:27:13-51
+154            android:required="false" />
+154-->[androidx.window:window:1.2.0] C:\Users\eurdr\.gradle\caches\transforms-3\d47b1192960df52846144d82ac9e1d6f\transformed\jetified-window-1.2.0\AndroidManifest.xml:28:13-37
+155
+156        <activity
+156-->[com.google.android.gms:play-services-auth:21.0.0] C:\Users\eurdr\.gradle\caches\transforms-3\53ecb9efe195b458f1e2b854e4e7e3b5\transformed\jetified-play-services-auth-21.0.0\AndroidManifest.xml:23:9-27:75
+157            android:name="com.google.android.gms.auth.api.signin.internal.SignInHubActivity"
+157-->[com.google.android.gms:play-services-auth:21.0.0] C:\Users\eurdr\.gradle\caches\transforms-3\53ecb9efe195b458f1e2b854e4e7e3b5\transformed\jetified-play-services-auth-21.0.0\AndroidManifest.xml:24:13-93
+158            android:excludeFromRecents="true"
+158-->[com.google.android.gms:play-services-auth:21.0.0] C:\Users\eurdr\.gradle\caches\transforms-3\53ecb9efe195b458f1e2b854e4e7e3b5\transformed\jetified-play-services-auth-21.0.0\AndroidManifest.xml:25:13-46
+159            android:exported="false"
+159-->[com.google.android.gms:play-services-auth:21.0.0] C:\Users\eurdr\.gradle\caches\transforms-3\53ecb9efe195b458f1e2b854e4e7e3b5\transformed\jetified-play-services-auth-21.0.0\AndroidManifest.xml:26:13-37
+160            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+160-->[com.google.android.gms:play-services-auth:21.0.0] C:\Users\eurdr\.gradle\caches\transforms-3\53ecb9efe195b458f1e2b854e4e7e3b5\transformed\jetified-play-services-auth-21.0.0\AndroidManifest.xml:27:13-72
+161        <!--
+162            Service handling Google Sign-In user revocation. For apps that do not integrate with
+163            Google Sign-In, this service will never be started.
+164        -->
+165        <service
+165-->[com.google.android.gms:play-services-auth:21.0.0] C:\Users\eurdr\.gradle\caches\transforms-3\53ecb9efe195b458f1e2b854e4e7e3b5\transformed\jetified-play-services-auth-21.0.0\AndroidManifest.xml:33:9-37:51
+166            android:name="com.google.android.gms.auth.api.signin.RevocationBoundService"
+166-->[com.google.android.gms:play-services-auth:21.0.0] C:\Users\eurdr\.gradle\caches\transforms-3\53ecb9efe195b458f1e2b854e4e7e3b5\transformed\jetified-play-services-auth-21.0.0\AndroidManifest.xml:34:13-89
+167            android:exported="true"
+167-->[com.google.android.gms:play-services-auth:21.0.0] C:\Users\eurdr\.gradle\caches\transforms-3\53ecb9efe195b458f1e2b854e4e7e3b5\transformed\jetified-play-services-auth-21.0.0\AndroidManifest.xml:35:13-36
+168            android:permission="com.google.android.gms.auth.api.signin.permission.REVOCATION_NOTIFICATION"
+168-->[com.google.android.gms:play-services-auth:21.0.0] C:\Users\eurdr\.gradle\caches\transforms-3\53ecb9efe195b458f1e2b854e4e7e3b5\transformed\jetified-play-services-auth-21.0.0\AndroidManifest.xml:36:13-107
+169            android:visibleToInstantApps="true" />
+169-->[com.google.android.gms:play-services-auth:21.0.0] C:\Users\eurdr\.gradle\caches\transforms-3\53ecb9efe195b458f1e2b854e4e7e3b5\transformed\jetified-play-services-auth-21.0.0\AndroidManifest.xml:37:13-48
+170
+171        <activity
+171-->[com.google.android.gms:play-services-base:18.0.1] C:\Users\eurdr\.gradle\caches\transforms-3\14b322704d4e2bf3df95bc180f2fad1b\transformed\jetified-play-services-base-18.0.1\AndroidManifest.xml:20:9-22:45
+172            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+172-->[com.google.android.gms:play-services-base:18.0.1] C:\Users\eurdr\.gradle\caches\transforms-3\14b322704d4e2bf3df95bc180f2fad1b\transformed\jetified-play-services-base-18.0.1\AndroidManifest.xml:20:19-85
+173            android:exported="false"
+173-->[com.google.android.gms:play-services-base:18.0.1] C:\Users\eurdr\.gradle\caches\transforms-3\14b322704d4e2bf3df95bc180f2fad1b\transformed\jetified-play-services-base-18.0.1\AndroidManifest.xml:22:19-43
+174            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+174-->[com.google.android.gms:play-services-base:18.0.1] C:\Users\eurdr\.gradle\caches\transforms-3\14b322704d4e2bf3df95bc180f2fad1b\transformed\jetified-play-services-base-18.0.1\AndroidManifest.xml:21:19-78
+175
+176        <meta-data
+176-->[com.google.android.gms:play-services-basement:18.2.0] C:\Users\eurdr\.gradle\caches\transforms-3\3b260e5a9df9fa5ca5f8e8383a8cb069\transformed\jetified-play-services-basement-18.2.0\AndroidManifest.xml:21:9-23:69
+177            android:name="com.google.android.gms.version"
+177-->[com.google.android.gms:play-services-basement:18.2.0] C:\Users\eurdr\.gradle\caches\transforms-3\3b260e5a9df9fa5ca5f8e8383a8cb069\transformed\jetified-play-services-basement-18.2.0\AndroidManifest.xml:22:13-58
+178            android:value="@integer/google_play_services_version" />
+178-->[com.google.android.gms:play-services-basement:18.2.0] C:\Users\eurdr\.gradle\caches\transforms-3\3b260e5a9df9fa5ca5f8e8383a8cb069\transformed\jetified-play-services-basement-18.2.0\AndroidManifest.xml:23:13-66
+179
+180        <provider
+180-->[androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\eurdr\.gradle\caches\transforms-3\d674cd90e13def17f77b3f8010d35e09\transformed\jetified-lifecycle-process-2.7.0\AndroidManifest.xml:24:9-32:20
+181            android:name="androidx.startup.InitializationProvider"
+181-->[androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\eurdr\.gradle\caches\transforms-3\d674cd90e13def17f77b3f8010d35e09\transformed\jetified-lifecycle-process-2.7.0\AndroidManifest.xml:25:13-67
+182            android:authorities="com.example.wisely_diary.androidx-startup"
+182-->[androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\eurdr\.gradle\caches\transforms-3\d674cd90e13def17f77b3f8010d35e09\transformed\jetified-lifecycle-process-2.7.0\AndroidManifest.xml:26:13-68
+183            android:exported="false" >
+183-->[androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\eurdr\.gradle\caches\transforms-3\d674cd90e13def17f77b3f8010d35e09\transformed\jetified-lifecycle-process-2.7.0\AndroidManifest.xml:27:13-37
+184            <meta-data
+184-->[androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\eurdr\.gradle\caches\transforms-3\d674cd90e13def17f77b3f8010d35e09\transformed\jetified-lifecycle-process-2.7.0\AndroidManifest.xml:29:13-31:52
+185                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+185-->[androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\eurdr\.gradle\caches\transforms-3\d674cd90e13def17f77b3f8010d35e09\transformed\jetified-lifecycle-process-2.7.0\AndroidManifest.xml:30:17-78
+186                android:value="androidx.startup" />
+186-->[androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\eurdr\.gradle\caches\transforms-3\d674cd90e13def17f77b3f8010d35e09\transformed\jetified-lifecycle-process-2.7.0\AndroidManifest.xml:31:17-49
+187            <meta-data
+187-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\eurdr\.gradle\caches\transforms-3\166e5df34c1c015ef6ddeae137513a3f\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:29:13-31:52
+188                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+188-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\eurdr\.gradle\caches\transforms-3\166e5df34c1c015ef6ddeae137513a3f\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:30:17-85
+189                android:value="androidx.startup" />
+189-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\eurdr\.gradle\caches\transforms-3\166e5df34c1c015ef6ddeae137513a3f\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:31:17-49
+190        </provider>
+191
+192        <receiver
+192-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\eurdr\.gradle\caches\transforms-3\166e5df34c1c015ef6ddeae137513a3f\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:34:9-52:20
+193            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+193-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\eurdr\.gradle\caches\transforms-3\166e5df34c1c015ef6ddeae137513a3f\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:35:13-76
+194            android:directBootAware="false"
+194-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\eurdr\.gradle\caches\transforms-3\166e5df34c1c015ef6ddeae137513a3f\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:36:13-44
+195            android:enabled="true"
+195-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\eurdr\.gradle\caches\transforms-3\166e5df34c1c015ef6ddeae137513a3f\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:37:13-35
+196            android:exported="true"
+196-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\eurdr\.gradle\caches\transforms-3\166e5df34c1c015ef6ddeae137513a3f\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:38:13-36
+197            android:permission="android.permission.DUMP" >
+197-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\eurdr\.gradle\caches\transforms-3\166e5df34c1c015ef6ddeae137513a3f\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:39:13-57
+198            <intent-filter>
+198-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\eurdr\.gradle\caches\transforms-3\166e5df34c1c015ef6ddeae137513a3f\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:40:13-42:29
+199                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+199-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\eurdr\.gradle\caches\transforms-3\166e5df34c1c015ef6ddeae137513a3f\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:41:17-91
+199-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\eurdr\.gradle\caches\transforms-3\166e5df34c1c015ef6ddeae137513a3f\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:41:25-88
+200            </intent-filter>
+201            <intent-filter>
+201-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\eurdr\.gradle\caches\transforms-3\166e5df34c1c015ef6ddeae137513a3f\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:43:13-45:29
+202                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+202-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\eurdr\.gradle\caches\transforms-3\166e5df34c1c015ef6ddeae137513a3f\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:44:17-85
+202-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\eurdr\.gradle\caches\transforms-3\166e5df34c1c015ef6ddeae137513a3f\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:44:25-82
+203            </intent-filter>
+204            <intent-filter>
+204-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\eurdr\.gradle\caches\transforms-3\166e5df34c1c015ef6ddeae137513a3f\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:46:13-48:29
+205                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+205-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\eurdr\.gradle\caches\transforms-3\166e5df34c1c015ef6ddeae137513a3f\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:47:17-88
+205-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\eurdr\.gradle\caches\transforms-3\166e5df34c1c015ef6ddeae137513a3f\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:47:25-85
+206            </intent-filter>
+207            <intent-filter>
+207-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\eurdr\.gradle\caches\transforms-3\166e5df34c1c015ef6ddeae137513a3f\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:49:13-51:29
+208                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+208-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\eurdr\.gradle\caches\transforms-3\166e5df34c1c015ef6ddeae137513a3f\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:50:17-95
+208-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\eurdr\.gradle\caches\transforms-3\166e5df34c1c015ef6ddeae137513a3f\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:50:25-92
+209            </intent-filter>
+210        </receiver>
+211    </application>
+212
+213</manifest>
