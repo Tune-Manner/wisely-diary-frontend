@@ -176,6 +176,15 @@
       <excludeFolder url="file://$MODULE_DIR$/sociallogin/.dart_tool" />
       <excludeFolder url="file://$MODULE_DIR$/sociallogin/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/sociallogin/build" />
+      <excludeFolder url="file://$MODULE_DIR$/sociallogin/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/sociallogin/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/sociallogin/build" />
+      <excludeFolder url="file://$MODULE_DIR$/sociallogin/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/sociallogin/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/sociallogin/build" />
+      <excludeFolder url="file://$MODULE_DIR$/sociallogin/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/sociallogin/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/sociallogin/build" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

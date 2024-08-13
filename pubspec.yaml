@@ -76,8 +76,17 @@ flutter:
     - assets/kakao_logo.png
     - assets/wisely-diary-logo.png
     - assets/emotions/sad.png
+    - assets/emotions/anger.png
+    - assets/emotions/embarrassed.png
+    - assets/emotions/greatful.png
+    - assets/emotions/injustice.png
+    - assets/emotions/joy.png
+    - assets/emotions/lovely.png
+    - assets/emotions/proud.png
+    - assets/emotions/relax.png
+    - assets/emotions/worried.png
     - assets/audio/anger_bgm.mp3
-    - assets/audio/embaressed_bgm.mp3
+    - assets/audio/embarrassed_bgm.mp3
     - assets/audio/greatful_bgm.mp3
     - assets/audio/injustice_bgm.mp3
     - assets/audio/joy_bgm.mp3
