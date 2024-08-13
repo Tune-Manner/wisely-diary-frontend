@@ -41,6 +41,7 @@ class _WelcomePageState extends State<WelcomePage> {
       print("사용자 ID: ${user.id}");
       print("사용자 이메일: ${user.email}");
 
+
       try {
         // 1. member 테이블에서 member_code 조회
         final memberResponse = await Supabase.instance.client
