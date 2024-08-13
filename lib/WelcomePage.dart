@@ -171,18 +171,12 @@ class _WelcomePageState extends State<WelcomePage> {
           ElevatedButton(
             child: Text('일기 보기'),
             onPressed: () {
-              if (memberCode != null) {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => DiaryNoImgPage(memberCode: memberCode!, selectedDate: DateTime.now()),
-                  ),
-                );
-              } else {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('회원 정보를 불러오는 중입니다. 잠시 후 다시 시도해주세요.')),
-                );
-              }
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => DiaryNoImgPage(selectedDate: DateTime.now()),
+                ),
+              );
             },
           ),
           Expanded(

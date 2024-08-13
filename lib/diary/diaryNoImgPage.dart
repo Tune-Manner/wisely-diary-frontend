@@ -55,7 +55,8 @@ class _DiaryNoImgPageState extends State<DiaryNoImgPage> {
       return;
     }
 
-    final url = Uri.parse('http://localhost:8080/api/diary/selectdetail');
+    // final url = Uri.parse('http://localhost:8080/api/diary/selectdetail');
+    final url = Uri.parse('http://192.168.0.184:8080/api/diary/selectdetail');
     try {
       final response = await http.post(
         url,
@@ -70,21 +71,31 @@ class _DiaryNoImgPageState extends State<DiaryNoImgPage> {
 
       if (response.statusCode == 200) {
         final jsonResponse = jsonDecode(response.body);
-        setState(() {
-          diarySummaryContents = jsonResponse['diary_summary_contents'];
-          isLoading = false;
-        });
+
+        // 이 부분에서 if (mounted) 체크를 추가합니다.
+        if (mounted) {
+          setState(() {
+            diarySummaryContents = jsonResponse['diary_summary_contents'];
+            isLoading = false;
+          });
+        }
       } else {
         print('Failed to load diary summary. Status code: ${response.statusCode}');
+
+        // 여기에도 if (mounted) 체크를 추가합니다.
+        if (mounted) {
+          setState(() {
+            isLoading = false;
+          });
+        }
+      }
+    } catch (e) {
+      print('Error loading diary summary: $e');
+      if (mounted) {
         setState(() {
           isLoading = false;
         });
       }
-    } catch (e) {
-      print('Error loading diary summary: $e');
-      setState(() {
-        isLoading = false;
-      });
     }
   }
 
