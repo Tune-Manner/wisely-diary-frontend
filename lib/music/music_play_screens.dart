@@ -85,83 +85,101 @@ class _MusicPlayerPageState extends State<MusicPlayerPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
+      appBar: AppBar(
         title: Text('Music Player'),
-    ),
-    body: FutureBuilder<Map<String, dynamic>>(
-    future: _musicDataFuture,
-    builder: (context, snapshot) {
-    if (snapshot.connectionState == ConnectionState.waiting) {
-    return Center(child: CircularProgressIndicator());
-    } else if (snapshot.hasError) {
-    return Center(
-    child: Column(
-    mainAxisAlignment: MainAxisAlignment.center,
-    children: [
-    Text('Error: ${snapshot.error}'),
-    ElevatedButton(
-    onPressed: () {
-    setState(() {
-    _musicDataFuture = _fetchMusicData();
-    });
-    },
-    child: Text('Retry'),
-    ),
-    ],
-    ),
+      ),
+      body: FutureBuilder<Map<String, dynamic>>(
+        future: _musicDataFuture,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('Error: ${snapshot.error}'),
+                  ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        _musicDataFuture = _fetchMusicData();
+                      });
+                    },
+                    child: Text('Retry'),
+                  ),
+                ],
+              ),
+            );
+          } else if (snapshot.hasData) {
+            final musicData = snapshot.data!;
+            return SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Title: ${musicData['musicTitle'] ?? 'No Title'}',
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold)),
+                    SizedBox(height: 8),
+                    Text('Created At: ${musicData['createdAt'] ?? 'Unknown'}'),
+                    SizedBox(height: 16),
+                    if (_controller != null && _controller!.value.isInitialized)
+                      AspectRatio(
+                        aspectRatio: _controller!.value.aspectRatio,
+                        child: VideoPlayer(_controller!),
+                      )
+                    else if (_isVideoGenerating)
+                      Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            CircularProgressIndicator(),
+                            SizedBox(height: 16),
+                            Text(
+                              '음악을 생성 중입니다.\n잠시만 기다려 주세요.',
+                              textAlign: TextAlign.center,
+                            ),
+                          ],
+                        ),
+                      )
+                    else
+                      Center(
+                        child: Text(
+                          '음악을 로드할 수 없습니다.\n잠시 후 다시 시도해 주세요.',
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    SizedBox(height: 16),
+                    if (_controller != null && _controller!.value.isInitialized)
+                      ElevatedButton(
+                        onPressed: () {
+                          setState(() {
+                            _controller!.value.isPlaying
+                                ? _controller!.pause()
+                                : _controller!.play();
+                          });
+                        },
+                        child: Icon(
+                          _controller!.value.isPlaying
+                              ? Icons.pause
+                              : Icons.play_arrow,
+                        ),
+                      ),
+                    SizedBox(height: 16),
+                    Text('Lyrics:',
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold)),
+                    Text(musicData['musicLyrics'] ?? 'No lyrics available'),
+                  ],
+                ),
+              ),
+            );
+          } else {
+            return Center(child: Text('No data available'));
+          }
+        },
+      ),
     );
-    } else if (snapshot.hasData) {
-    final musicData = snapshot.data!;
-    return SingleChildScrollView(
-    child: Padding(
-    padding: const EdgeInsets.all(16.0),
-    child: Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-    Text('Title: ${musicData['musicTitle'] ?? 'No Title'}',
-    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-    SizedBox(height: 8),
-    Text('Created At: ${musicData['createdAt'] ?? 'Unknown'}'),
-    SizedBox(height: 16),
-    if (_controller != null && _controller!.value.isInitialized)
-    AspectRatio(
-    aspectRatio: _controller!.value.aspectRatio,
-    child: VideoPlayer(_controller!),
-    )
-    else if (_isVideoGenerating)
-    Center(
-    child: Column(
-    mainAxisAlignment: MainAxisAlignment.center,
-    children: [
-    CircularProgressIndicator(),
-    SizedBox(height: 16),
-    Text(
-    '음악을 생성 중입니다.\n잠시만 기다려 주세요.',
-    textAlign: TextAlign.center,
-    ),
-    ],
-    ),
-    )
-    else
-    Center(
-    child: Text(
-    '음악을 로드할 수 없습니다.\n잠시 후 다시 시도해 주세요.',
-    textAlign: TextAlign.center,
-    ),
-    ),
-    SizedBox(height: 16),
-    if (_controller != null && _controller!.value.isInitialized)
-    ElevatedButton(
-    onPressed: () {
-    setState(() {
-    _controller!.value.isPlaying
-    ? _controller!.pause()
-        : _controller!.play();
-    });
-    },
-    child: Icon(
-    _controller!.value.isPlaying ? Icons.pause : Icons.play_arrow,
-    ),
-    ),
-    SizedBox(height: 16),
-    Text('Lyrics:', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+  }
+}
