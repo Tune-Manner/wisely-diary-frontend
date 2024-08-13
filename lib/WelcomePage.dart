@@ -18,11 +18,12 @@ class WelcomePage extends StatefulWidget {
 
 class _WelcomePageState extends State<WelcomePage> {
   List<Map<String, dynamic>> diaries = [];
-
+  String? memberCode;
 
   @override
   void initState() {
     super.initState();
+    _loadMemberCode();
 
     // 알림 권한 요청을 initState에서 바로 호출하도록 변경
     requestNotificationPermissions();
@@ -41,6 +42,23 @@ class _WelcomePageState extends State<WelcomePage> {
       }
     });
 
+  }
+
+  Future<void> _loadMemberCode() async {
+    final user = Supabase.instance.client.auth.currentUser;
+    if (user != null) {
+      final memberResponse = await Supabase.instance.client
+          .from('member')
+          .select('member_code')
+          .eq('member_id', user.id)
+          .single();
+
+      if (memberResponse != null) {
+        setState(() {
+          memberCode = memberResponse['member_code'].toString();
+        });
+      }
+    }
   }
 
   Future<void> _loadDiaries() async {
@@ -153,12 +171,18 @@ class _WelcomePageState extends State<WelcomePage> {
           ElevatedButton(
             child: Text('일기 보기'),
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => DiaryNoImgPage(),
-                ),
-              );
+              if (memberCode != null) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => DiaryNoImgPage(memberCode: memberCode!, selectedDate: DateTime.now()),
+                  ),
+                );
+              } else {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('회원 정보를 불러오는 중입니다. 잠시 후 다시 시도해주세요.')),
+                );
+              }
             },
           ),
           Expanded(

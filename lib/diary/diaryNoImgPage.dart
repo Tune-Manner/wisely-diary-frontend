@@ -1,13 +1,92 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class DiaryNoImgPage extends StatefulWidget {
+  final DateTime selectedDate;
+
+  const DiaryNoImgPage({
+    Key? key,
+    required this.selectedDate
+  }) : super(key: key);
+
   @override
   _DiaryNoImgPageState createState() => _DiaryNoImgPageState();
 }
 
 class _DiaryNoImgPageState extends State<DiaryNoImgPage> {
+  String? diarySummaryContents;
+  bool isLoading = true;
   OverlayEntry? _overlayEntry;
-  bool _isOverlayVisible = false;  // 오버레이 가시성 상태를 관리하는 변수
+  bool _isOverlayVisible = false;
+  String? memberId;
+
+  final supabase = Supabase.instance.client;
+
+  @override
+  void initState() {
+    super.initState();
+    _getUserId();
+  }
+
+  Future<void> _getUserId() async {
+    final user = supabase.auth.currentUser;
+    if (user != null) {
+      setState(() {
+        memberId = user.id;
+      });
+      _loadDiarySummary();
+    } else {
+      print('User is not authenticated');
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
+  Future<void> _loadDiarySummary() async {
+    if (memberId == null) {
+      print('Member ID is null');
+      setState(() {
+        isLoading = false;
+      });
+      return;
+    }
+
+    final url = Uri.parse('http://localhost:8080/api/diary/selectdetail');
+    try {
+      final response = await http.post(
+        url,
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, dynamic>{
+          'memberId': memberId,
+          'date': DateFormat('yyyy-MM-dd').format(widget.selectedDate),
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        final jsonResponse = jsonDecode(response.body);
+        setState(() {
+          diarySummaryContents = jsonResponse['diary_summary_contents'];
+          isLoading = false;
+        });
+      } else {
+        print('Failed to load diary summary. Status code: ${response.statusCode}');
+        setState(() {
+          isLoading = false;
+        });
+      }
+    } catch (e) {
+      print('Error loading diary summary: $e');
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
 
   void _toggleGiftMenu() {
     setState(() {
@@ -91,9 +170,7 @@ class _DiaryNoImgPageState extends State<DiaryNoImgPage> {
           children: [
             IconButton(
               icon: Icon(Icons.arrow_back, color: Colors.black),
-              onPressed: () {
-                Navigator.pop(context);
-              },
+              onPressed: () => Navigator.pop(context),
             ),
             IconButton(
               icon: Icon(Icons.menu, color: Colors.black),
@@ -119,7 +196,9 @@ class _DiaryNoImgPageState extends State<DiaryNoImgPage> {
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(8.0),
                     ),
-                    child: Column(
+                    child: isLoading
+                        ? Center(child: CircularProgressIndicator())
+                        : Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
@@ -127,7 +206,7 @@ class _DiaryNoImgPageState extends State<DiaryNoImgPage> {
                           children: [
                             Flexible(
                               child: Text(
-                                '2024.09.30 수요일',
+                                DateFormat('yyyy.MM.dd EEEE').format(widget.selectedDate),
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 18,
@@ -150,7 +229,7 @@ class _DiaryNoImgPageState extends State<DiaryNoImgPage> {
                         SizedBox(height: 16.0),
                         Expanded(
                           child: Text(
-                            '일기 요약본이 여기에 표시된다. 오늘은 기획이 바뀌어서 바쁜 하루였다. 할게 너무 많아서 슬펐다. 주말도 해야되나 걱정이 되었다. 열심히 해서 주말엔 모두가 쉴 수 있으면 좋겠다.',
+                            diarySummaryContents ?? '일기 요약을 불러올 수 없습니다.',
                             style: TextStyle(fontSize: 16, color: Colors.black),
                           ),
                         ),
@@ -176,7 +255,7 @@ class _DiaryNoImgPageState extends State<DiaryNoImgPage> {
                 child: Center(
                   child: ColorFiltered(
                     colorFilter: ColorFilter.mode(
-                      Colors.white, // 이미지 색상을 하얀색으로 변경
+                      Colors.white,
                       BlendMode.srcIn,
                     ),
                     child: Image.asset(
