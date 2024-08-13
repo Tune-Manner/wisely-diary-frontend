@@ -59,12 +59,12 @@ analysis_benchmark.json
 .pub-cache/
 .pub/
 build/app/generated/
-!build/app/intermediates/assets/release/flutter_assets/
+
 flutter_*.png
 linked_*.ds
 unlinked.ds
 unlinked_spec.ds
-build/app/intermediates/
+
 
 # Android related
 **/android/**/gradle-wrapper.jar
