@@ -74,7 +74,7 @@ serve(async (req) => {
 
     const { data, error } = await supabase
         .from('member')
-        .select('member_code, alarm_time')
+        .select('member_id, alarm_time')
         .eq('alarm_enabled', true)
         .gte('alarm_time', lowerBound)
         .lte('alarm_time', upperBound);
@@ -98,7 +98,7 @@ serve(async (req) => {
     const { data: tokens, error: tokenError } = await supabase
         .from('fcm_tokens')
         .select('token')
-        .eq('member_code', user.member_code);
+        .eq('member_id', user.member_id);
 
     if (tokenError) {
       console.error('Error fetching FCM token:', tokenError);
@@ -112,12 +112,12 @@ serve(async (req) => {
             '일기쓸 시간이에요',
             '오늘 하루는 어땠나요? 일기를 작성해보세요.'
         );
-        console.log(`Notification sent successfully to member_code: ${user.member_code}`);
+        console.log(`Notification sent successfully to member_id: ${user.member_id}`);
       } catch (error) {
         console.error('Error sending FCM message:', error);
       }
     } else {
-      console.log(`No FCM token found for member_code: ${user.member_code}`);
+      console.log(`No FCM token found for member_id: ${user.member_id}`);
     }
   }
 

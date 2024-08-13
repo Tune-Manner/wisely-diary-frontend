@@ -205,8 +205,38 @@ class _HomePageState extends State<HomePage> {
       setState(() {
         _userId = data.session?.user.id;
       });
-      print('User ID: $_userId'); // 로그 추가
+      print('User ID: $_userId');
+      if (_userId != null) {
+        _getFCMTokenAndSave(_userId!);
+      }
     });
+  }
+
+  // FCM 토큰을 가져오고 저장하는 함수
+  Future<void> _getFCMTokenAndSave(String userId) async {
+    try {
+      String? fcmToken = await FirebaseMessaging.instance.getToken();
+      if (fcmToken != null) {
+        await _saveFCMToken(userId, fcmToken);
+      }
+    } catch (e) {
+      print('Error getting FCM token: $e');
+    }
+  }
+
+  // FCM 토큰을 Supabase에 저장하는 함수
+  Future<void> _saveFCMToken(String userId, String token) async {
+    try {
+      final response = await Supabase.instance.client
+          .from('fcm_tokens')
+          .upsert({
+        'member_id': userId,
+        'token': token,
+      }, onConflict: 'member_id');
+      print('FCM token saved: $response');
+    } catch (e) {
+      print('Error saving FCM token: $e');
+    }
   }
 
   Future<void> _signOut() async {
@@ -226,12 +256,11 @@ class _HomePageState extends State<HomePage> {
   Future<void> _saveUserToDatabase(gotrue.User? user) async {
     if (user != null) {
       final userData = {
-        'member_code': int.parse(user.id.hashCode.toString()),
+
         'member_email': user.email,
         'join_at': DateTime.now().toIso8601String(),
         'member_name': user.userMetadata?['full_name'],
         'member_status': 'active',
-        'password': 'password',
         'member_id':user.id
       };
 
@@ -240,18 +269,20 @@ class _HomePageState extends State<HomePage> {
           .upsert(userData)
           .maybeSingle();
 
-      print('User data saved to database: $response'); // 로그 추가
+      print('User data saved to database: $response');
+
+
+      // FCM 토큰 저장 추가
+      await _getFCMTokenAndSave(user.id);
     }
   }
 
   Future<void> _saveKakaoUserToDatabase(gotrue.User user, String memberName) async {
     final userData = {
-      'member_code': int.parse(user.id.hashCode.toString()),
       'member_email': user.email,
       'join_at': DateTime.now().toIso8601String(),
       'member_name': memberName,
       'member_status': 'active',
-      'password': 'password',
       'member_id':user.id
     };
 
@@ -266,6 +297,10 @@ class _HomePageState extends State<HomePage> {
     ));
 
     print('Kakao user data saved to database: $response'); // 로그 추가
+
+    // FCM 토큰 저장 추가
+    await _getFCMTokenAndSave(user.id);
+
   }
 
   @override

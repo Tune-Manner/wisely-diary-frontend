@@ -53,12 +53,11 @@ class _AlarmSettingPageState extends State<AlarmSettingPage> {
     _initializeNotifications();
     _loadAlarmSettings();
     _checkAndRequestPermissions();
-    // 주석: 정확한 알람 권한 및 배터리 최적화 예외 요청 함수 호출
     _checkAndRequestExactAlarmPermission();
     _requestBatteryOptimizationExemption();
   }
 
-  // 주석: 정확한 알람 권한 확인 및 요청 함수
+  // 정확한 알람 권한 확인 및 요청 함수
   Future<void> _checkAndRequestExactAlarmPermission() async {
     if (await Permission.scheduleExactAlarm.isDenied) {
       if (await Permission.scheduleExactAlarm.request().isGranted) {
@@ -69,7 +68,7 @@ class _AlarmSettingPageState extends State<AlarmSettingPage> {
     }
   }
 
-  // 주석: 배터리 최적화 예외 요청 함수
+  // 배터리 최적화 예외 요청 함수
   Future<void> _requestBatteryOptimizationExemption() async {
     if (await Permission.ignoreBatteryOptimizations.isDenied) {
       await Permission.ignoreBatteryOptimizations.request();
@@ -158,36 +157,24 @@ class _AlarmSettingPageState extends State<AlarmSettingPage> {
   Future<void> _saveAlarmSettings() async {
     final user = supabase.auth.currentUser;
     if (user?.id != null) {
-      final memberResponse = await supabase
-          .from('member')
-          .select('member_code')
-          .eq('member_id', user?.id as Object)
-          .single();
+      // 알람 시간도 UTC 시간으로 변환하여 저장
+      final localTime = DateTime(1970, 1, 1, selectedTime.hour, selectedTime.minute);
+      final utcTime = localTime.toUtc();
 
-      if (memberResponse != null) {
-        final memberCode = memberResponse['member_code'];
+      final response = await supabase.from('member').update({
+        'alarm_enabled': isAlarmEnabled,
+        'alarm_time': isAlarmEnabled
+            ? '${utcTime.hour.toString().padLeft(2, '0')}:${utcTime.minute.toString().padLeft(2, '0')}:00'
+            : null,
+      }).eq('member_id', user?.id as Object);
 
-        // 알람 시간도 UTC 시간으로 변환하여 저장
-        final localTime = DateTime(1970, 1, 1, selectedTime.hour, selectedTime.minute);
-        final utcTime = localTime.toUtc();
+      print("Alarm settings saved (UTC time): $response");
 
-        final response = await supabase.from('member').update({
-          'alarm_enabled': isAlarmEnabled,
-          'alarm_time': isAlarmEnabled
-              ? '${utcTime.hour.toString().padLeft(2, '0')}:${utcTime.minute.toString().padLeft(2, '0')}:00'
-              : null,
-        }).eq('member_code', memberCode);
-
-        print("Alarm settings saved (UTC time): $response");
-
-        if (isAlarmEnabled) {
-          await _scheduleDailyNotification(selectedTime);
-        } else {
-          await flutterLocalNotificationsPlugin.cancelAll();
-          print('All notifications canceled.');
-        }
+      if (isAlarmEnabled) {
+        await _scheduleDailyNotification(selectedTime);
       } else {
-        print('Failed to load member information.');
+        await flutterLocalNotificationsPlugin.cancelAll();
+        print('All notifications canceled.');
       }
     } else {
       print('No user logged in.');
