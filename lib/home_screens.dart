@@ -4,6 +4,8 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'login_screens.dart';
 import 'create_diary_screens.dart'; // CreateDiaryPage를 import합니다.
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class HomePage extends StatefulWidget {
   final String userId;
@@ -25,6 +27,41 @@ class _HomePageState extends State<HomePage> {
     _selectedDay = DateTime.now();
     _focusedDay = DateTime.now();
   }
+
+
+Future<void> _fetchDiaryContent(DateTime selectedDay) async {
+  final response = await http.post(
+    Uri.parse('http://192.168.0.45:8080/api/diary/selectdetail'),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: jsonEncode({
+      'date': selectedDay.toIso8601String().split('T').first,
+      'memberId': widget.userId,
+    }),
+  );
+
+  if (response.statusCode == 200) {
+    final data = jsonDecode(response.body);
+
+    if (data != null && data['diaryContents'] != null) {
+      setState(() {
+        _diaryEntries.clear();
+        _diaryEntries.add({
+          'date': selectedDay.toIso8601String().split('T').first, // 날짜 형식 정리
+          'summary': data['diaryContents'] ?? '내용 없음',
+        });
+      });
+    } else {
+      print('Error: No diary content found.');
+    }
+  } else {
+    print('Error fetching diary content: ${response.reasonPhrase}');
+  }
+}
+
+
+
 
   Future<void> _signOut() async {
     await Supabase.instance.client.auth.signOut();
@@ -127,6 +164,7 @@ class _HomePageState extends State<HomePage> {
                   _selectedDay = selectedDay;
                   _focusedDay = focusedDay;
                 });
+                _fetchDiaryContent(selectedDay); // 선택된 날짜의 일기 내용 가져오기
               },
             ),
           ),

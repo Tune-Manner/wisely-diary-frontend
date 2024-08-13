@@ -50,17 +50,17 @@ class _LoginPageState extends State<LoginPage> {
         accessToken: token.accessToken,
       );
 
-      final user = response.user;
-      if (user != null) {
-        _navigateToHomePage(user.id);
+      final member = response.user;
+      if (member != null) {
+        _navigateToHomePage(member.id);
       }
     } catch (e) {
       print('Error during Kakao sign in: $e');
     }
   }
 
-  void _navigateToHomePage(String userId) {
-    Navigator.of(context).pushReplacementNamed('/home', arguments: userId);
+  void _navigateToHomePage(String memberId) {
+    Navigator.of(context).pushReplacementNamed('/home', arguments: memberId);
   }
 
   @override
@@ -97,16 +97,6 @@ class _LoginPageState extends State<LoginPage> {
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.black,
                   backgroundColor: Color(0xFFFFE812),
-                  minimumSize: Size(300, 50),
-                ),
-              ),
-              SizedBox(height: 20),
-              ElevatedButton(
-                child: Text('Pass'),
-                onPressed: () => _navigateToHomePage('Guest'),
-                style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.black,
-                  backgroundColor: Colors.white,
                   minimumSize: Size(300, 50),
                 ),
               ),
