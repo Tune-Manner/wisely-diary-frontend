@@ -205,7 +205,7 @@ class _HomePageState extends State<HomePage> {
       setState(() {
         _userId = data.session?.user.id;
       });
-      print('User ID: $_userId'); // 로그 추가
+      print('User ID: $_userId');
     });
   }
 
