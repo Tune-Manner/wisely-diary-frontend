@@ -113,6 +113,7 @@ class _AlarmSettingPageState extends State<AlarmSettingPage> {
       rescheduleOnReboot: true,
       startAt: scheduledDate,
       allowWhileIdle: true,
+
     );
 
     print('Daily alarm scheduled: $success for ${scheduledDate.toIso8601String()}');
