@@ -271,6 +271,7 @@ class _HomePageState extends State<HomePage> {
 
       print('User data saved to database: $response');
 
+
       // FCM 토큰 저장 추가
       await _getFCMTokenAndSave(user.id);
     }
