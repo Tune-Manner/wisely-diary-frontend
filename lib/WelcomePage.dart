@@ -175,7 +175,7 @@ class _WelcomePageState extends State<WelcomePage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => DiaryNoImgPage(memberCode: memberCode!, selectedDate: DateTime.now()),
+                    builder: (context) => DiaryNoImgPage(selectedDate: DateTime.now()),
                   ),
                 );
               } else {

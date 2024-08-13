@@ -133,12 +133,10 @@ class _AlarmSettingPageState extends State<AlarmSettingPage> {
         setState(() {
           isAlarmEnabled = response['alarm_enabled'] ?? false;
           if (response['alarm_time'] != null) {
-            // UTC 시간을 로컬 시간으로 변환
-            final now = DateTime.now();
-            final utcTime = DateTime.utc(now.year, now.month, now.day)
-                .add(Duration(hours: int.parse(response['alarm_time'].split(':')[0]),
-                minutes: int.parse(response['alarm_time'].split(':')[1])));
+            // 데이터베이스에서 불러온 시간을 UTC로 간주하고 로컬 시간으로 변환
+            final utcTime = DateTime.parse('1970-01-01 ${response['alarm_time']}Z');
             final localTime = utcTime.toLocal();
+
             selectedTime = TimeOfDay(hour: localTime.hour, minute: localTime.minute);
 
             print('UTC time from DB: ${response['alarm_time']}');
