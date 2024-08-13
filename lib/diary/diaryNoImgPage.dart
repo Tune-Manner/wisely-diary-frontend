@@ -69,6 +69,7 @@ class _DiaryNoImgPageState extends State<DiaryNoImgPage> {
         }),
       );
 
+
       if (response.statusCode == 200) {
         final jsonResponse = jsonDecode(response.body);
 
