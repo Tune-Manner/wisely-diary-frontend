@@ -1,0 +1,53 @@
+# Flutter/Dart specific
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+build/
+
+# iOS specific
+ios/
+ios/Flutter/Flutter.framework
+ios/Flutter/Flutter.podspec
+ios/ServiceDefinitions.json
+ios/Runner/GeneratedPluginRegistrant.*
+ios/Pods/
+ios/.symlinks/
+ios/.flutter-plugins-dependencies
+
+# IntelliJ IDEA
+*.iml
+**/.idea/
+*.ipr
+*.iws
+
+# Visual Studio Code
+.vscode/
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# Android specific
+.gradle/
+local.properties
+gradle-wrapper.jar
+gradlew
+gradlew.bat
+GeneratedPluginRegistrant.java
+key.properties
+**/*.keystore
+**/*.jks
+
+# Default ignored files
+/shelf/
+/.idea/workspace.xml
+
+# Editor-based HTTP Client requests
+/httpRequests/
+
+/dataSources/
+/dataSources.local.xml
