@@ -64,7 +64,7 @@ flutter_*.png
 linked_*.ds
 unlinked.ds
 unlinked_spec.ds
-build/app/intermediates/assets/debug/flutter_assets/kernel_blob.bin
+build/app/intermediates/
 
 # Android related
 **/android/**/gradle-wrapper.jar
