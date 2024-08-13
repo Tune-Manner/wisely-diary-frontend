@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:wisely_diary/music/MusicPlayerPage.dart';
 import 'calendar/calendar.dart';
 import 'cartoon/CartoonCreationPage.dart';
 import 'main.dart';
@@ -140,6 +141,19 @@ class _WelcomePageState extends State<WelcomePage> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => CalendarPage(), // CalendarPage 위젯으로 이동
+                    ),
+                  );
+                },
+              ),
+              SizedBox(width: 10),
+              ElevatedButton.icon(
+                icon: Icon(Icons.music_note),
+                label: Text('음악 조회'),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => MusicPlayerPage(musicCode: 36),
                     ),
                   );
                 },

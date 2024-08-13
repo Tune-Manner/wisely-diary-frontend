@@ -70,12 +70,10 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> _saveUserToDatabase(gotrue.User user) async {
     final userData = {
-      'member_code': int.parse(user.id.hashCode.toString()),
       'member_email': user.email,
       'join_at': DateTime.now().toIso8601String(),
       'member_name': user.userMetadata?['full_name'],
       'member_status': 'active',
-      'password': 'password',
       'member_id':user.id
     };
 
@@ -88,12 +86,10 @@ class _HomePageState extends State<HomePage> {
   Future<void> _saveKakaoUserToDatabase(gotrue.User user,
       String memberName) async {
     final userData = {
-      'member_code': int.parse(user.id.hashCode.toString()),
       'member_email': user.email,
       'join_at': DateTime.now().toIso8601String(),
       'member_name': memberName,
       'member_status': 'active',
-      'password': 'password',
       'member_id':user.id
     };
 
@@ -126,9 +122,9 @@ class _HomePageState extends State<HomePage> {
               Text(
                 '일기로운 슬기생활',
                 style: TextStyle(
-                  fontFamily: 'HSSaemaul',
-                  fontSize: 50.0,
-                  height: 0.01
+                    fontFamily: 'HSSaemaul',
+                    fontSize: 50.0,
+                    height: 0.01
                 ),
               ),
               SizedBox(height: 70.0), // 텍스트와 구분선 사이의 간격 조정
@@ -159,7 +155,7 @@ class _HomePageState extends State<HomePage> {
                   fit: BoxFit.contain,
                 ),
                 label: Text(
-                    'Google로 시작하기',
+                  'Google로 시작하기',
                   // style: TextStyle(
                   //     fontFamily: 'HSSaemaul',
                   //     fontSize: 25.0,
