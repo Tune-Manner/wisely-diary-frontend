@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'login_screens.dart';
+import 'package:wisely_diary/main.dart';
 import 'create_diary_screens.dart'; // CreateDiaryPage를 import합니다.
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -69,7 +69,7 @@ Future<void> _fetchDiaryContent(DateTime selectedDay) async {
     await googleSignIn.signOut();
 
     Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (context) => LoginPage()),
+      MaterialPageRoute(builder: (context) => MainApp()),
     );
   }
 
