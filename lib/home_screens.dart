@@ -7,16 +7,16 @@ import 'create_diary_screens.dart'; // CreateDiaryPage를 import합니다.
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-class HomePage extends StatefulWidget {
+class HomeScreens extends StatefulWidget {
   final String userId;
 
-  HomePage({required this.userId});
+  HomeScreens({required this.userId});
 
   @override
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomeScreens> {
   late DateTime _selectedDay;
   late DateTime _focusedDay;
   final List<Map<String, String>> _diaryEntries = [];
@@ -83,6 +83,8 @@ Future<void> _fetchDiaryContent(DateTime selectedDay) async {
 
   @override
   Widget build(BuildContext context) {
+    print('Navigated to HomePage with memberId: ${widget.userId}');
+    
     List<Map<String, String>> filteredEntries = _diaryEntries.where((entry) {
       DateTime entryDate =
           DateTime.parse(entry['date']!.split(' ')[0].replaceAll('.', '-'));
