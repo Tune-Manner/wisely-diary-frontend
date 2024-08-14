@@ -8,6 +8,7 @@ import 'package:gotrue/src/types/user.dart' as gotrue;
 import 'WelcomePage.dart';
 import 'kakao/kakao_login.dart';
 import 'kakao/main_view_model.dart';
+import 'member_information.dart';
 import 'test_page.dart';
 
 void main() async {
@@ -68,20 +69,38 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Future<void> _saveUserToDatabase(gotrue.User user) async {
+
+  Future<bool> _isNewUser(String userId) async {
+    try {
+      final response = await supabase
+          .from('member')
+          .select()
+          .eq('member_id', userId)
+          .single();
+      return false; // 사용자가 이미 존재함
+    } catch (e) {
+      print('Error checking user existence: $e');
+      return true; // 사용자가 존재하지 않음 (새 사용자)
+    }
+  }
+
+  Future<void> _saveUserToDatabase(gotrue.User user, String? memberName) async {
     final userData = {
       'member_email': user.email,
       'join_at': DateTime.now().toIso8601String(),
-      'member_name': user.userMetadata?['full_name'],
+      'member_name': memberName ?? user.userMetadata?['full_name'],
       'member_status': 'active',
-      'member_id':user.id
+      'member_id': user.id
     };
 
-    final response = await supabase
-        .from('member')
-        .upsert(userData)
-        .maybeSingle();
+    try {
+      await supabase.from('member').upsert(userData);
+      print('User data saved to database');
+    } catch (e) {
+      print('Error saving user data to database: $e');
+    }
   }
+
 
   Future<void> _saveKakaoUserToDatabase(gotrue.User user,
       String memberName) async {
@@ -103,6 +122,40 @@ class _HomePageState extends State<HomePage> {
       data: {'full_name': memberName},
     ));
   }
+
+
+  Future<void> _handleUserAfterLogin(gotrue.User user, BuildContext context, String? memberName) async {
+    try {
+      bool isNewUser = await _isNewUser(user.id);
+
+      if (isNewUser) {
+        // 새 사용자: 데이터베이스에 저장 후 MemberInformationPage로 이동
+        await _saveUserToDatabase(user, memberName);
+        print('New user detected. Redirecting to MemberInformationPage.');
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => MemberInformationPage(),
+          ),
+        );
+      } else {
+        // 기존 사용자: WelcomePage로 이동
+        print('Existing user detected. Redirecting to WelcomePage.');
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => WelcomePage(userId: memberName ?? user.email),
+          ),
+        );
+      }
+    } catch (e) {
+      print('Error in _handleUserAfterLogin: $e');
+      // 에러 처리 (예: 사용자에게 알림)
+    }
+  }
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -171,43 +224,37 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 onPressed: () async {
-                  const webClientId =
-                      '250529177786-ufcdttr2mssq4tleorq6d6r44eh24k71.apps.googleusercontent.com';
-                  const iosClientId =
-                      '250529177786-j7sdpq73vmd9cqtlcc6fq02rl1oscqe7.apps.googleusercontent.com';
+                  try {
+                    const webClientId = '250529177786-ufcdttr2mssq4tleorq6d6r44eh24k71.apps.googleusercontent.com';
+                    const iosClientId = '250529177786-j7sdpq73vmd9cqtlcc6fq02rl1oscqe7.apps.googleusercontent.com';
 
-                  final GoogleSignIn googleSignIn = GoogleSignIn(
-                    clientId: iosClientId,
-                    serverClientId: webClientId,
-                  );
-                  final googleUser = await googleSignIn.signIn();
-                  final googleAuth = await googleUser!.authentication;
-                  final accessToken = googleAuth.accessToken;
-                  final idToken = googleAuth.idToken;
+                    final GoogleSignIn googleSignIn = GoogleSignIn(
+                      clientId: iosClientId,
+                      serverClientId: webClientId,
+                    );
+                    final googleUser = await googleSignIn.signIn();
+                    final googleAuth = await googleUser!.authentication;
+                    final accessToken = googleAuth.accessToken;
+                    final idToken = googleAuth.idToken;
 
-                  if (accessToken == null) {
-                    throw 'No Access Token found.';
+                    if (accessToken == null || idToken == null) {
+                      throw 'No Access Token or ID Token found.';
+                    }
+
+
+                    final response = await supabase.auth.signInWithIdToken(
+                      provider: OAuthProvider.google,
+                      idToken: idToken,
+                      accessToken: accessToken,
+                    );
+
+                    final user = response.user;
+                    if (user != null) {
+                      await _handleUserAfterLogin(user, context, googleUser.displayName);
+                    }
+                  } catch (e) {
+                    print('Error during Google login: $e');
                   }
-                  if (idToken == null) {
-                    throw 'No ID Token found.';
-                  }
-
-                  final response = await supabase.auth.signInWithIdToken(
-                    provider: OAuthProvider.google,
-                    idToken: idToken,
-                    accessToken: accessToken,
-                  );
-
-                  final user = response.user;
-                  await _saveUserToDatabase(user!);
-
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          WelcomePage(userId: googleUser.displayName),
-                    ),
-                  );
                 },
               ),
               SizedBox(height: 16.0),
@@ -231,9 +278,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 onPressed: () async {
                   try {
-                    // 카카오 로그인
-                    OAuthToken kakaoToken = await UserApi.instance
-                        .loginWithKakaoAccount();
+                    OAuthToken kakaoToken = await UserApi.instance.loginWithKakaoAccount();
                     final accessToken = kakaoToken.accessToken;
                     final idToken = kakaoToken.idToken;
 
@@ -241,31 +286,19 @@ class _HomePageState extends State<HomePage> {
                       throw 'No Access Token or ID Token found.';
                     }
 
-                    // 카카오 사용자 정보 가져오기
                     final kakaoUser = await UserApi.instance.me();
-                    final memberName = kakaoUser.kakaoAccount?.profile
-                        ?.nickname ??
-                        'Unknown';
+                    final memberName = kakaoUser.kakaoAccount?.profile?.nickname ?? 'Unknown';
 
-                    // Supabase auth에 사용자 등록
                     final response = await supabase.auth.signInWithIdToken(
                       provider: OAuthProvider.kakao,
                       idToken: idToken,
                       accessToken: accessToken,
                     );
 
-                    // 사용자 정보를 데이터베이스에 저장
                     final user = response.user;
-                    await _saveKakaoUserToDatabase(user!, memberName);
-
-                    // WelcomePage로 이동하여 닉네임을 전달
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            WelcomePage(userId: memberName),
-                      ),
-                    );
+                    if (user != null) {
+                      await _handleUserAfterLogin(user, context, memberName);
+                    }
                   } catch (e) {
                     print('Error during Kakao login: $e');
                   }
