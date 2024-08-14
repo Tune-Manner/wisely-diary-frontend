@@ -19,6 +19,7 @@ void main() async {
   kakao.KakaoSdk.init(nativeAppKey: '2eb8687682cf67f94363bcca7b3125a4');
 
   runApp(MainApp());
+
 }
 
 final supabase = Supabase.instance.client;
