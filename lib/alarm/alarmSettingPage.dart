@@ -13,6 +13,8 @@ void showNotification() async {
   print("Alarm triggered at ${DateTime.now()}");
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
+
+
   const androidPlatformChannelSpecifics = AndroidNotificationDetails(
     'daily_alarm_channel',
     'Daily Alarm Notifications',

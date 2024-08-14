@@ -46,6 +46,8 @@ class _DiaryNoImgPageState extends State<DiaryNoImgPage> {
     }
   }
 
+
+
   Future<void> _loadDiarySummary() async {
     if (memberId == null) {
       print('Member ID is null');
