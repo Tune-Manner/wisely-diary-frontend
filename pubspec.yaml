@@ -36,17 +36,22 @@ dependencies:
   provider: ^6.0.0
   google_sign_in: ^6.2.1
   kakao_flutter_sdk_user: ^1.9.5
-  table_calendar: ^3.0.0
+  table_calendar: ^3.0.9
+  http: ^1.1.0
+  path_provider: ^2.0.15
+  path: ^1.8.3
+  flutter_dotenv: ^5.0.2
+  just_audio: ^0.9.34
   speech_to_text: ^6.6.0
   permission_handler: ^11.0.1
-  path_provider: ^2.0.11
-  http: ^1.2.1
   http_parser: ^4.0.0
   image_picker: ^0.8.4+3
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.6
   record: ^5.1.2
+  # The following adds the Cupertino Icons font to your application.
+  # Use with the CupertinoIcons class for iOS style icons.
+
+
 
 dev_dependencies:
   flutter_test:
@@ -64,6 +69,10 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
+  fonts:
+    - family: HSSaemaul
+      fonts:
+        - asset: assets/fonts/HSSaemaul-Regular.woff
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
@@ -73,6 +82,26 @@ flutter:
     - assets/google_logo.png
     - assets/kakao_logo.png
     - assets/wisely-diary-logo.png
+    - assets/emotions/sad.png
+    - assets/emotions/anger.png
+    - assets/emotions/embarrassed.png
+    - assets/emotions/greatful.png
+    - assets/emotions/injustice.png
+    - assets/emotions/joy.png
+    - assets/emotions/lovely.png
+    - assets/emotions/proud.png
+    - assets/emotions/relax.png
+    - assets/emotions/worried.png
+    - assets/audio/anger_bgm.mp3
+    - assets/audio/embarrassed_bgm.mp3
+    - assets/audio/greatful_bgm.mp3
+    - assets/audio/injustice_bgm.mp3
+    - assets/audio/joy_bgm.mp3
+    - assets/audio/lovely_bgm.mp3
+    - assets/audio/proud_bgm.mp3
+    - assets/audio/relax_bgm.mp3
+    - assets/audio/sad_bgm.mp3
+    - assets/audio/worried_bgm.mp3
     - assets/감사.png
     - assets/걱정.png
     - assets/당황.png
@@ -83,11 +112,13 @@ flutter:
     - assets/신나.png
     - assets/억울.png
     - assets/편안.png
+    - assets/text_image.png
     - assets/mic_img.png
     - assets/text_img.png
     - assets/stop_img.png
     - assets/File plus.png
   
+
 
   # To add assets to your application, add an assets section, like this:
   # assets:
