@@ -36,30 +36,22 @@ dependencies:
   provider: ^6.0.0
   google_sign_in: ^6.2.1
   kakao_flutter_sdk_user: ^1.9.5
-<<<<<<< HEAD
   table_calendar: ^3.0.9
   http: ^1.1.0
   path_provider: ^2.0.15
   path: ^1.8.3
   flutter_dotenv: ^5.0.2
   just_audio: ^0.9.34
-
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.6
-=======
-  table_calendar: ^3.0.0
   speech_to_text: ^6.6.0
   permission_handler: ^11.0.1
-  path_provider: ^2.0.11
-  http: ^1.2.1
   http_parser: ^4.0.0
   image_picker: ^0.8.4+3
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.6
   record: ^5.1.2
->>>>>>> origin/feature/frontDevPage
+  # The following adds the Cupertino Icons font to your application.
+  # Use with the CupertinoIcons class for iOS style icons.
+
+
 
 dev_dependencies:
   flutter_test:
@@ -77,14 +69,11 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
-<<<<<<< HEAD
   fonts:
     - family: HSSaemaul
       fonts:
         - asset: assets/fonts/HSSaemaul-Regular.woff
-=======
 
->>>>>>> origin/feature/frontDevPage
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
@@ -93,7 +82,6 @@ flutter:
     - assets/google_logo.png
     - assets/kakao_logo.png
     - assets/wisely-diary-logo.png
-<<<<<<< HEAD
     - assets/emotions/sad.png
     - assets/emotions/anger.png
     - assets/emotions/embarrassed.png
@@ -114,7 +102,6 @@ flutter:
     - assets/audio/relax_bgm.mp3
     - assets/audio/sad_bgm.mp3
     - assets/audio/worried_bgm.mp3
-=======
     - assets/감사.png
     - assets/걱정.png
     - assets/당황.png
@@ -131,7 +118,7 @@ flutter:
     - assets/stop_img.png
     - assets/File plus.png
   
->>>>>>> origin/feature/frontDevPage
+
 
   # To add assets to your application, add an assets section, like this:
   # assets:

@@ -16,7 +16,7 @@ class _TestPageState extends State<TestPage> {
       if (user == null) {
         // 사용자가 로그인하지 않은 경우, 메인 페이지로 리다이렉트
         Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => MainApp()),
+          MaterialPageRoute(builder: (context) => MyApp()),
         );
       }
     });

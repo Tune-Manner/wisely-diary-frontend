@@ -80,7 +80,7 @@ class _MemberDeactivatePageState extends State<MemberDeactivatePage> {
         // 탈퇴 후 메인 페이지로 이동
         Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (context) => MainApp()),
+          MaterialPageRoute(builder: (context) => MyApp()),
               (Route<dynamic> route) => false,
         );
       } catch (e, stackTrace) {

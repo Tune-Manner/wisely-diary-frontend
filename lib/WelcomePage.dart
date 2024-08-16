@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -27,7 +26,7 @@ class _WelcomePageState extends State<WelcomePage> {
       if (user == null) {
         // 사용자가 로그인하지 않은 경우, 메인 페이지로 리다이렉트
         Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => MainApp()),
+          MaterialPageRoute(builder: (context) => MyApp()),
         );
       }
     });
@@ -81,17 +80,7 @@ class _WelcomePageState extends State<WelcomePage> {
       }
     }
   }
-=======
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
-import 'main.dart';
-class WelcomePage extends StatelessWidget {
-  final String? userId;
 
-  const WelcomePage({super.key, required this.userId});
->>>>>>> origin/feature/frontDevPage
 
   Future<void> _signOut(BuildContext context) async {
     await Supabase.instance.client.auth.signOut();
@@ -100,7 +89,7 @@ class WelcomePage extends StatelessWidget {
 
     Navigator.pushAndRemoveUntil(
       context,
-      MaterialPageRoute(builder: (context) => MainApp()),
+      MaterialPageRoute(builder: (context) => MyApp()),
           (Route<dynamic> route) => false,
     );
   }
@@ -117,7 +106,6 @@ class WelcomePage extends StatelessWidget {
           ),
         ],
       ),
-<<<<<<< HEAD
       body: Column(
         children: [
           Padding(
@@ -205,11 +193,4 @@ class WelcomePage extends StatelessWidget {
     );
   }
 }
-=======
-      body: Center(
-        child: Text('${userId ?? 'Guest'}님 환영합니다!'),
-      ),
-    );
-  }
-}
->>>>>>> origin/feature/frontDevPage
+

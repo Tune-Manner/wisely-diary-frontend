@@ -4,511 +4,87 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-<<<<<<< HEAD
-    <list default="true" id="056ff6d4-db61-4bdc-bb3d-9270c1effb9f" name="Changes" comment="bug : github issue">
-      <change beforePath="$PROJECT_DIR$/.gitattributes" beforeDir="false" afterPath="$PROJECT_DIR$/.gitattributes" afterDir="false" />
+    <list default="true" id="d2773721-e3b6-4af9-aded-b54c8bd8b9af" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/lib/add_photo_screens.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/diary_summary_screens.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dart_tool/dartpad/web_plugin_registrant.dart" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/dartpad/web_plugin_registrant.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dart_tool/flutter_build/dart_plugin_registrant.dart" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/flutter_build/dart_plugin_registrant.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dart_tool/package_config.json" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dart_tool/package_config_subset" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config_subset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dart_tool/version" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/version" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.flutter-plugins" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/frontend.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/frontend.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Merge_at_2024-07-24__5_49__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Merge_at_2024-07-24_오후_5_49_[Changes]/shelved.patch" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/WelcomePage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/WelcomePage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/member_deactivate.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/member_deactivate.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/test_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/test_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/linux/flutter/generated_plugin_registrant.cc" beforeDir="false" afterPath="$PROJECT_DIR$/linux/flutter/generated_plugin_registrant.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/linux/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/linux/flutter/generated_plugins.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/macos/Flutter/GeneratedPluginRegistrant.swift" beforeDir="false" afterPath="$PROJECT_DIR$/macos/Flutter/GeneratedPluginRegistrant.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/widget_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/widget_test.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/flutter/generated_plugin_registrant.cc" beforeDir="false" afterPath="$PROJECT_DIR$/windows/flutter/generated_plugin_registrant.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/windows/flutter/generated_plugins.cmake" afterDir="false" />
     </list>
-=======
-    <list default="true" id="056ff6d4-db61-4bdc-bb3d-9270c1effb9f" name="Changes" comment="feat: design button UI" />
->>>>>>> origin/feature/frontDevPage
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExternalProjectsData">
-    <projectState path="$PROJECT_DIR$">
-      <ProjectState />
-    </projectState>
-  </component>
-  <component name="ExternalProjectsManager">
-    <system id="GRADLE">
-      <state>
-        <task path="$PROJECT_DIR$">
-          <activation />
-        </task>
-        <projects_view>
-          <tree_state>
-            <expand>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="frontend" type="f1a62948:ProjectNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="frontend" type="f1a62948:ProjectNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-              </path>
-            </expand>
-            <select />
-          </tree_state>
-        </projects_view>
-      </state>
-    </system>
-  </component>
   <component name="Git.Settings">
-    <option name="RECENT_BRANCH_BY_REPOSITORY">
-      <map>
-        <entry key="$PROJECT_DIR$/.." value="main" />
-<<<<<<< HEAD
-        <entry key="$PROJECT_DIR$" value="feature/bgm-19-controller-ver2" />
-=======
-        <entry key="$PROJECT_DIR$" value="main" />
->>>>>>> origin/feature/frontDevPage
-      </map>
-    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProblemsViewState">
-<<<<<<< HEAD
-    <option name="selectedTabId" value="ProjectErrors" />
-=======
-    <option name="selectedTabId" value="CurrentFile" />
->>>>>>> origin/feature/frontDevPage
-  </component>
-  <component name="ProjectId" id="2jfnA4KxUZoGM0jiK4lZi4nkUDX" />
-  <component name="ProjectLevelVcsManager">
-    <ConfirmationsSetting value="2" id="Add" />
-  </component>
-  <component name="ProjectReloadState">
-    <option name="STATE" value="1" />
-  </component>
+  <component name="ProjectId" id="2kibJrBHkhWBQKKC1NTBLcvBO3F" />
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
-<<<<<<< HEAD
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;io.flutter.reload.alreadyRun&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/00_ILGI/frontend/assets/audio&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;SDKs&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.17&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
-  },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;mysql&quot;
-    ]
-  }
-}</component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\00_ILGI\frontend\assets\audio" />
-      <recent name="C:\00_ILGI\frontend\assets\emotions" />
-=======
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
     "dart.analysis.tool.window.visible": "false",
-    "ignore.virus.scanning.warn.message": "true",
     "io.flutter.reload.alreadyRun": "true",
-    "last_opened_file_path": "C:/00_ILGI/code/frontend/assets",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "SDKs",
-    "project.structure.proportion": "0.17",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "dart.settings",
     "show.migrate.to.gradle.popup": "false",
     "vue.rearranger.settings.migration": "true"
-  },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql"
-    ]
   }
 }]]></component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
->>>>>>> origin/feature/frontDevPage
-      <recent name="C:\00_ILGI\code\frontend\assets" />
-      <recent name="C:\00_ILGI\code\frontend\lib\kakao" />
-      <recent name="C:\00_ILGI\code\wisely-diary\frontend" />
-    </key>
-<<<<<<< HEAD
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\00_ILGI\frontend\assets" />
-    </key>
-=======
->>>>>>> origin/feature/frontDevPage
-  </component>
-  <component name="RunManager" selected="Flutter.main.dart">
-    <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter">
+  <component name="RunManager">
+    <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter" nameIsGenerated="true">
       <option name="filePath" value="$PROJECT_DIR$/lib/main.dart" />
       <method v="2" />
     </configuration>
-    <configuration name="all tests in frontend" type="FlutterTestConfigType" factoryName="Flutter Test" nameIsGenerated="true">
-      <option name="testDir" value="$PROJECT_DIR$" />
-      <option name="useRegexp" value="false" />
-      <option name="additionalArgs" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="frontend [dependencies]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="dependencies" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <ForceTestExec>false</ForceTestExec>
-      <method v="2" />
-    </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Gradle.frontend [dependencies]" />
-<<<<<<< HEAD
-        <item itemvalue="Gradle.frontend [dependencies]" />
-        <item itemvalue="Gradle.frontend [dependencies]" />
-        <item itemvalue="Gradle.frontend [dependencies]" />
-=======
->>>>>>> origin/feature/frontDevPage
-      </list>
-    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="056ff6d4-db61-4bdc-bb3d-9270c1effb9f" name="Changes" comment="" />
-      <created>1721786862135</created>
+      <changelist id="d2773721-e3b6-4af9-aded-b54c8bd8b9af" name="Changes" comment="" />
+      <created>1723769275823</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1721786862135</updated>
-      <workItem from="1721786863117" duration="1899000" />
-      <workItem from="1721789039873" duration="2000" />
-      <workItem from="1721789046406" duration="1388000" />
-      <workItem from="1721790494864" duration="1802000" />
-      <workItem from="1721800104134" duration="573000" />
-      <workItem from="1721800708912" duration="15000" />
-      <workItem from="1721800755399" duration="1000" />
-      <workItem from="1721800760287" duration="59000" />
-      <workItem from="1721800828926" duration="1000" />
-      <workItem from="1721800833844" duration="7000" />
-      <workItem from="1721800879740" duration="2000" />
-      <workItem from="1721800885931" duration="65000" />
-      <workItem from="1721801036591" duration="18000" />
-      <workItem from="1721801163531" duration="49000" />
-      <workItem from="1721801250021" duration="595000" />
-      <workItem from="1721801877775" duration="301000" />
-      <workItem from="1721802194939" duration="1207000" />
-      <workItem from="1721803435069" duration="2923000" />
-      <workItem from="1721806416652" duration="10262000" />
-      <workItem from="1721882680639" duration="271000" />
-      <workItem from="1721882968089" duration="24543000" />
-      <workItem from="1721953782640" duration="838000" />
-      <workItem from="1721954643759" duration="1781000" />
-      <workItem from="1721959397399" duration="5342000" />
-      <workItem from="1721965982501" duration="73000" />
-      <workItem from="1721966165484" duration="126000" />
-      <workItem from="1721966308716" duration="707000" />
-      <workItem from="1721967445511" duration="2000" />
-      <workItem from="1721967453382" duration="17265000" />
-      <workItem from="1722034408659" duration="796000" />
-      <workItem from="1722222538847" duration="9690000" />
-      <workItem from="1722233067098" duration="14451000" />
-      <workItem from="1722249323507" duration="1300000" />
-      <workItem from="1722250723076" duration="37000" />
-      <workItem from="1722251160572" duration="3047000" />
-      <workItem from="1722298732544" duration="2106000" />
-      <workItem from="1722385783564" duration="946000" />
-      <workItem from="1722386840671" duration="1331000" />
-      <workItem from="1722389247974" duration="552000" />
-      <workItem from="1722390532363" duration="1108000" />
-      <workItem from="1722391701425" duration="318000" />
-      <workItem from="1722392125130" duration="9751000" />
-      <workItem from="1722403387826" duration="1177000" />
-<<<<<<< HEAD
-      <workItem from="1722404636796" duration="683000" />
-      <workItem from="1723011568870" duration="6886000" />
-      <workItem from="1723086297889" duration="10581000" />
-      <workItem from="1723103719308" duration="205000" />
-      <workItem from="1723103963932" duration="596000" />
-      <workItem from="1723112719588" duration="136000" />
-      <workItem from="1723112904487" duration="3726000" />
-      <workItem from="1723164478541" duration="13046000" />
-      <workItem from="1723255342673" duration="1430000" />
-      <workItem from="1723256948674" duration="10472000" />
-      <workItem from="1723431374864" duration="1336000" />
-      <workItem from="1723432724018" duration="177000" />
-      <workItem from="1723432937813" duration="450000" />
-      <workItem from="1723433400107" duration="157000" />
-      <workItem from="1723433565508" duration="2895000" />
-      <workItem from="1723436489619" duration="153000" />
-      <workItem from="1723436672351" duration="369000" />
-      <workItem from="1723437182552" duration="1501000" />
-      <workItem from="1723511367776" duration="1161000" />
-      <workItem from="1723516865803" duration="10227000" />
-      <workItem from="1723533073229" duration="3783000" />
-      <workItem from="1723536912215" duration="3912000" />
-=======
->>>>>>> origin/feature/frontDevPage
+      <updated>1723769275823</updated>
+      <workItem from="1723769277880" duration="472000" />
+      <workItem from="1723769791517" duration="1648000" />
+      <workItem from="1723771481829" duration="1884000" />
     </task>
-    <task id="LOCAL-00001" summary="feat : login page">
-      <created>1721904537085</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1721904537085</updated>
-    </task>
-    <task id="LOCAL-00002" summary="init commit">
-      <created>1721967538046</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1721967538046</updated>
-    </task>
-    <task id="LOCAL-00003" summary="init commit">
-      <created>1721969097351</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1721969097351</updated>
-    </task>
-    <task id="LOCAL-00004" summary="feat : google login success">
-      <created>1721977289763</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1721977289763</updated>
-    </task>
-    <task id="LOCAL-00005" summary="feat : google login success">
-      <created>1721977323657</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1721977323657</updated>
-    </task>
-    <task id="LOCAL-00006" summary="feat : google logout">
-      <created>1721980356529</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1721980356529</updated>
-    </task>
-    <task id="LOCAL-00007" summary="feat : insert user db">
-      <created>1721984460964</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1721984460964</updated>
-    </task>
-    <task id="LOCAL-00008" summary="refactor : fix annonKey">
-      <created>1722226308089</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1722226308089</updated>
-    </task>
-    <task id="LOCAL-00009" summary="refactor : fix annonKey">
-      <created>1722226345810</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1722226345810</updated>
-    </task>
-    <task id="LOCAL-00010" summary="feat: add KaKao login UI">
-      <created>1722232278904</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1722232278904</updated>
-    </task>
-    <task id="LOCAL-00011" summary="feat: add KaKao login UI">
-      <created>1722232404973</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1722232404973</updated>
-    </task>
-    <task id="LOCAL-00012" summary="feat: add kakao login function">
-      <created>1722402380519</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1722402380519</updated>
-    </task>
-    <task id="LOCAL-00013" summary="feat: design button UI">
-      <created>1722403715032</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1722403715032</updated>
-    </task>
-<<<<<<< HEAD
-    <task id="LOCAL-00014" summary="feat: push before pullrequest">
-      <created>1722404728129</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1722404728129</updated>
-    </task>
-    <task id="LOCAL-00015" summary="feat: push before pullrequest">
-      <created>1722404779152</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1722404779152</updated>
-    </task>
-    <task id="LOCAL-00016" summary="feat: view comics by calendar date and member auth">
-      <created>1723022865059</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1723022865059</updated>
-    </task>
-    <task id="LOCAL-00017" summary="feat: select date and auth and find cartoon">
-      <created>1723172973237</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1723172973240</updated>
-    </task>
-    <task id="LOCAL-00018" summary="chore : fix .gitignore file">
-      <created>1723196250620</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1723196250620</updated>
-    </task>
-    <task id="LOCAL-00019" summary="feat : add member withdrawl function">
-      <created>1723265975945</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1723265975946</updated>
-    </task>
-    <task id="LOCAL-00020" summary="feat : design withdrawl page">
-      <created>1723269308419</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1723269308419</updated>
-    </task>
-    <task id="LOCAL-00021" summary="feat : withdrawrl sad icon">
-      <created>1723272029738</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1723272029738</updated>
-    </task>
-    <task id="LOCAL-00022" summary="feat : redesign member withdrawl button">
-      <created>1723272853988</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1723272853988</updated>
-    </task>
-    <task id="LOCAL-00023" summary="feat : redesign member withdrawl button">
-      <created>1723437946404</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1723437946404</updated>
-    </task>
-    <task id="LOCAL-00024" summary="feat : if choose emotion blay back ground music">
-      <created>1723531009407</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1723531009407</updated>
-    </task>
-    <task id="LOCAL-00025" summary="feat : add emtion icons">
-      <created>1723531508075</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1723531508075</updated>
-    </task>
-    <task id="LOCAL-00026" summary="feat : add bgm page and ui">
-      <created>1723537552536</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
-      <option name="project" value="LOCAL" />
-      <updated>1723537552536</updated>
-    </task>
-    <task id="LOCAL-00027" summary="feat : add bgm page and ui">
-      <created>1723539329331</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
-      <option name="project" value="LOCAL" />
-      <updated>1723539329331</updated>
-    </task>
-    <task id="LOCAL-00028" summary="feat : add bgm page and ui">
-      <created>1723540035102</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
-      <option name="project" value="LOCAL" />
-      <updated>1723540035102</updated>
-    </task>
-    <task id="LOCAL-00029" summary="feat : add bgm page and ui">
-      <created>1723540815977</created>
-      <option name="number" value="00029" />
-      <option name="presentableId" value="LOCAL-00029" />
-      <option name="project" value="LOCAL" />
-      <updated>1723540815977</updated>
-    </task>
-    <task id="LOCAL-00030" summary="feat : add bgm page and ui">
-      <created>1723542591408</created>
-      <option name="number" value="00030" />
-      <option name="presentableId" value="LOCAL-00030" />
-      <option name="project" value="LOCAL" />
-      <updated>1723542591408</updated>
-    </task>
-    <task id="LOCAL-00031" summary="bug : github issue">
-      <created>1723543832703</created>
-      <option name="number" value="00031" />
-      <option name="presentableId" value="LOCAL-00031" />
-      <option name="project" value="LOCAL" />
-      <updated>1723543832703</updated>
-    </task>
-    <task id="LOCAL-00032" summary="bug : github issue">
-      <created>1723547924232</created>
-      <option name="number" value="00032" />
-      <option name="presentableId" value="LOCAL-00032" />
-      <option name="project" value="LOCAL" />
-      <updated>1723547924232</updated>
-    </task>
-    <option name="localTasksCounter" value="33" />
-=======
-    <option name="localTasksCounter" value="14" />
->>>>>>> origin/feature/frontDevPage
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -525,11 +101,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-<<<<<<< HEAD
-                        <option value="feature/bgm-19-controller" />
-=======
-                        <option value="origin/main" />
->>>>>>> origin/feature/frontDevPage
+                        <option value="feature/member-16-information" />
                       </list>
                     </value>
                   </entry>
@@ -540,36 +112,6 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="VcsManagerConfiguration">
-    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="feat : login page" />
-    <MESSAGE value="init commit" />
-    <MESSAGE value="feat : google login success" />
-    <MESSAGE value="feat : google logout" />
-    <MESSAGE value="feat : insert user db" />
-    <MESSAGE value="refactor : fix annonKey" />
-    <MESSAGE value="feat: add KaKao login UI" />
-    <MESSAGE value="feat: add kakao login function" />
-    <MESSAGE value="feat: design button UI" />
-<<<<<<< HEAD
-    <MESSAGE value="feat: push before pullrequest" />
-    <MESSAGE value="feat: view comics by calendar date and member auth" />
-    <MESSAGE value="feat: select date and auth and find cartoon" />
-    <MESSAGE value="chore : fix .gitignore file" />
-    <MESSAGE value="feat : add member withdrawl function" />
-    <MESSAGE value="feat : design withdrawl page" />
-    <MESSAGE value="feat : withdreawrl sad icon" />
-    <MESSAGE value="feat : withdrawrl sad icon" />
-    <MESSAGE value="feat : redesign member withdrawl button" />
-    <MESSAGE value="feat : if choose emotion blay back ground music" />
-    <MESSAGE value="feat : add emtion icons" />
-    <MESSAGE value="feat : add bgm page and ui" />
-    <MESSAGE value="bug : github issue" />
-    <option name="LAST_COMMIT_MESSAGE" value="bug : github issue" />
-=======
-    <option name="LAST_COMMIT_MESSAGE" value="feat: design button UI" />
->>>>>>> origin/feature/frontDevPage
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
