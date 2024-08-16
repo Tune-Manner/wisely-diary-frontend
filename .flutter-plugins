@@ -2,7 +2,10 @@
 app_links=C:\\Users\\eurdr\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\app_links-6.1.4\\
 app_links_linux=C:\\Users\\eurdr\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\app_links_linux-1.0.3\\
 app_links_web=C:\\Users\\eurdr\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\app_links_web-1.0.3\\
+<<<<<<< HEAD
 audio_session=C:\\Users\\eurdr\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\audio_session-0.1.21\\
+=======
+>>>>>>> origin/feature/frontDevPage
 flutter_secure_storage=C:\\Users\\eurdr\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\flutter_secure_storage-9.2.2\\
 flutter_secure_storage_linux=C:\\Users\\eurdr\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\flutter_secure_storage_linux-1.2.1\\
 flutter_secure_storage_macos=C:\\Users\\eurdr\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\flutter_secure_storage_macos-3.1.2\\
@@ -13,8 +16,11 @@ google_sign_in_android=C:\\Users\\eurdr\\AppData\\Local\\Pub\\Cache\\hosted\\pub
 google_sign_in_ios=C:\\Users\\eurdr\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\google_sign_in_ios-5.7.6\\
 google_sign_in_web=C:\\Users\\eurdr\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\google_sign_in_web-0.12.4+1\\
 gtk=C:\\Users\\eurdr\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\gtk-2.1.0\\
+<<<<<<< HEAD
 just_audio=C:\\Users\\eurdr\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\just_audio-0.9.39\\
 just_audio_web=C:\\Users\\eurdr\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\just_audio_web-0.4.11\\
+=======
+>>>>>>> origin/feature/frontDevPage
 kakao_flutter_sdk_common=C:\\Users\\eurdr\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\kakao_flutter_sdk_common-1.9.5\\
 path_provider=C:\\Users\\eurdr\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\path_provider-2.1.3\\
 path_provider_android=C:\\Users\\eurdr\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\path_provider_android-2.2.7\\

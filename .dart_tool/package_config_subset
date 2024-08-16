@@ -1,7 +1,12 @@
 wisely_diary
 3.4
+<<<<<<< HEAD
 file:///C:/00_ILGI/frontend/
 file:///C:/00_ILGI/frontend/lib/
+=======
+file:///C:/00_ILGI/code/frontend/
+file:///C:/00_ILGI/code/frontend/lib/
+>>>>>>> origin/feature/frontDevPage
 app_links
 3.2
 file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/app_links-6.1.4/
@@ -30,10 +35,13 @@ async
 2.18
 file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/async-2.11.0/
 file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/async-2.11.0/lib/
+<<<<<<< HEAD
 audio_session
 2.17
 file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/audio_session-0.1.21/
 file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/audio_session-0.1.21/lib/
+=======
+>>>>>>> origin/feature/frontDevPage
 boolean_selector
 2.17
 file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/boolean_selector-2.1.1/
@@ -86,6 +94,7 @@ file
 3.0
 file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/file-7.0.0/
 file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/file-7.0.0/lib/
+<<<<<<< HEAD
 fixnum
 2.19
 file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/fixnum-1.1.0/
@@ -94,6 +103,8 @@ flutter_dotenv
 2.12
 file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_dotenv-5.1.0/
 file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_dotenv-5.1.0/lib/
+=======
+>>>>>>> origin/feature/frontDevPage
 flutter_lints
 3.1
 file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_lints-4.0.0/
@@ -167,17 +178,26 @@ gtk
 file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/gtk-2.1.0/
 file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/gtk-2.1.0/lib/
 http
+<<<<<<< HEAD
 3.3
 file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/http-1.2.2/
 file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/http-1.2.2/lib/
+=======
+2.19
+file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/http-0.13.6/
+file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/http-0.13.6/lib/
+>>>>>>> origin/feature/frontDevPage
 http_parser
 2.12
 file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/http_parser-4.0.2/
 file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/http_parser-4.0.2/lib/
+<<<<<<< HEAD
 intl
 3.0
 file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/intl-0.19.0/
 file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/intl-0.19.0/lib/
+=======
+>>>>>>> origin/feature/frontDevPage
 js
 2.19
 file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/js-0.6.7/
@@ -186,6 +206,7 @@ json_annotation
 3.0
 file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/json_annotation-4.9.0/
 file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/json_annotation-4.9.0/lib/
+<<<<<<< HEAD
 just_audio
 3.0
 file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/just_audio-0.9.39/
@@ -198,6 +219,8 @@ just_audio_web
 3.2
 file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/just_audio_web-0.4.11/
 file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/just_audio_web-0.4.11/lib/
+=======
+>>>>>>> origin/feature/frontDevPage
 jwt_decode
 2.12
 file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/jwt_decode-0.3.1/
@@ -216,12 +239,21 @@ file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/kakao_flutter_sdk_
 file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/kakao_flutter_sdk_user-1.9.5/lib/
 leak_tracker
 3.2
+<<<<<<< HEAD
 file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/leak_tracker-10.0.5/
 file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/leak_tracker-10.0.5/lib/
 leak_tracker_flutter_testing
 3.2
 file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/leak_tracker_flutter_testing-3.0.5/
 file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/leak_tracker_flutter_testing-3.0.5/lib/
+=======
+file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/leak_tracker-10.0.4/
+file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/leak_tracker-10.0.4/lib/
+leak_tracker_flutter_testing
+3.2
+file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/leak_tracker_flutter_testing-3.0.3/
+file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/leak_tracker_flutter_testing-3.0.3/lib/
+>>>>>>> origin/feature/frontDevPage
 leak_tracker_testing
 3.2
 file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/leak_tracker_testing-3.0.1/
@@ -236,12 +268,21 @@ file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/matcher-0.12.16+1/
 file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/matcher-0.12.16+1/lib/
 material_color_utilities
 2.17
+<<<<<<< HEAD
 file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/material_color_utilities-0.11.1/
 file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/material_color_utilities-0.11.1/lib/
 meta
 2.12
 file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/meta-1.15.0/
 file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/meta-1.15.0/lib/
+=======
+file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/material_color_utilities-0.8.0/
+file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/material_color_utilities-0.8.0/lib/
+meta
+2.12
+file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/meta-1.12.0/
+file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/meta-1.12.0/lib/
+>>>>>>> origin/feature/frontDevPage
 mime
 3.2
 file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/mime-1.0.5/
@@ -338,18 +379,24 @@ shared_preferences_windows
 2.19
 file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/shared_preferences_windows-2.3.2/
 file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/shared_preferences_windows-2.3.2/lib/
+<<<<<<< HEAD
 simple_gesture_detector
 2.12
 file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/simple_gesture_detector-0.2.1/
 file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/simple_gesture_detector-0.2.1/lib/
+=======
+>>>>>>> origin/feature/frontDevPage
 source_span
 2.18
 file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/source_span-1.10.0/
 file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/source_span-1.10.0/lib/
+<<<<<<< HEAD
 sprintf
 2.12
 file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/sprintf-7.0.0/
 file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/sprintf-7.0.0/lib/
+=======
+>>>>>>> origin/feature/frontDevPage
 stack_trace
 2.18
 file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/stack_trace-1.11.1/
@@ -374,18 +421,27 @@ supabase_flutter
 3.0
 file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/supabase_flutter-2.5.9/
 file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/supabase_flutter-2.5.9/lib/
+<<<<<<< HEAD
 table_calendar
 3.0
 file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/table_calendar-3.1.2/
 file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/table_calendar-3.1.2/lib/
+=======
+>>>>>>> origin/feature/frontDevPage
 term_glyph
 2.12
 file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/term_glyph-1.2.1/
 file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/term_glyph-1.2.1/lib/
 test_api
+<<<<<<< HEAD
 3.2
 file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/test_api-0.7.2/
 file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/test_api-0.7.2/lib/
+=======
+3.0
+file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/test_api-0.7.0/
+file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/test_api-0.7.0/lib/
+>>>>>>> origin/feature/frontDevPage
 typed_data
 2.17
 file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/typed_data-1.3.2/
@@ -422,18 +478,26 @@ url_launcher_windows
 3.2
 file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/url_launcher_windows-3.1.2/
 file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/url_launcher_windows-3.1.2/lib/
+<<<<<<< HEAD
 uuid
 3.0
 file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/uuid-4.4.2/
 file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/uuid-4.4.2/lib/
+=======
+>>>>>>> origin/feature/frontDevPage
 vector_math
 2.14
 file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/vector_math-2.1.4/
 file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/vector_math-2.1.4/lib/
 vm_service
 3.3
+<<<<<<< HEAD
 file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/vm_service-14.2.4/
 file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/vm_service-14.2.4/lib/
+=======
+file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/vm_service-14.2.1/
+file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/vm_service-14.2.1/lib/
+>>>>>>> origin/feature/frontDevPage
 web
 3.3
 file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/web-0.5.1/

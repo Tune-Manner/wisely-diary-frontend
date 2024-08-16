@@ -44,12 +44,15 @@
       "languageVersion": "2.18"
     },
     {
+<<<<<<< HEAD
       "name": "audio_session",
       "rootUri": "file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/audio_session-0.1.21",
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
     {
+=======
+>>>>>>> origin/feature/frontDevPage
       "name": "boolean_selector",
       "rootUri": "file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/boolean_selector-2.1.1",
       "packageUri": "lib/",
@@ -128,24 +131,30 @@
       "languageVersion": "3.0"
     },
     {
+<<<<<<< HEAD
       "name": "fixnum",
       "rootUri": "file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/fixnum-1.1.0",
       "packageUri": "lib/",
       "languageVersion": "2.19"
     },
     {
+=======
+>>>>>>> origin/feature/frontDevPage
       "name": "flutter",
       "rootUri": "file:///C:/flutter/packages/flutter",
       "packageUri": "lib/",
       "languageVersion": "3.3"
     },
     {
+<<<<<<< HEAD
       "name": "flutter_dotenv",
       "rootUri": "file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_dotenv-5.1.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
+=======
+>>>>>>> origin/feature/frontDevPage
       "name": "flutter_lints",
       "rootUri": "file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_lints-4.0.0",
       "packageUri": "lib/",
@@ -267,9 +276,15 @@
     },
     {
       "name": "http",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/http-1.2.2",
       "packageUri": "lib/",
       "languageVersion": "3.3"
+=======
+      "rootUri": "file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/http-0.13.6",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
+>>>>>>> origin/feature/frontDevPage
     },
     {
       "name": "http_parser",
@@ -278,12 +293,15 @@
       "languageVersion": "2.12"
     },
     {
+<<<<<<< HEAD
       "name": "intl",
       "rootUri": "file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/intl-0.19.0",
       "packageUri": "lib/",
       "languageVersion": "3.0"
     },
     {
+=======
+>>>>>>> origin/feature/frontDevPage
       "name": "js",
       "rootUri": "file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/js-0.6.7",
       "packageUri": "lib/",
@@ -296,6 +314,7 @@
       "languageVersion": "3.0"
     },
     {
+<<<<<<< HEAD
       "name": "just_audio",
       "rootUri": "file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/just_audio-0.9.39",
       "packageUri": "lib/",
@@ -314,6 +333,8 @@
       "languageVersion": "3.2"
     },
     {
+=======
+>>>>>>> origin/feature/frontDevPage
       "name": "jwt_decode",
       "rootUri": "file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/jwt_decode-0.3.1",
       "packageUri": "lib/",
@@ -339,13 +360,21 @@
     },
     {
       "name": "leak_tracker",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/leak_tracker-10.0.5",
+=======
+      "rootUri": "file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/leak_tracker-10.0.4",
+>>>>>>> origin/feature/frontDevPage
       "packageUri": "lib/",
       "languageVersion": "3.2"
     },
     {
       "name": "leak_tracker_flutter_testing",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/leak_tracker_flutter_testing-3.0.5",
+=======
+      "rootUri": "file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/leak_tracker_flutter_testing-3.0.3",
+>>>>>>> origin/feature/frontDevPage
       "packageUri": "lib/",
       "languageVersion": "3.2"
     },
@@ -369,13 +398,21 @@
     },
     {
       "name": "material_color_utilities",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/material_color_utilities-0.11.1",
+=======
+      "rootUri": "file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/material_color_utilities-0.8.0",
+>>>>>>> origin/feature/frontDevPage
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
     {
       "name": "meta",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/meta-1.15.0",
+=======
+      "rootUri": "file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/meta-1.12.0",
+>>>>>>> origin/feature/frontDevPage
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -524,12 +561,15 @@
       "languageVersion": "2.19"
     },
     {
+<<<<<<< HEAD
       "name": "simple_gesture_detector",
       "rootUri": "file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/simple_gesture_detector-0.2.1",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
+=======
+>>>>>>> origin/feature/frontDevPage
       "name": "sky_engine",
       "rootUri": "file:///C:/flutter/bin/cache/pkg/sky_engine",
       "packageUri": "lib/",
@@ -542,12 +582,15 @@
       "languageVersion": "2.18"
     },
     {
+<<<<<<< HEAD
       "name": "sprintf",
       "rootUri": "file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/sprintf-7.0.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
+=======
+>>>>>>> origin/feature/frontDevPage
       "name": "stack_trace",
       "rootUri": "file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/stack_trace-1.11.1",
       "packageUri": "lib/",
@@ -584,12 +627,15 @@
       "languageVersion": "3.0"
     },
     {
+<<<<<<< HEAD
       "name": "table_calendar",
       "rootUri": "file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/table_calendar-3.1.2",
       "packageUri": "lib/",
       "languageVersion": "3.0"
     },
     {
+=======
+>>>>>>> origin/feature/frontDevPage
       "name": "term_glyph",
       "rootUri": "file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/term_glyph-1.2.1",
       "packageUri": "lib/",
@@ -597,9 +643,15 @@
     },
     {
       "name": "test_api",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/test_api-0.7.2",
       "packageUri": "lib/",
       "languageVersion": "3.2"
+=======
+      "rootUri": "file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/test_api-0.7.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+>>>>>>> origin/feature/frontDevPage
     },
     {
       "name": "typed_data",
@@ -656,12 +708,15 @@
       "languageVersion": "3.2"
     },
     {
+<<<<<<< HEAD
       "name": "uuid",
       "rootUri": "file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/uuid-4.4.2",
       "packageUri": "lib/",
       "languageVersion": "3.0"
     },
     {
+=======
+>>>>>>> origin/feature/frontDevPage
       "name": "vector_math",
       "rootUri": "file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/vector_math-2.1.4",
       "packageUri": "lib/",
@@ -669,7 +724,11 @@
     },
     {
       "name": "vm_service",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/vm_service-14.2.4",
+=======
+      "rootUri": "file:///C:/Users/eurdr/AppData/Local/Pub/Cache/hosted/pub.dev/vm_service-14.2.1",
+>>>>>>> origin/feature/frontDevPage
       "packageUri": "lib/",
       "languageVersion": "3.3"
     },
@@ -710,10 +769,18 @@
       "languageVersion": "3.4"
     }
   ],
+<<<<<<< HEAD
   "generated": "2024-08-13T10:31:01.935237Z",
   "generator": "pub",
   "generatorVersion": "3.5.0",
   "flutterRoot": "file:///C:/flutter",
   "flutterVersion": "3.24.0",
+=======
+  "generated": "2024-07-31T05:22:01.576227Z",
+  "generator": "pub",
+  "generatorVersion": "3.4.4",
+  "flutterRoot": "file:///C:/flutter",
+  "flutterVersion": "3.22.3",
+>>>>>>> origin/feature/frontDevPage
   "pubCache": "file:///C:/Users/eurdr/AppData/Local/Pub/Cache"
 }

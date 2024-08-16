@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -80,6 +81,17 @@ class _WelcomePageState extends State<WelcomePage> {
       }
     }
   }
+=======
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+import 'main.dart';
+class WelcomePage extends StatelessWidget {
+  final String? userId;
+
+  const WelcomePage({super.key, required this.userId});
+>>>>>>> origin/feature/frontDevPage
 
   Future<void> _signOut(BuildContext context) async {
     await Supabase.instance.client.auth.signOut();
@@ -105,6 +117,7 @@ class _WelcomePageState extends State<WelcomePage> {
           ),
         ],
       ),
+<<<<<<< HEAD
       body: Column(
         children: [
           Padding(
@@ -192,3 +205,11 @@ class _WelcomePageState extends State<WelcomePage> {
     );
   }
 }
+=======
+      body: Center(
+        child: Text('${userId ?? 'Guest'}님 환영합니다!'),
+      ),
+    );
+  }
+}
+>>>>>>> origin/feature/frontDevPage

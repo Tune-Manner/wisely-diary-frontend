@@ -4,10 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="056ff6d4-db61-4bdc-bb3d-9270c1effb9f" name="Changes" comment="bug : github issue">
       <change beforePath="$PROJECT_DIR$/.gitattributes" beforeDir="false" afterPath="$PROJECT_DIR$/.gitattributes" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
+=======
+    <list default="true" id="056ff6d4-db61-4bdc-bb3d-9270c1effb9f" name="Changes" comment="feat: design button UI" />
+>>>>>>> origin/feature/frontDevPage
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -47,7 +51,11 @@
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
         <entry key="$PROJECT_DIR$/.." value="main" />
+<<<<<<< HEAD
         <entry key="$PROJECT_DIR$" value="feature/bgm-19-controller-ver2" />
+=======
+        <entry key="$PROJECT_DIR$" value="main" />
+>>>>>>> origin/feature/frontDevPage
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -56,7 +64,11 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProblemsViewState">
+<<<<<<< HEAD
     <option name="selectedTabId" value="ProjectErrors" />
+=======
+    <option name="selectedTabId" value="CurrentFile" />
+>>>>>>> origin/feature/frontDevPage
   </component>
   <component name="ProjectId" id="2jfnA4KxUZoGM0jiK4lZi4nkUDX" />
   <component name="ProjectLevelVcsManager">
@@ -68,6 +80,7 @@
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
+<<<<<<< HEAD
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
@@ -101,13 +114,49 @@
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\00_ILGI\frontend\assets\audio" />
       <recent name="C:\00_ILGI\frontend\assets\emotions" />
+=======
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "dart.analysis.tool.window.visible": "false",
+    "ignore.virus.scanning.warn.message": "true",
+    "io.flutter.reload.alreadyRun": "true",
+    "last_opened_file_path": "C:/00_ILGI/code/frontend/assets",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "SDKs",
+    "project.structure.proportion": "0.17",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "show.migrate.to.gradle.popup": "false",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
+    ]
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+>>>>>>> origin/feature/frontDevPage
       <recent name="C:\00_ILGI\code\frontend\assets" />
       <recent name="C:\00_ILGI\code\frontend\lib\kakao" />
       <recent name="C:\00_ILGI\code\wisely-diary\frontend" />
     </key>
+<<<<<<< HEAD
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\00_ILGI\frontend\assets" />
     </key>
+=======
+>>>>>>> origin/feature/frontDevPage
   </component>
   <component name="RunManager" selected="Flutter.main.dart">
     <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter">
@@ -145,9 +194,12 @@
     <recent_temporary>
       <list>
         <item itemvalue="Gradle.frontend [dependencies]" />
+<<<<<<< HEAD
         <item itemvalue="Gradle.frontend [dependencies]" />
         <item itemvalue="Gradle.frontend [dependencies]" />
         <item itemvalue="Gradle.frontend [dependencies]" />
+=======
+>>>>>>> origin/feature/frontDevPage
       </list>
     </recent_temporary>
   </component>
@@ -202,6 +254,7 @@
       <workItem from="1722391701425" duration="318000" />
       <workItem from="1722392125130" duration="9751000" />
       <workItem from="1722403387826" duration="1177000" />
+<<<<<<< HEAD
       <workItem from="1722404636796" duration="683000" />
       <workItem from="1723011568870" duration="6886000" />
       <workItem from="1723086297889" duration="10581000" />
@@ -224,6 +277,8 @@
       <workItem from="1723516865803" duration="10227000" />
       <workItem from="1723533073229" duration="3783000" />
       <workItem from="1723536912215" duration="3912000" />
+=======
+>>>>>>> origin/feature/frontDevPage
     </task>
     <task id="LOCAL-00001" summary="feat : login page">
       <created>1721904537085</created>
@@ -316,6 +371,7 @@
       <option name="project" value="LOCAL" />
       <updated>1722403715032</updated>
     </task>
+<<<<<<< HEAD
     <task id="LOCAL-00014" summary="feat: push before pullrequest">
       <created>1722404728129</created>
       <option name="number" value="00014" />
@@ -450,6 +506,9 @@
       <updated>1723547924232</updated>
     </task>
     <option name="localTasksCounter" value="33" />
+=======
+    <option name="localTasksCounter" value="14" />
+>>>>>>> origin/feature/frontDevPage
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -466,7 +525,11 @@
                   <entry key="branch">
                     <value>
                       <list>
+<<<<<<< HEAD
                         <option value="feature/bgm-19-controller" />
+=======
+                        <option value="origin/main" />
+>>>>>>> origin/feature/frontDevPage
                       </list>
                     </value>
                   </entry>
@@ -489,6 +552,7 @@
     <MESSAGE value="feat: add KaKao login UI" />
     <MESSAGE value="feat: add kakao login function" />
     <MESSAGE value="feat: design button UI" />
+<<<<<<< HEAD
     <MESSAGE value="feat: push before pullrequest" />
     <MESSAGE value="feat: view comics by calendar date and member auth" />
     <MESSAGE value="feat: select date and auth and find cartoon" />
@@ -503,6 +567,9 @@
     <MESSAGE value="feat : add bgm page and ui" />
     <MESSAGE value="bug : github issue" />
     <option name="LAST_COMMIT_MESSAGE" value="bug : github issue" />
+=======
+    <option name="LAST_COMMIT_MESSAGE" value="feat: design button UI" />
+>>>>>>> origin/feature/frontDevPage
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
