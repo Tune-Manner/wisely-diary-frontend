@@ -74,7 +74,7 @@ class _MemberInformationPageState extends State<MemberInformationPage> {
         // Navigate to HomePage after a short delay
         Future.delayed(Duration(seconds: 1), () {
           Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => HomePage(userId: user.id)),
+            MaterialPageRoute(builder: (context) => HomeScreens(userId: user.id)),
           );
         });
       } catch (e) {

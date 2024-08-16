@@ -61,7 +61,7 @@ class MyApp extends StatelessWidget {
         if (settings.name == '/home') {
           final String userId = settings.arguments as String;
           return MaterialPageRoute(
-            builder: (context) => HomePage(userId: userId),
+            builder: (context) => HomeScreens(userId: userId),
           );
         }
         return null;

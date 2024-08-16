@@ -69,7 +69,7 @@ Future<void> _fetchDiaryContent(DateTime selectedDay) async {
     await googleSignIn.signOut();
 
     Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (context) => MainApp()),
+      MaterialPageRoute(builder: (context) => MyApp()),
     );
   }
 

@@ -125,10 +125,11 @@ class _LoginPageState extends State<LoginPage> {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => HomePage(userId: user.id),
+            builder: (context) => HomeScreens(userId: user.id),
           ),
         );
       }
+
     } catch (e) {
       print('Error in _handleUserAfterLogin: $e');
       // Error handling (e.g., show alert to user)
