@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
+import 'AudioManager.dart';
 
 class WaitPage extends StatefulWidget {
-  WaitPage({super.key});
+  WaitPage({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _WaitPageState();
@@ -11,11 +12,23 @@ class WaitPage extends StatefulWidget {
 class _WaitPageState extends State<WaitPage> {
   int _counter = 5;
   Timer? _timer;
+  final audioManager = AudioManager();
+  late bool isPlaying;
+  late double volume;
 
   @override
   void initState() {
     super.initState();
     _startCountdown();
+    isPlaying = audioManager.player.playing;
+    volume = audioManager.player.volume;
+    audioManager.player.playerStateStream.listen((state) {
+      if (mounted) {
+        setState(() {
+          isPlaying = state.playing;
+        });
+      }
+    });
   }
 
   void _startCountdown() {
@@ -31,6 +44,21 @@ class _WaitPageState extends State<WaitPage> {
     });
   }
 
+  void togglePlayPause() {
+    if (isPlaying) {
+      audioManager.player.pause();
+    } else {
+      audioManager.player.play();
+    }
+  }
+
+  void changeVolume(double newVolume) {
+    setState(() {
+      volume = newVolume;
+      audioManager.player.setVolume(newVolume);
+    });
+  }
+
   @override
   void dispose() {
     _timer?.cancel();
@@ -40,41 +68,45 @@ class _WaitPageState extends State<WaitPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
-appBar: AppBar(
-  backgroundColor: const Color(0xfffdfbf0),
-  elevation: 0,
-  leading: IconButton(
-    icon: Icon(Icons.arrow_back, color: Colors.black),
-    onPressed: () => Navigator.of(context).pop(),
-  ),
-  title: Image.asset(
-    'assets/wisely-diary-logo.png',
-    height: 30,
-    fit: BoxFit.contain,
-  ),
-  centerTitle: true,
-),
-
-
+      appBar: AppBar(
+        backgroundColor: const Color(0xfffdfbf0),
+        elevation: 0,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        title: Image.asset(
+          'assets/wisely-diary-logo.png',
+          height: 30,
+          fit: BoxFit.contain,
+        ),
+        centerTitle: true,
+        actions: [
+          IconButton(
+            icon: Icon(isPlaying ? Icons.pause : Icons.play_arrow),
+            onPressed: togglePlayPause,
+          ),
+          Container(
+            width: 100,
+            child: Slider(
+              value: volume,
+              min: 0.0,
+              max: 1.0,
+              onChanged: changeVolume,
+            ),
+          ),
+        ],
+      ),
       body: Container(
         color: Colors.white,
         child: Container(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           decoration: BoxDecoration(
-            color: const Color(0xffffffff),
+            color: const Color(0xfffdfbf0),
           ),
           child: Stack(
             children: [
-              Positioned(
-                left: 0,
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height * 0.9,
-                child: Container(
-                  color: const Color(0xfffdfbf0),
-                ),
-              ),
               Positioned(
                 left: MediaQuery.of(context).size.width * 0.1,
                 top: MediaQuery.of(context).size.height * 0.10,
@@ -92,7 +124,6 @@ appBar: AppBar(
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
-              
               Positioned(
                 left: MediaQuery.of(context).size.width * 0.45,
                 top: MediaQuery.of(context).size.height * 0.35,

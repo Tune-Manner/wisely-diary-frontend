@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'AudioManager.dart';
 import 'add_photo_screens.dart';
 
 class TextPage extends StatefulWidget {
@@ -10,6 +11,24 @@ class _TextPageState extends State<TextPage> {
   final TextEditingController _textEditingController = TextEditingController();
   final FocusNode _focusNode = FocusNode(); // 텍스트 상자 포커스 관리
 
+  final audioManager = AudioManager();
+  late bool isPlaying;
+  late double volume;
+
+  @override
+  void initState() {
+    super.initState();
+    isPlaying = audioManager.player.playing;
+    volume = audioManager.player.volume;
+    audioManager.player.playerStateStream.listen((state) {
+      if (mounted) {
+        setState(() {
+          isPlaying = state.playing;
+        });
+      }
+    });
+  }
+
   void _navigateToAddPhotoScreen() {
     Navigator.push(
       context,
@@ -19,6 +38,20 @@ class _TextPageState extends State<TextPage> {
         ),
       ),
     );
+  }
+  void togglePlayPause() {
+    if (isPlaying) {
+      audioManager.player.pause();
+    } else {
+      audioManager.player.play();
+    }
+  }
+
+  void changeVolume(double newVolume) {
+    setState(() {
+      volume = newVolume;
+      audioManager.player.setVolume(newVolume);
+    });
   }
 
   @override
@@ -37,6 +70,21 @@ class _TextPageState extends State<TextPage> {
           fit: BoxFit.contain,
         ),
         centerTitle: true,
+        actions: [
+          IconButton(
+            icon: Icon(isPlaying ? Icons.pause : Icons.play_arrow),
+            onPressed: togglePlayPause,
+          ),
+          Container(
+            width: 100,
+            child: Slider(
+              value: volume,
+              min: 0.0,
+              max: 1.0,
+              onChanged: changeVolume,
+            ),
+          ),
+        ],
       ),
       body: GestureDetector(
         onTap: () {
