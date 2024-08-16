@@ -1,8 +1,8 @@
 plugins {
     id "com.android.application"
     id "kotlin-android"
-    // Kotlin Gradle Plugin 버전 추가
-    id "org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.0" // Kotlin 버전 수정
+    // 올바른 Kotlin Gradle Plugin 추가
+//    id "org.jetbrains.kotlin.android" version "1.8.0" // 수정된 부분
     // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
     id "dev.flutter.flutter-gradle-plugin"
 }
