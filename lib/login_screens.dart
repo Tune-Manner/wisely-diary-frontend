@@ -143,14 +143,14 @@ class _LoginPageState extends State<LoginPage> {
       body: Center(
         child: SingleChildScrollView(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
+            mainAxisSize: MainAxisSize.min,
+            children: [
               Image.asset(
                 'assets/wisely-diary-logo.png',
-                height: 200,
-                width: 300,
+                height: 200.0,
+                width: 300.0,
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 0.0),
               Text(
                 '일기로운 슬기생활',
                 style: TextStyle(
@@ -158,7 +158,13 @@ class _LoginPageState extends State<LoginPage> {
                   fontSize: 50,
                 ),
               ),
-              SizedBox(height: 50),
+              SizedBox(height: 30.0), // 텍스트와 구분선 사이의 간격 조정
+              Container(
+                width: 350.0, // 선의 길이 조정
+                height: 1.0, // 선의 두께 조정
+                color: Colors.grey, // 선의 색상
+              ),
+              SizedBox(height: 60.0), // 구분선과 버튼 사이의 간격 조정
               ElevatedButton.icon(
                 icon: Image.asset(
                   'assets/google_logo.png',
