@@ -4,6 +4,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart' as kakao;
 import 'home_screens.dart';
 import 'member_information.dart';
+import 'alarm/fcm_helper.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -39,6 +40,9 @@ class _LoginPageState extends State<LoginPage> {
 
       final user = response.user;
       if (user != null) {
+
+        // 로그인 성공 후 FCM 토큰 저장
+        await FCMHelper.getFCMTokenAndSave(user.id);
         await _handleUserAfterLogin(user, context, googleUser.displayName);
       }
     } catch (e) {
@@ -67,6 +71,8 @@ class _LoginPageState extends State<LoginPage> {
 
       final user = response.user;
       if (user != null) {
+        // 로그인 성공 후 FCM 토큰 저장 로직 추가
+        await FCMHelper.getFCMTokenAndSave(user.id);
         await _handleUserAfterLogin(user, context, memberName);
       }
     } catch (e) {
