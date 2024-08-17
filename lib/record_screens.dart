@@ -7,6 +7,11 @@ import 'package:wisely_diary/diary_summary_screens.dart';
 import 'AudioManager.dart'; // JSON 인코딩 및 디코딩을 위해 필요
 
 class RecordScreen extends StatefulWidget {
+  final int emotionNumber; // Add this line
+
+  RecordScreen({Key? key, required this.emotionNumber}) : super(key: key); // Update constructor
+
+
   @override
   _RecordScreenState createState() => _RecordScreenState();
 }
@@ -82,7 +87,7 @@ class _RecordScreenState extends State<RecordScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Start Backend Recording'),
+        title: Text('${widget.emotionNumber}Start Backend Recording'),
         actions: [
           IconButton(
             icon: Icon(isPlaying ? Icons.pause : Icons.play_arrow),

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:wisely_diary/select_type_screens.dart';
 import 'dart:async';
 import 'AudioManager.dart';
 
 class WaitPage extends StatefulWidget {
-  WaitPage({Key? key}) : super(key: key);
+  final int emotionNumber;
+
+  const WaitPage({Key? key, required this.emotionNumber}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _WaitPageState();
@@ -39,7 +42,12 @@ class _WaitPageState extends State<WaitPage> {
         });
       } else {
         _timer?.cancel();
-        Navigator.pushReplacementNamed(context, '/select-type');
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => SelectTypePage(emotionNumber: widget.emotionNumber),
+          ),
+        );
       }
     });
   }
@@ -112,7 +120,7 @@ class _WaitPageState extends State<WaitPage> {
                 top: MediaQuery.of(context).size.height * 0.10,
                 width: MediaQuery.of(context).size.width * 0.8,
                 child: Text(
-                  '눈을 감고 \n오늘 하루를 돌아봅시다.',
+                  '${widget.emotionNumber} 눈을 감고 \n오늘 하루를 돌아봅시다.',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     decoration: TextDecoration.none,

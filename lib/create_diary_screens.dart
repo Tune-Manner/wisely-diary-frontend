@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'wait_screens.dart';
 import 'AudioManager.dart';
 
@@ -11,6 +12,7 @@ class _CreateDiaryPageState extends State<CreateDiaryPage> {
   final audioManager = AudioManager();
   late bool isPlaying;
   late double volume;
+  late String userName = 'Loading...'; // Initialize with a placeholder
 
   final Map<String, String> emotionToAudio = {
     '분노': 'assets/audio/anger_bgm.mp3',
@@ -31,6 +33,8 @@ class _CreateDiaryPageState extends State<CreateDiaryPage> {
     audioManager.initAudio();
     isPlaying = audioManager.player.playing;
     volume = audioManager.player.volume;
+
+    _fetchUserName(); // Fetch the user's name
     audioManager.player.playerStateStream.listen((state) {
       if (mounted) {
         setState(() {
@@ -38,6 +42,22 @@ class _CreateDiaryPageState extends State<CreateDiaryPage> {
         });
       }
     });
+  }
+
+  Future<void> _fetchUserName() async {
+    final user = Supabase.instance.client.auth.currentUser;
+    if (user != null) {
+      final memberResponse = await Supabase.instance.client
+          .from('member')
+          .select('member_name')
+          .eq('member_id', user.id)
+          .single();
+
+      setState(() {
+        userName = memberResponse['member_name'];
+      });
+
+    }
   }
 
   void togglePlayPause() {
@@ -121,7 +141,7 @@ class _CreateDiaryPageState extends State<CreateDiaryPage> {
               left: 20,
               width: screenWidth - 40,
               child: Text(
-                '00님\n오늘은 어떤 하루였나요?',
+                '$userName님\n오늘은 어떤 하루였나요?',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   decoration: TextDecoration.none,
@@ -153,15 +173,33 @@ class _CreateDiaryPageState extends State<CreateDiaryPage> {
     final double screenWidth = MediaQuery.of(context).size.width;
     final double screenHeight = MediaQuery.of(context).size.height;
 
+    // Define a map for emotion labels to numbers
+    final emotionNumberMap = {
+      '걱정': 1,
+      '뿌듯': 2,
+      '감사': 3,
+      '억울': 4,
+      '분노': 5,
+      '슬픔': 6,
+      '설렘': 7,
+      '신나': 8,
+      '편안': 9,
+      '당황': 10,
+    };
+
     return Positioned(
       left: screenWidth * left,
       top: screenHeight * top,
       child: GestureDetector(
         onTap: () async {
+          // Get the emotion number from the map
+          final int emotionNumber = emotionNumberMap[label]!;
           await playEmotionMusic(label);
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => WaitPage()),
+            MaterialPageRoute(
+              builder: (context) => WaitPage(emotionNumber: emotionNumber),
+            ),
           );
         },
         child: Column(

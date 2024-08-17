@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:wisely_diary/record_screens.dart';
+import 'package:wisely_diary/text_screens.dart';
 import 'AudioManager.dart';
 
 class SelectTypePage extends StatefulWidget {
-  SelectTypePage({Key? key}) : super(key: key);
+  final int emotionNumber; // Add this line
+
+  SelectTypePage({Key? key, required this.emotionNumber}) : super(key: key); // Update constructor
 
   @override
   State<StatefulWidget> createState() => _SelectTypePageState();
@@ -29,9 +33,19 @@ class _SelectTypePageState extends State<SelectTypePage> {
 
   void _navigateToNextPage(String type) {
     if (type == 'voice') {
-      Navigator.pushNamed(context, '/record');
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => RecordScreen(emotionNumber: widget.emotionNumber),
+        ),
+      );
     } else if (type == 'text') {
-      Navigator.pushNamed(context, '/text');
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => TextPage(emotionNumber: widget.emotionNumber),
+        ),
+      );
     }
   }
 
@@ -97,7 +111,7 @@ class _SelectTypePageState extends State<SelectTypePage> {
             SizedBox(height: screenHeight * 0.30),
             ElevatedButton(
               onPressed: () => _navigateToNextPage('voice'),
-              child: Text('음성 일기'),
+              child: Text('${widget.emotionNumber}음성 일기'),
               style: ElevatedButton.styleFrom(
                 minimumSize: Size(buttonWidth, buttonHeight),
               ),

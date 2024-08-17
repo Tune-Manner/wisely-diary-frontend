@@ -50,10 +50,6 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => LoginPage(),
         '/create-diary-screens': (context) => CreateDiaryPage(),
-        '/wait': (context) => WaitPage(),
-        '/select-type': (context) => SelectTypePage(),
-        '/record': (context) => RecordScreen(),
-        '/text': (context) => TextPage(),
         '/add-photo': (context) => AddPhotoScreen(transcription: ''),
         '/summary': (context) => DiarySummaryScreen(transcription: '', imageFiles: [])
       },
@@ -62,6 +58,30 @@ class MyApp extends StatelessWidget {
           final String userId = settings.arguments as String;
           return MaterialPageRoute(
             builder: (context) => HomeScreens(userId: userId),
+          );
+        }
+        if (settings.name == '/wait') {
+          final int emotionNumber = settings.arguments as int;
+          return MaterialPageRoute(
+            builder: (context) => WaitPage(emotionNumber: emotionNumber),
+          );
+        }
+        if (settings.name == '/text') {
+          final int emotionNumber = settings.arguments as int;
+          return MaterialPageRoute(
+            builder: (context) => TextPage(emotionNumber: emotionNumber),
+          );
+        }
+        if (settings.name == '/select-type') {
+          final int emotionNumber = settings.arguments as int;
+          return MaterialPageRoute(
+            builder: (context) => SelectTypePage(emotionNumber: emotionNumber),
+          );
+        }
+        if (settings.name == '/record') {
+          final int emotionNumber = settings.arguments as int;
+          return MaterialPageRoute(
+            builder: (context) => RecordScreen(emotionNumber: emotionNumber),
           );
         }
         return null;
