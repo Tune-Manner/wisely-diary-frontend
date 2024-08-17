@@ -106,6 +106,7 @@ flutter:
     - assets/letter_icon.png
     - assets/music_icon.png
     - assets/gift_icon.png
+    - assets/diary_icon.png
     - assets/감사.png
     - assets/걱정.png
     - assets/당황.png

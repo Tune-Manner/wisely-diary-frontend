@@ -89,31 +89,31 @@ class DiarySummaryScreen extends StatelessWidget {
               children: [
                 _buildButton(
                   context,
-                  icon: Icons.music_note,
-                  label: "노래 선물받기",
+                  iconPath: 'assets/music_icon.png',
+                  label: "노래 선물 받기",
                   onPressed: () => Navigator.pushNamed(context, '/songGift'),
                 ),
                 _buildButton(
                   context,
-                  icon: Icons.image,
-                  label: "오늘의 네컷만화",
+                  iconPath: 'assets/cuttoon_icon.png',
+                  label: "오늘의 만화",
                   onPressed: () => Navigator.pushNamed(context, '/comic'),
                 ),
               ],
             ),
-            SizedBox(height: 10),
+            SizedBox(height: 15),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 _buildButton(
                   context,
-                  icon: Icons.email,
-                  label: "친구에게 편지받기",
+                  iconPath: 'assets/letter_icon.png',
+                  label: "친구에게 편지 받기",
                   onPressed: () => Navigator.pushNamed(context, '/letter'),
                 ),
                 _buildButton(
                   context,
-                  icon: Icons.save,
+                  iconPath: 'assets/diary_icon.png',
                   label: "일기만 저장하기",
                   onPressed: () => Navigator.pushNamed(context, '/saveDiary'),
                 ),
@@ -125,19 +125,28 @@ class DiarySummaryScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildButton(BuildContext context, {required IconData icon, required String label, required VoidCallback onPressed}) {
-    return ElevatedButton.icon(
+  Widget _buildButton(BuildContext context, {required String iconPath, required String label, required VoidCallback onPressed}) {
+    return ElevatedButton(
       onPressed: onPressed,
-      icon: Icon(icon, size: 18),
-      label: Text(
-        label,
-        style: TextStyle(fontSize: 12),
-      ),
       style: ElevatedButton.styleFrom(
-        backgroundColor: Color(0xff8d83ff),
-        foregroundColor: Colors.white,
+        backgroundColor: Color(0xFFE5E1FF),
+        foregroundColor: Colors.black,
         minimumSize: Size(MediaQuery.of(context).size.width * 0.35, 50),
         padding: EdgeInsets.symmetric(vertical: 10),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Image.asset(iconPath, width: 30, height: 30),
+          SizedBox(width: 10),
+          Text(
+            label,
+            style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+          ),
+        ],
       ),
     );
   }
