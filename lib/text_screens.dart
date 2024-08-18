@@ -1,14 +1,36 @@
 import 'package:flutter/material.dart';
+import 'AudioManager.dart';
 import 'add_photo_screens.dart';
 
 class TextPage extends StatefulWidget {
-  @override
-  _TextPageState createState() => _TextPageState();
-}
+  final int emotionNumber;
 
+  TextPage({Key? key, required this.emotionNumber}) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => _TextPageState();
+}
 class _TextPageState extends State<TextPage> {
   final TextEditingController _textEditingController = TextEditingController();
   final FocusNode _focusNode = FocusNode(); // 텍스트 상자 포커스 관리
+
+  final audioManager = AudioManager();
+  late bool isPlaying;
+  late double volume;
+
+  @override
+  void initState() {
+    super.initState();
+    isPlaying = audioManager.player.playing;
+    volume = audioManager.player.volume;
+    audioManager.player.playerStateStream.listen((state) {
+      if (mounted) {
+        setState(() {
+          isPlaying = state.playing;
+        });
+      }
+    });
+  }
 
   void _navigateToAddPhotoScreen() {
     Navigator.push(
@@ -19,6 +41,20 @@ class _TextPageState extends State<TextPage> {
         ),
       ),
     );
+  }
+  void togglePlayPause() {
+    if (isPlaying) {
+      audioManager.player.pause();
+    } else {
+      audioManager.player.play();
+    }
+  }
+
+  void changeVolume(double newVolume) {
+    setState(() {
+      volume = newVolume;
+      audioManager.player.setVolume(newVolume);
+    });
   }
 
   @override
@@ -37,6 +73,21 @@ class _TextPageState extends State<TextPage> {
           fit: BoxFit.contain,
         ),
         centerTitle: true,
+        actions: [
+          IconButton(
+            icon: Icon(isPlaying ? Icons.pause : Icons.play_arrow),
+            onPressed: togglePlayPause,
+          ),
+          Container(
+            width: 100,
+            child: Slider(
+              value: volume,
+              min: 0.0,
+              max: 1.0,
+              onChanged: changeVolume,
+            ),
+          ),
+        ],
       ),
       body: GestureDetector(
         onTap: () {
@@ -51,7 +102,7 @@ class _TextPageState extends State<TextPage> {
               children: [
                 SizedBox(height: MediaQuery.of(context).size.height * 0.15), // 상단 여백
                 Text(
-                  '가장 기억에 남는 상황이 있었나요?\n언제, 어떤 상황이었나요?',
+                  '${widget.emotionNumber}가장 기억에 남는 상황이 있었나요?\n언제, 어떤 상황이었나요?',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     decoration: TextDecoration.none,

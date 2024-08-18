@@ -42,7 +42,7 @@ import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await dotenv.load(fileName: ".env");
+  // await dotenv.load(fileName: ".env");
 
   // Firebase 초기화
   await Firebase.initializeApp();
@@ -90,10 +90,6 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => LoginPage(),
         '/create-diary-screens': (context) => CreateDiaryPage(),
-        '/wait': (context) => WaitPage(),
-        '/select-type': (context) => SelectTypePage(),
-        '/record': (context) => RecordScreen(),
-        '/text': (context) => TextPage(),
         '/add-photo': (context) => AddPhotoScreen(transcription: ''),
         '/summary': (context) => CustomScaffold(body: DiarySummaryScreen(transcription: '', imageFiles: [])),
         '/mypage': (context) => CustomScaffold(
@@ -106,6 +102,30 @@ class MyApp extends StatelessWidget {
           final String userId = settings.arguments as String? ?? '';
           return MaterialPageRoute(
             builder: (context) => HomeScreens(userId: userId));
+        }
+        if (settings.name == '/wait') {
+          final int emotionNumber = settings.arguments as int;
+          return MaterialPageRoute(
+            builder: (context) => WaitPage(emotionNumber: emotionNumber),
+          );
+        }
+        if (settings.name == '/text') {
+          final int emotionNumber = settings.arguments as int;
+          return MaterialPageRoute(
+            builder: (context) => TextPage(emotionNumber: emotionNumber),
+          );
+        }
+        if (settings.name == '/select-type') {
+          final int emotionNumber = settings.arguments as int;
+          return MaterialPageRoute(
+            builder: (context) => SelectTypePage(emotionNumber: emotionNumber),
+          );
+        }
+        if (settings.name == '/record') {
+          final int emotionNumber = settings.arguments as int;
+          return MaterialPageRoute(
+            builder: (context) => RecordScreen(emotionNumber: emotionNumber),
+          );
         }
         return null;
       },

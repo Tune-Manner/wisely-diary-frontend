@@ -2,14 +2,54 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-import 'package:wisely_diary/diary_summary_screens.dart'; // JSON 인코딩 및 디코딩을 위해 필요
+import 'package:wisely_diary/diary_summary_screens.dart';
+
+import 'AudioManager.dart'; // JSON 인코딩 및 디코딩을 위해 필요
 
 class RecordScreen extends StatefulWidget {
+  final int emotionNumber; // Add this line
+
+  RecordScreen({Key? key, required this.emotionNumber}) : super(key: key); // Update constructor
+
+
   @override
   _RecordScreenState createState() => _RecordScreenState();
 }
 
 class _RecordScreenState extends State<RecordScreen> {
+  final audioManager = AudioManager();
+  late bool isPlaying;
+  late double volume;
+
+  @override
+  void initState() {
+    super.initState();
+    isPlaying = audioManager.player.playing;
+    volume = audioManager.player.volume;
+    audioManager.player.playerStateStream.listen((state) {
+      if (mounted) {
+        setState(() {
+          isPlaying = state.playing;
+        });
+      }
+    });
+  }
+
+  void togglePlayPause() {
+    if (isPlaying) {
+      audioManager.player.pause();
+    } else {
+      audioManager.player.play();
+    }
+  }
+
+  void changeVolume(double newVolume) {
+    setState(() {
+      volume = newVolume;
+      audioManager.player.setVolume(newVolume);
+    });
+  }
+
   Future<void> _startRecording() async {
     final response = await http.post(
       Uri.parse('http://192.168.0.45:8080/api/speech/start-recording'),
@@ -47,7 +87,22 @@ class _RecordScreenState extends State<RecordScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Start Backend Recording'),
+        title: Text('${widget.emotionNumber}Start Backend Recording'),
+        actions: [
+          IconButton(
+            icon: Icon(isPlaying ? Icons.pause : Icons.play_arrow),
+            onPressed: togglePlayPause,
+          ),
+          Container(
+            width: 100,
+            child: Slider(
+              value: volume,
+              min: 0.0,
+              max: 1.0,
+              onChanged: changeVolume,
+            ),
+          ),
+        ],
       ),
       body: Center(
         child: Column(
