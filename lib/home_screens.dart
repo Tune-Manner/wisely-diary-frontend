@@ -7,6 +7,7 @@ import 'create_diary_screens.dart'; // CreateDiaryPage를 import합니다.
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'custom_scaffold.dart';
+import 'alarm/alarm_setting_page.dart';
 
 class HomeScreens extends StatefulWidget {
   final String userId;
@@ -115,8 +116,15 @@ Future<void> _fetchDiaryContent(DateTime selectedDay) async {
                 Padding(
                   padding: const EdgeInsets.only(right: 16.0),
                   child: ElevatedButton(
-                    onPressed: () {/* 통계 기능 구현 */},
-                    child: Text('이번 달 감정 통계'),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => AlarmSettingPage(), // AlarmSettingPage로 이동
+                        ),
+                      );
+                    },
+                    child: Text('알람설정임시버튼'),
                     style: ElevatedButton.styleFrom(
                       foregroundColor: Colors.black,
                       backgroundColor: Colors.white,
