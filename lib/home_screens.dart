@@ -6,6 +6,7 @@ import 'package:wisely_diary/main.dart';
 import 'create_diary_screens.dart'; // CreateDiaryPage를 import합니다.
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'custom_scaffold.dart';
 import 'alarm/alarm_setting_page.dart';
 
 import 'date_select.dart';
