@@ -44,10 +44,13 @@ class CustomScaffold extends StatelessWidget {
         ),
         title: title != null
             ? Text(title!, style: TextStyle(color: Colors.black, fontSize: 15))
-            : Image.asset(
-          'assets/wisely-diary-logo.png',
-          height: 30,
-          fit: BoxFit.contain,
+            : GestureDetector(
+          onTap: () => _navigateToHome(context),
+          child: Image.asset(
+            'assets/wisely-diary-logo.png',
+            height: 30,
+            fit: BoxFit.contain,
+          ),
         ),
         centerTitle: true,
         actions: actions,
@@ -58,7 +61,7 @@ class CustomScaffold extends StatelessWidget {
           children: [
             DrawerHeader(
               decoration: const BoxDecoration(
-                color: Color(0xfffdfbf0),
+                color: Color(0xfffffdf9),
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
