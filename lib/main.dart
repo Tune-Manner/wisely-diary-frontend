@@ -20,6 +20,7 @@ import 'wait_screens.dart';
 import 'select_type_screens.dart';
 import 'record_screens.dart';
 import 'text_screens.dart';
+import 'statistics/monthly_emotion_screens.dart';
 
 // FCM 관련 import 추가
 import 'package:firebase_core/firebase_core.dart';
@@ -82,7 +83,8 @@ class MyApp extends StatelessWidget {
         '/record': (context) => RecordScreen(),
         '/text': (context) => TextPage(),
         '/add-photo': (context) => AddPhotoScreen(transcription: ''),
-        '/summary': (context) => DiarySummaryScreen(transcription: '', imageFiles: [])
+        '/summary': (context) => DiarySummaryScreen(transcription: '', imageFiles: []),
+        '/monthly-emotion' : (context) => MonthlyEmotionScreen(),
       },
       onGenerateRoute: (settings) {
         if (settings.name == '/home') {
