@@ -14,7 +14,7 @@ class MonthlyEmotionScreen extends StatelessWidget {
           children: [
             IconButton(
               icon: Icon(Icons.arrow_back, color: Colors.black),
-              onPressed: () => Navigator.pop(context), // 뒤로가기 동작
+              onPressed: () => Navigator.pop(context),
             ),
             IconButton(
               icon: Icon(Icons.menu, color: Colors.black),
@@ -34,24 +34,24 @@ class MonthlyEmotionScreen extends StatelessWidget {
           ),
           padding: const EdgeInsets.all(16.0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center, // 중앙 정렬 유지
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               // 감정 차트 제목
               Stack(
                 children: [
-                  // 형광펜 효과 배경
+                  // 형광펜 효과
                   Positioned(
                     top: 16,
                     left: 0,
                     child: Container(
-                      width: 150, // 밑줄의 길이를 조절
+                      width: 150,
                       height: 20,
-                      color: Colors.yellow.withOpacity(0.5), // 형광펜 효과 색상 (옅은 노란색)
+                      color: Colors.yellow.withOpacity(0.5),
                     ),
                   ),
                   // 텍스트
                   Align(
-                    alignment: Alignment.centerLeft, // 텍스트 왼쪽 정렬
+                    alignment: Alignment.centerLeft,
                     child: Text(
                       "이번 달 00님 감정",
                       style: TextStyle(
@@ -64,7 +64,7 @@ class MonthlyEmotionScreen extends StatelessWidget {
                 ],
               ),
               SizedBox(height: 10),
-              // 차트 Placeholder (차트로 대체 가능)
+              // 차트
               Container(
                 height: 200,
                 child: Placeholder(), // 여기에 차트가 들어갈 예정
@@ -77,7 +77,7 @@ class MonthlyEmotionScreen extends StatelessWidget {
                     height: 180,
                   ),
                   Text(
-                    '분노(47%)', // 메인 감정 텍스트
+                    '분노(47%)',
                     style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
