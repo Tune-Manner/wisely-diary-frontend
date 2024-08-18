@@ -1,33 +1,131 @@
 import 'package:flutter/material.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'wait_screens.dart';
+import 'AudioManager.dart';
 
-class CreateDiaryPage extends StatelessWidget {
+class CreateDiaryPage extends StatefulWidget {
+  @override
+  _CreateDiaryPageState createState() => _CreateDiaryPageState();
+}
+
+class _CreateDiaryPageState extends State<CreateDiaryPage> {
+  final audioManager = AudioManager();
+  late bool isPlaying;
+  late double volume;
+  late String userName = 'Loading...'; // Initialize with a placeholder
+
+  final Map<String, String> emotionToAudio = {
+    '분노': 'assets/audio/anger_bgm.mp3',
+    '설렘': 'assets/audio/lovely_bgm.mp3',
+    '편안': 'assets/audio/relax_bgm.mp3',
+    '신나': 'assets/audio/joy_bgm.mp3',
+    '감사': 'assets/audio/greatful_bgm.mp3',
+    '슬픔': 'assets/audio/sad_bgm.mp3',
+    '당황': 'assets/audio/embarrassed_bgm.mp3',
+    '억울': 'assets/audio/injustice_bgm.mp3',
+    '뿌듯': 'assets/audio/proud_bgm.mp3',
+    '걱정': 'assets/audio/worried_bgm.mp3',
+  };
+
+  @override
+  void initState() {
+    super.initState();
+    audioManager.initAudio();
+    isPlaying = audioManager.player.playing;
+    volume = audioManager.player.volume;
+
+    _fetchUserName(); // Fetch the user's name
+    audioManager.player.playerStateStream.listen((state) {
+      if (mounted) {
+        setState(() {
+          isPlaying = state.playing;
+        });
+      }
+    });
+  }
+
+  Future<void> _fetchUserName() async {
+    final user = Supabase.instance.client.auth.currentUser;
+    if (user != null) {
+      final memberResponse = await Supabase.instance.client
+          .from('member')
+          .select('member_name')
+          .eq('member_id', user.id)
+          .single();
+
+      setState(() {
+        userName = memberResponse['member_name'];
+      });
+
+    }
+  }
+
+  void togglePlayPause() {
+    if (isPlaying) {
+      audioManager.player.pause();
+    } else {
+      audioManager.player.play();
+    }
+    setState(() {
+      isPlaying = !isPlaying;
+    });
+  }
+
+  void changeVolume(double newVolume) {
+    setState(() {
+      volume = newVolume;
+      audioManager.player.setVolume(newVolume);
+    });
+  }
+
+  Future<void> playEmotionMusic(String emotion) async {
+    if (emotionToAudio.containsKey(emotion)) {
+      await audioManager.player.setAsset(emotionToAudio[emotion]!);
+      await audioManager.player.play();
+      setState(() {
+        isPlaying = true;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
     final double screenHeight = MediaQuery.of(context).size.height;
-    final double imageSize = screenWidth * 0.2; // 이미지 크기 통일
-    final double textSpacing = 5.0; // 이미지와 텍스트 사이 간격
-    final double itemSpacing = 20.0; // 각 아이템 간의 간격
+    final double imageSize = screenWidth * 0.2;
+    final double textSpacing = 5.0;
+    final double itemSpacing = 20.0;
 
     return Scaffold(
-
-appBar: AppBar(
-  backgroundColor: const Color(0xfffdfbf0),
-  elevation: 0,
-  leading: IconButton(
-    icon: Icon(Icons.arrow_back, color: Colors.black),
-    onPressed: () => Navigator.of(context).pop(),
-  ),
-  title: Image.asset(
-    'assets/wisely-diary-logo.png',
-    height: 30,
-    fit: BoxFit.contain,
-  ),
-  centerTitle: true,
-),
-
-
+      appBar: AppBar(
+        backgroundColor: const Color(0xfffdfbf0),
+        elevation: 0,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        title: Image.asset(
+          'assets/wisely-diary-logo.png',
+          height: 30,
+          fit: BoxFit.contain,
+        ),
+        centerTitle: true,
+        // actions: [
+        //   IconButton(
+        //     icon: Icon(isPlaying ? Icons.pause : Icons.play_arrow),
+        //     onPressed: togglePlayPause,
+        //   ),
+        //   Container(
+        //     width: 100,
+        //     child: Slider(
+        //       value: volume,
+        //       min: 0.0,
+        //       max: 1.0,
+        //       onChanged: changeVolume,
+        //     ),
+        //   ),
+        // ],
+      ),
       body: Container(
         child: Stack(
           children: [
@@ -43,7 +141,7 @@ appBar: AppBar(
               left: 20,
               width: screenWidth - 40,
               child: Text(
-                '00님\n오늘은 어떤 하루였나요?',
+                '$userName님\n오늘은 어떤 하루였나요?',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   decoration: TextDecoration.none,
@@ -55,8 +153,6 @@ appBar: AppBar(
                 overflow: TextOverflow.ellipsis,
               ),
             ),
-
-            // 이미지와 텍스트를 나란히 배치
             _buildEmotionWidget(context, '분노', 'assets/분노.png', 0.25, 0.10, imageSize, textSpacing, itemSpacing),
             _buildEmotionWidget(context, '설렘', 'assets/설렘.png', 0.25, 0.25, imageSize, textSpacing, itemSpacing),
             _buildEmotionWidget(context, '편안', 'assets/편안.png', 0.25, 0.40, imageSize, textSpacing, itemSpacing),
@@ -77,14 +173,33 @@ appBar: AppBar(
     final double screenWidth = MediaQuery.of(context).size.width;
     final double screenHeight = MediaQuery.of(context).size.height;
 
+    // Define a map for emotion labels to numbers
+    final emotionNumberMap = {
+      '걱정': 1,
+      '뿌듯': 2,
+      '감사': 3,
+      '억울': 4,
+      '분노': 5,
+      '슬픔': 6,
+      '설렘': 7,
+      '신나': 8,
+      '편안': 9,
+      '당황': 10,
+    };
+
     return Positioned(
       left: screenWidth * left,
       top: screenHeight * top,
       child: GestureDetector(
-        onTap: () {
+        onTap: () async {
+          // Get the emotion number from the map
+          final int emotionNumber = emotionNumberMap[label]!;
+          await playEmotionMusic(label);
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => WaitPage()),
+            MaterialPageRoute(
+              builder: (context) => WaitPage(emotionNumber: emotionNumber),
+            ),
           );
         },
         child: Column(

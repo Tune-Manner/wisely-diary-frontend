@@ -6,7 +6,10 @@ import 'package:wisely_diary/main.dart';
 import 'create_diary_screens.dart'; // CreateDiaryPage를 import합니다.
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'custom_scaffold.dart';
 import 'alarm/alarm_setting_page.dart';
+
+import 'date_select.dart';
 
 class HomeScreens extends StatefulWidget {
   final String userId;
@@ -29,37 +32,36 @@ class _HomePageState extends State<HomeScreens> {
     _focusedDay = DateTime.now();
   }
 
+  Future<void> _fetchDiaryContent(DateTime selectedDay) async {
+    final response = await http.post(
+      Uri.parse('http://192.168.0.44:8080/api/diary/selectdetail'),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: jsonEncode({
+        'date': selectedDay.toIso8601String().split('T').first,
+        'memberId': widget.userId,
+      }),
+    );
 
-Future<void> _fetchDiaryContent(DateTime selectedDay) async {
-  final response = await http.post(
-    Uri.parse('http://192.168.0.44:8080/api/diary/selectdetail'),
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: jsonEncode({
-      'date': selectedDay.toIso8601String().split('T').first,
-      'memberId': widget.userId,
-    }),
-  );
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
 
-  if (response.statusCode == 200) {
-    final data = jsonDecode(response.body);
-
-    if (data != null && data['diaryContents'] != null) {
-      setState(() {
-        _diaryEntries.clear();
-        _diaryEntries.add({
-          'date': selectedDay.toIso8601String().split('T').first, // 날짜 형식 정리
-          'summary': data['diaryContents'] ?? '내용 없음',
+      if (data != null && data['diaryContents'] != null) {
+        setState(() {
+          _diaryEntries.clear();
+          _diaryEntries.add({
+            'date': selectedDay.toIso8601String().split('T').first, // 날짜 형식 정리
+            'summary': data['diaryContents'] ?? '내용 없음',
+          });
         });
-      });
+      } else {
+        print('Error: No diary content found.');
+      }
     } else {
-      print('Error: No diary content found.');
+      print('Error fetching diary content: ${response.reasonPhrase}');
     }
-  } else {
-    print('Error fetching diary content: ${response.reasonPhrase}');
   }
-}
 
 
 
@@ -85,29 +87,14 @@ Future<void> _fetchDiaryContent(DateTime selectedDay) async {
   @override
   Widget build(BuildContext context) {
     print('Navigated to HomePage with memberId: ${widget.userId}');
-    
+
     List<Map<String, String>> filteredEntries = _diaryEntries.where((entry) {
       DateTime entryDate =
-          DateTime.parse(entry['date']!.split(' ')[0].replaceAll('.', '-'));
+      DateTime.parse(entry['date']!.split(' ')[0].replaceAll('.', '-'));
       return isSameDay(entryDate, _selectedDay);
     }).toList();
 
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color(0xfffdfbf0),
-        elevation: 0,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-        title: Image.asset(
-          'assets/wisely-diary-logo.png',
-          height: 30,
-          fit: BoxFit.contain,
-        ),
-        centerTitle: true,
-      ),
-      backgroundColor: Color(0xFFFDFBF0),
+    return CustomScaffold(
       body: Column(
         children: [
           // 캘린더 헤더 및 버튼
@@ -211,6 +198,7 @@ Future<void> _fetchDiaryContent(DateTime selectedDay) async {
       ),
     );
   }
+
 
   Widget _buildDiaryEntry(String date, String summary) {
     return Padding(

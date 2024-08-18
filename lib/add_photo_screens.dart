@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
+import 'AudioManager.dart';
 import 'diary_summary_screens.dart';
 
 class AddPhotoScreen extends StatefulWidget {
@@ -15,6 +16,40 @@ class AddPhotoScreen extends StatefulWidget {
 class _AddPhotoScreenState extends State<AddPhotoScreen> {
   final List<File> _imageFiles = [];
 
+  final audioManager = AudioManager();
+  late bool isPlaying;
+  late double volume;
+
+  @override
+  void initState() {
+    super.initState();
+    isPlaying = audioManager.player.playing;
+    volume = audioManager.player.volume;
+    audioManager.player.playerStateStream.listen((state) {
+      if (mounted) {
+        setState(() {
+          isPlaying = state.playing;
+        });
+      }
+    });
+  }
+
+  void togglePlayPause() {
+    if (isPlaying) {
+      audioManager.player.pause();
+    } else {
+      audioManager.player.play();
+    }
+  }
+
+  void changeVolume(double newVolume) {
+    setState(() {
+      volume = newVolume;
+      audioManager.player.setVolume(newVolume);
+    });
+  }
+
+
   Future<void> _pickImage() async {
     final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
@@ -25,6 +60,7 @@ class _AddPhotoScreenState extends State<AddPhotoScreen> {
   }
 
   void _createDiary() {
+    audioManager.player.stop();
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -55,6 +91,21 @@ class _AddPhotoScreenState extends State<AddPhotoScreen> {
           fit: BoxFit.contain,
         ),
         centerTitle: true,
+        actions: [
+          IconButton(
+            icon: Icon(isPlaying ? Icons.pause : Icons.play_arrow),
+            onPressed: togglePlayPause,
+          ),
+          Container(
+            width: 100,
+            child: Slider(
+              value: volume,
+              min: 0.0,
+              max: 1.0,
+              onChanged: changeVolume,
+            ),
+          ),
+        ],
       ),
       body: Container(
         width: screenWidth,

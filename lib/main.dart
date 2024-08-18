@@ -1,14 +1,15 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart' as kakao;
 import 'package:gotrue/src/types/user.dart' as gotrue;
 import 'WelcomePage.dart';
 import 'add_photo_screens.dart';
 import 'diary_summary_screens.dart';
+import 'custom_scaffold.dart';
 import 'kakao/kakao_login.dart';
 import 'kakao/main_view_model.dart';
 import 'member_information.dart';
@@ -20,7 +21,7 @@ import 'wait_screens.dart';
 import 'select_type_screens.dart';
 import 'record_screens.dart';
 import 'text_screens.dart';
-import 'statistics/monthly_emotion_screens.dart';
+import 'my_page.dart';
 
 // FCM 관련 import 추가
 import 'package:firebase_core/firebase_core.dart';
@@ -36,7 +37,7 @@ import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await dotenv.load(fileName: ".env");
+  // await dotenv.load(fileName: ".env");
 
   // Firebase 초기화
   await Firebase.initializeApp();
@@ -50,8 +51,8 @@ void main() async {
 
   //supabase초기화
   await Supabase.initialize(
-    url: dotenv.env['SUPABASE_URL'] ?? '',
-    anonKey: dotenv.env['SUPABASE_ANON_KEY'] ?? '',
+    url: 'https://rgsasjlstibbmhvrjoiv.supabase.co',
+    anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJnc2FzamxzdGliYm1odnJqb2l2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjE3MDU2MjksImV4cCI6MjAzNzI4MTYyOX0.UlabKu0o_X1QnMsq8av05DKNRc4fjOAb01fcMpkcuRs',
   );
 
   // 안드로이드 알람 매니처 초기화
@@ -68,29 +69,58 @@ void main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.dark,
+    ));
+
     return MaterialApp(
       title: 'Wisely Diary',
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
+        scaffoldBackgroundColor: Color(0xFFFDFBF0),
       ),
       initialRoute: '/',
       routes: {
         '/': (context) => LoginPage(),
         '/create-diary-screens': (context) => CreateDiaryPage(),
-        '/wait': (context) => WaitPage(),
-        '/select-type': (context) => SelectTypePage(),
-        '/record': (context) => RecordScreen(),
-        '/text': (context) => TextPage(),
         '/add-photo': (context) => AddPhotoScreen(transcription: ''),
+        '/summary': (context) => CustomScaffold(body: DiarySummaryScreen(transcription: '', imageFiles: [])),
+        '/mypage': (context) => CustomScaffold(
+          body: MyPage(),
+          title: '마이페이지',
+        ),
         '/summary': (context) => DiarySummaryScreen(transcription: '', imageFiles: []),
-        '/monthly-emotion' : (context) => MonthlyEmotionScreen(),
       },
       onGenerateRoute: (settings) {
         if (settings.name == '/home') {
-          final String userId = settings.arguments as String;
+          final String userId = settings.arguments as String? ?? '';
           return MaterialPageRoute(
-            builder: (context) => HomeScreens(userId: userId),
+            builder: (context) => HomeScreens(userId: userId));
+        }
+        if (settings.name == '/wait') {
+          final int emotionNumber = settings.arguments as int;
+          return MaterialPageRoute(
+            builder: (context) => WaitPage(emotionNumber: emotionNumber),
+          );
+        }
+        if (settings.name == '/text') {
+          final int emotionNumber = settings.arguments as int;
+          return MaterialPageRoute(
+            builder: (context) => TextPage(emotionNumber: emotionNumber),
+          );
+        }
+        if (settings.name == '/select-type') {
+          final int emotionNumber = settings.arguments as int;
+          return MaterialPageRoute(
+            builder: (context) => SelectTypePage(emotionNumber: emotionNumber),
+          );
+        }
+        if (settings.name == '/record') {
+          final int emotionNumber = settings.arguments as int;
+          return MaterialPageRoute(
+            builder: (context) => RecordScreen(emotionNumber: emotionNumber),
           );
         }
         return null;
