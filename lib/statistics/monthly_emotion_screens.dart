@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fl_chart/fl_chart.dart';
 
 class MonthlyEmotionScreen extends StatelessWidget {
   @override
@@ -63,11 +64,10 @@ class MonthlyEmotionScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(height: 10),
-              // 차트
-              Container(
+              // 커스텀 반원 차트
+              SizedBox(
                 height: 200,
-                child: Placeholder(), // 여기에 차트가 들어갈 예정
+                child: CustomSemiDonutChart(),
               ),
               // 주된 감정 이미지와 텍스트
               Column(
@@ -137,5 +137,60 @@ class MonthlyEmotionScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class CustomSemiDonutChart extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return PieChart(
+      PieChartData(
+        startDegreeOffset: -90,
+        sectionsSpace: 0,
+        centerSpaceRadius: 40,
+        sections: showingSections(),
+        borderData: FlBorderData(show: false),
+      ),
+    );
+  }
+
+  List<PieChartSectionData> showingSections() {
+    return [
+      PieChartSectionData(
+        color: Colors.red,
+        value: 47,
+        title: '분노',
+        radius: 60,
+        titleStyle: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.white),
+      ),
+      PieChartSectionData(
+        color: Colors.blue,
+        value: 30,
+        title: '슬픔',
+        radius: 60,
+        titleStyle: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.white),
+      ),
+      PieChartSectionData(
+        color: Colors.green,
+        value: 10,
+        title: '역움',
+        radius: 60,
+        titleStyle: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.white),
+      ),
+      PieChartSectionData(
+        color: Colors.yellow,
+        value: 8,
+        title: '기쁨',
+        radius: 60,
+        titleStyle: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.black),
+      ),
+      PieChartSectionData(
+        color: Colors.purple,
+        value: 5,
+        title: '설렘',
+        radius: 60,
+        titleStyle: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.white),
+      ),
+    ];
   }
 }
