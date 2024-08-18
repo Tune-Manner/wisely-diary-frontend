@@ -3,6 +3,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'main.dart';
+import 'member_deactivate.dart';
 
 class MyPage extends StatefulWidget {
   @override
@@ -69,6 +70,11 @@ class _MyPageState extends State<MyPage> {
             SizedBox(height: 10),
             _buildButton('회원 탈퇴', () {
               // 회원 탈퇴 버튼 클릭 시 동작
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => MemberDeactivatePage(),
+                ),
+              );
             }),
           ],
         ),
