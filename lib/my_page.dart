@@ -59,11 +59,11 @@ class _MyPageState extends State<MyPage> {
             SizedBox(height: 40),
             // 버튼들
             _buildButton('알람 설정', () {
-              // 알람 설정 버튼 클릭 시 동작
+              Navigator.pushNamed(context, '/notifications');
             }),
             SizedBox(height: 10),
-            _buildButton('이번달 감정 통계', () {
-              // 이번달 감정 통계 버튼 클릭 시 동작
+            _buildButton('감정 통계', () {
+              Navigator.pushNamed(context, '/statistics');
             }),
             SizedBox(height: 10),
             _buildButton('로그아웃', _signOut), // 로그아웃 버튼 클릭 시 _signOut 메소드 실행
