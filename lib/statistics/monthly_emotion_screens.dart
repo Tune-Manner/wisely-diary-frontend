@@ -4,85 +4,136 @@ class MonthlyEmotionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFFFFF9E2),
       appBar: AppBar(
-        title: Text('이번 달 감정 통계'),
-        backgroundColor: Colors.white,
+        backgroundColor: Color(0xFFFFF9E2),
         elevation: 0,
-        leading: Icon(Icons.menu, color: Colors.black),
-        centerTitle: true,
-        titleTextStyle: TextStyle(color: Colors.black, fontSize: 18),
+        leadingWidth: 100,
+        leading: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            IconButton(
+              icon: Icon(Icons.arrow_back, color: Colors.black),
+              onPressed: () => Navigator.pop(context), // 뒤로가기 동작
+            ),
+            IconButton(
+              icon: Icon(Icons.menu, color: Colors.black),
+              onPressed: () {
+                // 햄버거 메뉴 클릭 시 동작 정의
+              },
+            ),
+          ],
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            // 감정 차트
-            Text(
-              "이번 달 00님 감정",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 16),
-            // 차트는 나중에 구현할 수 있습니다
-            Container(
-              height: 200,
-              child: Placeholder(),
-            ),
-            SizedBox(height: 32),
-            // 주된 감정 이미지와 텍스트
-            Column(
-              children: [
-                Image.asset(
-                  'assets/angry_face.png',
-                  height: 100,
-                ),
-                SizedBox(height: 16),
-                Text(
-                  '7월 00님의 메인 감정은',
-                  style: TextStyle(fontSize: 16),
-                ),
-                Text(
-                  '분노',
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.red),
-                ),
-              ],
-            ),
-            SizedBox(height: 32),
-            // 감정 달력
-            Text(
-              "감정 달력",
-              style: TextStyle(fontSize: 16),
-            ),
-            SizedBox(height: 16),
-            Expanded(
-              child: GridView.builder(
-                itemCount: 12,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 6,
-                  crossAxisSpacing: 8,
-                  mainAxisSpacing: 8,
-                  childAspectRatio: 1.0,
-                ),
-                itemBuilder: (context, index) {
-                  return Column(
-                    children: [
-                      Expanded(
-                        child: Image.asset(
-                          'assets/emotion_${index + 1}.png',
-                          fit: BoxFit.cover,
-                        ),
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(8.0),
+          ),
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center, // 중앙 정렬 유지
+            children: [
+              // 감정 차트 제목
+              Stack(
+                children: [
+                  // 형광펜 효과 배경
+                  Positioned(
+                    top: 16,
+                    left: 0,
+                    child: Container(
+                      width: 150, // 밑줄의 길이를 조절
+                      height: 20,
+                      color: Colors.yellow.withOpacity(0.5), // 형광펜 효과 색상 (옅은 노란색)
+                    ),
+                  ),
+                  // 텍스트
+                  Align(
+                    alignment: Alignment.centerLeft, // 텍스트 왼쪽 정렬
+                    child: Text(
+                      "이번 달 00님 감정",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
                       ),
-                      SizedBox(height: 4),
-                      Text(
-                        '${index + 1}월',
-                        style: TextStyle(fontSize: 12),
-                      ),
-                    ],
-                  );
-                },
+                    ),
+                  ),
+                ],
               ),
-            ),
-          ],
+              SizedBox(height: 10),
+              // 차트 Placeholder (차트로 대체 가능)
+              Container(
+                height: 200,
+                child: Placeholder(), // 여기에 차트가 들어갈 예정
+              ),
+              // 주된 감정 이미지와 텍스트
+              Column(
+                children: [
+                  Image.asset(
+                    'assets/emotions/anger.png',
+                    height: 180,
+                  ),
+                  Text(
+                    '분노(47%)', // 메인 감정 텍스트
+                    style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.red),
+                  ),
+                ],
+              ),
+              SizedBox(height: 16),
+              // 감정 달력
+              Table(
+                border: TableBorder.all(color: Colors.grey, width: 1),
+                children: [
+                  TableRow(
+                    children: [
+                      Center(child: Text('1월')),
+                      Center(child: Text('2월')),
+                      Center(child: Text('3월')),
+                      Center(child: Text('4월')),
+                      Center(child: Text('5월')),
+                      Center(child: Text('6월')),
+                    ],
+                  ),
+                  TableRow(
+                    children: [
+                      Center(child: Image.asset('assets/emotions/joy.png', height: 70, width: 70)),       // 1월: joy
+                      Center(child: Image.asset('assets/emotions/embarrassed.png', height: 70, width: 70)), // 2월: embarrassed
+                      Center(child: Image.asset('assets/emotions/worried.png', height: 70, width: 70)),    // 3월: worried
+                      Center(child: Image.asset('assets/emotions/anger.png', height: 70, width: 70)),       // 4월: anger
+                      Center(child: Image.asset('assets/emotions/sad.png', height: 70, width: 70)),        // 5월: sad
+                      Center(child: Image.asset('assets/emotions/relax.png', height: 70, width: 70)),      // 6월: relax
+                    ],
+                  ),
+                  TableRow(
+                    children: [
+                      Center(child: Text('7월')),
+                      Center(child: Text('8월')),
+                      Center(child: Text('9월')),
+                      Center(child: Text('10월')),
+                      Center(child: Text('11월')),
+                      Center(child: Text('12월')),
+                    ],
+                  ),
+                  TableRow(
+                    children: [
+                      Center(child: Image.asset('assets/emotions/proud.png', height: 70, width: 70)),       // 7월: proud
+                      Center(child: Image.asset('assets/emotions/lovely.png', height: 70, width: 70)),      // 8월: lovely
+                      Center(child: Image.asset('assets/emotions/injustice.png', height: 70, width: 70)),   // 9월: injustice
+                      Center(child: Image.asset('assets/emotions/greatful.png', height: 70, width: 70)),    // 10월: greatful
+                      Center(child: Image.asset('assets/emotions/embarrassed.png', height: 70, width: 70)), // 11월: embarrassed
+                      Center(child: Image.asset('assets/emotions/joy.png', height: 70, width: 70)),         // 12월: joy
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
