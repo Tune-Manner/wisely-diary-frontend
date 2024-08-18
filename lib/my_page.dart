@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+
+import 'main.dart';
 
 class MyPage extends StatefulWidget {
   @override
@@ -9,6 +13,16 @@ class _MyPageState extends State<MyPage> {
   // 예시 회원 데이터
   String userName = '홍길동';
   String userEmail = 'tune@mail.com';
+
+  Future<void> _signOut() async {
+    await Supabase.instance.client.auth.signOut();
+    final GoogleSignIn googleSignIn = GoogleSignIn();
+    await googleSignIn.signOut();
+
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(builder: (context) => MyApp()),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,9 +65,7 @@ class _MyPageState extends State<MyPage> {
               // 이번달 감정 통계 버튼 클릭 시 동작
             }),
             SizedBox(height: 10),
-            _buildButton('로그아웃', () {
-              // 로그아웃 버튼 클릭 시 동작
-            }),
+            _buildButton('로그아웃', _signOut), // 로그아웃 버튼 클릭 시 _signOut 메소드 실행
             SizedBox(height: 10),
             _buildButton('회원 탈퇴', () {
               // 회원 탈퇴 버튼 클릭 시 동작

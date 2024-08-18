@@ -42,7 +42,7 @@ import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await dotenv.load(fileName: ".env");
+  // await dotenv.load(fileName: ".env");
 
   // Firebase 초기화
   await Firebase.initializeApp();
