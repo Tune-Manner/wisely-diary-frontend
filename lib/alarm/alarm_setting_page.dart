@@ -200,7 +200,18 @@ class _AlarmSettingPageState extends State<AlarmSettingPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('알림 설정'),
+        backgroundColor: Colors.white,
+        elevation: 0,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () => Navigator.pop(context),
+        ),
+        title: Image.asset(
+          'assets/wisely-diary-logo.png', // 이미지 경로
+          height: 30, // 원하는 크기로 조정
+          fit: BoxFit.contain,
+        ),
+        centerTitle: true,
       ),
       body: Center(
         child: Container(
@@ -224,7 +235,7 @@ class _AlarmSettingPageState extends State<AlarmSettingPage> {
               ),
               SizedBox(height: 16),
               Card(
-                color: Color(0x80FFE76B),
+                color: Color(0xFFFFF0C1),
                 child: SwitchListTile(
                   title: Text('알림 활성화'),
                   value: isAlarmEnabled,
@@ -235,15 +246,16 @@ class _AlarmSettingPageState extends State<AlarmSettingPage> {
                     print('Alarm enabled state changed: $isAlarmEnabled');
                     await _saveAlarmSettings();
                   },
-                  activeColor: Color(0x808D83FF),
+                  activeColor: Color(0xFFA18BFF),
                   inactiveThumbColor: Colors.grey,
+
                 ),
               ),
               if (isAlarmEnabled)
                 SizedBox(height: 16),
               if (isAlarmEnabled)
                 Card(
-                  color: Color(0x80FFE76B),
+                  color: Color(0xFFFFF0C1),
                   child: ListTile(
                     title: Text('시간'),
                     subtitle: Center(

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'dart:math';
 import 'package:http/http.dart' as http;
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:intl/intl.dart' hide TextDirection;
 
 // 감정 이름을 반환하는 함수 (예: '분노', '슬픔' 등)
 String getEmotionNameByCode(String code) {
@@ -21,31 +22,24 @@ String getEmotionNameByCode(String code) {
   return emotionNames[code] ?? '알 수 없음';
 }
 
-
 class MonthlyEmotionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFFFFF9E2),
       appBar: AppBar(
-        backgroundColor: Color(0xFFFFF9E2),
+        backgroundColor: Colors.white,
         elevation: 0,
-        leadingWidth: 100,
-        leading: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            IconButton(
-              icon: Icon(Icons.arrow_back, color: Colors.black),
-              onPressed: () => Navigator.pop(context),
-            ),
-            IconButton(
-              icon: Icon(Icons.menu, color: Colors.black),
-              onPressed: () {
-                // 햄버거 메뉴 클릭 시 동작 정의
-              },
-            ),
-          ],
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () => Navigator.pop(context),
         ),
+        title: Image.asset(
+          'assets/wisely-diary-logo.png', // 이미지 경로
+          height: 30, // 원하는 크기로 조정
+          fit: BoxFit.contain,
+        ),
+        centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -63,10 +57,18 @@ class MonthlyEmotionScreen extends StatelessWidget {
                   return Center(child: CircularProgressIndicator());
                 } else if (snapshot.hasError) {
                   return Center(child: Text('Error: ${snapshot.error}'));
-                } else if (snapshot.hasData) {
+                } else if (!snapshot.hasData || snapshot.data == null || snapshot.data!.isEmpty) {
+                  // 데이터가 없을 경우 또는 비어있는 경우 처리
+                  return _buildNoDataScreen(context);
+                } else {
+                  // 데이터가 있을 경우 통계 화면 처리
                   Map<String, dynamic> data = snapshot.data!;
                   Map<String, dynamic> thisMonthEmotions = data['thisMonthEmotions'];
                   Map<String, dynamic> yearlyEmotionsRaw = data['yearlyEmotions'];
+
+                  if (thisMonthEmotions.isEmpty) {
+                    return _buildNoDataScreen(context);
+                  }
 
                   // 사용자 이름 가져오기
                   String memberName = data['memberName'] ?? '사용자'; // 기본값 설정
@@ -174,8 +176,6 @@ class MonthlyEmotionScreen extends StatelessWidget {
                       _buildEmotionTable(yearlyEmotions),
                     ],
                   );
-                } else {
-                  return Center(child: Text('No Data Available'));
                 }
               },
             ),
@@ -184,6 +184,40 @@ class MonthlyEmotionScreen extends StatelessWidget {
       ),
     );
   }
+
+  // 데이터를 처리할 수 없을 때 보여줄 화면
+  Widget _buildNoDataScreen(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      height: 670, // 고정된 높이 값 설정
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center , // 세로 중앙 정렬
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Container(
+            width: 200, // 원하는 이미지 크기
+            height: 200, // 원하는 이미지 크기
+            child: Image.asset(
+              'assets/emotions/greatful.png',
+              fit: BoxFit.cover, // 이미지가 컨테이너 크기에 맞게 확장
+            ),
+          ),
+          Text(
+            '쓰신 일기가 없습니다!\n일기를 쓰고 난 뒤 통계가 보입니다.',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 16,
+              color: Colors.black54,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+
+
+
 
   // HTTP 요청을 보내서 감정 데이터를 받아오는 함수
   Future<Map<String, dynamic>> fetchEmotionData() async {
@@ -195,13 +229,14 @@ class MonthlyEmotionScreen extends StatelessWidget {
     }
 
     final memberId = user.id;
+    String todayDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
     final url = Uri.parse('http://192.168.123.103:8080/api/statistics/inquire');
     final response = await http.post(
       url,
       headers: {"Content-Type": "application/json"},
       body: json.encode({
         "memberId": memberId,
-        "date": "2024-08-18"
+        "date": todayDate
       }),
     );
 
@@ -213,8 +248,6 @@ class MonthlyEmotionScreen extends StatelessWidget {
       throw Exception('Failed to load emotion data');
     }
   }
-
-
 
   // 감정 달력을 생성하는 함수
   Widget _buildEmotionTable(Map<int, int> yearlyEmotions) {
@@ -325,8 +358,8 @@ class SemiDonutPainter extends CustomPainter {
       ..strokeWidth = 100.0;
 
     final emotionColors = {
-      '1': Colors.deepPurpleAccent ,
-      '2': Colors.purple ,
+      '1': Colors.deepPurpleAccent,
+      '2': Colors.purple,
       '3': Colors.amber,
       '4': Colors.teal,
       '5': Colors.red,
@@ -363,7 +396,7 @@ class SemiDonutPainter extends CustomPainter {
         paint,
       );
 
-      // 텍스트 위치 선청
+      // 텍스트 위치 선정
       final textAngle = startAngle + sweepAngle / 2;
       final textX = centerX + (radius + 0) * cos(textAngle);
       final textY = centerY + (radius + 0) * sin(textAngle);
@@ -372,9 +405,8 @@ class SemiDonutPainter extends CustomPainter {
       final emotionName = getEmotionNameByCode(emotionCode);
       final displayText = '$emotionName(${percentage.toStringAsFixed(0)}%)';
 
-      // 차트위에 텍스트 표시
+      // 차트 위에 텍스트 표시
       _drawText(canvas, displayText, textX, textY);
-
 
       startAngle += sweepAngle;
     }
