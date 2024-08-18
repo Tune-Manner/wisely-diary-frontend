@@ -4,6 +4,23 @@ import 'dart:math';
 import 'package:http/http.dart' as http;
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+// 감정 이름을 반환하는 함수 (예: '분노', '슬픔' 등)
+String getEmotionNameByCode(String code) {
+  final emotionNames = {
+    '1': '걱정',
+    '2': '자랑',
+    '3': '감사',
+    '4': '부당함',
+    '5': '분노',
+    '6': '슬픔',
+    '7': '기쁨',
+    '8': '사랑스러움',
+    '9': '안정',
+    '10': '당황'
+  };
+  return emotionNames[code] ?? '알 수 없음';
+}
+
 
 class MonthlyEmotionScreen extends StatelessWidget {
   @override
@@ -197,22 +214,7 @@ class MonthlyEmotionScreen extends StatelessWidget {
     }
   }
 
-  // 감정 이름을 반환하는 함수 (예: '분노', '슬픔' 등)
-  String getEmotionNameByCode(String code) {
-    final emotionNames = {
-      '1': '걱정',
-      '2': '자랑',
-      '3': '감사',
-      '4': '부당함',
-      '5': '분노',
-      '6': '슬픔',
-      '7': '기쁨',
-      '8': '사랑스러움',
-      '9': '안정',
-      '10': '당황'
-    };
-    return emotionNames[code] ?? '알 수 없음';
-  }
+
 
   // 감정 달력을 생성하는 함수
   Widget _buildEmotionTable(Map<int, int> yearlyEmotions) {
@@ -323,21 +325,34 @@ class SemiDonutPainter extends CustomPainter {
       ..strokeWidth = 100.0;
 
     final emotionColors = {
-      '1': Colors.red,
-      '2': Colors.blue,
-      '3': Colors.green,
-      '4': Colors.orange,
-      '5': Colors.yellow,
-      '6': Colors.purple,
-      '7': Colors.cyan,
-      '8': Colors.pink,
-      '9': Colors.teal,
-      '10': Colors.amber,
+      '1': Colors.deepPurpleAccent ,
+      '2': Colors.purple ,
+      '3': Colors.amber,
+      '4': Colors.teal,
+      '5': Colors.red,
+      '6': Colors.cyan,
+      '7': Colors.pink,
+      '9': Colors.yellow,
+      '10': Colors.orange,
     };
 
+    // 감정 데이터를 리스트로 변환하고, 퍼센티지에 따라 내림차순 정렬
+    final sortedEmotions = emotions.entries.toList()
+      ..sort((a, b) {
+        final percentageComparison = (b.value as double).compareTo(a.value as double);
+        if (percentageComparison != 0) {
+          return percentageComparison;
+        } else {
+          // 퍼센티지가 같으면 emotion_code 순으로 정렬
+          return int.parse(a.key).compareTo(int.parse(b.key));
+        }
+      });
+
     double startAngle = pi;
-    emotions.forEach((emotionCode, percentage) {
-      final sweepAngle = (percentage as double) * pi / 100;
+    for (var entry in sortedEmotions) {
+      final emotionCode = entry.key;
+      final percentage = entry.value as double;
+      final sweepAngle = percentage * pi / 100;
       paint.color = emotionColors[emotionCode] ?? Colors.grey;
 
       canvas.drawArc(
@@ -348,8 +363,38 @@ class SemiDonutPainter extends CustomPainter {
         paint,
       );
 
+      // 텍스트 위치 선청
+      final textAngle = startAngle + sweepAngle / 2;
+      final textX = centerX + (radius + 0) * cos(textAngle);
+      final textY = centerY + (radius + 0) * sin(textAngle);
+
+      // 감정 이름 매핑되어있는 전역함수 불러오기
+      final emotionName = getEmotionNameByCode(emotionCode);
+      final displayText = '$emotionName(${percentage.toStringAsFixed(0)}%)';
+
+      // 차트위에 텍스트 표시
+      _drawText(canvas, displayText, textX, textY);
+
+
       startAngle += sweepAngle;
-    });
+    }
+  }
+
+  // 텍스트 설정
+  void _drawText(Canvas canvas, String text, double x, double y) {
+    final textSpan = TextSpan(
+      text: text,
+      style: TextStyle(color: Colors.white, fontSize: 14),
+    );
+
+    final textPainter = TextPainter(
+      text: textSpan,
+      textAlign: TextAlign.center,
+      textDirection: TextDirection.ltr,
+    );
+
+    textPainter.layout();
+    textPainter.paint(canvas, Offset(x - textPainter.width / 2, y - textPainter.height / 2));
   }
 
   @override
