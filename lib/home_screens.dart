@@ -6,6 +6,7 @@ import 'package:wisely_diary/main.dart';
 import 'create_diary_screens.dart'; // CreateDiaryPage를 import합니다.
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'custom_scaffold.dart';
 
 class HomeScreens extends StatefulWidget {
   final String userId;
@@ -91,22 +92,7 @@ Future<void> _fetchDiaryContent(DateTime selectedDay) async {
       return isSameDay(entryDate, _selectedDay);
     }).toList();
 
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color(0xfffdfbf0),
-        elevation: 0,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-        title: Image.asset(
-          'assets/wisely-diary-logo.png',
-          height: 30,
-          fit: BoxFit.contain,
-        ),
-        centerTitle: true,
-      ),
-      backgroundColor: Color(0xFFFDFBF0),
+    return CustomScaffold(
       body: Column(
         children: [
           // 캘린더 헤더 및 버튼
