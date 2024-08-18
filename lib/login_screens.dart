@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart' as kakao;
@@ -13,6 +14,16 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final supabase = Supabase.instance.client;
+
+  @override
+  void initState() {
+    super.initState();
+    // 상태 바 스타일 설정
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.dark,
+    ));
+  }
 
   Future<void> _googleSignIn() async {
     try {
@@ -144,57 +155,61 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Color(0xFFFDFBF0),
-      body: Center(
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Image.asset(
-                'assets/wisely-diary-logo.png',
-                height: 200,
-                width: 300,
-              ),
-              SizedBox(height: 20),
-              Text(
-                '일기로운 슬기생활',
-                style: TextStyle(
-                  fontFamily: 'HSSaemaul',
-                  fontSize: 50,
+    return Container(
+      color: Colors.white,
+      child: SafeArea(
+        child: Center(
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Image.asset(
+                  'assets/wisely-diary-logo.png',
+                  height: 200,
+                  width: 300,
                 ),
-              ),
-              SizedBox(height: 50),
-              ElevatedButton.icon(
-                icon: Image.asset(
-                  'assets/google_logo.png',
-                  height: 24,
-                  width: 24,
+                SizedBox(height: 20),
+                Text(
+                  '일기로운 슬기생활',
+                  style: TextStyle(
+                    fontFamily: 'HSSaemaul',
+                    color: Colors.black,
+                    fontWeight: FontWeight.normal,
+                    fontSize: 50,
+                  ),
                 ),
-                label: Text('Google로 시작하기'),
-                onPressed: _googleSignIn,
-                style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.black,
-                  backgroundColor: Colors.white,
-                  minimumSize: Size(300, 50),
+                SizedBox(height: 50),
+                ElevatedButton.icon(
+                  icon: Image.asset(
+                    'assets/google_logo.png',
+                    height: 24,
+                    width: 24,
+                  ),
+                  label: Text('Google로 시작하기'),
+                  onPressed: _googleSignIn,
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor: Colors.black,
+                    backgroundColor: Colors.white,
+                    minimumSize: Size(300, 50),
+                  ),
                 ),
-              ),
-              SizedBox(height: 20),
-              ElevatedButton.icon(
-                icon: Image.asset(
-                  'assets/kakao_logo.png',
-                  height: 24,
-                  width: 24,
+                SizedBox(height: 20),
+                ElevatedButton.icon(
+                  icon: Image.asset(
+                    'assets/kakao_logo.png',
+                    height: 24,
+                    width: 24,
+                  ),
+                  label: Text('카카오로 시작하기'),
+                  onPressed: _kakaoSignIn,
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor: Colors.black,
+                    backgroundColor: Color(0xFFFFE812),
+                    minimumSize: Size(300, 50),
+                  ),
                 ),
-                label: Text('카카오로 시작하기'),
-                onPressed: _kakaoSignIn,
-                style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.black,
-                  backgroundColor: Color(0xFFFFE812),
-                  minimumSize: Size(300, 50),
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

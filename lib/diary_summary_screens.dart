@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:io';
+import 'custom_scaffold.dart';
 
 class DiarySummaryScreen extends StatelessWidget {
   final String transcription;
@@ -12,21 +13,7 @@ class DiarySummaryScreen extends StatelessWidget {
     final double screenWidth = MediaQuery.of(context).size.width;
     final double screenHeight = MediaQuery.of(context).size.height;
 
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color(0xfffdfbf0),
-        elevation: 0,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-        title: Image.asset(
-          'assets/wisely-diary-logo.png',
-          height: 30,
-          fit: BoxFit.contain,
-        ),
-        centerTitle: true,
-      ),
+    return CustomScaffold(
       body: Container(
         color: const Color(0xfffdfbf0),
         padding: EdgeInsets.symmetric(horizontal: 20),
