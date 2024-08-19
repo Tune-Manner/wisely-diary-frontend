@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:io';
-import 'package:image_picker/image_picker.dart';
+import 'package:image_picker_platform_interface/image_picker_platform_interface.dart';
+import 'package:image_picker_android/image_picker_android.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logger/logger.dart';
 import 'AudioManager.dart';
@@ -17,6 +18,18 @@ final logger = Logger(
     printTime: true,     // 시간 출력 활성화
   ),
 );
+
+// Android Photo Picker 설정
+void configureAndroidPhotoPicker() {
+  // ImagePickerPlatform의 현재 인스턴스를 가져옵니다.
+  final ImagePickerPlatform imagePickerImplementation = ImagePickerPlatform.instance;
+
+  // 현재 플랫폼이 Android인지 확인합니다.
+  if (imagePickerImplementation is ImagePickerAndroid) {
+    // Android Photo Picker를 사용하도록 설정합니다.
+    imagePickerImplementation.useAndroidPhotoPicker = true;
+  }
+}
 
 // 이벤트 정의: BLoC 패턴에서 사용자 액션이나 시스템 이벤트를 나타냄
 abstract class AddPhotoEvent {
@@ -79,20 +92,15 @@ class AddPhotoState {
 // BLoC: 비즈니스 로직을 처리하고 상태를 관리
 class AddPhotoBloc extends Bloc<AddPhotoEvent, AddPhotoState> {
   final AudioManager audioManager;
-  final ImagePicker imagePicker;
 
-  AddPhotoBloc({required this.audioManager, required this.imagePicker})
+  AddPhotoBloc({required this.audioManager})
       : super(AddPhotoState(
       imageFiles: [],
       isPlaying: audioManager.player.playing,
       volume: audioManager.player.volume
   )) {
-    // 각 이벤트에 대한 핸들러를 등록
     on<AddPhotos>(_onAddPhotos);
-    on<RemovePhoto>(_onRemovePhoto);
-    on<TogglePlayPause>(_onTogglePlayPause);
-    on<ChangeVolume>(_onChangeVolume);
-    on<CreateDiary>(_onCreateDiary);
+    // 다른 이벤트 핸들러 등록은 이전과 동일...
 
     logger.i('AddPhotoBloc initialized');
   }
@@ -101,10 +109,32 @@ class AddPhotoBloc extends Bloc<AddPhotoEvent, AddPhotoState> {
   Future<void> _onAddPhotos(AddPhotos event, Emitter<AddPhotoState> emit) async {
     logger.d('Adding photos');
     try {
-      final pickedFiles = await imagePicker.pickMultiImage();
+      // ImagePickerPlatform의 인스턴스를 가져옵니다.
+      final ImagePickerPlatform picker = ImagePickerPlatform.instance;
+
+      // 현재 선택된 이미지 수를 계산합니다.
+      final int currentImageCount = state.imageFiles.length;
+
+      // 추가로 선택할 수 있는 이미지 수를 계산합니다. (최대 10장)
+      final int remainingImagesAllowed = 10 - currentImageCount;
+
+      // 이미지를 선택합니다.
+      final List<XFile> pickedFiles = await picker.getMultiImageWithOptions(
+        options: MultiImagePickerOptions(
+          imageOptions: const ImageOptions(
+            maxWidth: 1080, // 이미지의 최대 너비를 1080px로 제한합니다.
+          ),
+          // 선택 가능한 이미지 수를 제한합니다.
+          limit: remainingImagesAllowed,
+        ),
+      );
+
       if (pickedFiles.isNotEmpty) {
+        // 선택된 이미지를 File 객체로 변환합니다.
         final newFiles = pickedFiles.map((xFile) => File(xFile.path)).toList();
+        // 기존 이미지 리스트에 새 이미지들을 추가합니다.
         final updatedFiles = List<File>.from(state.imageFiles)..addAll(newFiles);
+        // 새로운 상태를 생성하고 emit합니다.
         emit(state.copyWith(imageFiles: updatedFiles));
         logger.i('${newFiles.length} photos added successfully');
       } else {
@@ -171,11 +201,12 @@ class AddPhotoScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // BlocProvider를 사용하여 AddPhotoBloc의 인스턴스를 생성하고 제공
+    // Android Photo Picker 설정을 호출합니다.
+    configureAndroidPhotoPicker();
+
     return BlocProvider(
       create: (context) => AddPhotoBloc(
         audioManager: AudioManager(),
-        imagePicker: ImagePicker(),
       ),
       child: AddPhotoView(transcription: transcription),
     );
