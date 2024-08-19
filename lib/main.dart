@@ -8,6 +8,7 @@ import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart' as kakao;
 import 'package:gotrue/src/types/user.dart' as gotrue;
 import 'package:wisely_diary/alarm/alarm_setting_page.dart';
 import 'package:wisely_diary/statistics/monthly_emotion_screens.dart';
+import 'package:wisely_diary/today_cartoon.dart';
 import 'WelcomePage.dart';
 import 'add_photo_screens.dart';
 import 'diary_summary_screens.dart';
@@ -87,21 +88,20 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => LoginPage(),
         '/create-diary-screens': (context) => CreateDiaryPage(),
-        '/add-photo': (context) => AddPhotoScreen(transcription: ''),
-        '/summary': (context) => CustomScaffold(body: DiarySummaryScreen(transcription: '', imageFiles: [])),
         '/mypage': (context) => CustomScaffold(
           body: MyPage(),
           title: '마이페이지',
         ),
-        '/summary': (context) => DiarySummaryScreen(transcription: '', imageFiles: []),
-        '/statistics' : (context) => MonthlyEmotionScreen(),
-        '/notifications' : (context)=> AlarmSettingPage()
+        '/statistics': (context) => MonthlyEmotionScreen(),
+        '/notifications': (context) => AlarmSettingPage(),
+        '/today-cartoon': (context) => TodayCartoonPage(url: ''),
       },
       onGenerateRoute: (settings) {
         if (settings.name == '/home') {
           final String userId = settings.arguments as String? ?? '';
           return MaterialPageRoute(
-            builder: (context) => HomeScreens(userId: userId));
+            builder: (context) => HomeScreens(userId: userId),
+          );
         }
         if (settings.name == '/wait') {
           final int emotionNumber = settings.arguments as int;
@@ -125,6 +125,27 @@ class MyApp extends StatelessWidget {
           final int emotionNumber = settings.arguments as int;
           return MaterialPageRoute(
             builder: (context) => RecordScreen(emotionNumber: emotionNumber),
+          );
+        }
+        if (settings.name == '/add-photo') {
+          final String transcription = settings.arguments as String;
+          return MaterialPageRoute(
+            builder: (context) => AddPhotoScreen(transcription: transcription),
+          );
+        }
+        if (settings.name == '/summary') {
+          final Map<String, dynamic> args = settings.arguments as Map<String, dynamic>;
+          final String transcription = args['transcription'] ?? '';
+          final List<File> imageFiles = args['imageFiles'] ?? [];
+          final String cartoonUrl = args['cartoonUrl'] ?? '';
+          final String letterCartoonUrl = args['letterCartoonUrl'] ?? '';
+          return MaterialPageRoute(
+            builder: (context) => DiarySummaryScreen(
+              transcription: transcription,
+              imageFiles: imageFiles,
+              cartoonUrl: cartoonUrl,
+              letterCartoonUrl: letterCartoonUrl,
+            ),
           );
         }
         return null;

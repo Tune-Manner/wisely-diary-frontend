@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:wisely_diary/today_cartoon.dart';
 import 'dart:io';
 import 'custom_scaffold.dart';
 
 class DiarySummaryScreen extends StatelessWidget {
   final String transcription;
   final List<File> imageFiles;
+  final String cartoonUrl;
+  final String letterCartoonUrl;
 
-  DiarySummaryScreen({required this.transcription, required this.imageFiles});
+  DiarySummaryScreen({
+    required this.transcription,
+    required this.imageFiles,
+    required this.cartoonUrl,
+    required this.letterCartoonUrl,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +92,12 @@ class DiarySummaryScreen extends StatelessWidget {
                   context,
                   iconPath: 'assets/cuttoon_icon.png',
                   label: "오늘의 만화",
-                  onPressed: () => Navigator.pushNamed(context, '/comic'),
+                  onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => TodayCartoonPage(url: cartoonUrl),
+                    ),
+                  ),
                 ),
               ],
             ),
