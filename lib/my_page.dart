@@ -15,6 +15,13 @@ class _MyPageState extends State<MyPage> {
   String userName = '홍길동';
   String userEmail = 'tune@mail.com';
 
+  @override
+  void initState() {
+    super.initState();
+    _fetchUserName();
+  }
+
+
   Future<void> _signOut() async {
     await Supabase.instance.client.auth.signOut();
     final GoogleSignIn googleSignIn = GoogleSignIn();
@@ -25,6 +32,23 @@ class _MyPageState extends State<MyPage> {
     );
   }
 
+  Future<void> _fetchUserName() async {
+    final user = Supabase.instance.client.auth.currentUser;
+    if (user != null) {
+      final memberResponse = await Supabase.instance.client
+          .from('member')
+          .select('member_name,member_email')
+          .eq('member_id', user.id)
+          .single();
+
+      setState(() {
+        userName = memberResponse['member_name'];
+        userEmail = memberResponse['member_email'];
+      });
+
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -32,14 +56,12 @@ class _MyPageState extends State<MyPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // 이미지 부분
             Image.asset(
               'assets/wisely-diary-logo.png',
               width: 100,
               height: 100,
             ),
             SizedBox(height: 10),
-            // 사용자 이름
             Text(
               userName,
               style: TextStyle(
@@ -48,7 +70,6 @@ class _MyPageState extends State<MyPage> {
               ),
             ),
             SizedBox(height: 5),
-            // 이메일
             Text(
               userEmail,
               style: TextStyle(
@@ -57,7 +78,6 @@ class _MyPageState extends State<MyPage> {
               ),
             ),
             SizedBox(height: 40),
-            // 버튼들
             _buildButton('알람 설정', () {
               Navigator.pushNamed(context, '/notifications');
             }),
@@ -66,10 +86,9 @@ class _MyPageState extends State<MyPage> {
               Navigator.pushNamed(context, '/statistics');
             }),
             SizedBox(height: 10),
-            _buildButton('로그아웃', _signOut), // 로그아웃 버튼 클릭 시 _signOut 메소드 실행
+            _buildButton('로그아웃', _signOut),
             SizedBox(height: 10),
             _buildButton('회원 탈퇴', () {
-              // 회원 탈퇴 버튼 클릭 시 동작
               Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) => MemberDeactivatePage(),
@@ -84,11 +103,11 @@ class _MyPageState extends State<MyPage> {
 
   Widget _buildButton(String text, VoidCallback onPressed) {
     return SizedBox(
-      width: 200, // 버튼의 가로 길이 설정
+      width: 200,
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.grey[300], // 버튼 색상
+          backgroundColor: Colors.grey[300],
           padding: EdgeInsets.symmetric(vertical: 15),
         ),
         child: Text(
