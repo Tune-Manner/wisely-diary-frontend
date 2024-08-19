@@ -125,7 +125,7 @@ class _HomePageState extends State<HomeScreens> {
                         ),
                       );
                     },
-                    child: Text('알람설정임시버튼'),
+                    child: Text('이번달 감정통계'),
                     style: ElevatedButton.styleFrom(
                       foregroundColor: Colors.black,
                       backgroundColor: Colors.white,

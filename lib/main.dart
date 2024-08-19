@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -7,6 +6,8 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart' as kakao;
 import 'package:gotrue/src/types/user.dart' as gotrue;
+import 'package:wisely_diary/alarm/alarm_setting_page.dart';
+import 'package:wisely_diary/statistics/monthly_emotion_screens.dart';
 import 'WelcomePage.dart';
 import 'add_photo_screens.dart';
 import 'diary_summary_screens.dart';
@@ -15,10 +16,6 @@ import 'kakao/kakao_login.dart';
 import 'kakao/main_view_model.dart';
 import 'member_information.dart';
 import 'test_page.dart';
-
-import 'package:supabase_flutter/supabase_flutter.dart';
-
-
 import 'login_screens.dart';
 import 'create_diary_screens.dart';
 import 'home_screens.dart';
@@ -96,6 +93,9 @@ class MyApp extends StatelessWidget {
           body: MyPage(),
           title: '마이페이지',
         ),
+        '/summary': (context) => DiarySummaryScreen(transcription: '', imageFiles: []),
+        '/statistics' : (context) => MonthlyEmotionScreen(),
+        '/notifications' : (context)=> AlarmSettingPage()
       },
       onGenerateRoute: (settings) {
         if (settings.name == '/home') {
