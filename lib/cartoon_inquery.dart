@@ -48,7 +48,6 @@ class _CartoonInquiryScreenState extends State<CartoonInquiryScreen> {
 
       if (response.statusCode == 200) {
         final List<dynamic> data = json.decode(response.body);
-        print("리스트${data}");
         setState(() {
           cartoons = List<Map<String, dynamic>>.from(data);
           isLoading = false;
@@ -71,9 +70,16 @@ class _CartoonInquiryScreenState extends State<CartoonInquiryScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print('Building widget with cartoons: $cartoons');
+
+    // 'Cartoon'과 'Letter'로 데이터를 분리합니다.
+    final cartoonList = cartoons.where((cartoon) => cartoon['type']?.toString().toLowerCase() == "cartoon").toList();
+    final letterList = cartoons.where((cartoon) => cartoon['type']?.toString().toLowerCase() == "letter").toList();
+
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('${DateFormat('yyyy년 MM월 dd일').format(widget.selectedDate)}의 만화'),
+        title: Text('${DateFormat('yyyy년 MM월 dd일').format(widget.selectedDate)}'),
         backgroundColor: Color(0xFFFFF9F2),
       ),
       body: isLoading
@@ -82,50 +88,65 @@ class _CartoonInquiryScreenState extends State<CartoonInquiryScreen> {
           ? Center(child: Text(error!))
           : cartoons.isEmpty
           ? Center(child: Text('이 날 생성된 만화가 없습니다.'))
-          : ListView.builder(
-        itemCount: cartoons.length,
-        itemBuilder: (context, index) {
-          final cartoon = cartoons[index];
-          final cartoonPath = cartoon['cartoonPath'] as String?;
-          // final cartoonTitle = cartoon['cartoon_title'] as String?;
-          print('cartoonPath: $cartoonPath');
-          return Card(
-            margin: EdgeInsets.all(8.0),
-            child: Column(
-              children: [
-                if (cartoonPath != null && cartoonPath.isNotEmpty)
-                  Image.network(
-                    cartoonPath,
-                    loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
-                      if (loadingProgress == null) return child;
-                      return Center(
-                        child: CircularProgressIndicator(
-                          value: loadingProgress.expectedTotalBytes != null
-                              ? loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!
-                              : null,
-                        ),
-                      );
-                    },
-                    errorBuilder: (context, error, stackTrace) {
-                      return Text('이미지를 불러올 수 없습니다.');
-                    },
-                  )
-                else
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text('이미지가 제공되지 않습니다.'),
-                  ),
-                // Padding(
-                //   padding: EdgeInsets.all(8.0),
-                //   child: Text(
-                //     cartoonTitle ?? '제목 없음',
-                //     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                //   ),
-                // ),
-              ],
+          : ListView(
+        children: [
+          if (cartoonList.isNotEmpty) ...[
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                '당신의 오늘 하루를 그려봤어요.',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
             ),
-          );
-        },
+            ...cartoonList.map((cartoon) => buildCartoonItem(cartoon)).toList(),
+          ],
+          if (letterList.isNotEmpty) ...[
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                '당신의 오늘 하루 기분을 그려보았어요.',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+            ),
+            ...letterList.map((cartoon) => buildCartoonItem(cartoon)).toList(),
+          ],
+        ],
+      ),
+    );
+  }
+
+  Widget buildCartoonItem(Map<String, dynamic> cartoon) {
+    print('Building cartoon item: $cartoon');
+    final cartoonPath = cartoon['cartoonPath'] as String?;
+
+    return Card(
+      margin: EdgeInsets.all(8.0),
+      child: Column(
+        children: [
+          if (cartoonPath != null && cartoonPath.isNotEmpty)
+            Image.network(
+              cartoonPath,
+              loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
+                if (loadingProgress == null) return child;
+                return Center(
+                  child: CircularProgressIndicator(
+                    value: loadingProgress.expectedTotalBytes != null
+                        ? loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!
+                        : null,
+                  ),
+                );
+              },
+              errorBuilder: (context, error, stackTrace) {
+                print('Error loading image: $error');
+                return Text('이미지를 불러올 수 없습니다.');
+              },
+            )
+          else
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text('이미지가 제공되지 않습니다.'),
+            ),
+        ],
       ),
     );
   }
