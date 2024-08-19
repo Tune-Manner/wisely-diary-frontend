@@ -37,7 +37,6 @@ class _TodayCartoonPageState extends State<TodayCartoonPage> {
   Widget build(BuildContext context) {
     return CustomScaffold(
       showAppBar: true,
-      title: '오늘의 만화',
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
