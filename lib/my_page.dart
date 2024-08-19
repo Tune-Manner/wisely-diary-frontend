@@ -21,17 +21,6 @@ class _MyPageState extends State<MyPage> {
     _fetchUserName();
   }
 
-
-  Future<void> _signOut() async {
-    await Supabase.instance.client.auth.signOut();
-    final GoogleSignIn googleSignIn = GoogleSignIn();
-    await googleSignIn.signOut();
-
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (context) => MyApp()),
-    );
-  }
-
   Future<void> _fetchUserName() async {
     final user = Supabase.instance.client.auth.currentUser;
     if (user != null) {
@@ -48,6 +37,18 @@ class _MyPageState extends State<MyPage> {
 
     }
   }
+
+
+  Future<void> _signOut() async {
+    await Supabase.instance.client.auth.signOut();
+    final GoogleSignIn googleSignIn = GoogleSignIn();
+    await googleSignIn.signOut();
+
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(builder: (context) => MyApp()),
+    );
+  }
+
 
   @override
   Widget build(BuildContext context) {
