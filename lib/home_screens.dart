@@ -63,9 +63,6 @@ class _HomePageState extends State<HomeScreens> {
     }
   }
 
-
-
-
   Future<void> _signOut() async {
     await Supabase.instance.client.auth.signOut();
     final GoogleSignIn googleSignIn = GoogleSignIn();
@@ -89,116 +86,110 @@ class _HomePageState extends State<HomeScreens> {
     print('Navigated to HomePage with memberId: ${widget.userId}');
 
     List<Map<String, String>> filteredEntries = _diaryEntries.where((entry) {
-      DateTime entryDate =
-      DateTime.parse(entry['date']!.split(' ')[0].replaceAll('.', '-'));
+      DateTime entryDate = DateTime.parse(
+          entry['date']!.split(' ')[0].replaceAll('.', '-'));
       return isSameDay(entryDate, _selectedDay);
     }).toList();
 
     return CustomScaffold(
-      body: Column(
+      body: Stack(
         children: [
-          // 캘린더 헤더 및 버튼
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 20.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 16.0),
-                  child: Text(
-                    '< ${_selectedDay.year} ${_selectedDay.month.toString().padLeft(2, '0')} >',
-                    textAlign: TextAlign.left,
-                    style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(right: 16.0),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => AlarmSettingPage(), // AlarmSettingPage로 이동
-                        ),
-                      );
-                    },
-                    child: Text('이번달 감정통계'),
-                    style: ElevatedButton.styleFrom(
-                      foregroundColor: Colors.black,
-                      backgroundColor: Colors.white,
-                      minimumSize: Size(105, 30),
+          Column(
+            children: [
+              // 캘린더 헤더 및 버튼
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 20.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 16.0),
+                      child: Text(
+                        '< ${_selectedDay.year} ${_selectedDay.month.toString().padLeft(2, '0')} >',
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold),
+                      ),
                     ),
-                  ),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 16.0),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => AlarmSettingPage(), // AlarmSettingPage로 이동
+                            ),
+                          );
+                        },
+                        child: Text('이번달 감정통계'),
+                        style: ElevatedButton.styleFrom(
+                          foregroundColor: Colors.black,
+                          backgroundColor: Colors.white,
+                          minimumSize: Size(105, 30),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          ),
-          // 캘린더 위젯
-          Container(
-            margin: EdgeInsets.symmetric(horizontal: 16.0),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(8),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.1),
-                  spreadRadius: 2,
-                  blurRadius: 5,
-                  offset: Offset(0, 3),
+              ),
+              // 캘린더 위젯
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 16.0),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(8),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.1),
+                      spreadRadius: 2,
+                      blurRadius: 5,
+                      offset: Offset(0, 3),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-            child: TableCalendar(
-              firstDay: DateTime.utc(2020, 1, 1),
-              lastDay: DateTime.utc(2100, 12, 31),
-              focusedDay: _focusedDay,
-              selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
-              onDaySelected: (selectedDay, focusedDay) {
-                setState(() {
-                  _selectedDay = selectedDay;
-                  _focusedDay = focusedDay;
-                });
-                _fetchDiaryContent(selectedDay); // 선택된 날짜의 일기 내용 가져오기
-              },
-            ),
-          ),
-          // 일기 항목들
-          Expanded(
-            child: ListView.builder(
-              itemCount: filteredEntries.length,
-              itemBuilder: (context, index) {
-                return _buildDiaryEntry(
-                  filteredEntries[index]['date']!,
-                  filteredEntries[index]['summary']!,
-                );
-              },
-            ),
+                child: TableCalendar(
+                  firstDay: DateTime.utc(2020, 1, 1),
+                  lastDay: DateTime.utc(2100, 12, 31),
+                  focusedDay: _focusedDay,
+                  selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
+                  onDaySelected: (selectedDay, focusedDay) {
+                    setState(() {
+                      _selectedDay = selectedDay;
+                      _focusedDay = focusedDay;
+                    });
+                    _fetchDiaryContent(selectedDay); // 선택된 날짜의 일기 내용 가져오기
+                  },
+                ),
+              ),
+              // 일기 항목들
+              Expanded(
+                child: ListView.builder(
+                  itemCount: filteredEntries.length,
+                  itemBuilder: (context, index) {
+                    return _buildDiaryEntry(
+                      filteredEntries[index]['date']!,
+                      filteredEntries[index]['summary']!,
+                    );
+                  },
+                ),
+              ),
+            ],
           ),
         ],
       ),
       // 플로팅 액션 버튼
-      floatingActionButton: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          FloatingActionButton(
-            onPressed: _navigateToAddDiaryEntryPage,
-            child: Icon(Icons.add),
-            tooltip: '새 일기 추가',
-          ),
-          SizedBox(height: 16),
-          FloatingActionButton(
-            onPressed: _signOut,
-            child: Icon(Icons.logout),
-            tooltip: '로그아웃',
-          ),
-        ],
+      floatingActionButton: FloatingActionButton(
+        onPressed: _navigateToAddDiaryEntryPage,
+        child: Icon(Icons.edit), // 펜 모양 아이콘으로 변경
+        tooltip: '새 일기 추가',
+        backgroundColor: Colors.yellow,
+        foregroundColor: Colors.white,
       ),
     );
   }
-
 
   Widget _buildDiaryEntry(String date, String summary) {
     return Padding(

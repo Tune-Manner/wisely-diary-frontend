@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+
+import 'main.dart';
 
 class CustomScaffold extends StatelessWidget {
   final Widget body;
@@ -26,10 +29,23 @@ class CustomScaffold extends StatelessWidget {
     Navigator.of(context).pushNamed(routeName);
   }
 
+  Future<void> _signOut(BuildContext context) async {
+    await Supabase.instance.client.auth.signOut();
+    final GoogleSignIn googleSignIn = GoogleSignIn();
+    await googleSignIn.signOut();
+
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => MyApp()),
+          (Route<dynamic> route) => false,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: showAppBar ? AppBar(
+      appBar: showAppBar
+          ? AppBar(
         backgroundColor: const Color(0xffffffff),
         elevation: 0,
         leading: Builder(
@@ -43,7 +59,8 @@ class CustomScaffold extends StatelessWidget {
           },
         ),
         title: title != null
-            ? Text(title!, style: TextStyle(color: Colors.black, fontSize: 15))
+            ? Text(title!,
+            style: TextStyle(color: Colors.black, fontSize: 15))
             : GestureDetector(
           onTap: () => _navigateToHome(context),
           child: Image.asset(
@@ -53,8 +70,16 @@ class CustomScaffold extends StatelessWidget {
           ),
         ),
         centerTitle: true,
-        actions: actions,
-      ) : null,
+        actions: [
+          ...?actions,
+          IconButton(
+            icon: Icon(Icons.logout, color: Colors.black),
+            onPressed: () => _signOut(context),
+            tooltip: '로그아웃',
+          ),
+        ],
+      )
+          : null,
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
