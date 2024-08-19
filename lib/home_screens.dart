@@ -11,7 +11,6 @@ import 'alarm/alarm_setting_page.dart';
 
 import 'date_select.dart';
 
-
 class HomeScreens extends StatefulWidget {
   final String userId;
 
@@ -110,45 +109,7 @@ class _HomePageState extends State<HomeScreens> {
         children: [
           Column(
             children: [
-              // 캘린더 헤더 및 버튼
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    // Padding(
-                    //   padding: const EdgeInsets.only(left: 16.0),
-                    //   child: Text(
-                    //     '< ${_selectedDay.year} ${_selectedDay.month.toString().padLeft(2, '0')} >',
-                    //     textAlign: TextAlign.left,
-                    //     style: TextStyle(
-                    //         fontSize: 16,
-                    //         color: Colors.black,
-                    //         fontWeight: FontWeight.bold),
-                    //   ),
-                    // ),
-                    // Padding(
-                    //   padding: const EdgeInsets.only(right: 16.0),
-                    //   child: ElevatedButton(
-                    //     onPressed: () {
-                    //       Navigator.push(
-                    //         context,
-                    //         MaterialPageRoute(
-                    //           builder: (context) => AlarmSettingPage(), // AlarmSettingPage로 이동
-                    //         ),
-                    //       );
-                    //     },
-                    //     child: Text('이번달 감정통계'),
-                    //     style: ElevatedButton.styleFrom(
-                    //       foregroundColor: Colors.black,
-                    //       backgroundColor: Colors.white,
-                    //       minimumSize: Size(105, 30),
-                    //     ),
-                    //   ),
-                    // ),
-                  ],
-                ),
-              ),
+              SizedBox(height: 16),
               // 캘린더 위젯
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 16.0),
