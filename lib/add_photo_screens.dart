@@ -22,7 +22,6 @@ void configureAndroidPhotoPicker() {
   }
 }
 
-// Events
 abstract class AddPhotoEvent {}
 
 class AddPhotos extends AddPhotoEvent {}
@@ -41,7 +40,6 @@ class ChangeVolume extends AddPhotoEvent {
 
 class CreateDiary extends AddPhotoEvent {}
 
-// State
 class AddPhotoState {
   final List<File> imageFiles;
   final bool isPlaying;
@@ -166,7 +164,6 @@ class AddPhotoScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // BlocProvider 제거, 직접 Bloc을 생성하지 않음
     return AddPhotoView(transcription: transcription);
   }
 }
@@ -182,7 +179,6 @@ Widget build(BuildContext context) {
   return BlocConsumer<AddPhotoBloc, AddPhotoState>(
     listener: (context, state) {
       if (state.navigateToSummary) {
-        // diaryCode를 state에서 바로 접근합니다.
         final diaryCode = state.diaryCode;
         
         Navigator.of(context).pushReplacement(
@@ -190,7 +186,7 @@ Widget build(BuildContext context) {
             builder: (context) => DiarySummaryScreen(
               transcription: transcription,
               imageFiles: state.imageFiles,
-              diaryCode: diaryCode!, // diaryCode를 state에서 직접 전달
+              diaryCode: diaryCode!, 
             ),
           ),
         );

@@ -99,7 +99,7 @@ class MyApp extends StatelessWidget {
         '/today-cartoon': (context) {
           final arguments = ModalRoute.of(context)!.settings.arguments
               as Map<String, dynamic>;
-          final int diaryCode = arguments['diaryCode']; // 전달받은 diaryCode 사용
+          final int diaryCode = arguments['diaryCode']; 
           return TodayCartoonPage(diaryCode: diaryCode);
         },
       },
@@ -138,12 +138,12 @@ class MyApp extends StatelessWidget {
           final Map<String, dynamic> args =
               settings.arguments as Map<String, dynamic>;
           final String transcription = args['transcription'] ?? '';
-          final int diaryCode = args['diaryCode'] ?? 0; // diaryCode 값을 전달
+          final int diaryCode = args['diaryCode'] ?? 0; 
 
           return MaterialPageRoute(
             builder: (context) => AddPhotoScreen(
               transcription: transcription,
-              diaryCode: diaryCode, // diaryCode 전달
+              diaryCode: diaryCode, 
             ),
           );
         }
@@ -152,13 +152,13 @@ class MyApp extends StatelessWidget {
               settings.arguments as Map<String, dynamic>;
           final String transcription = args['transcription'] ?? '';
           final List<File> imageFiles = args['imageFiles'] ?? [];
-          final int diaryCode = args['diaryCode'] ?? 0; // diaryCode 값을 전달
+          final int diaryCode = args['diaryCode'] ?? 0; 
 
           return MaterialPageRoute(
             builder: (context) => DiarySummaryScreen(
               transcription: transcription,
               imageFiles: imageFiles,
-              diaryCode: diaryCode, // diaryCode 전달
+              diaryCode: diaryCode,
             ),
           );
         }

@@ -52,7 +52,7 @@ class _RecordScreenState extends State<RecordScreen> {
         memberName = memberResponse['member_name'];
       });
 
-      // Log the member information
+
       print('Fetched memberId: $memberId, memberName: $memberName');
     }
   }
@@ -101,7 +101,7 @@ class _RecordScreenState extends State<RecordScreen> {
       var jsonData = jsonDecode(responseData.body);
 
       String? prompt = jsonData['transcription'] ??
-          jsonData['text']; // 백엔드로부터 받은 텍스트를 이용하여 일기 생성
+          jsonData['text']; 
       if (prompt == null) {
         throw Exception('Transcription or text is missing in the response.');
       }
@@ -153,7 +153,6 @@ class _RecordScreenState extends State<RecordScreen> {
             if (isRecording) {
               String? filePath = await stopRecording();
               if (filePath != null) {
-                // sendFileToBackend의 반환값을 받아서 필요한 데이터를 추출합니다.
                 Map<String, dynamic> diaryData =
                     await sendFileToBackend(filePath);
                 String transcription = diaryData['diaryEntry'];
@@ -174,7 +173,6 @@ class _RecordScreenState extends State<RecordScreen> {
     );
   }
 
-  // navigateToAddPhotoScreen 메서드를 수정하여 diaryCode도 전달하도록 합니다.
   void navigateToAddPhotoScreen(String transcription, int diaryCode) {
     Navigator.push(
       context,

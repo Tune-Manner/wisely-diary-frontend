@@ -59,7 +59,6 @@ class _TextPageState extends State<TextPage> {
   }
 
   Future<Map<String, dynamic>> generateDiaryEntry(String prompt) async {
-    // 모든 줄바꿈 및 특수 제어 문자를 공백으로 대체
     String sanitizedPrompt = prompt.replaceAll(RegExp(r'[\n\r\t]'), ' ');
 
     final response = await http.post(
@@ -69,7 +68,7 @@ class _TextPageState extends State<TextPage> {
         'prompt': sanitizedPrompt,
         'memberId': memberId,
         'memberName': memberName,
-        'emotionCode': widget.emotionNumber.toString(), // 감정 코드 추가
+        'emotionCode': widget.emotionNumber.toString(),
       }),
     );
 
@@ -90,7 +89,6 @@ class _TextPageState extends State<TextPage> {
 
 void _navigateToAddPhotoScreen() async {
   if (memberId == null || memberName == null) {
-    // 사용자 정보가 로드되지 않았을 경우 처리
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text('사용자 정보를 불러오는 중입니다. 잠시 후 다시 시도해주세요.')),
     );
@@ -107,7 +105,7 @@ void _navigateToAddPhotoScreen() async {
       MaterialPageRoute(
         builder: (context) => BlocProvider(
           create: (context) => AddPhotoBloc(
-            audioManager: AudioManager(), // 필요에 따라 초기화
+            audioManager: AudioManager(), 
             transcription: diaryData['diaryEntry'],
             diaryCode: diaryData['diaryCode'],
           ),
@@ -175,16 +173,16 @@ void _navigateToAddPhotoScreen() async {
       ),
       body: GestureDetector(
         onTap: () {
-          FocusScope.of(context).unfocus(); // 텍스트 상자 외부 클릭 시 키보드 숨김
+          FocusScope.of(context).unfocus(); 
         },
         child: SingleChildScrollView(
           child: Container(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
-            color: const Color(0xfffdfbf0), // 전체 배경색을 0xfffdfbf0로 통일
+            color: const Color(0xfffdfbf0), 
             child: Column(
               children: [
-                SizedBox(height: MediaQuery.of(context).size.height * 0.15), // 상단 여백
+                SizedBox(height: MediaQuery.of(context).size.height * 0.15), 
                 Text(
                   '${widget.emotionNumber}가장 기억에 남는 상황이 있었나요?\n언제, 어떤 상황이었나요?',
                   textAlign: TextAlign.center,
@@ -195,13 +193,13 @@ void _navigateToAddPhotoScreen() async {
                     fontWeight: FontWeight.normal,
                   ),
                 ),
-                SizedBox(height: 20), // 텍스트와 이미지 사이의 간격 추가
+                SizedBox(height: 20),
                 Image.asset(
                   'assets/text_img.png',
                   width: 120,
                   height: 120,
                 ),
-                SizedBox(height: 40), // 이미지와 입력 상자 사이의 간격 추가
+                SizedBox(height: 40), 
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 40.0),
                   child: Container(
@@ -213,7 +211,7 @@ void _navigateToAddPhotoScreen() async {
                     ),
                     child: TextField(
                       controller: _textEditingController,
-                      focusNode: _focusNode, // 포커스 노드 추가
+                      focusNode: _focusNode, 
                       maxLines: 5,
                       decoration: InputDecoration.collapsed(
                         hintText: '이곳에 상황을 입력해주세요',
@@ -221,9 +219,9 @@ void _navigateToAddPhotoScreen() async {
                     ),
                   ),
                 ),
-                SizedBox(height: 20), // 입력 상자와 버튼 사이의 간격 추가
+                SizedBox(height: 20),
                 GestureDetector(
-                  onTap: _navigateToAddPhotoScreen, // 생성하기 버튼 클릭 시 사진 추가 화면으로 이동
+                  onTap: _navigateToAddPhotoScreen, 
                   child: Container(
                     width: 221,
                     height: 54,
