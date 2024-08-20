@@ -45,7 +45,7 @@ class _TodayCartoonPageState extends State<TodayCartoonPage> {
     final user = Supabase.instance.client.auth.currentUser;
     if (user != null) {
       final requestBody = {
-        "diaryCode": 30,
+        "diaryCode": widget.diaryCode,
         "memberId": user.id
       };
 
