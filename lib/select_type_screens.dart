@@ -111,7 +111,7 @@ class _SelectTypePageState extends State<SelectTypePage> {
             SizedBox(height: screenHeight * 0.30),
             ElevatedButton(
               onPressed: () => _navigateToNextPage('voice'),
-              child: Text('${widget.emotionNumber}음성 일기'),
+              child: Text('음성 일기'),
               style: ElevatedButton.styleFrom(
                 minimumSize: Size(buttonWidth, buttonHeight),
               ),

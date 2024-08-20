@@ -168,7 +168,7 @@ class _TextPageState extends State<TextPage> {
               children: [
                 SizedBox(height: MediaQuery.of(context).size.height * 0.15), // 상단 여백
                 Text(
-                  '${widget.emotionNumber}가장 기억에 남는 상황이 있었나요?\n언제, 어떤 상황이었나요?',
+                  '가장 기억에 남는 상황이 있었나요?\n언제, 어떤 상황이었나요?',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     decoration: TextDecoration.none,

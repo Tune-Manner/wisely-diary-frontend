@@ -87,7 +87,7 @@ class _RecordScreenState extends State<RecordScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('${widget.emotionNumber}Start Backend Recording'),
+        title: Text('Start Backend Recording'),
         actions: [
           IconButton(
             icon: Icon(isPlaying ? Icons.pause : Icons.play_arrow),

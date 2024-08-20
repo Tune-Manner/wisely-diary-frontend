@@ -55,7 +55,6 @@ class _TodayCartoonPageState extends State<TodayCartoonPage> {
         if (response.statusCode == 200) {
           final result = response.body;
           setState(() {
-            print("밤양갱${result}");
             cartoonUrl = result; // Assuming the API returns the cartoon URL as plain text
           });
         } else {
