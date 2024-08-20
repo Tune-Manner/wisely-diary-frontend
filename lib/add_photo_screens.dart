@@ -20,7 +20,6 @@ void configureAndroidPhotoPicker() {
   }
 }
 
-// Events
 abstract class AddPhotoEvent {}
 
 class AddPhotos extends AddPhotoEvent {}
@@ -39,7 +38,6 @@ class ChangeVolume extends AddPhotoEvent {
 
 class CreateDiary extends AddPhotoEvent {}
 
-// State
 class AddPhotoState {
   final List<File> imageFiles;
   final bool isPlaying;
@@ -47,6 +45,7 @@ class AddPhotoState {
   final String userId;
   final String? error;
   final bool navigateToSummary;
+  final int? diaryCode;
 
   const AddPhotoState({
     required this.imageFiles,
@@ -55,6 +54,8 @@ class AddPhotoState {
     this.userId = "",
     this.error,
     this.navigateToSummary = false,
+    this.diaryCode,
+
   });
 
   AddPhotoState copyWith({
@@ -64,6 +65,7 @@ class AddPhotoState {
     String? userId,
     String? error,
     bool? navigateToSummary,
+    int? diaryCode,
   }) {
     return AddPhotoState(
       imageFiles: imageFiles ?? this.imageFiles,
@@ -72,6 +74,7 @@ class AddPhotoState {
       userId: userId ?? this.userId,
       error: error ?? this.error,
       navigateToSummary: navigateToSummary ?? this.navigateToSummary,
+      diaryCode: diaryCode ?? this.diaryCode,
     );
   }
 }
@@ -80,13 +83,15 @@ class AddPhotoState {
 class AddPhotoBloc extends Bloc<AddPhotoEvent, AddPhotoState> {
   final AudioManager audioManager;
   final String transcription;
+  final int diaryCode;
 
-  AddPhotoBloc({required this.audioManager, required this.transcription})
+  AddPhotoBloc({required this.audioManager, required this.transcription, required this.diaryCode})
       : super(AddPhotoState(
-    imageFiles: [],
-    isPlaying: audioManager.player.playing,
-    volume: audioManager.player.volume,
-  )) {
+          imageFiles: [],
+          isPlaying: audioManager.player.playing,
+          volume: audioManager.player.volume,
+          diaryCode: diaryCode,
+        )) {
     on<AddPhotos>(_onAddPhotos);
     on<RemovePhoto>(_onRemovePhoto);
     on<TogglePlayPause>(_onTogglePlayPause);
@@ -151,22 +156,16 @@ class AddPhotoBloc extends Bloc<AddPhotoEvent, AddPhotoState> {
 // UI
 class AddPhotoScreen extends StatelessWidget {
   final String transcription;
+  final int diaryCode;
 
-  const AddPhotoScreen({Key? key, required this.transcription}) : super(key: key);
+  const AddPhotoScreen({Key? key, required this.transcription, required this.diaryCode}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    configureAndroidPhotoPicker();
-
-    return BlocProvider(
-      create: (context) => AddPhotoBloc(
-        audioManager: AudioManager(),
-        transcription: transcription,
-      ),
-      child: AddPhotoView(transcription: transcription),
-    );
+    return AddPhotoView(transcription: transcription);
   }
 }
+
 
 class AddPhotoView extends StatelessWidget {
   final String transcription;
@@ -174,34 +173,40 @@ class AddPhotoView extends StatelessWidget {
   const AddPhotoView({Key? key, required this.transcription}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return BlocConsumer<AddPhotoBloc, AddPhotoState>(
-      listener: (context, state) {
-        if (state.navigateToSummary) {
-          Navigator.of(context).pushReplacement(
-            MaterialPageRoute(
-              builder: (context) => DiarySummaryScreen(
-                transcription: transcription,
-                imageFiles: state.imageFiles,
-              ),
+Widget build(BuildContext context) {
+  return BlocConsumer<AddPhotoBloc, AddPhotoState>(
+    listener: (context, state) {
+      if (state.navigateToSummary) {
+        final diaryCode = state.diaryCode;
+
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (context) => DiarySummaryScreen(
+              transcription: transcription,
+              imageFiles: state.imageFiles,
+              diaryCode: diaryCode!,
             ),
-          );
-          context.read<AddPhotoBloc>().emit(state.copyWith(navigateToSummary: false));
-        }
-        if (state.error != null) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.error!)),
-          );
-        }
-      },
-      builder: (context, state) {
-        return Scaffold(
-          appBar: _buildAppBar(context, state),
-          body: _buildBody(context, state),
+          ),
         );
-      },
-    );
-  }
+        context.read<AddPhotoBloc>().emit(state.copyWith(navigateToSummary: false));
+      }
+      if (state.error != null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(state.error!)),
+        );
+      }
+    },
+    builder: (context, state) {
+      return Scaffold(
+        appBar: _buildAppBar(context, state),
+        body: _buildBody(context, state),
+      );
+    },
+  );
+}
+
+}
+
 
   AppBar _buildAppBar(BuildContext context, AddPhotoState state) {
     return AppBar(
