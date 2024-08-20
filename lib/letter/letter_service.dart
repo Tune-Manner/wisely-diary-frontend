@@ -10,45 +10,38 @@ class LetterNotReadyException implements Exception {
 class LetterService {
   final String baseUrl = 'http://10.0.2.2:8080/api';
 
-  Future<int> createLetter(int diaryCode) async {
-    final response = await http.post(
-      Uri.parse('$baseUrl/letter/$diaryCode'),
-      headers: {'Content-Type': 'application/json'},
-    );
-
-    if (response.statusCode == 201) {
-      final data = json.decode(response.body);
-      return data['letterCode'];
-    } else {
-      throw Exception('Failed to create letter: ${response.statusCode}');
-    }
-  }
-
-  Future<Letter> getLetter(int letterCode) async {
-    final response = await http.get(Uri.parse('$baseUrl/letter/$letterCode'));
-
-    if (response.statusCode == 200) {
-      final data = json.decode(response.body);
-      return Letter.fromJson(data);
-    } else if (response.statusCode == 404) {
-      throw LetterNotReadyException('Letter is not ready yet');
-    } else {
-      throw Exception('Failed to load letter: ${response.statusCode}');
-    }
-  }
-
-  Future<bool> checkLetterStatus(int letterCode) async {
+  Future<Letter> getOrCreateLetter(int diaryCode) async {
     try {
-      final response = await http.get(Uri.parse('$baseUrl/letter/status/$letterCode'));
+      final response = await http.get(
+        Uri.parse('$baseUrl/letter/$diaryCode'),
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Accept': 'application/json; charset=UTF-8',
+        },
+      );
+
       if (response.statusCode == 200) {
-        final data = json.decode(response.body);
-        return data['isReady'] ?? false;
+        return Letter.fromJson(json.decode(utf8.decode(response.bodyBytes)));
       } else {
-        return false;
+        throw Exception('Failed to get or create letter: ${response.statusCode}, ${utf8.decode(response.bodyBytes)}');
       }
     } catch (e) {
-      print('Error checking letter status: $e');
-      return false;
+      throw Exception('서버 연결에 실패했습니다. 잠시 후 다시 시도해주세요.');
+    }
+  }
+
+  Future<Letter> viewLetter(int letterCode) async {
+    final response = await http.get(
+      Uri.parse('$baseUrl/letter/view/$letterCode'),
+      headers: {
+        'Accept': 'application/json; charset=UTF-8',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      return Letter.fromJson(json.decode(utf8.decode(response.bodyBytes)));
+    } else {
+      throw Exception('Failed to view letter: ${response.statusCode}');
     }
   }
 }
