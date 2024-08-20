@@ -15,8 +15,8 @@ class LetterCreationStatusPage extends StatefulWidget {
 class _LetterCreationStatusPageState extends State<LetterCreationStatusPage> {
   final LetterService _letterService = LetterService();
   bool _isLoading = true;
-  String _statusMessage = '편지를 생성하고 있어요...';
   final List<String> _statusMessages = [
+    '편지를 가져오고 있어요...',
     '친구가 당신의 하루를 생각하고 있어요...',
     '따뜻한 말을 고르고 있어요...',
     '정성스럽게 편지를 쓰고 있어요...',
@@ -24,57 +24,51 @@ class _LetterCreationStatusPageState extends State<LetterCreationStatusPage> {
   ];
   int _currentMessageIndex = 0;
   late Timer _timer;
-  int? _letterCode;
 
   @override
   void initState() {
     super.initState();
-    _createLetterAndCheck();
-  }
-
-  Future<void> _createLetterAndCheck() async {
-    try {
-      _letterCode = await _letterService.createLetter(widget.diaryCode);
-      _startVisualSimulation();
-      _checkLetterStatus();
-    } catch (e) {
-      setState(() {
-        _isLoading = false;
-        _statusMessage = '편지 생성 요청에 실패했습니다: $e';
-      });
-    }
+    _startVisualSimulation();
+    _getOrCreateLetter();
   }
 
   void _startVisualSimulation() {
     _timer = Timer.periodic(Duration(seconds: 3), (timer) {
-      setState(() {
-        _currentMessageIndex = (_currentMessageIndex + 1) % _statusMessages.length;
-        _statusMessage = _statusMessages[_currentMessageIndex];
-      });
+      if (mounted) {
+        setState(() {
+          _currentMessageIndex = (_currentMessageIndex + 1) % _statusMessages.length;
+        });
+      }
     });
   }
 
-  Future<void> _checkLetterStatus() async {
-    while (_isLoading) {
-      await Future.delayed(Duration(seconds: 5));
-      try {
-        final isReady = await _letterService.checkLetterStatus(_letterCode!);
-        if (isReady) {
-          _timer.cancel();
-          _navigateToLetterView();
-          break;
-        }
-      } catch (e) {
-        print('Error checking letter status: $e');
+  Future<void> _getOrCreateLetter() async {
+    try {
+      final letter = await _letterService.getOrCreateLetter(widget.diaryCode);
+
+      // 시각적 효과를 위해 약간의 지연 추가
+      await Future.delayed(Duration(seconds: 2));
+
+      _navigateToLetterView(letter.letterCode);
+    } catch (e) {
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+        });
       }
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('편지 생성 또는 조회에 실패했습니다: $e')),
+      );
+      // 오류 발생 시 이전 페이지로 돌아가기
+      Navigator.of(context).pop();
     }
   }
 
-  void _navigateToLetterView() {
+  void _navigateToLetterView(int letterCode) {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: (context) => LetterViewPage(letterCode: _letterCode!),
+        builder: (context) => LetterViewPage(letterCode: letterCode),
       ),
     );
   }
@@ -93,9 +87,9 @@ class _LetterCreationStatusPageState extends State<LetterCreationStatusPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            CircularProgressIndicator(),
+            if (_isLoading) CircularProgressIndicator(),
             SizedBox(height: 20),
-            Text(_statusMessage),
+            Text(_statusMessages[_currentMessageIndex]),
           ],
         ),
       ),
