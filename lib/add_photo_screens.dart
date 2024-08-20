@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
@@ -57,7 +55,7 @@ class AddPhotoState {
     this.error,
     this.navigateToSummary = false,
     this.diaryCode,
-    
+
   });
 
   AddPhotoState copyWith({
@@ -180,13 +178,13 @@ Widget build(BuildContext context) {
     listener: (context, state) {
       if (state.navigateToSummary) {
         final diaryCode = state.diaryCode;
-        
+
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
             builder: (context) => DiarySummaryScreen(
               transcription: transcription,
               imageFiles: state.imageFiles,
-              diaryCode: diaryCode!, 
+              diaryCode: diaryCode!,
             ),
           ),
         );

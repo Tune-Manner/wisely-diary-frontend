@@ -56,7 +56,7 @@ class DiarySummaryScreen extends StatelessWidget {
                         ),
                         SizedBox(height: 10),
                         Text(
-                          transcription, 
+                          transcription,
                           style: TextStyle(fontSize: 14, color: Colors.black),
                         ),
                         SizedBox(height: 10),

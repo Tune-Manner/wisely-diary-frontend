@@ -57,7 +57,7 @@ class _DiaryNoImgPageState extends State<DiaryNoImgPage> {
       return;
     }
 
-    final url = Uri.parse('http://192.168.0.184:8080/api/diary/selectdetail');
+    final url = Uri.parse('http://10.0.2.2:8080/api/diary/selectdetail');
     try {
       final response = await http.post(
         url,

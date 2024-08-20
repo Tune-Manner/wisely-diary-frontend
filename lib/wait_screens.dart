@@ -120,7 +120,7 @@ class _WaitPageState extends State<WaitPage> {
                 top: MediaQuery.of(context).size.height * 0.10,
                 width: MediaQuery.of(context).size.width * 0.8,
                 child: Text(
-                  '${widget.emotionNumber} 눈을 감고 \n오늘 하루를 돌아봅시다.',
+                  '눈을 감고 \n오늘 하루를 돌아봅시다.',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     decoration: TextDecoration.none,

@@ -101,7 +101,7 @@ class _RecordScreenState extends State<RecordScreen> {
       var jsonData = jsonDecode(responseData.body);
 
       String? prompt = jsonData['transcription'] ??
-          jsonData['text']; 
+          jsonData['text'];
       if (prompt == null) {
         throw Exception('Transcription or text is missing in the response.');
       }
