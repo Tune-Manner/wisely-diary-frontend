@@ -189,19 +189,19 @@ class MonthlyEmotionScreen extends StatelessWidget {
   Widget _buildNoDataScreen(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: 670, // 고정된 높이 값 설정
+      height: 670,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center , // 세로 중앙 정렬
+        mainAxisAlignment: MainAxisAlignment.center ,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
-            width: 200, // 원하는 이미지 크기
-            height: 200, // 원하는 이미지 크기
+            height: 100,
             child: Image.asset(
-              'assets/emotions/greatful.png',
-              fit: BoxFit.cover, // 이미지가 컨테이너 크기에 맞게 확장
+              'assets/wisely-diary-logo.png',
+              fit: BoxFit.cover,
             ),
           ),
+          SizedBox(height: 16),
           Text(
             '쓰신 일기가 없습니다!\n일기를 쓰고 난 뒤 통계가 보입니다.',
             textAlign: TextAlign.center,
