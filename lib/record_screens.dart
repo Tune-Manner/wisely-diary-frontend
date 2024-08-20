@@ -77,7 +77,6 @@ class _RecordScreenState extends State<RecordScreen> {
     if (memberId == null || memberName == null) {
       throw Exception('Member ID or Name is missing.');
     }
-    print('보내진 memberId: $memberId, memberName: $memberName');
 
     final Uri uri = Uri.parse('http://192.168.0.43:8080/api/transcription');
     final mimeType = lookupMimeType(filePath);
@@ -92,10 +91,8 @@ class _RecordScreenState extends State<RecordScreen> {
     var response = await request.send();
     if (response.statusCode == 200) {
       var responseData = await http.Response.fromStream(response);
-      print('Raw response body: ${responseData.body}');
 
       var jsonData = jsonDecode(responseData.body);
-      print('백엔드 응답: $jsonData');
 
       String? prompt = jsonData['transcription'] ?? jsonData['text'];  // 백엔드로부터 받은 텍스트를 이용하여 일기 생성
       if (prompt == null) {
