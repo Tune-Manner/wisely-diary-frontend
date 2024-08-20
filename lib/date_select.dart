@@ -4,6 +4,8 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import 'cartoon_inquery.dart';
+
 class DiaryNoImgPage extends StatefulWidget {
   final DateTime selectedDate;
 
@@ -155,12 +157,25 @@ class _DiaryNoImgPageState extends State<DiaryNoImgPage> {
                   ],
                 ),
                 SizedBox(height: 16),
-                Column(
-                  children: [
-                    Image.asset('assets/cuttoon_icon.png'),
-                    SizedBox(height: 4),
-                    Text('하루만화', style: TextStyle(fontSize: 10)),
-                  ],
+                GestureDetector(
+                  onTap: () {
+                    _overlayEntry?.remove();
+                    _overlayEntry = null;
+                    _isOverlayVisible = false;
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => CartoonInquiryScreen(selectedDate: widget.selectedDate),
+                      ),
+                    );
+                  },
+                  child: Column(
+                    children: [
+                      Image.asset('assets/cuttoon_icon.png'),
+                      SizedBox(height: 4),
+                      Text('하루만화', style: TextStyle(fontSize: 10)),
+                    ],
+                  ),
                 ),
                 SizedBox(height: 16),
                 Column(
