@@ -75,8 +75,6 @@ class _RecordScreenState extends State<RecordScreen> {
           builder: (context) => DiarySummaryScreen(
             transcription: transcription,
             imageFiles: [], // 이미지 파일이 있다면 여기 추가
-            cartoonUrl: '',
-            letterCartoonUrl: '',
           ),
         ),
       );

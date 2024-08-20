@@ -94,7 +94,7 @@ class MyApp extends StatelessWidget {
         ),
         '/statistics': (context) => MonthlyEmotionScreen(),
         '/notifications': (context) => AlarmSettingPage(),
-        '/today-cartoon': (context) => TodayCartoonPage(url: ''),
+        '/today-cartoon': (context) => TodayCartoonPage(),
       },
       onGenerateRoute: (settings) {
         if (settings.name == '/home') {
@@ -143,8 +143,7 @@ class MyApp extends StatelessWidget {
             builder: (context) => DiarySummaryScreen(
               transcription: transcription,
               imageFiles: imageFiles,
-              cartoonUrl: cartoonUrl,
-              letterCartoonUrl: letterCartoonUrl,
+
             ),
           );
         }

@@ -6,14 +6,11 @@ import 'custom_scaffold.dart';
 class DiarySummaryScreen extends StatelessWidget {
   final String transcription;
   final List<File> imageFiles;
-  final String cartoonUrl;
-  final String letterCartoonUrl;
+
 
   DiarySummaryScreen({
     required this.transcription,
     required this.imageFiles,
-    required this.cartoonUrl,
-    required this.letterCartoonUrl,
   });
 
   @override
@@ -95,7 +92,7 @@ class DiarySummaryScreen extends StatelessWidget {
                   onPressed: () => Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => TodayCartoonPage(url: cartoonUrl),
+                      builder: (context) => TodayCartoonPage(),
                     ),
                   ),
                 ),
