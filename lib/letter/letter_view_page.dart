@@ -45,7 +45,23 @@ class _LetterViewPageState extends State<LetterViewPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('편지 보기'),
+        backgroundColor: Colors.white,
+        elevation: 0,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () => Navigator.pop(context),
+        ),
+        title: GestureDetector(
+          onTap: () {
+            Navigator.of(context).pushNamedAndRemoveUntil('/home', (route) => false);
+          },
+          child: Image.asset(
+            'assets/wisely-diary-logo.png',
+            height: 30,
+            fit: BoxFit.contain,
+          ),
+        ),
+        centerTitle: true,
       ),
       body: FutureBuilder<Map<String, dynamic>>(
         future: _letterDataFuture,
