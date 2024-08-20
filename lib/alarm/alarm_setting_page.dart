@@ -7,7 +7,7 @@ import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 
-// 주석: 알림 표시 함수를 top-level 함수로 변경
+// 알림 표시 함수를 top-level 함수로 변경
 @pragma('vm:entry-point')
 void showNotification() async {
   print("Alarm triggered at ${DateTime.now()}");
@@ -121,7 +121,7 @@ class _AlarmSettingPageState extends State<AlarmSettingPage> {
     print('Daily alarm scheduled: $success for ${scheduledDate.toIso8601String()}');
   }
 
-
+  // 알람 설정 불러오기
   Future<void> _loadAlarmSettings() async {
     final user = supabase.auth.currentUser;
     if (user?.id != null) {
