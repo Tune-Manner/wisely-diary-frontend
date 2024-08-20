@@ -212,14 +212,22 @@ class _HomePageState extends State<HomeScreens> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(date, style: TextStyle(fontSize: 13, color: Colors.black)),
-          SizedBox(height: 10),
-          Container(
-            width: 139,
-            height: 8,
-            color: Color(0x7FFFE76B),
+          Stack(
+            clipBehavior: Clip.none,
+            children: [
+              Positioned(
+                top: 13,
+                left: 0,
+                child: Container(
+                  width: 95,
+                  height: 8,
+                  color: Color(0x7FFFE76B),
+                ),
+              ),
+              Text(date, style: TextStyle(fontSize: 15, color: Colors.black)),
+            ],
           ),
-          SizedBox(height: 10),
+          SizedBox(height: 15),
           Text(
             content,
             style: TextStyle(fontSize: 13, color: Colors.black),
