@@ -81,6 +81,19 @@ class _HomePageState extends State<HomeScreens> {
     );
   }
 
+  void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
+    setState(() {
+      _selectedDay = selectedDay;
+      _focusedDay = focusedDay;
+    });
+
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => DiaryNoImgPage(selectedDate: selectedDay),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     print('Navigated to HomePage with memberId: ${widget.userId}');
@@ -96,45 +109,7 @@ class _HomePageState extends State<HomeScreens> {
         children: [
           Column(
             children: [
-              // 캘린더 헤더 및 버튼
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 16.0),
-                      child: Text(
-                        '< ${_selectedDay.year} ${_selectedDay.month.toString().padLeft(2, '0')} >',
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 16.0),
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => AlarmSettingPage(), // AlarmSettingPage로 이동
-                            ),
-                          );
-                        },
-                        child: Text('이번달 감정통계'),
-                        style: ElevatedButton.styleFrom(
-                          foregroundColor: Colors.black,
-                          backgroundColor: Colors.white,
-                          minimumSize: Size(105, 30),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              SizedBox(height: 16),
               // 캘린더 위젯
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 16.0),
@@ -155,13 +130,7 @@ class _HomePageState extends State<HomeScreens> {
                   lastDay: DateTime.utc(2100, 12, 31),
                   focusedDay: _focusedDay,
                   selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
-                  onDaySelected: (selectedDay, focusedDay) {
-                    setState(() {
-                      _selectedDay = selectedDay;
-                      _focusedDay = focusedDay;
-                    });
-                    _fetchDiaryContent(selectedDay); // 선택된 날짜의 일기 내용 가져오기
-                  },
+                  onDaySelected: _onDaySelected, // Updated
                 ),
               ),
               // 일기 항목들

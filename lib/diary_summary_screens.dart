@@ -1,3 +1,5 @@
+import 'dart:ffi' as ffi;
+
 import 'package:flutter/material.dart';
 import 'package:wisely_diary/today_cartoon.dart';
 import 'dart:io';
@@ -6,14 +8,13 @@ import 'custom_scaffold.dart';
 class DiarySummaryScreen extends StatelessWidget {
   final String transcription;
   final List<File> imageFiles;
-  final String cartoonUrl;
-  final String letterCartoonUrl;
+  final int diaryCode;
+
 
   DiarySummaryScreen({
     required this.transcription,
     required this.imageFiles,
-    required this.cartoonUrl,
-    required this.letterCartoonUrl,
+    required this.diaryCode,
   });
 
   @override
@@ -50,7 +51,12 @@ class DiarySummaryScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          transcription, // 서버에서 받아온 텍스트
+                          '일기 코드: $diaryCode', // diaryCode 출력, 추후에 삭제해야함
+                          style: TextStyle(fontSize: 14, color: Colors.black),
+                        ),
+                        SizedBox(height: 10),
+                        Text(
+                          transcription, 
                           style: TextStyle(fontSize: 14, color: Colors.black),
                         ),
                         SizedBox(height: 10),
@@ -86,7 +92,7 @@ class DiarySummaryScreen extends StatelessWidget {
                   context,
                   iconPath: 'assets/music_icon.png',
                   label: "노래 선물 받기",
-                  onPressed: () => Navigator.pushNamed(context, '/songGift'),
+                  onPressed: () => Navigator.pushNamed(context, '/songGift', arguments: {'diaryCode': diaryCode},),
                 ),
                 _buildButton(
                   context,
@@ -95,7 +101,9 @@ class DiarySummaryScreen extends StatelessWidget {
                   onPressed: () => Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => TodayCartoonPage(url: cartoonUrl),
+                      builder: (context) => TodayCartoonPage(
+                        diaryCode: diaryCode,
+                      ),
                     ),
                   ),
                 ),
@@ -109,7 +117,7 @@ class DiarySummaryScreen extends StatelessWidget {
                   context,
                   iconPath: 'assets/letter_icon.png',
                   label: "친구에게 편지 받기",
-                  onPressed: () => Navigator.pushNamed(context, '/letter'),
+                  onPressed: () => Navigator.pushNamed(context, '/letter', arguments: {'diaryCode': diaryCode},),
                 ),
                 _buildButton(
                   context,

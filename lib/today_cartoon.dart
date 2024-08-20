@@ -1,10 +1,13 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'custom_scaffold.dart';
 
 class TodayCartoonPage extends StatefulWidget {
-  final String url;
-  TodayCartoonPage({required this.url});
+  final int diaryCode;
+
+  TodayCartoonPage({required this.diaryCode});
 
   @override
   _TodayCartoonPageState createState() => _TodayCartoonPageState();
@@ -53,16 +56,16 @@ class _TodayCartoonPageState extends State<TodayCartoonPage> {
                 textAlign: TextAlign.center,
               ),
               SizedBox(height: 16),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(12),
-                child: widget.url.isNotEmpty
-                    ? Image.network(
-                  widget.url,
-                  fit: BoxFit.cover,
-                  width: double.infinity,
-                )
-                    : Text('No image available'),
-              ),
+              // ClipRRect(
+              //   borderRadius: BorderRadius.circular(12),
+              //   child: widget.url.isNotEmpty
+              //       ? Image.network(
+              //     widget.url,
+              //     fit: BoxFit.cover,
+              //     width: double.infinity,
+              //   )
+              //       : Text('No image available'),
+              // ),
               SizedBox(height: 24),
               ElevatedButton(
                 onPressed: () {

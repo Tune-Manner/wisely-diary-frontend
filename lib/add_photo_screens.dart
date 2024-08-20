@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
@@ -20,61 +22,61 @@ void configureAndroidPhotoPicker() {
   }
 }
 
-// Events
 abstract class AddPhotoEvent {}
+
 class AddPhotos extends AddPhotoEvent {}
+
 class RemovePhoto extends AddPhotoEvent {
   final int index;
   RemovePhoto(this.index);
 }
+
 class TogglePlayPause extends AddPhotoEvent {}
+
 class ChangeVolume extends AddPhotoEvent {
   final double volume;
   ChangeVolume(this.volume);
 }
+
 class CreateDiary extends AddPhotoEvent {}
 
-// State
 class AddPhotoState {
   final List<File> imageFiles;
   final bool isPlaying;
   final double volume;
-  final bool isLoading;
   final String userId;
-  final String? cartoonUrl;
-  final String? letterCartoonUrl;
   final String? error;
+  final bool navigateToSummary;
+  final int? diaryCode;
 
   const AddPhotoState({
     required this.imageFiles,
     required this.isPlaying,
     required this.volume,
-    this.isLoading = false,
     this.userId = "",
-    this.cartoonUrl,
-    this.letterCartoonUrl,
     this.error,
+    this.navigateToSummary = false,
+    this.diaryCode,
+    
   });
 
   AddPhotoState copyWith({
     List<File>? imageFiles,
     bool? isPlaying,
     double? volume,
-    bool? isLoading,
     String? userId,
-    String? cartoonUrl,
-    String? letterCartoonUrl,
     String? error,
+    bool? navigateToSummary,
+    int? diaryCode,
   }) {
     return AddPhotoState(
       imageFiles: imageFiles ?? this.imageFiles,
       isPlaying: isPlaying ?? this.isPlaying,
       volume: volume ?? this.volume,
-      isLoading: isLoading ?? this.isLoading,
       userId: userId ?? this.userId,
-      cartoonUrl: cartoonUrl ?? this.cartoonUrl,
-      letterCartoonUrl: letterCartoonUrl ?? this.letterCartoonUrl,
       error: error ?? this.error,
+      navigateToSummary: navigateToSummary ?? this.navigateToSummary,
+      diaryCode: diaryCode ?? this.diaryCode,
     );
   }
 }
@@ -83,13 +85,15 @@ class AddPhotoState {
 class AddPhotoBloc extends Bloc<AddPhotoEvent, AddPhotoState> {
   final AudioManager audioManager;
   final String transcription;
+  final int diaryCode;
 
-  AddPhotoBloc({required this.audioManager, required this.transcription})
+  AddPhotoBloc({required this.audioManager, required this.transcription, required this.diaryCode})
       : super(AddPhotoState(
-    imageFiles: [],
-    isPlaying: audioManager.player.playing,
-    volume: audioManager.player.volume,
-  )) {
+          imageFiles: [],
+          isPlaying: audioManager.player.playing,
+          volume: audioManager.player.volume,
+          diaryCode: diaryCode,
+        )) {
     on<AddPhotos>(_onAddPhotos);
     on<RemovePhoto>(_onRemovePhoto);
     on<TogglePlayPause>(_onTogglePlayPause);
@@ -145,63 +149,25 @@ class AddPhotoBloc extends Bloc<AddPhotoEvent, AddPhotoState> {
     }
   }
 
-  Future<void> _onCreateDiary(CreateDiary event, Emitter<AddPhotoState> emit) async {
-    emit(state.copyWith(isLoading: true, error: null));
+  void _onCreateDiary(CreateDiary event, Emitter<AddPhotoState> emit) {
     audioManager.player.setVolume(0);
-
-    try {
-      final response = await http.post(
-        Uri.parse('http://10.0.2.2:8080/api/cartoon/create'),
-        headers: {'Content-Type': 'application/json'},
-        body: jsonEncode({
-          'diaryCode': 30,
-          'memberId': state.userId,
-        }),
-      );
-
-      if (response.statusCode == 200) {
-        final result = response.body;
-        final urls = result.split(', ');
-        if (urls.length >= 2) {
-          final cartoonUrl = urls[0].replaceAll("Cartoon URL: ", "").trim();
-          final letterCartoonUrl = urls[1].replaceAll("Letter Cartoon URL: ", "").trim();
-          emit(state.copyWith(
-            isLoading: false,
-            cartoonUrl: cartoonUrl,
-            letterCartoonUrl: letterCartoonUrl,
-          ));
-        } else {
-          throw Exception('Unexpected response format');
-        }
-      } else {
-        throw Exception('Failed to create diary: ${response.statusCode}');
-      }
-    } catch (e) {
-      logger.e('Error creating diary: $e');
-      emit(state.copyWith(isLoading: false, error: e.toString()));
-    }
+    emit(state.copyWith(navigateToSummary: true));
   }
 }
 
 // UI
 class AddPhotoScreen extends StatelessWidget {
   final String transcription;
+  final int diaryCode;
 
-  const AddPhotoScreen({Key? key, required this.transcription}) : super(key: key);
+  const AddPhotoScreen({Key? key, required this.transcription, required this.diaryCode}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    configureAndroidPhotoPicker();
-
-    return BlocProvider(
-      create: (context) => AddPhotoBloc(
-        audioManager: AudioManager(),
-        transcription: transcription,
-      ),
-      child: AddPhotoView(transcription: transcription),
-    );
+    return AddPhotoView(transcription: transcription);
   }
 }
+
 
 class AddPhotoView extends StatelessWidget {
   final String transcription;
@@ -209,40 +175,41 @@ class AddPhotoView extends StatelessWidget {
   const AddPhotoView({Key? key, required this.transcription}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return BlocConsumer<AddPhotoBloc, AddPhotoState>(
-      listener: (context, state) {
-        if (state.cartoonUrl != null && state.letterCartoonUrl != null) {
-          Navigator.of(context).pushReplacement(
-            MaterialPageRoute(
-              builder: (context) => DiarySummaryScreen(
-                transcription: transcription,
-                imageFiles: state.imageFiles,
-                cartoonUrl: state.cartoonUrl!,
-                letterCartoonUrl: state.letterCartoonUrl!,
-              ),
+Widget build(BuildContext context) {
+  return BlocConsumer<AddPhotoBloc, AddPhotoState>(
+    listener: (context, state) {
+      if (state.navigateToSummary) {
+        final diaryCode = state.diaryCode;
+        
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (context) => DiarySummaryScreen(
+              transcription: transcription,
+              imageFiles: state.imageFiles,
+              diaryCode: diaryCode!, 
             ),
-          );
-        }
-        if (state.error != null) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.error!)),
-          );
-        }
-      },
-      builder: (context, state) {
-        return Scaffold(
-          appBar: _buildAppBar(context, state),
-          body: Stack(
-            children: [
-              _buildBody(context, state),
-              if (state.isLoading) _buildLoadingOverlay(),
-            ],
           ),
         );
-      },
-    );
-  }
+        context.read<AddPhotoBloc>().emit(state.copyWith(navigateToSummary: false));
+      }
+      if (state.error != null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(state.error!)),
+        );
+      }
+    },
+    builder: (context, state) {
+      return Scaffold(
+        appBar: _buildAppBar(context, state),
+        body: _buildBody(context, state),
+      );
+    },
+  );
+}
+
+}
+
+
   AppBar _buildAppBar(BuildContext context, AddPhotoState state) {
     return AppBar(
       backgroundColor: const Color(0xfffdfbf0),
@@ -292,7 +259,6 @@ class AddPhotoView extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Expanded(
             child: ElevatedButton.icon(
@@ -355,30 +321,3 @@ class AddPhotoView extends StatelessWidget {
       },
     );
   }
-
-  Widget _buildLoadingOverlay() {
-    return Container(
-      color: Colors.black.withOpacity(0.5),
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-            ),
-            SizedBox(height: 20),
-            Text(
-              '당신의 하루에 공감 중입니다...',
-              style: TextStyle(color: Colors.white, fontSize: 18),
-            ),
-            SizedBox(height: 10),
-            Text(
-              '잠시만 기다려주세요',
-              style: TextStyle(color: Colors.white, fontSize: 16),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}

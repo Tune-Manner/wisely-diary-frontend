@@ -39,6 +39,7 @@ dependencies:
   logger: ^1.1.0
   fl_chart: ^0.35.0
   flutter_bloc: ^8.1.0
+  audioplayers: ^6.0.0
 
 dev_dependencies:
   flutter_test:

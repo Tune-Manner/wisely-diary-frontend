@@ -4,6 +4,8 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import 'cartoon_inquery.dart';
+
 class DiaryNoImgPage extends StatefulWidget {
   final DateTime selectedDate;
 
@@ -55,8 +57,7 @@ class _DiaryNoImgPageState extends State<DiaryNoImgPage> {
       return;
     }
 
-    // final url = Uri.parse('http://localhost:8080/api/diary/selectdetail');
-    final url = Uri.parse('http://10.0.2.2:8080/api/diary/selectdetail');
+    final url = Uri.parse('http://192.168.0.184:8080/api/diary/selectdetail');
     try {
       final response = await http.post(
         url,
@@ -73,7 +74,6 @@ class _DiaryNoImgPageState extends State<DiaryNoImgPage> {
       if (response.statusCode == 200) {
         final jsonResponse = jsonDecode(response.body);
 
-        // 이 부분에서 if (mounted) 체크를 추가합니다.
         if (mounted) {
           setState(() {
             diarySummaryContents = jsonResponse['diary_summary_contents'];
@@ -82,8 +82,6 @@ class _DiaryNoImgPageState extends State<DiaryNoImgPage> {
         }
       } else {
         print('Failed to load diary summary. Status code: ${response.statusCode}');
-
-        // 여기에도 if (mounted) 체크를 추가합니다.
         if (mounted) {
           setState(() {
             isLoading = false;
@@ -100,12 +98,12 @@ class _DiaryNoImgPageState extends State<DiaryNoImgPage> {
     }
   }
 
-
+  // 선물 상자 토클
   void _toggleGiftMenu() {
     setState(() {
       if (!_isOverlayVisible) {
         _overlayEntry = _createOverlayEntry();
-        Overlay.of(context)!.insert(_overlayEntry!);
+        Overlay.of(context).insert(_overlayEntry!);
         _isOverlayVisible = true;
       } else {
         _overlayEntry?.remove();
@@ -113,6 +111,17 @@ class _DiaryNoImgPageState extends State<DiaryNoImgPage> {
         _isOverlayVisible = false;
       }
     });
+  }
+
+  // 페이지가 닫힐 때 오버레이가 남아있지 않도록 제거
+  @override
+  void dispose() {
+    if (_isOverlayVisible) {
+      _overlayEntry?.remove();
+      _overlayEntry = null;
+      _isOverlayVisible = false;
+    }
+    super.dispose();
   }
 
   OverlayEntry _createOverlayEntry() {
@@ -148,12 +157,25 @@ class _DiaryNoImgPageState extends State<DiaryNoImgPage> {
                   ],
                 ),
                 SizedBox(height: 16),
-                Column(
-                  children: [
-                    Image.asset('assets/cuttoon_icon.png'),
-                    SizedBox(height: 4),
-                    Text('하루만화', style: TextStyle(fontSize: 10)),
-                  ],
+                GestureDetector(
+                  onTap: () {
+                    _overlayEntry?.remove();
+                    _overlayEntry = null;
+                    _isOverlayVisible = false;
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => CartoonInquiryScreen(selectedDate: widget.selectedDate),
+                      ),
+                    );
+                  },
+                  child: Column(
+                    children: [
+                      Image.asset('assets/cuttoon_icon.png'),
+                      SizedBox(height: 4),
+                      Text('하루만화', style: TextStyle(fontSize: 10)),
+                    ],
+                  ),
                 ),
                 SizedBox(height: 16),
                 Column(
@@ -175,24 +197,23 @@ class _DiaryNoImgPageState extends State<DiaryNoImgPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xFFFFF9F2),
+        backgroundColor: Colors.white,
         elevation: 0,
-        leadingWidth: 100,
-        leading: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            IconButton(
-              icon: Icon(Icons.arrow_back, color: Colors.black),
-              onPressed: () => Navigator.pop(context),
-            ),
-            IconButton(
-              icon: Icon(Icons.menu, color: Colors.black),
-              onPressed: () {
-                // 햄버거 메뉴 클릭 시 동작 정의
-              },
-            ),
-          ],
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () => Navigator.pop(context),
         ),
+        title: GestureDetector(
+          onTap: () {
+            Navigator.pushReplacementNamed(context, '/home');
+          },
+          child: Image.asset(
+            'assets/wisely-diary-logo.png',
+            height: 30,
+            fit: BoxFit.contain,
+          ),
+        ),
+        centerTitle: true,
       ),
       body: Stack(
         children: [

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
@@ -55,7 +56,8 @@ void main() async {
   //supabase초기화
   await Supabase.initialize(
     url: 'https://rgsasjlstibbmhvrjoiv.supabase.co',
-    anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJnc2FzamxzdGliYm1odnJqb2l2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjE3MDU2MjksImV4cCI6MjAzNzI4MTYyOX0.UlabKu0o_X1QnMsq8av05DKNRc4fjOAb01fcMpkcuRs',
+    anonKey:
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJnc2FzamxzdGliYm1odnJqb2l2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjE3MDU2MjksImV4cCI6MjAzNzI4MTYyOX0.UlabKu0o_X1QnMsq8av05DKNRc4fjOAb01fcMpkcuRs',
   );
 
   // 안드로이드 알람 매니처 초기화
@@ -89,12 +91,17 @@ class MyApp extends StatelessWidget {
         '/': (context) => LoginPage(),
         '/create-diary-screens': (context) => CreateDiaryPage(),
         '/mypage': (context) => CustomScaffold(
-          body: MyPage(),
-          title: '마이페이지',
-        ),
+              body: MyPage(),
+              title: '마이페이지',
+            ),
         '/statistics': (context) => MonthlyEmotionScreen(),
         '/notifications': (context) => AlarmSettingPage(),
-        '/today-cartoon': (context) => TodayCartoonPage(url: ''),
+        '/today-cartoon': (context) {
+          final arguments = ModalRoute.of(context)!.settings.arguments
+              as Map<String, dynamic>;
+          final int diaryCode = arguments['diaryCode']; 
+          return TodayCartoonPage(diaryCode: diaryCode);
+        },
       },
       onGenerateRoute: (settings) {
         if (settings.name == '/home') {
@@ -128,23 +135,30 @@ class MyApp extends StatelessWidget {
           );
         }
         if (settings.name == '/add-photo') {
-          final String transcription = settings.arguments as String;
+          final Map<String, dynamic> args =
+              settings.arguments as Map<String, dynamic>;
+          final String transcription = args['transcription'] ?? '';
+          final int diaryCode = args['diaryCode'] ?? 0; 
+
           return MaterialPageRoute(
-            builder: (context) => AddPhotoScreen(transcription: transcription),
+            builder: (context) => AddPhotoScreen(
+              transcription: transcription,
+              diaryCode: diaryCode, 
+            ),
           );
         }
         if (settings.name == '/summary') {
-          final Map<String, dynamic> args = settings.arguments as Map<String, dynamic>;
+          final Map<String, dynamic> args =
+              settings.arguments as Map<String, dynamic>;
           final String transcription = args['transcription'] ?? '';
           final List<File> imageFiles = args['imageFiles'] ?? [];
-          final String cartoonUrl = args['cartoonUrl'] ?? '';
-          final String letterCartoonUrl = args['letterCartoonUrl'] ?? '';
+          final int diaryCode = args['diaryCode'] ?? 0; 
+
           return MaterialPageRoute(
             builder: (context) => DiarySummaryScreen(
               transcription: transcription,
               imageFiles: imageFiles,
-              cartoonUrl: cartoonUrl,
-              letterCartoonUrl: letterCartoonUrl,
+              diaryCode: diaryCode,
             ),
           );
         }
