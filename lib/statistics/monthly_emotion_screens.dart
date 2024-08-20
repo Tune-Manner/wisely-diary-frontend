@@ -9,14 +9,14 @@ import 'package:intl/intl.dart' hide TextDirection;
 String getEmotionNameByCode(String code) {
   final emotionNames = {
     '1': '걱정',
-    '2': '자랑',
+    '2': '뿌듯',
     '3': '감사',
     '4': '억울',
     '5': '분노',
     '6': '슬픔',
-    '7': '기쁨',
-    '8': '행복',
-    '9': '안정',
+    '7': '설렘',
+    '8': '신남',
+    '9': '편안',
     '10': '당황'
   };
   return emotionNames[code] ?? '알 수 없음';
@@ -30,7 +30,8 @@ final emotionColors = {
   '5': Colors.red,
   '6': Colors.cyan,
   '7': Colors.pink,
-  '9': Colors.yellow,
+  '8': Colors.yellow,
+  '9': Colors.green,
   '10': Colors.orange,
 };
 
@@ -104,8 +105,8 @@ class MonthlyEmotionScreen extends StatelessWidget {
                     '4': 'assets/emotions/injustice.png',
                     '5': 'assets/emotions/anger.png',
                     '6': 'assets/emotions/sad.png',
-                    '7': 'assets/emotions/joy.png',
-                    '8': 'assets/emotions/lovely.png',
+                    '7': 'assets/emotions/lovely.png',
+                    '8': 'assets/emotions/joy.png',
                     '9': 'assets/emotions/relax.png',
                     '10': 'assets/emotions/embarrassed.png'
                   };
@@ -159,7 +160,7 @@ class MonthlyEmotionScreen extends StatelessWidget {
                         children: [
                           Image.asset(
                             // 해당 감정 코드에 맞는 이미지 경로 반환
-                            emotionImageMap[maxEmotionCode] ?? 'assets/emotions/default.png',
+                            emotionImageMap[maxEmotionCode] ?? 'assets/wisely-diary-logo.png',
                             height: 200,
                           ),
                           RichText(
@@ -173,7 +174,7 @@ class MonthlyEmotionScreen extends StatelessWidget {
                                   style: TextStyle(
                                     fontSize: 24,
                                     fontWeight: FontWeight.bold,
-                                    color: emotionColors[maxEmotionCode] ?? Colors.black,
+                                    color: emotionColors[maxEmotionCode] ?? Colors.yellow,
                                   ),
                                 ),
                                 TextSpan(
@@ -274,8 +275,8 @@ class MonthlyEmotionScreen extends StatelessWidget {
       4: 'assets/emotions/injustice.png',
       5: 'assets/emotions/anger.png',
       6: 'assets/emotions/sad.png',
-      7: 'assets/emotions/joy.png',
-      8: 'assets/emotions/lovely.png',
+      7: 'assets/emotions/lovely.png',
+      8: 'assets/emotions/joy.png',
       9: 'assets/emotions/relax.png',
       10: 'assets/emotions/embarrassed.png'
     };
@@ -389,7 +390,7 @@ class SemiDonutPainter extends CustomPainter {
       final emotionCode = entry.key;
       final percentage = entry.value as double;
       final sweepAngle = percentage * pi / 100;
-      paint.color = emotionColors[emotionCode] ?? Colors.grey;
+      paint.color = emotionColors[emotionCode] ?? Colors.yellow;
 
       canvas.drawArc(
         Rect.fromCircle(center: Offset(centerX, centerY), radius: radius),
