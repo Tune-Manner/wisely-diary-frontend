@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:http/http.dart' as http;
@@ -10,6 +12,7 @@ import 'add_photo_screens.dart';
 import 'AudioManager.dart';
 import 'dart:io';
 import 'package:http_parser/http_parser.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RecordScreen extends StatefulWidget {
   final int emotionNumber;
@@ -48,6 +51,9 @@ class _RecordScreenState extends State<RecordScreen> {
         memberId = memberResponse['member_id'];
         memberName = memberResponse['member_name'];
       });
+
+      // Log the member information
+      print('Fetched memberId: $memberId, memberName: $memberName');
     }
   }
 
@@ -73,7 +79,7 @@ class _RecordScreenState extends State<RecordScreen> {
     return filePath;
   }
 
-  Future<String> sendFileToBackend(String filePath) async {
+  Future<Map<String, dynamic>> sendFileToBackend(String filePath) async {
     if (memberId == null || memberName == null) {
       throw Exception('Member ID or Name is missing.');
     }
@@ -94,17 +100,20 @@ class _RecordScreenState extends State<RecordScreen> {
 
       var jsonData = jsonDecode(responseData.body);
 
-      String? prompt = jsonData['transcription'] ?? jsonData['text'];  // 백엔드로부터 받은 텍스트를 이용하여 일기 생성
+      String? prompt = jsonData['transcription'] ??
+          jsonData['text']; // 백엔드로부터 받은 텍스트를 이용하여 일기 생성
       if (prompt == null) {
         throw Exception('Transcription or text is missing in the response.');
       }
+
+      print('Received transcription: $prompt');
       return await generateDiaryEntry(prompt);
     } else {
       throw Exception('Failed to send file to backend');
     }
   }
 
-  Future<String> generateDiaryEntry(String prompt) async {
+  Future<Map<String, dynamic>> generateDiaryEntry(String prompt) async {
     String sanitizedPrompt = prompt.replaceAll(RegExp(r'[\n\r\t]'), ' ');
 
     String finalPrompt = "위 내용을 포함한 편지 형식이 아닌 일기를 작성해주세요: $sanitizedPrompt";
@@ -122,19 +131,16 @@ class _RecordScreenState extends State<RecordScreen> {
 
     if (response.statusCode == 200) {
       final responseData = jsonDecode(response.body);
-      return responseData['diaryEntry'];
+      print('Generated diary entry: ${responseData['diaryEntry']}');
+      print('Generated diary code: ${responseData['diaryCode']}');
+
+      return {
+        'diaryEntry': responseData['diaryEntry'],
+        'diaryCode': responseData['diaryCode'],
+      };
     } else {
       throw Exception('Failed to generate diary entry');
     }
-  }
-
-  void navigateToAddPhotoScreen(String transcription) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => AddPhotoScreen(transcription: transcription),
-      ),
-    );
   }
 
   @override
@@ -147,14 +153,42 @@ class _RecordScreenState extends State<RecordScreen> {
             if (isRecording) {
               String? filePath = await stopRecording();
               if (filePath != null) {
-                String transcription = await sendFileToBackend(filePath);
-                navigateToAddPhotoScreen(transcription);
+                // sendFileToBackend의 반환값을 받아서 필요한 데이터를 추출합니다.
+                Map<String, dynamic> diaryData =
+                    await sendFileToBackend(filePath);
+                String transcription = diaryData['diaryEntry'];
+                int diaryCode = diaryData['diaryCode'];
+
+                print(
+                    'Navigating to AddPhotoScreen with diaryCode: $diaryCode');
+
+                navigateToAddPhotoScreen(transcription, diaryCode);
               }
             } else {
               await startRecording();
             }
           },
           child: Text(isRecording ? 'Stop Recording' : 'Start Recording'),
+        ),
+      ),
+    );
+  }
+
+  // navigateToAddPhotoScreen 메서드를 수정하여 diaryCode도 전달하도록 합니다.
+  void navigateToAddPhotoScreen(String transcription, int diaryCode) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => BlocProvider(
+          create: (context) => AddPhotoBloc(
+            audioManager: AudioManager(),
+            transcription: transcription,
+            diaryCode: diaryCode,
+          ),
+          child: AddPhotoScreen(
+            transcription: transcription,
+            diaryCode: diaryCode,
+          ),
         ),
       ),
     );

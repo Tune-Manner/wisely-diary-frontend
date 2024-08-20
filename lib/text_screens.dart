@@ -1,9 +1,12 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'AudioManager.dart';
 import 'add_photo_screens.dart';
 import 'package:http/http.dart' as http; // HTTP 요청을 위해 추가
 import 'dart:convert';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TextPage extends StatefulWidget {
   final int emotionNumber;
@@ -55,7 +58,7 @@ class _TextPageState extends State<TextPage> {
     }
   }
 
-  Future<String> generateDiaryEntry(String prompt) async {
+  Future<Map<String, dynamic>> generateDiaryEntry(String prompt) async {
     // 모든 줄바꿈 및 특수 제어 문자를 공백으로 대체
     String sanitizedPrompt = prompt.replaceAll(RegExp(r'[\n\r\t]'), ' ');
 
@@ -72,41 +75,56 @@ class _TextPageState extends State<TextPage> {
 
     if (response.statusCode == 200) {
       final responseData = jsonDecode(response.body);
-      return responseData['diaryEntry'];
+      String diaryEntry =  responseData['diaryEntry'];
+      int diaryCode = responseData['diaryCode'];
+
+      return {
+        'diaryEntry': diaryEntry,
+        'diaryCode': diaryCode,
+      };
+
     } else {
       throw Exception('Failed to generate diary entry');
     }
   }
 
-  void _navigateToAddPhotoScreen() async {
-    if (memberId == null || memberName == null) {
-      // 사용자 정보가 로드되지 않았을 경우 처리
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('사용자 정보를 불러오는 중입니다. 잠시 후 다시 시도해주세요.')),
-      );
-      return;
-    }
+void _navigateToAddPhotoScreen() async {
+  if (memberId == null || memberName == null) {
+    // 사용자 정보가 로드되지 않았을 경우 처리
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('사용자 정보를 불러오는 중입니다. 잠시 후 다시 시도해주세요.')),
+    );
+    return;
+  }
 
-    final prompt = '이 내용으로 정성스러운 하루 일기를 작성해주세요: ${_textEditingController.text}';
+  final prompt = '이 내용으로 정성스러운 하루 일기를 작성해주세요: ${_textEditingController.text}';
 
-    try {
-      final diaryEntry = await generateDiaryEntry(prompt);
+  try {
+    final diaryData = await generateDiaryEntry(prompt);
 
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => AddPhotoScreen(
-            transcription: diaryEntry,
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => BlocProvider(
+          create: (context) => AddPhotoBloc(
+            audioManager: AudioManager(), // 필요에 따라 초기화
+            transcription: diaryData['diaryEntry'],
+            diaryCode: diaryData['diaryCode'],
+          ),
+          child: AddPhotoScreen(
+            transcription: diaryData['diaryEntry'],
+            diaryCode: diaryData['diaryCode'],
           ),
         ),
-      );
-    } catch (e) {
-      print('Failed to generate diary entry: $e');
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('일기 생성에 실패했습니다. 나중에 다시 시도해주세요.')),
-      );
-    }
+      ),
+    );
+  } catch (e) {
+    print('Failed to generate diary entry: $e');
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('일기 생성에 실패했습니다. 나중에 다시 시도해주세요.')),
+    );
   }
+}
 
   void togglePlayPause() {
     if (isPlaying) {
