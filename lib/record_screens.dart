@@ -127,7 +127,7 @@ class _RecordScreenState extends State<RecordScreen>
       throw Exception('Member ID or Name is missing.');
     }
 
-    final Uri uri = Uri.parse('http://192.168.0.43:8080/api/transcription');
+    final Uri uri = Uri.parse('http://10.0.2.2:8080/api/transcription');
     final mimeType = lookupMimeType(filePath);
 
     var request = http.MultipartRequest('POST', uri)

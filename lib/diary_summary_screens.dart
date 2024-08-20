@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:wisely_diary/today_cartoon.dart';
 import 'dart:io';
 import 'custom_scaffold.dart';
+import 'package:wisely_diary/letter/letter_creation_status_page.dart';
 
 class DiarySummaryScreen extends StatelessWidget {
   final String transcription;
@@ -117,7 +118,12 @@ class DiarySummaryScreen extends StatelessWidget {
                   context,
                   iconPath: 'assets/letter_icon.png',
                   label: "친구에게 편지 받기",
-                  onPressed: () => Navigator.pushNamed(context, '/letter', arguments: {'diaryCode': diaryCode},),
+                  onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => LetterCreationStatusPage(diaryCode: diaryCode),
+                    ),
+                  ),
                 ),
                 _buildButton(
                   context,
