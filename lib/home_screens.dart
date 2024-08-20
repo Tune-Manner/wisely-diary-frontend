@@ -41,34 +41,38 @@ class _HomePageState extends State<HomeScreens> {
   }
 
   Future<void> _fetchMonthlyDiaries(DateTime month) async {
-    final response = await http.post(
-      Uri.parse('http://10.0.2.2:8080/api/diary/selectmonth'),
-      headers: {'Content-Type': 'application/json'},
-      body: jsonEncode({
-        'year': month.year,
-        'month': month.month,
-        'memberId': widget.userId,
-      }),
-    );
+    String date = DateFormat('yyyy-MM-01').format(month);
 
-    if (response.statusCode == 200) {
-      final data = jsonDecode(response.body);
-      if (data != null && data['diaries'] != null) {
+    try {
+      final response = await http.post(
+        Uri.parse('http://192.168.123.103:8080/api/diary/monthly'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({
+          'date': date,
+          'memberId': widget.userId,
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        final List<dynamic> data = jsonDecode(response.body);
         setState(() {
-          _monthlyDiaryEntries = List<Map<String, dynamic>>.from(data['diaries']);
+          _monthlyDiaryEntries = data.map((item) => {
+            'date': item['date'],
+            'content': item['diaryContents'],
+          }).toList();
           _monthlyDiaryEntries.sort((a, b) => DateTime.parse(b['date']).compareTo(DateTime.parse(a['date'])));
         });
       } else {
-        print('Error: No diary content found.');
+        print('Error fetching diary content: ${response.reasonPhrase}');
       }
-    } else {
-      print('Error fetching diary content: ${response.reasonPhrase}');
+    } catch (e) {
+      print('Exception occurred while fetching monthly diaries: $e');
     }
   }
 
   Future<void> _fetchDiaryContent(DateTime selectedDay) async {
     final response = await http.post(
-      Uri.parse('http://10.0.2.2:8080/api/diary/selectdetail'),
+      Uri.parse('http://192.168.123.103:8080/api/diary/selectdetail'),
       headers: {
         'Content-Type': 'application/json',
       },
@@ -84,9 +88,7 @@ class _HomePageState extends State<HomeScreens> {
       setState(() {
         _selectedDayEntry = {
           'date': selectedDay.toIso8601String().split('T').first,
-          'content': data != null && data['diaryContents'] != null
-              ? data['diaryContents']
-              : '해당 날짜에 해당하는 일기가 없습니다.',
+          'content': data['diaryContents'],
         };
       });
     } else {
@@ -94,7 +96,7 @@ class _HomePageState extends State<HomeScreens> {
       setState(() {
         _selectedDayEntry = {
           'date': selectedDay.toIso8601String().split('T').first,
-          'content': '해당 날짜에 해당하는 일기가 없습니다.',
+          'content': '일기 내용을 가져오는 중 오류가 발생했습니다.',
         };
       });
     }
@@ -128,13 +130,11 @@ class _HomePageState extends State<HomeScreens> {
   }
 
   void _navigateToDiaryNoImgPage(DateTime selectedDate) {
-    if (_selectedDayEntry != null && _selectedDayEntry!['content'] != '해당 날짜에 해당하는 일기가 없습니다.') {
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context) => DiaryNoImgPage(selectedDate: selectedDate),
-        ),
-      );
-    }
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => DiaryNoImgPage(selectedDate: selectedDate),
+      ),
+    );
   }
 
   @override
@@ -178,7 +178,9 @@ class _HomePageState extends State<HomeScreens> {
 
           // 일기 목록을 위한 Expanded와 ListView.builder 사용
           Expanded(
-            child: SingleChildScrollView(
+            child: _monthlyDiaryEntries.isEmpty
+                ? _buildEmptyState()
+                : SingleChildScrollView(
               child: _selectedDayEntry != null
                   ? GestureDetector(
                 onTap: () => _navigateToDiaryNoImgPage(DateTime.parse(_selectedDayEntry!['date'])),
@@ -223,6 +225,33 @@ class _HomePageState extends State<HomeScreens> {
             style: TextStyle(fontSize: 13, color: Colors.black),
           ),
           Divider(height: 30),
+        ],
+      ),
+    );
+  }
+
+  // 작성된 일기가 없을때
+  Widget _buildEmptyState() {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Opacity(
+            opacity: 0.5, // 0.0에서 1.0 사이의 값. 0.0은 완전 투명, 1.0은 완전 불투명
+            child: Image.asset(
+              'assets/wisely-diary-logo.png',
+              height: 80,
+            ),
+          ),
+          SizedBox(height: 16),
+          Text(
+            '작성한 일기가 없습니다.\n일기를 작성해보세요!',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 16,
+              color: Colors.grey[600],
+            ),
+          ),
         ],
       ),
     );

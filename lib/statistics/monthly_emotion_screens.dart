@@ -206,17 +206,19 @@ class MonthlyEmotionScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center ,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Container(
-            width: 200,
-            height: 200,
-            child: Image.asset(
-              'assets/wisely-diary-logo.png',
-              fit: BoxFit.cover,
+          Opacity(
+            opacity: 0.5, // 0.0에서 1.0 사이의 값. 0.0은 완전 투명, 1.0은 완전 불투명
+            child: Container(
+              height: 100,
+              child: Image.asset(
+                'assets/wisely-diary-logo.png',
+                fit: BoxFit.cover,
+              ),
             ),
           ),
           SizedBox(height: 16),
           Text(
-            '쓰신 일기가 없습니다!\n일기를 쓰고 난 뒤 통계가 보입니다.',
+            '작성된 일기가 없습니다!\n일기를 작성해보세요!',
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 16,
@@ -243,7 +245,7 @@ class MonthlyEmotionScreen extends StatelessWidget {
 
     final memberId = user.id;
     String todayDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
-    final url = Uri.parse('http://10.0.2.2:8080/api/statistics/inquire');
+    final url = Uri.parse('http://192.168.123.103:8080/api/statistics/inquire');
     final response = await http.post(
       url,
       headers: {"Content-Type": "application/json"},
