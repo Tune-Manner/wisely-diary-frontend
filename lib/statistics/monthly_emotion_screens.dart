@@ -11,16 +11,28 @@ String getEmotionNameByCode(String code) {
     '1': '걱정',
     '2': '자랑',
     '3': '감사',
-    '4': '부당함',
+    '4': '억울',
     '5': '분노',
     '6': '슬픔',
     '7': '기쁨',
-    '8': '사랑스러움',
+    '8': '행복',
     '9': '안정',
     '10': '당황'
   };
   return emotionNames[code] ?? '알 수 없음';
 }
+// 감정 코드와 색상을 매핑한 emotionColors
+final emotionColors = {
+  '1': Colors.deepPurpleAccent,
+  '2': Colors.purple,
+  '3': Colors.amber,
+  '4': Colors.teal,
+  '5': Colors.red,
+  '6': Colors.cyan,
+  '7': Colors.pink,
+  '9': Colors.yellow,
+  '10': Colors.orange,
+};
 
 class MonthlyEmotionScreen extends StatelessWidget {
   @override
@@ -161,7 +173,7 @@ class MonthlyEmotionScreen extends StatelessWidget {
                                   style: TextStyle(
                                     fontSize: 24,
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.red,
+                                    color: emotionColors[maxEmotionCode] ?? Colors.black,
                                   ),
                                 ),
                                 TextSpan(
@@ -185,7 +197,7 @@ class MonthlyEmotionScreen extends StatelessWidget {
     );
   }
 
-  // 데이터를 처리할 수 없을 때 보여줄 화면
+  // 데이터를 처리할 수 없을 때 화면
   Widget _buildNoDataScreen(BuildContext context) {
     return Container(
       width: double.infinity,
@@ -195,7 +207,8 @@ class MonthlyEmotionScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
-            height: 100,
+            width: 200,
+            height: 200,
             child: Image.asset(
               'assets/wisely-diary-logo.png',
               fit: BoxFit.cover,
@@ -356,18 +369,6 @@ class SemiDonutPainter extends CustomPainter {
     final Paint paint = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = 100.0;
-
-    final emotionColors = {
-      '1': Colors.deepPurpleAccent,
-      '2': Colors.purple,
-      '3': Colors.amber,
-      '4': Colors.teal,
-      '5': Colors.red,
-      '6': Colors.cyan,
-      '7': Colors.pink,
-      '9': Colors.yellow,
-      '10': Colors.orange,
-    };
 
     // 감정 데이터를 리스트로 변환하고, 퍼센티지에 따라 내림차순 정렬
     final sortedEmotions = emotions.entries.toList()
