@@ -3,11 +3,12 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:wisely_diary/main.dart';
-import 'create_diary_screens.dart'; // CreateDiaryPage를 import합니다.
+import 'create_diary_screens.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'custom_scaffold.dart';
-
+import 'package:intl/intl.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 import 'date_select.dart';
 
@@ -23,13 +24,46 @@ class HomeScreens extends StatefulWidget {
 class _HomePageState extends State<HomeScreens> {
   late DateTime _selectedDay;
   late DateTime _focusedDay;
-  final List<Map<String, String>> _diaryEntries = [];
+  List<Map<String, dynamic>> _monthlyDiaryEntries = [];
+  Map<String, dynamic>? _selectedDayEntry;
 
   @override
   void initState() {
     super.initState();
     _selectedDay = DateTime.now();
     _focusedDay = DateTime.now();
+
+    initializeDateFormatting('ko_KR', null).then((_) {
+      setState(() {});
+    });
+
+    _fetchMonthlyDiaries(_focusedDay);
+  }
+
+  Future<void> _fetchMonthlyDiaries(DateTime month) async {
+    final response = await http.post(
+      Uri.parse('http://10.0.2.2:8080/api/diary/selectmonth'),
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({
+        'year': month.year,
+        'month': month.month,
+        'memberId': widget.userId,
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      if (data != null && data['diaries'] != null) {
+        setState(() {
+          _monthlyDiaryEntries = List<Map<String, dynamic>>.from(data['diaries']);
+          _monthlyDiaryEntries.sort((a, b) => DateTime.parse(b['date']).compareTo(DateTime.parse(a['date'])));
+        });
+      } else {
+        print('Error: No diary content found.');
+      }
+    } else {
+      print('Error fetching diary content: ${response.reasonPhrase}');
+    }
   }
 
   Future<void> _fetchDiaryContent(DateTime selectedDay) async {
@@ -47,19 +81,22 @@ class _HomePageState extends State<HomeScreens> {
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
 
-      if (data != null && data['diaryContents'] != null) {
-        setState(() {
-          _diaryEntries.clear();
-          _diaryEntries.add({
-            'date': selectedDay.toIso8601String().split('T').first, // 날짜 형식 정리
-            'summary': data['diaryContents'] ?? '내용 없음',
-          });
-        });
-      } else {
-        print('Error: No diary content found.');
-      }
+      setState(() {
+        _selectedDayEntry = {
+          'date': selectedDay.toIso8601String().split('T').first,
+          'content': data != null && data['diaryContents'] != null
+              ? data['diaryContents']
+              : '해당 날짜에 해당하는 일기가 없습니다.',
+        };
+      });
     } else {
       print('Error fetching diary content: ${response.reasonPhrase}');
+      setState(() {
+        _selectedDayEntry = {
+          'date': selectedDay.toIso8601String().split('T').first,
+          'content': '해당 날짜에 해당하는 일기가 없습니다.',
+        };
+      });
     }
   }
 
@@ -85,75 +122,80 @@ class _HomePageState extends State<HomeScreens> {
     setState(() {
       _selectedDay = selectedDay;
       _focusedDay = focusedDay;
+      _selectedDayEntry = null;
     });
+    _fetchDiaryContent(selectedDay);
+  }
 
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => DiaryNoImgPage(selectedDate: selectedDay),
-      ),
-    );
+  void _navigateToDiaryNoImgPage(DateTime selectedDate) {
+    if (_selectedDayEntry != null && _selectedDayEntry!['content'] != '해당 날짜에 해당하는 일기가 없습니다.') {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => DiaryNoImgPage(selectedDate: selectedDate),
+        ),
+      );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    print('Navigated to HomePage with memberId: ${widget.userId}');
-
-    List<Map<String, String>> filteredEntries = _diaryEntries.where((entry) {
-      DateTime entryDate = DateTime.parse(
-          entry['date']!.split(' ')[0].replaceAll('.', '-'));
-      return isSameDay(entryDate, _selectedDay);
-    }).toList();
-
     return CustomScaffold(
-      body: Stack(
+      body: Column(
         children: [
-          Column(
-            children: [
-              SizedBox(height: 16),
-              // 캘린더 위젯
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 16.0),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(8),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.1),
-                      spreadRadius: 2,
-                      blurRadius: 5,
-                      offset: Offset(0, 3),
-                    ),
-                  ],
+          SizedBox(height: 16),
+          // 달력 부분
+          Container(
+            margin: EdgeInsets.symmetric(horizontal: 16.0),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.1),
+                  spreadRadius: 2,
+                  blurRadius: 5,
+                  offset: Offset(0, 3),
                 ),
-                child: TableCalendar(
-                  locale: 'ko_KR',
-                  firstDay: DateTime.utc(2020, 1, 1),
-                  lastDay: DateTime.utc(2100, 12, 31),
-                  focusedDay: _focusedDay,
-                  selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
-                  onDaySelected: _onDaySelected, // Updated
-                ),
+              ],
+            ),
+            child: TableCalendar(
+              locale: 'ko_KR',
+              firstDay: DateTime.utc(2020, 1, 1),
+              lastDay: DateTime.utc(2100, 12, 31),
+              focusedDay: _focusedDay,
+              selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
+              onDaySelected: _onDaySelected,
+              onPageChanged: (focusedDay) {
+                setState(() {
+                  _focusedDay = focusedDay;
+                  _selectedDayEntry = null;
+                });
+                _fetchMonthlyDiaries(focusedDay);
+              },
+            ),
+          ),
+          SizedBox(height: 16),
+
+          // 일기 목록을 위한 Expanded와 ListView.builder 사용
+          Expanded(
+            child: SingleChildScrollView(
+              child: _selectedDayEntry != null
+                  ? GestureDetector(
+                onTap: () => _navigateToDiaryNoImgPage(DateTime.parse(_selectedDayEntry!['date'])),
+                child: _buildDiaryEntry(_selectedDayEntry!['date'], _selectedDayEntry!['content']),
+              )
+                  : Column(
+                children: _monthlyDiaryEntries.map((entry) =>
+                    _buildDiaryEntry(entry['date'], entry['content'])
+                ).toList(),
               ),
-              // 일기 항목들
-              Expanded(
-                child: ListView.builder(
-                  itemCount: filteredEntries.length,
-                  itemBuilder: (context, index) {
-                    return _buildDiaryEntry(
-                      filteredEntries[index]['date']!,
-                      filteredEntries[index]['summary']!,
-                    );
-                  },
-                ),
-              ),
-            ],
+            ),
           ),
         ],
       ),
-      // 플로팅 액션 버튼
       floatingActionButton: FloatingActionButton(
         onPressed: _navigateToAddDiaryEntryPage,
-        child: Icon(Icons.edit), // 펜 모양 아이콘으로 변경
+        child: Icon(Icons.edit),
         tooltip: '새 일기 추가',
         backgroundColor: Colors.yellow,
         foregroundColor: Colors.white,
@@ -161,7 +203,8 @@ class _HomePageState extends State<HomeScreens> {
     );
   }
 
-  Widget _buildDiaryEntry(String date, String summary) {
+  // 일기 항목을 생성
+  Widget _buildDiaryEntry(String date, String content) {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
       child: Column(
@@ -176,7 +219,7 @@ class _HomePageState extends State<HomeScreens> {
           ),
           SizedBox(height: 10),
           Text(
-            summary,
+            content,
             style: TextStyle(fontSize: 13, color: Colors.black),
           ),
           Divider(height: 30),
