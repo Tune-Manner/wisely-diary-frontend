@@ -20,7 +20,7 @@ import 'member_information.dart';
 import 'test_page.dart';
 import 'login_screens.dart';
 import 'create_diary_screens.dart';
-import 'home_screens.dart';
+
 import 'wait_screens.dart';
 import 'select_type_screens.dart';
 import 'record_screens.dart';
