@@ -1,5 +1,4 @@
 import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:http/http.dart' as http;
@@ -23,7 +22,8 @@ class RecordScreen extends StatefulWidget {
   State<StatefulWidget> createState() => _RecordScreenState();
 }
 
-class _RecordScreenState extends State<RecordScreen> {
+class _RecordScreenState extends State<RecordScreen>
+    with SingleTickerProviderStateMixin {
   final audioManager = AudioManager();
   final AudioRecorder audioRecorder = AudioRecorder();
   String? recordingPath;
@@ -32,10 +32,36 @@ class _RecordScreenState extends State<RecordScreen> {
   String? memberId;
   String? memberName;
 
+  late AnimationController _controller;
+
+  // 추가된 변수들
+  late bool isPlaying;
+  late double volume;
+
   @override
   void initState() {
     super.initState();
     _fetchUserName();
+    isPlaying = audioManager.player.playing;
+    volume = audioManager.player.volume;
+
+    _controller = AnimationController(
+      duration: const Duration(seconds: 1),
+      vsync: this,
+    ); // 애니메이션 컨트롤러를 초기화하되, 시작하지 않음
+
+    // 볼륨 및 재생 상태 모니터링
+    audioManager.player.playerStateStream.listen((state) {
+      setState(() {
+        isPlaying = state.playing;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   Future<void> _fetchUserName() async {
@@ -52,7 +78,6 @@ class _RecordScreenState extends State<RecordScreen> {
         memberName = memberResponse['member_name'];
       });
 
-
       print('Fetched memberId: $memberId, memberName: $memberName');
     }
   }
@@ -65,6 +90,7 @@ class _RecordScreenState extends State<RecordScreen> {
     setState(() {
       isRecording = true;
       recordingPath = filePath;
+      _controller.repeat(); // 애니메이션 시작
     });
     print('Recording started, file will be saved to: $filePath');
   }
@@ -74,9 +100,29 @@ class _RecordScreenState extends State<RecordScreen> {
     setState(() {
       isRecording = false;
       recordingPath = filePath;
+      _controller.stop(); // 애니메이션 중지
     });
     print('Recording stopped, file saved to: $recordingPath');
     return filePath;
+  }
+
+  // 재생/일시정지 토글
+  void togglePlayPause() {
+    setState(() {
+      if (isPlaying) {
+        audioManager.player.pause();
+      } else {
+        audioManager.player.play();
+      }
+    });
+  }
+
+  // 볼륨 조절
+  void changeVolume(double newVolume) {
+    setState(() {
+      volume = newVolume;
+      audioManager.player.setVolume(newVolume);
+    });
   }
 
   Future<Map<String, dynamic>> sendFileToBackend(String filePath) async {
@@ -101,7 +147,7 @@ class _RecordScreenState extends State<RecordScreen> {
       var jsonData = jsonDecode(responseData.body);
 
       String? prompt = jsonData['transcription'] ??
-          jsonData['text']; 
+          jsonData['text'];
       if (prompt == null) {
         throw Exception('Transcription or text is missing in the response.');
       }
@@ -146,30 +192,101 @@ class _RecordScreenState extends State<RecordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Recording Test')),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () async {
-            if (isRecording) {
-              String? filePath = await stopRecording();
-              if (filePath != null) {
-                Map<String, dynamic> diaryData =
-                    await sendFileToBackend(filePath);
-                String transcription = diaryData['diaryEntry'];
-                int diaryCode = diaryData['diaryCode'];
+      appBar: AppBar(
+        backgroundColor: const Color(0xfffdfbf0),
+        elevation: 0,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        title: Image.asset(
+          'assets/wisely-diary-logo.png',
+          height: 30,
+          fit: BoxFit.contain,
+        ),
+        centerTitle: true,
+        actions: [
+          IconButton(
+            icon: Icon(isPlaying ? Icons.pause : Icons.play_arrow),
+            onPressed: togglePlayPause,
+          ),
+          Container(
+            width: 100,
+            child: Slider(
+              value: volume,
+              min: 0.0,
+              max: 1.0,
+              onChanged: changeVolume,
+            ),
+          ),
+        ],
+      ),
+      body: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).unfocus();
+        },
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                '가장 기억에 남는 상황이 있었나요?\n언제, 어떤 상황이었나요?',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 20, color: Colors.black),
+              ),
+              SizedBox(height: 50),
+              GestureDetector(
+                onTap: () async {
+                  if (isRecording) {
+                    String? filePath = await stopRecording();
+                    if (filePath != null) {
+                      Map<String, dynamic> diaryData =
+                          await sendFileToBackend(filePath);
+                      String transcription = diaryData['diaryEntry'];
+                      int diaryCode = diaryData['diaryCode'];
 
-                print(
-                    'Navigating to AddPhotoScreen with diaryCode: $diaryCode');
+                      print(
+                          'Navigating to AddPhotoScreen with diaryCode: $diaryCode');
 
-                navigateToAddPhotoScreen(transcription, diaryCode);
-              }
-            } else {
-              await startRecording();
-            }
-          },
-          child: Text(isRecording ? 'Stop Recording' : 'Start Recording'),
+                      navigateToAddPhotoScreen(transcription, diaryCode);
+                    }
+                  } else {
+                    await startRecording();
+                  }
+                },
+                child: AnimatedBuilder(
+                  animation: _controller,
+                  builder: (context, child) {
+                    return Transform.scale(
+                      scale: isRecording ? 1 + _controller.value * 0.2 : 1.0, // 크기 변화
+                      child: child,
+                    );
+                  },
+                  child: Image.asset(
+                    'assets/mic_img.png',
+                    width: 100,
+                    height: 100,
+                  ),
+                ),
+              ),
+              SizedBox(height: 10),
+              AnimatedBuilder(
+                animation: _controller,
+                builder: (context, child) {
+                  return Opacity(
+                    opacity: isRecording ? _controller.value : 1.0,
+                    child: Text(
+                      isRecording ? '녹음 중입니다...' : '버튼을 눌러 녹음을 시작하세요',
+                      style: TextStyle(fontSize: 16, color: Colors.black54),
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
         ),
       ),
+      backgroundColor: const Color(0xfffdfbf0), // 배경색 설정
     );
   }
 
