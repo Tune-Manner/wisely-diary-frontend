@@ -48,9 +48,8 @@ class _RecordScreenState extends State<RecordScreen>
     _controller = AnimationController(
       duration: const Duration(seconds: 1),
       vsync: this,
-    ); // 애니메이션 컨트롤러를 초기화하되, 시작하지 않음
-
-    // 볼륨 및 재생 상태 모니터링
+    ); 
+ 
     audioManager.player.playerStateStream.listen((state) {
       setState(() {
         isPlaying = state.playing;
@@ -106,7 +105,6 @@ class _RecordScreenState extends State<RecordScreen>
     return filePath;
   }
 
-  // 재생/일시정지 토글
   void togglePlayPause() {
     setState(() {
       if (isPlaying) {
@@ -117,7 +115,6 @@ class _RecordScreenState extends State<RecordScreen>
     });
   }
 
-  // 볼륨 조절
   void changeVolume(double newVolume) {
     setState(() {
       volume = newVolume;
@@ -286,7 +283,7 @@ class _RecordScreenState extends State<RecordScreen>
           ),
         ),
       ),
-      backgroundColor: const Color(0xfffdfbf0), // 배경색 설정
+      backgroundColor: const Color(0xfffdfbf0),
     );
   }
 
