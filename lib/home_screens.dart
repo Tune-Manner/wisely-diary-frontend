@@ -7,7 +7,7 @@ import 'create_diary_screens.dart'; // CreateDiaryPage를 import합니다.
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'custom_scaffold.dart';
-import 'alarm/alarm_setting_page.dart';
+
 
 import 'date_select.dart';
 
@@ -34,7 +34,7 @@ class _HomePageState extends State<HomeScreens> {
 
   Future<void> _fetchDiaryContent(DateTime selectedDay) async {
     final response = await http.post(
-      Uri.parse('http://192.168.0.44:8080/api/diary/selectdetail'),
+      Uri.parse('http://10.0.2.2:8080/api/diary/selectdetail'),
       headers: {
         'Content-Type': 'application/json',
       },
@@ -126,6 +126,7 @@ class _HomePageState extends State<HomeScreens> {
                   ],
                 ),
                 child: TableCalendar(
+                  locale: 'ko_KR',
                   firstDay: DateTime.utc(2020, 1, 1),
                   lastDay: DateTime.utc(2100, 12, 31),
                   focusedDay: _focusedDay,
