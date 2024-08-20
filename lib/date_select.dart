@@ -199,25 +199,19 @@ class _DiaryNoImgPageState extends State<DiaryNoImgPage> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        leadingWidth: 100,
-        leading: Row(
-          children: [
-            IconButton(
-              icon: Icon(Icons.arrow_back, color: Colors.black),
-              onPressed: () => Navigator.pop(context),
-            ),
-            IconButton(
-              icon: Icon(Icons.menu, color: Colors.black),
-              onPressed: () {
-                // 햄버거 메뉴 클릭 시 동작 정의
-              },
-            ),
-          ],
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () => Navigator.pop(context),
         ),
-        title: Image.asset(
-          'assets/wisely-diary-logo.png',
-          height: 30,
-          fit: BoxFit.contain,
+        title: GestureDetector(
+          onTap: () {
+            Navigator.pushReplacementNamed(context, '/home');
+          },
+          child: Image.asset(
+            'assets/wisely-diary-logo.png',
+            height: 30,
+            fit: BoxFit.contain,
+          ),
         ),
         centerTitle: true,
       ),
