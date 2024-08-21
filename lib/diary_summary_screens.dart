@@ -69,10 +69,6 @@ class DiarySummaryScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          '일기 코드: $diaryCode', // diaryCode 출력, 추후에 삭제해야함
-                          style: TextStyle(fontSize: 14, color: Colors.black),
-                        ),
                         SizedBox(height: 10),
                         Text(
                           transcription,

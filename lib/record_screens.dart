@@ -48,8 +48,8 @@ class _RecordScreenState extends State<RecordScreen>
     _controller = AnimationController(
       duration: const Duration(seconds: 1),
       vsync: this,
-    ); 
- 
+    );
+
     audioManager.player.playerStateStream.listen((state) {
       setState(() {
         isPlaying = state.playing;
@@ -238,7 +238,7 @@ class _RecordScreenState extends State<RecordScreen>
                     String? filePath = await stopRecording();
                     if (filePath != null) {
                       Map<String, dynamic> diaryData =
-                          await sendFileToBackend(filePath);
+                      await sendFileToBackend(filePath);
                       String transcription = diaryData['diaryEntry'];
                       int diaryCode = diaryData['diaryCode'];
 

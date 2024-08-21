@@ -122,30 +122,57 @@ class _TextPageState extends State<TextPage> {
     final prompt = '이 내용으로 정성스러운 하루 일기를 작성해주세요: ${_textEditingController.text}';
 
     try {
-      _showLoadingDialog(context); // Show loading dialog
+      // Show loading dialog
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext dialogContext) {
+          return Dialog(
+            backgroundColor: Colors.white,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            child: Padding(
+              padding: const EdgeInsets.all(20),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  CircularProgressIndicator(),
+                  SizedBox(width: 20),
+                  Text("당신의 일기를 분석 중이에요.."),
+                ],
+              ),
+            ),
+          );
+        },
+      );
 
+      // Generate diary entry
       final diaryData = await generateDiaryEntry(prompt);
 
-      Navigator.pop(context); // Hide loading dialog
+      // Close the loading dialog
+      Navigator.of(context, rootNavigator: true).pop();
 
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => BlocProvider(
-            create: (context) => AddPhotoBloc(
-              audioManager: AudioManager(),
-              transcription: diaryData['diaryEntry'],
-              diaryCode: diaryData['diaryCode'],
-            ),
-            child: AddPhotoScreen(
-              transcription: diaryData['diaryEntry'],
-              diaryCode: diaryData['diaryCode'],
+      // Navigate to the next screen
+      if (mounted) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => BlocProvider(
+              create: (context) => AddPhotoBloc(
+                audioManager: AudioManager(),
+                transcription: diaryData['diaryEntry'],
+                diaryCode: diaryData['diaryCode'],
+              ),
+              child: AddPhotoScreen(
+                transcription: diaryData['diaryEntry'],
+                diaryCode: diaryData['diaryCode'],
+              ),
             ),
           ),
-        ),
-      );
+        );
+      }
     } catch (e) {
-      Navigator.pop(context); // Hide loading dialog in case of an error
+      // Close the loading dialog in case of an error
+      Navigator.of(context, rootNavigator: true).pop();
 
       print('Failed to generate diary entry: $e');
       ScaffoldMessenger.of(context).showSnackBar(
@@ -153,6 +180,7 @@ class _TextPageState extends State<TextPage> {
       );
     }
   }
+
 
   void togglePlayPause() {
     if (isPlaying) {
@@ -203,16 +231,16 @@ class _TextPageState extends State<TextPage> {
       ),
       body: GestureDetector(
         onTap: () {
-          FocusScope.of(context).unfocus(); 
+          FocusScope.of(context).unfocus();
         },
         child: SingleChildScrollView(
           child: Container(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
-            color: const Color(0xfffdfbf0), 
+            color: const Color(0xfffdfbf0),
             child: Column(
               children: [
-                SizedBox(height: MediaQuery.of(context).size.height * 0.15), 
+                SizedBox(height: MediaQuery.of(context).size.height * 0.15),
                 Text(
                   '가장 기억에 남는 상황이 있었나요?\n언제, 어떤 상황이었나요?',
                   textAlign: TextAlign.center,
@@ -229,7 +257,7 @@ class _TextPageState extends State<TextPage> {
                   width: 120,
                   height: 120,
                 ),
-                SizedBox(height: 40), 
+                SizedBox(height: 40),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 40.0),
                   child: Container(
@@ -241,7 +269,7 @@ class _TextPageState extends State<TextPage> {
                     ),
                     child: TextField(
                       controller: _textEditingController,
-                      focusNode: _focusNode, 
+                      focusNode: _focusNode,
                       maxLines: 5,
                       decoration: InputDecoration.collapsed(
                         hintText: '이곳에 상황을 입력해주세요',
@@ -251,7 +279,7 @@ class _TextPageState extends State<TextPage> {
                 ),
                 SizedBox(height: 20),
                 GestureDetector(
-                  onTap: _navigateToAddPhotoScreen, 
+                  onTap: _navigateToAddPhotoScreen,
                   child: Container(
                     width: 221,
                     height: 54,

@@ -94,4 +94,7 @@ flutter:
     - assets/letter_icon.png
     - assets/music_icon.png
     - assets/Edit.png
+    - assets/deactive_cartoon_logo.png
+    - assets/deactive_letter_logo.png
+    - assets/deactive_music_logo.png
     
