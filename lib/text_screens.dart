@@ -62,7 +62,7 @@ class _TextPageState extends State<TextPage> {
     String sanitizedPrompt = prompt.replaceAll(RegExp(r'[\n\r\t]'), ' ');
 
     final response = await http.post(
-      Uri.parse('http://192.168.0.43:8080/api/generate'),
+      Uri.parse('http://10.0.2.2:8080/api/generate'),
       headers: {'Content-Type': 'application/json; charset=UTF-8'},
       body: jsonEncode({
         'prompt': sanitizedPrompt,
@@ -184,7 +184,7 @@ void _navigateToAddPhotoScreen() async {
               children: [
                 SizedBox(height: MediaQuery.of(context).size.height * 0.15), 
                 Text(
-                  '${widget.emotionNumber}가장 기억에 남는 상황이 있었나요?\n언제, 어떤 상황이었나요?',
+                  '가장 기억에 남는 상황이 있었나요?\n언제, 어떤 상황이었나요?',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     decoration: TextDecoration.none,

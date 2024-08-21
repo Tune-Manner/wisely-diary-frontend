@@ -2,6 +2,8 @@ import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 import 'custom_scaffold.dart';
 
 class TodayCartoonPage extends StatefulWidget {
@@ -15,11 +17,14 @@ class TodayCartoonPage extends StatefulWidget {
 
 class _TodayCartoonPageState extends State<TodayCartoonPage> {
   String userName = '';
+  String cartoonUrl = '';
+  bool isLoading = true; // 로딩 상태를 관리하는 변수
 
   @override
   void initState() {
     super.initState();
     _fetchUserName();
+    _createCartoon();
   }
 
   Future<void> _fetchUserName() async {
@@ -33,6 +38,41 @@ class _TodayCartoonPageState extends State<TodayCartoonPage> {
       setState(() {
         userName = memberResponse['member_name'];
       });
+    }
+  }
+
+  Future<void> _createCartoon() async {
+    final user = Supabase.instance.client.auth.currentUser;
+    if (user != null) {
+      final requestBody = {
+        "diaryCode": widget.diaryCode,
+        "memberId": user.id
+      };
+
+      try {
+        final response = await http.post(
+          Uri.parse('http://10.0.2.2:8080/api/cartoon/create'),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: jsonEncode(requestBody),
+        );
+
+        if (response.statusCode == 200) {
+          final result = response.body;
+          setState(() {
+            cartoonUrl = result; // Assuming the API returns the cartoon URL as plain text
+          });
+        } else {
+          print("Failed to create cartoon: ${response.statusCode}");
+        }
+      } catch (e) {
+        print("Error creating cartoon: $e");
+      } finally {
+        setState(() {
+          isLoading = false; // 만화 생성이 완료되면 로딩 상태를 해제합니다.
+        });
+      }
     }
   }
 
@@ -51,7 +91,7 @@ class _TodayCartoonPageState extends State<TodayCartoonPage> {
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w500,
-                  fontFamily: 'Pretendard', // 둥글둥글한 폰트로 변경
+                  fontFamily: 'Pretendard',
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -66,6 +106,34 @@ class _TodayCartoonPageState extends State<TodayCartoonPage> {
               //   )
               //       : Text('No image available'),
               // ),
+              if (isLoading)
+                Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      CircularProgressIndicator(), // 로딩 인디케이터
+                      SizedBox(height: 16),
+                      Text(
+                        '만화를 생성 중입니다...',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              else
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(12),
+                  child: cartoonUrl.isNotEmpty
+                      ? Image.network(
+                    cartoonUrl,
+                    fit: BoxFit.cover,
+                    width: double.infinity,
+                  )
+                      : Text('No image available'),
+                ),
               SizedBox(height: 24),
               ElevatedButton(
                 onPressed: () {

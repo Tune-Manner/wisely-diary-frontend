@@ -20,7 +20,7 @@ import 'member_information.dart';
 import 'test_page.dart';
 import 'login_screens.dart';
 import 'create_diary_screens.dart';
-import 'home_screens.dart';
+
 import 'wait_screens.dart';
 import 'select_type_screens.dart';
 import 'record_screens.dart';
@@ -105,7 +105,7 @@ class MyApp extends StatelessWidget {
         '/today-cartoon': (context) {
           final arguments = ModalRoute.of(context)!.settings.arguments
               as Map<String, dynamic>;
-          final int diaryCode = arguments['diaryCode']; 
+          final int diaryCode = arguments['diaryCode'];
           return TodayCartoonPage(diaryCode: diaryCode);
         },
       },
@@ -144,12 +144,12 @@ class MyApp extends StatelessWidget {
           final Map<String, dynamic> args =
               settings.arguments as Map<String, dynamic>;
           final String transcription = args['transcription'] ?? '';
-          final int diaryCode = args['diaryCode'] ?? 0; 
+          final int diaryCode = args['diaryCode'] ?? 0;
 
           return MaterialPageRoute(
             builder: (context) => AddPhotoScreen(
               transcription: transcription,
-              diaryCode: diaryCode, 
+              diaryCode: diaryCode,
             ),
           );
         }
@@ -158,7 +158,7 @@ class MyApp extends StatelessWidget {
               settings.arguments as Map<String, dynamic>;
           final String transcription = args['transcription'] ?? '';
           final List<File> imageFiles = args['imageFiles'] ?? [];
-          final int diaryCode = args['diaryCode'] ?? 0; 
+          final int diaryCode = args['diaryCode'] ?? 0;
 
           return MaterialPageRoute(
             builder: (context) => DiarySummaryScreen(
