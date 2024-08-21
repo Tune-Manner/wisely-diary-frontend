@@ -21,7 +21,8 @@ class LetterService {
       );
 
       if (response.statusCode == 200) {
-        return Letter.fromJson(json.decode(utf8.decode(response.bodyBytes)));
+        final letterData = json.decode(utf8.decode(response.bodyBytes));
+        return Letter.fromJson(letterData);
       } else {
         throw Exception('Failed to get or create letter: ${response.statusCode}, ${utf8.decode(response.bodyBytes)}');
       }
