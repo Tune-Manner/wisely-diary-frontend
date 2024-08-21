@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2673fe56-8026-4891-8850-5bb081ab56e8" name="Changes" comment="feat : adding letter image">
+    <list default="true" id="2673fe56-8026-4891-8850-5bb081ab56e8" name="Changes" comment="feat : add restrictions to the diary creation button.">
       <change beforePath="$PROJECT_DIR$/.dart_tool/package_config.json" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.dart_tool/package_config_subset" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config_subset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.dart_tool/version" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/version" afterDir="false" />
@@ -628,6 +628,7 @@
       <change beforePath="$PROJECT_DIR$/build/url_launcher_android/intermediates/symbol_list_with_package_name/debug/package-aware-r.txt" beforeDir="false" afterPath="$PROJECT_DIR$/build/url_launcher_android/intermediates/symbol_list_with_package_name/debug/package-aware-r.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/url_launcher_android/outputs/aar/url_launcher_android-debug.aar" beforeDir="false" afterPath="$PROJECT_DIR$/build/url_launcher_android/outputs/aar/url_launcher_android-debug.aar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/url_launcher_android/outputs/logs/manifest-merger-debug-report.txt" beforeDir="false" afterPath="$PROJECT_DIR$/build/url_launcher_android/outputs/logs/manifest-merger-debug-report.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/create_diary_screens.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/create_diary_screens.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/home_screens.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/home_screens.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -697,7 +698,7 @@
       <workItem from="1724134778527" duration="388000" />
       <workItem from="1724136163061" duration="10234000" />
       <workItem from="1724146513328" duration="182000" />
-      <workItem from="1724200985408" duration="7959000" />
+      <workItem from="1724200985408" duration="9001000" />
     </task>
     <task id="LOCAL-00001" summary="feat : emotion_code drilling">
       <created>1723904304968</created>
@@ -755,7 +756,14 @@
       <option name="project" value="LOCAL" />
       <updated>1724208193642</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="feat : add restrictions to the diary creation button.">
+      <created>1724209452418</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1724209452418</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -793,6 +801,7 @@
     <MESSAGE value="refactor : changing position of logout button" />
     <MESSAGE value="refactor : prevent comics from being regenerated" />
     <MESSAGE value="feat : adding letter image" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat : adding letter image" />
+    <MESSAGE value="feat : add restrictions to the diary creation button." />
+    <option name="LAST_COMMIT_MESSAGE" value="feat : add restrictions to the diary creation button." />
   </component>
 </project>
