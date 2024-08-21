@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:wisely_diary/edit_diary_screens.dart';
+import 'cartoon_inquery.dart';
 
 class DiaryNoImgPage extends StatefulWidget {
   final DateTime selectedDate;
@@ -23,6 +24,8 @@ class _DiaryNoImgPageState extends State<DiaryNoImgPage> {
   bool isLoading = true;
   int? diaryCode;
   String? memberId;
+  OverlayEntry? _overlayEntry;
+  bool _isOverlayVisible = false;
 
   final supabase = Supabase.instance.client;
 
@@ -159,6 +162,7 @@ class _DiaryNoImgPageState extends State<DiaryNoImgPage> {
   }
 
   void _editDiary() async {
+    _removeOverlayIfVisible(); // 페이지 이동 전 오버레이 제거
     final result = await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => EditDiaryPage(
@@ -172,7 +176,7 @@ class _DiaryNoImgPageState extends State<DiaryNoImgPage> {
       setState(() {
         isLoading = true;
       });
-      
+
       await _loadDiaryContent();
 
       setState(() {
@@ -205,6 +209,101 @@ class _DiaryNoImgPageState extends State<DiaryNoImgPage> {
     );
   }
 
+  // 선물 상자 토글
+  void _toggleGiftMenu() {
+    setState(() {
+      if (!_isOverlayVisible) {
+        _overlayEntry = _createOverlayEntry();
+        Overlay.of(context).insert(_overlayEntry!);
+        _isOverlayVisible = true;
+      } else {
+        _removeOverlayIfVisible();
+      }
+    });
+  }
+
+  void _removeOverlayIfVisible() {
+    if (_isOverlayVisible) {
+      _overlayEntry?.remove();
+      _overlayEntry = null;
+      _isOverlayVisible = false;
+    }
+  }
+
+  // 페이지가 닫힐 때 오버레이가 남아있지 않도록 제거
+  @override
+  void dispose() {
+    _removeOverlayIfVisible(); // dispose 시 오버레이 제거
+    super.dispose();
+  }
+
+  OverlayEntry _createOverlayEntry() {
+    return OverlayEntry(
+      builder: (context) => Positioned(
+        bottom: 100,
+        right: 25,
+        child: Material(
+          color: Colors.transparent,
+          child: Container(
+            width: 75,
+            padding: EdgeInsets.all(10.0),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(16.0),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.2),
+                  spreadRadius: 1,
+                  blurRadius: 3,
+                  offset: Offset(0, 3),
+                ),
+              ],
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Column(
+                  children: [
+                    Image.asset('assets/music_icon.png'),
+                    SizedBox(height: 4),
+                    Text('맞춤노래', style: TextStyle(fontSize: 10)),
+                  ],
+                ),
+                SizedBox(height: 16),
+                GestureDetector(
+                  onTap: () {
+                    _removeOverlayIfVisible(); // 페이지 이동 전 오버레이 제거
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => CartoonInquiryScreen(selectedDate: widget.selectedDate),
+                      ),
+                    );
+                  },
+                  child: Column(
+                    children: [
+                      Image.asset('assets/cuttoon_icon.png'),
+                      SizedBox(height: 4),
+                      Text('하루만화', style: TextStyle(fontSize: 10)),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 16),
+                Column(
+                  children: [
+                    Image.asset('assets/letter_icon.png'),
+                    SizedBox(height: 4),
+                    Text('위로의 편지', style: TextStyle(fontSize: 10)),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -213,10 +312,14 @@ class _DiaryNoImgPageState extends State<DiaryNoImgPage> {
         elevation: 0,
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () => Navigator.pop(context),
+          onPressed: () {
+            _removeOverlayIfVisible(); // 뒤로 가기 전 오버레이 제거
+            Navigator.pop(context);
+          },
         ),
         title: GestureDetector(
           onTap: () {
+            _removeOverlayIfVisible(); // 홈으로 가기 전 오버레이 제거
             Navigator.pushReplacementNamed(context, '/home');
           },
           child: Image.asset(
@@ -301,6 +404,34 @@ class _DiaryNoImgPageState extends State<DiaryNoImgPage> {
                   ),
                 ),
               ],
+            ),
+          ),
+          Positioned(
+            bottom: 30,
+            right: 25,
+            child: GestureDetector(
+              onTap: _toggleGiftMenu,
+              child: Container(
+                width: 56,
+                height: 56,
+                decoration: BoxDecoration(
+                  color: Color(0xFF8D83FF),
+                  shape: BoxShape.circle,
+                ),
+                child: Center(
+                  child: ColorFiltered(
+                    colorFilter: ColorFilter.mode(
+                      Colors.white,
+                      BlendMode.srcIn,
+                    ),
+                    child: Image.asset(
+                      'assets/gift_icon.png',
+                      width: 30,
+                      height: 30,
+                    ),
+                  ),
+                ),
+              ),
             ),
           ),
         ],
