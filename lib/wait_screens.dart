@@ -33,13 +33,13 @@ class _WaitPageState extends State<WaitPage> with TickerProviderStateMixin {
 
   final Map<int, Color> emotionColors = {
     1: Color(0xffAF89B1).withOpacity(0.7), // 걱정
-    2: Color(0xffD9A1FD).withOpacity(0.7), // 뿌듯
+    2: Color(0xffd8b6f1).withOpacity(0.7), // 뿌듯
     3: Color(0xffC4A989).withOpacity(0.7), // 감사
     4: Color(0xff80B9A3).withOpacity(0.7), // 억울
-    5: Color(0xffFF0000).withOpacity(0.7), // 분노 (순수한 빨간색)
+    5: Color(0xfff8bcbc).withOpacity(0.7), // 분노
     6: Color(0xffA0C9FF).withOpacity(0.7), // 슬픔
-    7: Color(0xffFFBFDD).withOpacity(0.7), // 설렘
-    8: Color(0xffFFFF00).withOpacity(0.7), // 신나 (순수한 노란색)
+    7: Color(0xffffd2e7).withOpacity(0.7), // 설렘
+    8: Color(0xffFFFF00).withOpacity(0.7), // 신나
     9: Color(0xff8FD997).withOpacity(0.7), // 편안
     10: Color(0xffBFAB9F).withOpacity(0.7), // 당황
   };
@@ -66,13 +66,13 @@ class _WaitPageState extends State<WaitPage> with TickerProviderStateMixin {
     Color emotionColor = emotionColors[widget.emotionNumber] ?? Colors.grey.withOpacity(0.7);
 
     _colorAnimation1 = ColorTween(
-      begin: emotionColor,
-      end: Color(0xffFEFAE0).withOpacity(0.9),
+      begin: Color(0xfffdfbf0),
+      end: emotionColor,
     ).animate(_backgroundController);
 
     _colorAnimation2 = ColorTween(
-      begin: emotionColor.withOpacity(0.5),
-      end: Color(0xffEAE2B7).withOpacity(0.9),
+      begin: Color(0xffEAE2B7).withOpacity(0.9),
+      end: emotionColor.withOpacity(0.5),
     ).animate(_backgroundController);
 
     _fadeController1 = AnimationController(
@@ -91,14 +91,14 @@ class _WaitPageState extends State<WaitPage> with TickerProviderStateMixin {
 
   void _startAnimation() async {
     // First text
-    setState(() => _currentText = '당신의 하루는 오늘 어땠나요?');
+    setState(() => _currentText = '오늘, 당신의 하루는 어땠나요?');
     _fadeController1.forward();
     await Future.delayed(Duration(seconds: 3));
     _fadeController1.reverse();
     await Future.delayed(Duration(seconds: 2));
 
     // Second text
-    setState(() => _currentText = '눈을 감고 \n오늘 하루를 돌아봅시다.');
+    setState(() => _currentText = '잠시 심호흡하며 \n하루를 돌아봅시다.');
     _fadeController2.forward();
     await Future.delayed(Duration(seconds: 3));
     _fadeController2.reverse();
@@ -244,7 +244,22 @@ class _WaitPageState extends State<WaitPage> with TickerProviderStateMixin {
                             ),
                           );
                         },
-                        child: Text('준비됐어요'),
+                        style: ElevatedButton.styleFrom(
+                          foregroundColor: Colors.black87,
+                          backgroundColor: Color(0xE5FFFFFF),
+                          padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          elevation: 5,
+                        ),
+                        child: Text(
+                          '준비됐어요',
+                          style: TextStyle(
+                            fontSize: 17,
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
                       ),
                     ),
                   ),
