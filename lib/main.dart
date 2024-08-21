@@ -38,6 +38,9 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'alarm/fcm_helper.dart';
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 
+import 'package:intl/intl.dart';
+import 'package:intl/date_symbol_data_local.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -65,6 +68,9 @@ void main() async {
 
   // 카카오 sdk초기화
   kakao.KakaoSdk.init(nativeAppKey: '2eb8687682cf67f94363bcca7b3125a4');
+
+  // 로케일 초기화
+  await initializeDateFormatting('ko_KR', null);
 
   print('App initialized with FCM.');
 
