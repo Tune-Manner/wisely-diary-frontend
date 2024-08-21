@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2673fe56-8026-4891-8850-5bb081ab56e8" name="Changes" comment="feat : adding text fade in out animation">
+    <list default="true" id="2673fe56-8026-4891-8850-5bb081ab56e8" name="Changes" comment="feat : desing wait_screens.dart">
       <change beforePath="$PROJECT_DIR$/.dart_tool/package_config.json" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.dart_tool/package_config_subset" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config_subset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.dart_tool/version" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/version" afterDir="false" />
@@ -627,7 +627,6 @@
       <change beforePath="$PROJECT_DIR$/build/url_launcher_android/intermediates/symbol_list_with_package_name/debug/package-aware-r.txt" beforeDir="false" afterPath="$PROJECT_DIR$/build/url_launcher_android/intermediates/symbol_list_with_package_name/debug/package-aware-r.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/url_launcher_android/outputs/aar/url_launcher_android-debug.aar" beforeDir="false" afterPath="$PROJECT_DIR$/build/url_launcher_android/outputs/aar/url_launcher_android-debug.aar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/url_launcher_android/outputs/logs/manifest-merger-debug-report.txt" beforeDir="false" afterPath="$PROJECT_DIR$/build/url_launcher_android/outputs/logs/manifest-merger-debug-report.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/home_screens.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/home_screens.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/wait_screens.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/wait_screens.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -657,7 +656,7 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "ScreenRecorder.SavePath": "C:\\00_ILGI\\2.webm",
+    "ScreenRecorder.SavePath": "C:\\00_ILGI\\3.webm",
     "WebServerToolWindowFactoryState": "false",
     "dart.analysis.tool.window.visible": "false",
     "io.flutter.reload.alreadyRun": "true",
@@ -698,7 +697,7 @@
       <workItem from="1724134778527" duration="388000" />
       <workItem from="1724136163061" duration="10234000" />
       <workItem from="1724146513328" duration="182000" />
-      <workItem from="1724200985408" duration="10744000" />
+      <workItem from="1724200985408" duration="12576000" />
     </task>
     <task id="LOCAL-00001" summary="feat : emotion_code drilling">
       <created>1723904304968</created>
@@ -784,7 +783,14 @@
       <option name="project" value="LOCAL" />
       <updated>1724211328362</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="feat : desing wait_screens.dart">
+      <created>1724212417809</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1724212417809</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -825,6 +831,7 @@
     <MESSAGE value="feat : add restrictions to the diary creation button." />
     <MESSAGE value="bug : emotion Icon tab twice and page move error fix" />
     <MESSAGE value="feat : adding text fade in out animation" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat : adding text fade in out animation" />
+    <MESSAGE value="feat : desing wait_screens.dart" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat : desing wait_screens.dart" />
   </component>
 </project>
