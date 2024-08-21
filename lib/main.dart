@@ -14,6 +14,7 @@ import 'WelcomePage.dart';
 import 'add_photo_screens.dart';
 import 'diary_summary_screens.dart';
 import 'custom_scaffold.dart';
+import 'home_screens.dart';
 import 'kakao/kakao_login.dart';
 import 'kakao/main_view_model.dart';
 import 'member_information.dart';
@@ -27,7 +28,7 @@ import 'record_screens.dart';
 import 'text_screens.dart';
 import 'my_page.dart';
 
-// FCM 관련 import 추가
+// FCM 관련 import
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -106,7 +107,7 @@ class MyApp extends StatelessWidget {
           final arguments = ModalRoute.of(context)!.settings.arguments
               as Map<String, dynamic>;
           final int diaryCode = arguments['diaryCode'];
-          return TodayCartoonPage(diaryCode: diaryCode);
+          return TodayCartoonPage(diaryCode: diaryCode,cartoonUrls: [],);
         },
       },
       onGenerateRoute: (settings) {

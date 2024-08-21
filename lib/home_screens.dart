@@ -15,7 +15,7 @@ import 'date_select.dart';
 class HomeScreens extends StatefulWidget {
   final String userId;
 
-  HomeScreens({required this.userId});
+  HomeScreens({required this.userId}) : assert(userId.isNotEmpty, 'userId cannot be empty');
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -31,29 +31,24 @@ class _HomePageState extends State<HomeScreens> {
   @override
   void initState() {
     super.initState();
-    _initializationFuture = _initializeHomeScreen();
-  }
-
-  // Home 화면이 다시 보여질 때마다 초기화
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    _initializationFuture = _initializeHomeScreen();
-  }
-
-  Future<void> _initializeHomeScreen() async {
     _selectedDay = DateTime.now();
     _focusedDay = DateTime.now();
-    await initializeDateFormatting('ko_KR', null);
-    await _fetchMonthlyDiaries(_focusedDay);
+
+    initializeDateFormatting('ko_KR', null).then((_) {
+      setState(() {});
+    });
+
+    // 페이지가 로드될 때 데이터를 초기화하는 Future 실행
+    _initializationFuture = _fetchMonthlyDiaries(_focusedDay);
   }
 
+  // 매달 일기 데이터를 가져오는 Future 함수
   Future<void> _fetchMonthlyDiaries(DateTime month) async {
     String date = DateFormat('yyyy-MM-01').format(month);
 
     try {
       final response = await http.post(
-        Uri.parse('http://192.168.123.103:8080/api/diary/monthly'),
+        Uri.parse('http://192.168.0.184:8080/api/diary/monthly'),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({
           'date': date,
@@ -78,9 +73,10 @@ class _HomePageState extends State<HomeScreens> {
     }
   }
 
+  // 특정 날짜의 일기 내용을 가져오는 Future 함수
   Future<void> _fetchDiaryContent(DateTime selectedDay) async {
     final response = await http.post(
-      Uri.parse('http://192.168.123.103:8080/api/diary/selectdetail'),
+      Uri.parse('http://192.168.0.184:8080/api/diary/selectdetail'),
       headers: {
         'Content-Type': 'application/json',
       },
@@ -110,6 +106,7 @@ class _HomePageState extends State<HomeScreens> {
     }
   }
 
+  // 로그아웃
   Future<void> _signOut() async {
     await Supabase.instance.client.auth.signOut();
     final GoogleSignIn googleSignIn = GoogleSignIn();
@@ -165,6 +162,7 @@ class _HomePageState extends State<HomeScreens> {
     }
   }
 
+  // 날짜를 선택할 때마다 해당 날짜의 일기 데이터를 가져오는 함수
   void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
     setState(() {
       _selectedDay = selectedDay;
@@ -174,6 +172,7 @@ class _HomePageState extends State<HomeScreens> {
     _fetchDiaryContent(selectedDay);
   }
 
+  // 일기 상세 페이지로 이동하는 함수
   void _navigateToDiaryNoImgPage(DateTime selectedDate) {
     Navigator.of(context).push(
       MaterialPageRoute(
@@ -185,14 +184,18 @@ class _HomePageState extends State<HomeScreens> {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
+      // FutureBuilder로 페이지 초기화 및 데이터를 다시 로드
       body: FutureBuilder<void>(
         future: _initializationFuture,
         builder: (context, snapshot) {
+          // 비동기 작업이 완료되기 전 로딩 표시
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
+            // 오류 발생 시 메시지 표시
             return Center(child: Text('Error: ${snapshot.error}'));
           } else {
+            // 비동기 작업이 완료되면 UI 구성
             return Column(
               children: [
                 SizedBox(height: 16),
@@ -223,8 +226,12 @@ class _HomePageState extends State<HomeScreens> {
                         _focusedDay = focusedDay;
                         _selectedDayEntry = null;
                       });
-                      _fetchMonthlyDiaries(focusedDay);
+                      _initializationFuture = _fetchMonthlyDiaries(focusedDay);  // 페이지 변경 시 월간 데이터를 다시 로드
                     },
+                    headerStyle: HeaderStyle(
+                      formatButtonVisible: false,
+                      titleCentered: true,
+                    ),
                   ),
                 ),
                 SizedBox(height: 16),
@@ -234,7 +241,9 @@ class _HomePageState extends State<HomeScreens> {
                   child: _monthlyDiaryEntries.isEmpty
                       ? _buildEmptyState()
                       : SingleChildScrollView(
-                    child: Column(
+                    child: _selectedDayEntry != null
+                        ? _buildDiaryEntry(_selectedDayEntry!['date'], _selectedDayEntry!['content'])
+                        : Column(
                       children: _monthlyDiaryEntries.map((entry) =>
                           _buildDiaryEntry(entry['date'], entry['content'])
                       ).toList(),
@@ -246,6 +255,7 @@ class _HomePageState extends State<HomeScreens> {
           }
         },
       ),
+      // 새 일기 추가 버튼
       floatingActionButton: FloatingActionButton(
         onPressed: _navigateToAddDiaryEntryPage,
         child: Icon(Icons.edit),
@@ -256,7 +266,7 @@ class _HomePageState extends State<HomeScreens> {
     );
   }
 
-  // 일기 항목을 생성
+  // 일기 항목을 생성하는 위젯
   Widget _buildDiaryEntry(String date, String content) {
     return GestureDetector(
       onTap: () => _navigateToDiaryNoImgPage(DateTime.parse(date)),
@@ -292,14 +302,14 @@ class _HomePageState extends State<HomeScreens> {
     );
   }
 
-  // 작성된 일기가 없을때
+  // 작성된 일기가 없을 때 보여줄 UI
   Widget _buildEmptyState() {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Opacity(
-            opacity: 0.5, // 0.0에서 1.0 사이의 값. 0.0은 완전 투명, 1.0은 완전 불투명
+            opacity: 0.5, // 투명도 설정
             child: Image.asset(
               'assets/wisely-diary-logo.png',
               height: 80,

@@ -1,16 +1,16 @@
-import 'dart:ffi' as ffi;
-
 import 'package:flutter/material.dart';
 import 'package:wisely_diary/music/music_creation_page.dart';
 import 'package:wisely_diary/today_cartoon.dart';
 import 'dart:io';
+import 'cartoon_creation_status.dart';
+import 'custom_scaffold.dart';
 import 'package:wisely_diary/letter/letter_creation_status_page.dart';
+import 'package:wisely_diary/main.dart';  // Added for MyApp navigation
 
 class DiarySummaryScreen extends StatelessWidget {
   final String transcription;
   final List<File> imageFiles;
   final int diaryCode;
-
 
   DiarySummaryScreen({
     required this.transcription,
@@ -115,7 +115,7 @@ class DiarySummaryScreen extends StatelessWidget {
                       builder: (context) => MusicCreationStatusPage(diaryCode: diaryCode),
                     ),
                   ),
-                  ),
+                ),
                 _buildButton(
                   context,
                   iconPath: 'assets/cuttoon_icon.png',
@@ -123,9 +123,7 @@ class DiarySummaryScreen extends StatelessWidget {
                   onPressed: () => Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => TodayCartoonPage(
-                        diaryCode: diaryCode,
-                      ),
+                      builder: (context) => CartoonCreationStatusPage(diaryCode: diaryCode),
                     ),
                   ),
                 ),
@@ -207,6 +205,33 @@ class DiarySummaryScreen extends StatelessWidget {
           SizedBox(width: 10),
           Text(
             label,
+            style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // Method to build the logo button
+  Widget _buildLogoButton(BuildContext context, {required VoidCallback onPressed}) {
+    return ElevatedButton(
+      onPressed: onPressed,
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Color(0xFFE5E1FF), // Match background color with other buttons
+        foregroundColor: Colors.black, // Match text color with other buttons
+        minimumSize: Size(MediaQuery.of(context).size.width * 0.35, 50),
+        padding: EdgeInsets.symmetric(vertical: 10),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Image.asset('assets/wisely-diary-logo.png', width: 35, height: 35), // Increased logo size
+          SizedBox(width: 5), // Reduced the space between the logo and text
+          Text(
+            '홈으로', // Text for the logo button
             style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
           ),
         ],
