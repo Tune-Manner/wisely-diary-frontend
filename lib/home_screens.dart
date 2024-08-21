@@ -26,26 +26,18 @@ class _HomePageState extends State<HomeScreens> {
   late DateTime _focusedDay;
   List<Map<String, dynamic>> _monthlyDiaryEntries = [];
   Map<String, dynamic>? _selectedDayEntry;
-  late Future<void> _initializationFuture;
 
   @override
   void initState() {
     super.initState();
-    _initializationFuture = _initializeHomeScreen();
-  }
-
-  // Home 화면이 다시 보여질 때마다 초기화
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    _initializationFuture = _initializeHomeScreen();
-  }
-
-  Future<void> _initializeHomeScreen() async {
     _selectedDay = DateTime.now();
     _focusedDay = DateTime.now();
-    await initializeDateFormatting('ko_KR', null);
-    await _fetchMonthlyDiaries(_focusedDay);
+
+    initializeDateFormatting('ko_KR', null).then((_) {
+      setState(() {});
+    });
+
+    _fetchMonthlyDiaries(_focusedDay);
   }
 
   Future<void> _fetchMonthlyDiaries(DateTime month) async {
@@ -62,7 +54,6 @@ class _HomePageState extends State<HomeScreens> {
       );
 
       if (response.statusCode == 200) {
-        print("서버통신 성공");
         final List<dynamic> data = jsonDecode(response.body);
         setState(() {
           _monthlyDiaryEntries = data.map((item) => {
@@ -72,7 +63,6 @@ class _HomePageState extends State<HomeScreens> {
           _monthlyDiaryEntries.sort((a, b) => DateTime.parse(b['date']).compareTo(DateTime.parse(a['date'])));
         });
       } else {
-        print("서버통신 실패");
         print('Error fetching diary content: ${response.reasonPhrase}');
       }
     } catch (e) {
@@ -82,7 +72,7 @@ class _HomePageState extends State<HomeScreens> {
 
   Future<void> _fetchDiaryContent(DateTime selectedDay) async {
     final response = await http.post(
-      Uri.parse('http://192.168.123.103:8080/api/diary/selectdetail'),
+      Uri.parse('http://192.168.0.184:8080/api/diary/selectdetail'),
       headers: {
         'Content-Type': 'application/json',
       },
@@ -150,70 +140,61 @@ class _HomePageState extends State<HomeScreens> {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-      body: FutureBuilder<void>(
-        future: _initializationFuture,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}'));
-          } else {
-            return Column(
-              children: [
-                SizedBox(height: 16),
-                // 달력 부분
-                Container(
-                  margin: EdgeInsets.symmetric(horizontal: 16.0),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(8),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
-                        spreadRadius: 2,
-                        blurRadius: 5,
-                        offset: Offset(0, 3),
-                      ),
-                    ],
-                  ),
-                  child: TableCalendar(
-                    locale: 'ko_KR',
-                    firstDay: DateTime.utc(2020, 1, 1),
-                    lastDay: DateTime.utc(2100, 12, 31),
-                    focusedDay: _focusedDay,
-                    selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
-                    onDaySelected: _onDaySelected,
-                    onPageChanged: (focusedDay) {
-                      setState(() {
-                        _focusedDay = focusedDay;
-                        _selectedDayEntry = null;
-                      });
-                      _fetchMonthlyDiaries(focusedDay);
-                    },
-                    headerStyle: HeaderStyle(
-                      formatButtonVisible: false,
-                      titleCentered: true,
-                    ),
-                  ),
-                ),
-                SizedBox(height: 16),
-
-                // 일기 목록을 위한 Expanded와 ListView.builder 사용
-                Expanded(
-                  child: _monthlyDiaryEntries.isEmpty
-                      ? _buildEmptyState()
-                      : SingleChildScrollView(
-                    child: Column(
-                      children: _monthlyDiaryEntries.map((entry) =>
-                          _buildDiaryEntry(entry['date'], entry['content'])
-                      ).toList(),
-                    ),
-                  ),
+      body: Column(
+        children: [
+          SizedBox(height: 16),
+          // 달력 부분
+          Container(
+            margin: EdgeInsets.symmetric(horizontal: 16.0),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.1),
+                  spreadRadius: 2,
+                  blurRadius: 5,
+                  offset: Offset(0, 3),
                 ),
               ],
-            );
-          }
-        },
+            ),
+            child: TableCalendar(
+              locale: 'ko_KR',
+              firstDay: DateTime.utc(2020, 1, 1),
+              lastDay: DateTime.utc(2100, 12, 31),
+              focusedDay: _focusedDay,
+              selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
+              onDaySelected: _onDaySelected,
+              onPageChanged: (focusedDay) {
+                setState(() {
+                  _focusedDay = focusedDay;
+                  _selectedDayEntry = null;
+                });
+                _fetchMonthlyDiaries(focusedDay);
+              },
+              headerStyle: HeaderStyle(
+                formatButtonVisible: false,
+                titleCentered: true,
+              ),
+            ),
+          ),
+          SizedBox(height: 16),
+
+          // 일기 목록을 위한 Expanded와 ListView.builder 사용
+          Expanded(
+            child: _monthlyDiaryEntries.isEmpty
+                ? _buildEmptyState()
+                : SingleChildScrollView(
+              child: _selectedDayEntry != null
+                  ? _buildDiaryEntry(_selectedDayEntry!['date'], _selectedDayEntry!['content'])
+                  : Column(
+                children: _monthlyDiaryEntries.map((entry) =>
+                    _buildDiaryEntry(entry['date'], entry['content'])
+                ).toList(),
+              ),
+            ),
+          ),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _navigateToAddDiaryEntryPage,
