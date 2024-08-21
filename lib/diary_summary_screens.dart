@@ -5,7 +5,9 @@ import 'dart:io';
 import 'cartoon_creation_status.dart';
 import 'custom_scaffold.dart';
 import 'package:wisely_diary/letter/letter_creation_status_page.dart';
-import 'package:wisely_diary/main.dart';  // Added for MyApp navigation
+import 'package:wisely_diary/main.dart';
+
+import 'home_screens.dart';  // Added for MyApp navigation
 
 class DiarySummaryScreen extends StatelessWidget {
   final String transcription;

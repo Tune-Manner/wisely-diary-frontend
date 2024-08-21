@@ -58,6 +58,30 @@ class _TextPageState extends State<TextPage> {
     }
   }
 
+  void _showLoadingDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false, // Prevents closing the dialog by tapping outside
+      builder: (BuildContext context) {
+        return Dialog(
+          backgroundColor: Colors.white,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                CircularProgressIndicator(),
+                SizedBox(width: 20),
+                Text("당신의 일기를 분석 중이에요.."),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   Future<Map<String, dynamic>> generateDiaryEntry(String prompt) async {
     String sanitizedPrompt = prompt.replaceAll(RegExp(r'[\n\r\t]'), ' ');
 
@@ -87,42 +111,48 @@ class _TextPageState extends State<TextPage> {
     }
   }
 
-void _navigateToAddPhotoScreen() async {
-  if (memberId == null || memberName == null) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('사용자 정보를 불러오는 중입니다. 잠시 후 다시 시도해주세요.')),
-    );
-    return;
-  }
+  void _navigateToAddPhotoScreen() async {
+    if (memberId == null || memberName == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('사용자 정보를 불러오는 중입니다. 잠시 후 다시 시도해주세요.')),
+      );
+      return;
+    }
 
-  final prompt = '이 내용으로 정성스러운 하루 일기를 작성해주세요: ${_textEditingController.text}';
+    final prompt = '이 내용으로 정성스러운 하루 일기를 작성해주세요: ${_textEditingController.text}';
 
-  try {
-    final diaryData = await generateDiaryEntry(prompt);
+    try {
+      _showLoadingDialog(context); // Show loading dialog
 
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => BlocProvider(
-          create: (context) => AddPhotoBloc(
-            audioManager: AudioManager(), 
-            transcription: diaryData['diaryEntry'],
-            diaryCode: diaryData['diaryCode'],
-          ),
-          child: AddPhotoScreen(
-            transcription: diaryData['diaryEntry'],
-            diaryCode: diaryData['diaryCode'],
+      final diaryData = await generateDiaryEntry(prompt);
+
+      Navigator.pop(context); // Hide loading dialog
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => BlocProvider(
+            create: (context) => AddPhotoBloc(
+              audioManager: AudioManager(),
+              transcription: diaryData['diaryEntry'],
+              diaryCode: diaryData['diaryCode'],
+            ),
+            child: AddPhotoScreen(
+              transcription: diaryData['diaryEntry'],
+              diaryCode: diaryData['diaryCode'],
+            ),
           ),
         ),
-      ),
-    );
-  } catch (e) {
-    print('Failed to generate diary entry: $e');
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('일기 생성에 실패했습니다. 나중에 다시 시도해주세요.')),
-    );
+      );
+    } catch (e) {
+      Navigator.pop(context); // Hide loading dialog in case of an error
+
+      print('Failed to generate diary entry: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('일기 생성에 실패했습니다. 나중에 다시 시도해주세요.')),
+      );
+    }
   }
-}
 
   void togglePlayPause() {
     if (isPlaying) {
