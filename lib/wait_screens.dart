@@ -12,17 +12,22 @@ class WaitPage extends StatefulWidget {
   State<StatefulWidget> createState() => _WaitPageState();
 }
 
-class _WaitPageState extends State<WaitPage> {
+class _WaitPageState extends State<WaitPage> with TickerProviderStateMixin {
   int _counter = 5;
   Timer? _timer;
   final audioManager = AudioManager();
   late bool isPlaying;
   late double volume;
+  late AnimationController _fadeController1;
+  late AnimationController _fadeController2;
+  late Animation<double> _fadeAnimation1;
+  late Animation<double> _fadeAnimation2;
+  bool _showCounter = false;
+  String _currentText = '';
 
   @override
   void initState() {
     super.initState();
-    _startCountdown();
     isPlaying = audioManager.player.playing;
     volume = audioManager.player.volume;
     audioManager.player.playerStateStream.listen((state) {
@@ -32,6 +37,39 @@ class _WaitPageState extends State<WaitPage> {
         });
       }
     });
+
+    _fadeController1 = AnimationController(
+      duration: const Duration(seconds: 2),
+      vsync: this,
+    );
+    _fadeController2 = AnimationController(
+      duration: const Duration(seconds: 2),
+      vsync: this,
+    );
+    _fadeAnimation1 = Tween<double>(begin: 0.0, end: 1.0).animate(_fadeController1);
+    _fadeAnimation2 = Tween<double>(begin: 0.0, end: 1.0).animate(_fadeController2);
+
+    _startAnimation();
+  }
+
+  void _startAnimation() async {
+    // First text
+    setState(() => _currentText = '당신의 하루는 오늘 어땠나요?');
+    _fadeController1.forward();
+    await Future.delayed(Duration(seconds: 3));
+    _fadeController1.reverse();
+    await Future.delayed(Duration(seconds: 2));
+
+    // Second text
+    setState(() => _currentText = '눈을 감고 \n오늘 하루를 돌아봅시다.');
+    _fadeController2.forward();
+    await Future.delayed(Duration(seconds: 3));
+    _fadeController2.reverse();
+    await Future.delayed(Duration(seconds: 2));
+
+    // Show counter and start countdown
+    setState(() => _showCounter = true);
+    _startCountdown();
   }
 
   void _startCountdown() {
@@ -70,6 +108,8 @@ class _WaitPageState extends State<WaitPage> {
   @override
   void dispose() {
     _timer?.cancel();
+    _fadeController1.dispose();
+    _fadeController2.dispose();
     super.dispose();
   }
 
@@ -106,35 +146,30 @@ class _WaitPageState extends State<WaitPage> {
         ],
       ),
       body: Container(
-        color: Colors.white,
-        child: Container(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          decoration: BoxDecoration(
-            color: const Color(0xfffdfbf0),
-          ),
-          child: Stack(
-            children: [
-              Positioned(
-                left: MediaQuery.of(context).size.width * 0.1,
-                top: MediaQuery.of(context).size.height * 0.10,
-                width: MediaQuery.of(context).size.width * 0.8,
-                child: Text(
-                  '눈을 감고 \n오늘 하루를 돌아봅시다.',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    decoration: TextDecoration.none,
-                    fontSize: 30,
-                    color: const Color(0xff2c2c2c),
-                    fontWeight: FontWeight.normal,
-                  ),
-                  maxLines: 9999,
-                  overflow: TextOverflow.ellipsis,
-                ),
+        color: const Color(0xfffdfbf0),
+        child: Stack(
+          children: [
+            Center(
+              child: AnimatedBuilder(
+                animation: Listenable.merge([_fadeAnimation1, _fadeAnimation2]),
+                builder: (context, child) {
+                  return Opacity(
+                    opacity: _fadeAnimation1.value + _fadeAnimation2.value,
+                    child: Text(
+                      _currentText,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 30,
+                        color: const Color(0xff2c2c2c),
+                        fontWeight: FontWeight.normal,
+                      ),
+                    ),
+                  );
+                },
               ),
-              Positioned(
-                left: MediaQuery.of(context).size.width * 0.45,
-                top: MediaQuery.of(context).size.height * 0.35,
+            ),
+            if (_showCounter)
+              Center(
                 child: Text(
                   '$_counter',
                   style: TextStyle(
@@ -144,8 +179,7 @@ class _WaitPageState extends State<WaitPage> {
                   ),
                 ),
               ),
-            ],
-          ),
+          ],
         ),
       ),
     );
