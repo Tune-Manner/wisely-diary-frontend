@@ -1,6 +1,7 @@
 import 'dart:ffi' as ffi;
 
 import 'package:flutter/material.dart';
+import 'package:wisely_diary/music/music_creation_page.dart';
 import 'package:wisely_diary/today_cartoon.dart';
 import 'dart:io';
 import 'custom_scaffold.dart';
@@ -93,8 +94,13 @@ class DiarySummaryScreen extends StatelessWidget {
                   context,
                   iconPath: 'assets/music_icon.png',
                   label: "노래 선물 받기",
-                  onPressed: () => Navigator.pushNamed(context, '/songGift', arguments: {'diaryCode': diaryCode},),
-                ),
+                  onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => MusicCreationStatusPage(diaryCode: diaryCode),
+                    ),
+                  ),
+                  ),
                 _buildButton(
                   context,
                   iconPath: 'assets/cuttoon_icon.png',
