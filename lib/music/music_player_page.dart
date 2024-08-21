@@ -13,7 +13,6 @@ class MusicPlayerPage extends StatefulWidget {
 
 class _MusicPlayerPageState extends State<MusicPlayerPage> {
   final MusicService _musicService = MusicService();
-  Future<Map<String, dynamic>>? _musicDataFuture;
   VideoPlayerController? _controller;
   bool _isVideoGenerating = false;
   static const Duration _initialDelay = Duration(seconds: 110);
@@ -22,36 +21,41 @@ class _MusicPlayerPageState extends State<MusicPlayerPage> {
   static const int _maxRetries = 5;
   Map<String, dynamic>? _musicData;
   double _volume = 1.0;
+  bool _isLoading = true;
+  String? _error;
 
   @override
   void initState() {
     super.initState();
-    _musicDataFuture = _fetchMusicData();
+    _loadMusicData();
   }
 
-  Future<Map<String, dynamic>> _fetchMusicData() async {
+  Future<void> _loadMusicData() async {
+    setState(() {
+      _isLoading = true;
+      _error = null;
+    });
+
     try {
-      if (_musicData == null) {
-        _musicData = await _musicService.getMusicPlayback(widget.musicCode);
-      }
+      _musicData = await _musicService.getMusicPlayback(widget.musicCode);
       final videoUrl = _musicData!['clipResponse']?['clips']?[0]?['video_url'];
       if (videoUrl != null && videoUrl.isNotEmpty) {
         await _initializeVideoPlayer(videoUrl);
         _isVideoGenerating = false;
       } else {
-        print('Video URL is null or empty');
         _isVideoGenerating = true;
         if (_retryCount < _maxRetries) {
           _scheduleNextAttempt();
-        } else {
-          print('Video URL not available after max attempts.');
-          _isVideoGenerating = false;
         }
       }
-      return _musicData!;
     } catch (e) {
-      print('Error fetching music data: $e');
-      rethrow;
+      _error = e.toString();
+    } finally {
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+        });
+      }
     }
   }
 
@@ -61,9 +65,7 @@ class _MusicPlayerPageState extends State<MusicPlayerPage> {
     print('Scheduling attempt $_retryCount in ${delay.inSeconds} seconds');
     Future.delayed(delay, () {
       if (mounted) {
-        setState(() {
-          _musicDataFuture = _fetchMusicData();
-        });
+        _loadMusicData();
       }
     });
   }
@@ -74,15 +76,15 @@ class _MusicPlayerPageState extends State<MusicPlayerPage> {
     try {
       await _controller!.initialize();
       if (mounted) {
-        setState(() {});
-        print('Video initialized successfully');
-        print('Audio available: ${_controller!.value.volume > 0}');
-        print('Video duration: ${_controller!.value.duration}');
-        print('Video size: ${_controller!.value.size}');
+        setState(() {
+          _isVideoGenerating = false; // 비디오 생성 상태를 false로 변경
+        });
       }
+      print('Video initialized successfully');
     } catch (error) {
       print('Error initializing video player: $error');
       _controller = null;
+      _error = 'Failed to initialize video player: $error';
     }
   }
 
@@ -115,20 +117,11 @@ class _MusicPlayerPageState extends State<MusicPlayerPage> {
         ),
         centerTitle: true,
       ),
-      body: FutureBuilder<Map<String, dynamic>>(
-        future: _musicDataFuture,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return _buildLoadingScreen();
-          } else if (snapshot.hasError) {
-            return _buildErrorScreen(snapshot.error);
-          } else if (snapshot.hasData) {
-            return _buildMusicPlayer(snapshot.data!);
-          } else {
-            return Center(child: Text('No data available'));
-          }
-        },
-      ),
+      body: _isLoading
+          ? _buildLoadingScreen()
+          : _error != null
+          ? _buildErrorScreen(_error!)
+          : _buildMusicPlayer(_musicData!),
     );
   }
 
@@ -140,7 +133,7 @@ class _MusicPlayerPageState extends State<MusicPlayerPage> {
           CircularProgressIndicator(),
           SizedBox(height: 16),
           Text(
-            '음악을 불러오고 있습니다. 잠시만 기다려 주세요.\n이 작업은 몇 분 동안 수행될 수 있습니다.',
+            '음악 작업이 거의 완료되었습니다! 잠시만 기다려 주세요.\n이 작업은 몇 분 동안 수행될 수 있습니다.',
             textAlign: TextAlign.center,
           ),
         ],
@@ -148,7 +141,7 @@ class _MusicPlayerPageState extends State<MusicPlayerPage> {
     );
   }
 
-  Widget _buildErrorScreen(Object? error) {
+  Widget _buildErrorScreen(String? error) {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -158,8 +151,10 @@ class _MusicPlayerPageState extends State<MusicPlayerPage> {
             onPressed: () {
               setState(() {
                 _retryCount = 0;
-                _musicDataFuture = _fetchMusicData();
+                _isLoading = true;
+                _error = null;
               });
+              _loadMusicData();
             },
             child: Text('Retry'),
           ),
@@ -206,16 +201,14 @@ class _MusicPlayerPageState extends State<MusicPlayerPage> {
                   ],
                 ),
               )
-            else if (_retryCount >= _maxRetries)
-                Center(
-                  child: Text(
-                    '음악을 로드할 수 없습니다.\n잠시 후 다시 시도해 주세요.',
-                    textAlign: TextAlign.center,
-                  ),
+            else
+              Center(
+                child: Text(
+                  '음악을 로드할 수 없습니다.\n잠시 후 다시 시도해 주세요.',
+                  textAlign: TextAlign.center,
                 ),
+              ),
             SizedBox(height: 16),
-            // Text('가사:',
-            //     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
             Text(musicData['musicLyrics'] ?? 'No lyrics available'),
           ],
         ),
@@ -224,9 +217,8 @@ class _MusicPlayerPageState extends State<MusicPlayerPage> {
   }
 
   Widget _buildPlayPauseButton() {
-    return GestureDetector(
-      behavior: HitTestBehavior.opaque,
-      onTap: () {
+    return ElevatedButton(
+      onPressed: () {
         setState(() {
           if (_controller!.value.isPlaying) {
             _controller!.pause();
