@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'letter_model.dart';
 import 'letter_service.dart';
 
@@ -35,16 +36,13 @@ class _LetterViewPageState extends State<LetterViewPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: const Color(0xfffdfbf0),
         elevation: 0,
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () => Navigator.pop(context),
         ),
         title: GestureDetector(
-          onTap: () {
-            Navigator.of(context).pushNamedAndRemoveUntil('/home', (route) => false);
-          },
           child: Image.asset(
             'assets/wisely-diary-logo.png',
             height: 30,
@@ -88,7 +86,8 @@ class _LetterViewPageState extends State<LetterViewPage> {
                   ),
                   SizedBox(height: 16),
                   Text(
-                    '작성일: ${letter.createdAt ?? '알 수 없음'}',
+                    '작성일: ${DateFormat('yyyy.MM.dd').format(letter.createdAt) ??
+                        '알 수 없음'}',
                     style: TextStyle(fontSize: 14, color: Colors.grey),
                   ),
                   SizedBox(height: 24),
@@ -97,15 +96,15 @@ class _LetterViewPageState extends State<LetterViewPage> {
                     style: TextStyle(fontSize: 16),
                   ),
                   SizedBox(height: 24),
-                  Divider(thickness: 2), // Add a dividing line
+                  Divider(thickness: 2),
                   SizedBox(height: 24),
                   if (widget.cartoonUrl != null) ...[
                     Text(
-                      '당신의 감정을 그려보았어요.', // Change text
+                      '당신의 감정을 그려보았어요.',
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
-                        fontStyle: FontStyle.italic, // Make it distinct from the letter font
+                        fontStyle: FontStyle.italic,
                       ),
                     ),
                     SizedBox(height: 10),
@@ -114,10 +113,42 @@ class _LetterViewPageState extends State<LetterViewPage> {
                       image: NetworkImage(widget.cartoonUrl!),
                       fit: BoxFit.contain,
                       imageErrorBuilder: (context, error, stackTrace) {
-                        return Text('이미지를 불러오지 못했습니다.', style: TextStyle(color: Colors.red));
+                        return Text('이미지를 불러오지 못했습니다.',
+                            style: TextStyle(color: Colors.red));
                       },
                     ),
                   ],
+                  SizedBox(height: 24),
+                  Center( // 버튼을 감싸는 Center 위젯 추가
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      style: ElevatedButton.styleFrom(
+                        foregroundColor: Colors.white,
+                        backgroundColor: Color(0xFF8B69FF),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        padding: EdgeInsets.symmetric(horizontal: 24,
+                            vertical: 12),
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(Icons.arrow_back, size: 18),
+                          SizedBox(width: 8),
+                          Text(
+                            '다른 결과 확인하기',
+                            style: TextStyle(
+                              fontFamily: 'Pretendard',
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ],
               ),
             );

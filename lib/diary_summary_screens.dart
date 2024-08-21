@@ -25,7 +25,23 @@ class DiarySummaryScreen extends StatelessWidget {
     final double screenWidth = MediaQuery.of(context).size.width;
     final double screenHeight = MediaQuery.of(context).size.height;
 
-    return CustomScaffold(
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: const Color(0xfffdfbf0),
+        elevation: 0,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () => Navigator.pop(context),
+        ),
+        title: GestureDetector(
+          child: Image.asset(
+            'assets/wisely-diary-logo.png',
+            height: 30,
+            fit: BoxFit.contain,
+          ),
+        ),
+        centerTitle: true,
+      ),
       body: Container(
         color: const Color(0xfffdfbf0),
         padding: EdgeInsets.symmetric(horizontal: 20),
@@ -130,14 +146,11 @@ class DiarySummaryScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                _buildLogoButton(
-                  context, // Updated to call the _buildLogoButton method
-                  onPressed: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => HomeScreens(userId: 'yourUserId'), // Update with correct userId
-                    ),
-                  ),
+                _buildButton(
+                  context,
+                  iconPath: 'assets/diary_icon.png',
+                  label: "메인으로",
+                  onPressed: () => _showConfirmationDialog(context),
                 ),
               ],
             ),
@@ -147,7 +160,34 @@ class DiarySummaryScreen extends StatelessWidget {
     );
   }
 
-  // Method to build buttons with icons and labels
+  void _showConfirmationDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("잠깐! 확인해주세요."),
+          content: Text("음악, 만화, 편지를 생성하지 않았을 경우\n현재 페이지의 일기만 저장됩니다.\n메인화면으로 이동할까요?"),
+          actions: <Widget>[
+            TextButton(
+              child: Text("취소"),
+              onPressed: () {
+                Navigator.of(context).pop(); // 다이얼로그 닫기
+              },
+            ),
+            TextButton(
+              child: Text("확인"),
+              onPressed: () {
+                Navigator.of(context).pop(); // 다이얼로그 닫기
+                Navigator.pushNamed(context, '/home'); // 메인 화면으로 이동
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+
   Widget _buildButton(BuildContext context, {required String iconPath, required String label, required VoidCallback onPressed}) {
     return ElevatedButton(
       onPressed: onPressed,

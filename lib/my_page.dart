@@ -53,51 +53,58 @@ class _MyPageState extends State<MyPage> {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(
-              'assets/wisely-diary-logo.png',
-              width: 100,
-              height: 100,
+      child: Column(
+        children: [
+          SizedBox(height: 70),
+          Image.asset(
+            'assets/wisely-diary-logo.png',
+            width: 100,
+            height: 80,
+          ),
+          SizedBox(height: 10),
+          Text(
+            userName,
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
             ),
-            SizedBox(height: 10),
-            Text(
-              userName,
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
+          ),
+          SizedBox(height: 5),
+          Text(
+            userEmail,
+            style: TextStyle(
+              fontSize: 16,
+              color: Colors.grey[700],
+            ),
+          ),
+          SizedBox(height: 40),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  SizedBox(height: 20),
+                  _buildButton('알람 설정', () {
+                    Navigator.pushNamed(context, '/notifications');
+                  }),
+                  SizedBox(height: 10),
+                  _buildButton('감정 통계', () {
+                    Navigator.pushNamed(context, '/statistics');
+                  }),
+                  SizedBox(height: 10),
+                  _buildButton('로그아웃', _signOut),
+                  SizedBox(height: 10),
+                  _buildButton('회원 탈퇴', () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => MemberDeactivatePage(),
+                      ),
+                    );
+                  }),
+                ],
               ),
             ),
-            SizedBox(height: 5),
-            Text(
-              userEmail,
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.grey[700],
-              ),
-            ),
-            SizedBox(height: 40),
-            _buildButton('알람 설정', () {
-              Navigator.pushNamed(context, '/notifications');
-            }),
-            SizedBox(height: 10),
-            _buildButton('감정 통계', () {
-              Navigator.pushNamed(context, '/statistics');
-            }),
-            SizedBox(height: 10),
-            _buildButton('로그아웃', _signOut),
-            SizedBox(height: 10),
-            _buildButton('회원 탈퇴', () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => MemberDeactivatePage(),
-                ),
-              );
-            }),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -108,7 +115,7 @@ class _MyPageState extends State<MyPage> {
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.grey[300],
+          backgroundColor: const Color(0xffeeede7),
           padding: EdgeInsets.symmetric(vertical: 15),
         ),
         child: Text(
