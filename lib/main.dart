@@ -28,7 +28,7 @@ import 'record_screens.dart';
 import 'text_screens.dart';
 import 'my_page.dart';
 
-// FCM 관련 import 추가
+// FCM 관련 import
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';

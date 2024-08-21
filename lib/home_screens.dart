@@ -106,7 +106,7 @@ class _HomePageState extends State<HomeScreens> {
     }
   }
 
-  // 로그아웃 함수
+  // 로그아웃
   Future<void> _signOut() async {
     await Supabase.instance.client.auth.signOut();
     final GoogleSignIn googleSignIn = GoogleSignIn();
