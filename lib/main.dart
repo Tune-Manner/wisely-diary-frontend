@@ -14,6 +14,7 @@ import 'WelcomePage.dart';
 import 'add_photo_screens.dart';
 import 'diary_summary_screens.dart';
 import 'custom_scaffold.dart';
+import 'home_screens.dart';
 import 'kakao/kakao_login.dart';
 import 'kakao/main_view_model.dart';
 import 'member_information.dart';

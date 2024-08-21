@@ -15,7 +15,7 @@ import 'date_select.dart';
 class HomeScreens extends StatefulWidget {
   final String userId;
 
-  HomeScreens({required this.userId});
+  HomeScreens({required this.userId}) : assert(userId.isNotEmpty, 'userId cannot be empty');
 
   @override
   _HomePageState createState() => _HomePageState();
