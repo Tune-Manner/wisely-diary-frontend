@@ -91,7 +91,7 @@ class _HomePageState extends State<HomeScreens> {
   void _navigateToAddDiaryEntryPage() async {
     bool todayDiaryExists = await _checkTodayDiaryExists();
 
-    if (!todayDiaryExists) {
+    if (todayDiaryExists) {
       showDialog(
         context: context,
         builder: (BuildContext context) {
