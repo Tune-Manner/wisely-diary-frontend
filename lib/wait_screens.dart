@@ -12,17 +12,41 @@ class WaitPage extends StatefulWidget {
   State<StatefulWidget> createState() => _WaitPageState();
 }
 
-class _WaitPageState extends State<WaitPage> {
+class _WaitPageState extends State<WaitPage> with TickerProviderStateMixin {
   int _counter = 5;
   Timer? _timer;
   final audioManager = AudioManager();
   late bool isPlaying;
   late double volume;
+  bool _showButton = false;
+  bool _showCounter = false;
+
+  late AnimationController _backgroundController;
+  late Animation<Color?> _colorAnimation1;
+  late Animation<Color?> _colorAnimation2;
+
+  late AnimationController _fadeController1;
+  late AnimationController _fadeController2;
+  late Animation<double> _fadeAnimation1;
+  late Animation<double> _fadeAnimation2;
+  String _currentText = '';
+
+  final Map<int, Color> emotionColors = {
+    1: Color(0xffAF89B1).withOpacity(0.7), // 걱정
+    2: Color(0xffD9A1FD).withOpacity(0.7), // 뿌듯
+    3: Color(0xffC4A989).withOpacity(0.7), // 감사
+    4: Color(0xff80B9A3).withOpacity(0.7), // 억울
+    5: Color(0xffFF0000).withOpacity(0.7), // 분노 (순수한 빨간색)
+    6: Color(0xffA0C9FF).withOpacity(0.7), // 슬픔
+    7: Color(0xffFFBFDD).withOpacity(0.7), // 설렘
+    8: Color(0xffFFFF00).withOpacity(0.7), // 신나 (순수한 노란색)
+    9: Color(0xff8FD997).withOpacity(0.7), // 편안
+    10: Color(0xffBFAB9F).withOpacity(0.7), // 당황
+  };
 
   @override
   void initState() {
     super.initState();
-    _startCountdown();
     isPlaying = audioManager.player.playing;
     volume = audioManager.player.volume;
     audioManager.player.playerStateStream.listen((state) {
@@ -32,6 +56,57 @@ class _WaitPageState extends State<WaitPage> {
         });
       }
     });
+
+    _backgroundController = AnimationController(
+      duration: const Duration(seconds: 5),
+      vsync: this,
+    )..repeat(reverse: true);
+
+
+    Color emotionColor = emotionColors[widget.emotionNumber] ?? Colors.grey.withOpacity(0.7);
+
+    _colorAnimation1 = ColorTween(
+      begin: emotionColor,
+      end: Color(0xffFEFAE0).withOpacity(0.9),
+    ).animate(_backgroundController);
+
+    _colorAnimation2 = ColorTween(
+      begin: emotionColor.withOpacity(0.5),
+      end: Color(0xffEAE2B7).withOpacity(0.9),
+    ).animate(_backgroundController);
+
+    _fadeController1 = AnimationController(
+      duration: const Duration(seconds: 2),
+      vsync: this,
+    );
+    _fadeController2 = AnimationController(
+      duration: const Duration(seconds: 2),
+      vsync: this,
+    );
+    _fadeAnimation1 = Tween<double>(begin: 0.0, end: 1.0).animate(_fadeController1);
+    _fadeAnimation2 = Tween<double>(begin: 0.0, end: 1.0).animate(_fadeController2);
+
+    _startAnimation();
+  }
+
+  void _startAnimation() async {
+    // First text
+    setState(() => _currentText = '당신의 하루는 오늘 어땠나요?');
+    _fadeController1.forward();
+    await Future.delayed(Duration(seconds: 3));
+    _fadeController1.reverse();
+    await Future.delayed(Duration(seconds: 2));
+
+    // Second text
+    setState(() => _currentText = '눈을 감고 \n오늘 하루를 돌아봅시다.');
+    _fadeController2.forward();
+    await Future.delayed(Duration(seconds: 3));
+    _fadeController2.reverse();
+    await Future.delayed(Duration(seconds: 2));
+
+    // Show counter and start countdown
+    setState(() => _showCounter = true);
+    _startCountdown();
   }
 
   void _startCountdown() {
@@ -41,13 +116,16 @@ class _WaitPageState extends State<WaitPage> {
           _counter--;
         });
       } else {
-        _timer?.cancel();
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => SelectTypePage(emotionNumber: widget.emotionNumber),
-          ),
-        );
+        setState(() {
+          _counter--;
+          _showCounter = false;
+        });
+        timer.cancel();
+        Future.delayed(Duration(milliseconds: 500), () {
+          setState(() {
+            _showButton = true;
+          });
+        });
       }
     });
   }
@@ -70,6 +148,9 @@ class _WaitPageState extends State<WaitPage> {
   @override
   void dispose() {
     _timer?.cancel();
+    _backgroundController.dispose();
+    _fadeController1.dispose();
+    _fadeController2.dispose();
     super.dispose();
   }
 
@@ -105,48 +186,72 @@ class _WaitPageState extends State<WaitPage> {
           ),
         ],
       ),
-      body: Container(
-        color: Colors.white,
-        child: Container(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          decoration: BoxDecoration(
-            color: const Color(0xfffdfbf0),
-          ),
-          child: Stack(
-            children: [
-              Positioned(
-                left: MediaQuery.of(context).size.width * 0.1,
-                top: MediaQuery.of(context).size.height * 0.10,
-                width: MediaQuery.of(context).size.width * 0.8,
-                child: Text(
-                  '눈을 감고 \n오늘 하루를 돌아봅시다.',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    decoration: TextDecoration.none,
-                    fontSize: 30,
-                    color: const Color(0xff2c2c2c),
-                    fontWeight: FontWeight.normal,
-                  ),
-                  maxLines: 9999,
-                  overflow: TextOverflow.ellipsis,
-                ),
+      body: AnimatedBuilder(
+        animation: _backgroundController,
+        builder: (context, child) {
+          return Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [_colorAnimation1.value!, _colorAnimation2.value!],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
               ),
-              Positioned(
-                left: MediaQuery.of(context).size.width * 0.45,
-                top: MediaQuery.of(context).size.height * 0.35,
-                child: Text(
-                  '$_counter',
-                  style: TextStyle(
-                    fontSize: 60,
-                    color: const Color(0xff2c2c2c),
-                    fontWeight: FontWeight.bold,
+            ),
+            child: Stack(
+              children: [
+                Center(
+                  child: AnimatedBuilder(
+                    animation: Listenable.merge([_fadeAnimation1, _fadeAnimation2]),
+                    builder: (context, child) {
+                      return Opacity(
+                        opacity: _fadeAnimation1.value + _fadeAnimation2.value,
+                        child: Text(
+                          _currentText,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 30,
+                            color: const Color(0xff2c2c2c),
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                      );
+                    },
                   ),
                 ),
-              ),
-            ],
-          ),
-        ),
+                if (_showCounter)
+                  Center(
+                    child: Text(
+                      '$_counter',
+                      style: TextStyle(
+                        fontSize: 60,
+                        color: const Color(0xff2c2c2c),
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                if (_showButton)
+                  Center(
+                    child: Transform.translate(
+                      offset: Offset(0, -20),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => SelectTypePage(emotionNumber: widget.emotionNumber),
+                            ),
+                          );
+                        },
+                        child: Text('준비됐어요'),
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+          );
+        },
       ),
     );
   }
