@@ -182,10 +182,7 @@ class _HomePageState extends State<HomeScreens> {
                 ? _buildEmptyState()
                 : SingleChildScrollView(
               child: _selectedDayEntry != null
-                  ? GestureDetector(
-                onTap: () => _navigateToDiaryNoImgPage(DateTime.parse(_selectedDayEntry!['date'])),
-                child: _buildDiaryEntry(_selectedDayEntry!['date'], _selectedDayEntry!['content']),
-              )
+                  ? _buildDiaryEntry(_selectedDayEntry!['date'], _selectedDayEntry!['content'])
                   : Column(
                 children: _monthlyDiaryEntries.map((entry) =>
                     _buildDiaryEntry(entry['date'], entry['content'])
@@ -207,33 +204,36 @@ class _HomePageState extends State<HomeScreens> {
 
   // 일기 항목을 생성
   Widget _buildDiaryEntry(String date, String content) {
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Stack(
-            clipBehavior: Clip.none,
-            children: [
-              Positioned(
-                top: 13,
-                left: 0,
-                child: Container(
-                  width: 95,
-                  height: 8,
-                  color: Color(0x7FFFE76B),
+    return GestureDetector(
+      onTap: () => _navigateToDiaryNoImgPage(DateTime.parse(date)),
+      child: Padding(
+        padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Stack(
+              clipBehavior: Clip.none,
+              children: [
+                Positioned(
+                  top: 13,
+                  left: 0,
+                  child: Container(
+                    width: 95,
+                    height: 8,
+                    color: Color(0x7FFFE76B),
+                  ),
                 ),
-              ),
-              Text(date, style: TextStyle(fontSize: 15, color: Colors.black)),
-            ],
-          ),
-          SizedBox(height: 15),
-          Text(
-            content,
-            style: TextStyle(fontSize: 13, color: Colors.black),
-          ),
-          Divider(height: 30),
-        ],
+                Text(date, style: TextStyle(fontSize: 15, color: Colors.black)),
+              ],
+            ),
+            SizedBox(height: 15),
+            Text(
+              content,
+              style: TextStyle(fontSize: 13, color: Colors.black),
+            ),
+            Divider(height: 30),
+          ],
+        ),
       ),
     );
   }
