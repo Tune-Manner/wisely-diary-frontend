@@ -26,18 +26,22 @@ class _HomePageState extends State<HomeScreens> {
   late DateTime _focusedDay;
   List<Map<String, dynamic>> _monthlyDiaryEntries = [];
   Map<String, dynamic>? _selectedDayEntry;
+  late Future<void> _initializationFuture;
 
   @override
   void initState() {
     super.initState();
+    _initializationFuture = _initializeHomeScreen();
+  }
+
+  Future<void> _initializeHomeScreen() async {
     _selectedDay = DateTime.now();
     _focusedDay = DateTime.now();
-
-    initializeDateFormatting('ko_KR', null).then((_) {
-      setState(() {});
+    await initializeDateFormatting('ko_KR', null);
+    await _fetchMonthlyDiaries(_focusedDay);
+    setState(() {
+      _selectedDayEntry = null;
     });
-
-    _fetchMonthlyDiaries(_focusedDay);
   }
 
   Future<void> _fetchMonthlyDiaries(DateTime month) async {
@@ -181,9 +185,7 @@ class _HomePageState extends State<HomeScreens> {
             child: _monthlyDiaryEntries.isEmpty
                 ? _buildEmptyState()
                 : SingleChildScrollView(
-              child: _selectedDayEntry != null
-                  ? _buildDiaryEntry(_selectedDayEntry!['date'], _selectedDayEntry!['content'])
-                  : Column(
+              child: Column(
                 children: _monthlyDiaryEntries.map((entry) =>
                     _buildDiaryEntry(entry['date'], entry['content'])
                 ).toList(),
