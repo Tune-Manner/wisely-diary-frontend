@@ -26,7 +26,7 @@ class _HomePageState extends State<HomeScreens> {
   late DateTime _focusedDay;
   List<Map<String, dynamic>> _monthlyDiaryEntries = [];
   Map<String, dynamic>? _selectedDayEntry;
-  late Future<void> _initializationFuture;  // Future 타입 변수 선언
+  late Future<void> _initializationFuture;
 
   @override
   void initState() {
@@ -117,13 +117,49 @@ class _HomePageState extends State<HomeScreens> {
     );
   }
 
-  // 새 일기 추가 페이지로 이동하는 함수
-  void _navigateToAddDiaryEntryPage() {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => CreateDiaryPage(),
-      ),
-    );
+  Future<bool> _checkTodayDiaryExists() async {
+    final supabase = Supabase.instance.client;
+    final today = DateTime.now().toUtc().toString().split(' ')[0]; // Get today's date in UTC
+
+    final response = await supabase
+        .from('diary')
+        .select()
+        .eq('member_id', widget.userId)
+        .eq('diary_status', 'EXIST')
+        .gte('created_at', '$today 00:00:00')
+        .lte('created_at', '$today 23:59:59');
+
+    return response.length > 0;
+  }
+
+  void _navigateToAddDiaryEntryPage() async {
+    bool todayDiaryExists = await _checkTodayDiaryExists();
+
+    if (!todayDiaryExists) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('알림'),
+            content: Text('이미 오늘 일기를 작성하셨습니다.'),
+            actions: <Widget>[
+              TextButton(
+                child: Text('확인'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    } else {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => CreateDiaryPage(),
+        ),
+      );
+    }
   }
 
   // 날짜를 선택할 때마다 해당 날짜의 일기 데이터를 가져오는 함수

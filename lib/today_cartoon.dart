@@ -1,9 +1,7 @@
-import 'dart:ffi';
-
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
 import 'custom_scaffold.dart';
 
 class TodayCartoonPage extends StatefulWidget {
@@ -17,14 +15,14 @@ class TodayCartoonPage extends StatefulWidget {
 
 class _TodayCartoonPageState extends State<TodayCartoonPage> {
   String userName = '';
-  String cartoonUrl = '';
+  List<String> cartoonUrls = []; // 만화 URL 리스트
   bool isLoading = true; // 로딩 상태를 관리하는 변수
 
   @override
   void initState() {
     super.initState();
     _fetchUserName();
-    _createCartoon();
+    _fetchOrCreateCartoon();
   }
 
   Future<void> _fetchUserName() async {
@@ -32,7 +30,7 @@ class _TodayCartoonPageState extends State<TodayCartoonPage> {
     if (user != null) {
       final memberResponse = await Supabase.instance.client
           .from('member')
-          .select('member_name,member_email')
+          .select('member_name')
           .eq('member_id', user.id)
           .single();
       setState(() {
@@ -41,12 +39,53 @@ class _TodayCartoonPageState extends State<TodayCartoonPage> {
     }
   }
 
+  Future<void> _fetchOrCreateCartoon() async {
+    final user = Supabase.instance.client.auth.currentUser;
+    if (user != null) {
+      final today = DateTime.now().toIso8601String().substring(0, 10);
+
+      try {
+        // Step 1: 오늘의 만화가 이미 생성되었는지 확인
+        final inquiryResponse = await http.get(
+          Uri.parse('http://10.0.2.2:8080/api/cartoon/inquiry?date=$today&memberId=${user.id}'),
+        );
+
+        if (inquiryResponse.statusCode == 200) {
+          final List<dynamic> cartoons = jsonDecode(inquiryResponse.body);
+          final cartoonList = cartoons
+              .where((cartoon) => cartoon['type'] == 'Cartoon')
+              .toList();
+
+          if (cartoonList.isNotEmpty) {
+            setState(() {
+              cartoonUrls = cartoonList.map<String>((cartoon) => cartoon['cartoonPath'] ?? '').toList();
+            });
+
+            // 이미 만화가 있으므로 새로운 만화를 생성하지 않음
+            return;
+          }
+        }
+
+        // 만화가 없거나 조회 실패 시 새로운 만화를 생성
+        await _createCartoon();
+
+      } catch (e) {
+        print("Error during cartoon inquiry or creation: $e");
+        await _createCartoon(); // 오류 발생 시 만화 생성 요청
+      } finally {
+        setState(() {
+          isLoading = false; // 완료 시 로딩 상태 해제
+        });
+      }
+    }
+  }
+
   Future<void> _createCartoon() async {
     final user = Supabase.instance.client.auth.currentUser;
     if (user != null) {
       final requestBody = {
         "diaryCode": widget.diaryCode,
-        "memberId": user.id
+        "memberId": user.id,
       };
 
       try {
@@ -59,19 +98,15 @@ class _TodayCartoonPageState extends State<TodayCartoonPage> {
         );
 
         if (response.statusCode == 200) {
-          final result = response.body;
+          final result = response.body; // 기존의 String 응답 처리
           setState(() {
-            cartoonUrl = result; // Assuming the API returns the cartoon URL as plain text
+            cartoonUrls = [result]; // 새롭게 생성된 만화 URL을 추가
           });
         } else {
           print("Failed to create cartoon: ${response.statusCode}");
         }
       } catch (e) {
         print("Error creating cartoon: $e");
-      } finally {
-        setState(() {
-          isLoading = false; // 만화 생성이 완료되면 로딩 상태를 해제합니다.
-        });
       }
     }
   }
@@ -96,16 +131,6 @@ class _TodayCartoonPageState extends State<TodayCartoonPage> {
                 textAlign: TextAlign.center,
               ),
               SizedBox(height: 16),
-              // ClipRRect(
-              //   borderRadius: BorderRadius.circular(12),
-              //   child: widget.url.isNotEmpty
-              //       ? Image.network(
-              //     widget.url,
-              //     fit: BoxFit.cover,
-              //     width: double.infinity,
-              //   )
-              //       : Text('No image available'),
-              // ),
               if (isLoading)
                 Center(
                   child: Column(
@@ -114,7 +139,7 @@ class _TodayCartoonPageState extends State<TodayCartoonPage> {
                       CircularProgressIndicator(), // 로딩 인디케이터
                       SizedBox(height: 16),
                       Text(
-                        '만화를 생성 중입니다...',
+                        '만화가 도착 중입니다...',
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w500,
@@ -124,16 +149,14 @@ class _TodayCartoonPageState extends State<TodayCartoonPage> {
                   ),
                 )
               else
-                ClipRRect(
+                ...cartoonUrls.map((url) => ClipRRect(
                   borderRadius: BorderRadius.circular(12),
-                  child: cartoonUrl.isNotEmpty
-                      ? Image.network(
-                    cartoonUrl,
+                  child: url.isNotEmpty ? Image.network(
+                    url,
                     fit: BoxFit.cover,
                     width: double.infinity,
-                  )
-                      : Text('No image available'),
-                ),
+                  ) : Text("만화 URL을 불러오지 못했습니다."),
+                )).toList(),
               SizedBox(height: 24),
               ElevatedButton(
                 onPressed: () {

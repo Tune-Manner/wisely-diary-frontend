@@ -34,7 +34,7 @@ class _CreateDiaryPageState extends State<CreateDiaryPage> {
     isPlaying = audioManager.player.playing;
     volume = audioManager.player.volume;
 
-    _fetchUserName(); // Fetch the user's name
+    _fetchUserName();
     audioManager.player.playerStateStream.listen((state) {
       if (mounted) {
         setState(() {
@@ -173,7 +173,6 @@ class _CreateDiaryPageState extends State<CreateDiaryPage> {
     final double screenWidth = MediaQuery.of(context).size.width;
     final double screenHeight = MediaQuery.of(context).size.height;
 
-    // Define a map for emotion labels to numbers
     final emotionNumberMap = {
       '걱정': 1,
       '뿌듯': 2,
@@ -192,9 +191,12 @@ class _CreateDiaryPageState extends State<CreateDiaryPage> {
       top: screenHeight * top,
       child: GestureDetector(
         onTap: () async {
-          // Get the emotion number from the map
           final int emotionNumber = emotionNumberMap[label]!;
-          await playEmotionMusic(label);
+
+          // Start playing the emotion music
+          playEmotionMusic(label);
+
+          // Navigate to the next page immediately
           Navigator.push(
             context,
             MaterialPageRoute(
