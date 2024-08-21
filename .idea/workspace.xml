@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2673fe56-8026-4891-8850-5bb081ab56e8" name="Changes" comment="refactor : changing position of logout button">
+    <list default="true" id="2673fe56-8026-4891-8850-5bb081ab56e8" name="Changes" comment="refactor : prevent comics from being regenerated">
       <change beforePath="$PROJECT_DIR$/.dart_tool/package_config.json" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.dart_tool/package_config_subset" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config_subset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.dart_tool/version" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/version" afterDir="false" />
@@ -628,8 +628,8 @@
       <change beforePath="$PROJECT_DIR$/build/url_launcher_android/intermediates/symbol_list_with_package_name/debug/package-aware-r.txt" beforeDir="false" afterPath="$PROJECT_DIR$/build/url_launcher_android/intermediates/symbol_list_with_package_name/debug/package-aware-r.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/url_launcher_android/outputs/aar/url_launcher_android-debug.aar" beforeDir="false" afterPath="$PROJECT_DIR$/build/url_launcher_android/outputs/aar/url_launcher_android-debug.aar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/url_launcher_android/outputs/logs/manifest-merger-debug-report.txt" beforeDir="false" afterPath="$PROJECT_DIR$/build/url_launcher_android/outputs/logs/manifest-merger-debug-report.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/text_screens.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/text_screens.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/today_cartoon.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/today_cartoon.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/letter/letter_creation_status_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/letter/letter_creation_status_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/letter/letter_view_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/letter/letter_view_page.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -696,7 +696,9 @@
       <workItem from="1723819280596" duration="9725000" />
       <workItem from="1724134099497" duration="647000" />
       <workItem from="1724134778527" duration="388000" />
-      <workItem from="1724136163061" duration="8144000" />
+      <workItem from="1724136163061" duration="10234000" />
+      <workItem from="1724146513328" duration="182000" />
+      <workItem from="1724200985408" duration="6979000" />
     </task>
     <task id="LOCAL-00001" summary="feat : emotion_code drilling">
       <created>1723904304968</created>
@@ -740,7 +742,14 @@
       <option name="project" value="LOCAL" />
       <updated>1724139204222</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="refactor : prevent comics from being regenerated">
+      <created>1724144659068</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1724144659068</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -776,6 +785,7 @@
     <MESSAGE value="refactor : delete emotion code text" />
     <MESSAGE value="feat : connecting diary code to cartoon" />
     <MESSAGE value="refactor : changing position of logout button" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor : changing position of logout button" />
+    <MESSAGE value="refactor : prevent comics from being regenerated" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor : prevent comics from being regenerated" />
   </component>
 </project>

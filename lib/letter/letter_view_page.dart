@@ -4,8 +4,9 @@ import 'letter_service.dart';
 
 class LetterViewPage extends StatefulWidget {
   final int letterCode;
+  final String? cartoonUrl;
 
-  LetterViewPage({required this.letterCode});
+  LetterViewPage({required this.letterCode, this.cartoonUrl});
 
   @override
   _LetterViewPageState createState() => _LetterViewPageState();
@@ -95,7 +96,28 @@ class _LetterViewPageState extends State<LetterViewPage> {
                     letter.letterContents ?? '내용 없음',
                     style: TextStyle(fontSize: 16),
                   ),
-                  // 여기에 추가적인 편지 정보를 표시할 수 있습니다.
+                  SizedBox(height: 24),
+                  Divider(thickness: 2), // Add a dividing line
+                  SizedBox(height: 24),
+                  if (widget.cartoonUrl != null) ...[
+                    Text(
+                      '당신의 감정을 그려보았어요.', // Change text
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        fontStyle: FontStyle.italic, // Make it distinct from the letter font
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    FadeInImage(
+                      placeholder: AssetImage('assets/loading_spinner.gif'),
+                      image: NetworkImage(widget.cartoonUrl!),
+                      fit: BoxFit.contain,
+                      imageErrorBuilder: (context, error, stackTrace) {
+                        return Text('이미지를 불러오지 못했습니다.', style: TextStyle(color: Colors.red));
+                      },
+                    ),
+                  ],
                 ],
               ),
             );
