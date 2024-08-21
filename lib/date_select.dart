@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:wisely_diary/edit_diary_screens.dart';
 import 'cartoon_inquery.dart';
+import 'package:wisely_diary/letter/letter_inquiry_page.dart';
 
 class DiaryNoImgPage extends StatefulWidget {
   final DateTime selectedDate;
@@ -289,12 +290,25 @@ class _DiaryNoImgPageState extends State<DiaryNoImgPage> {
                   ),
                 ),
                 SizedBox(height: 16),
-                Column(
-                  children: [
-                    Image.asset('assets/letter_icon.png'),
-                    SizedBox(height: 4),
-                    Text('위로의 편지', style: TextStyle(fontSize: 10)),
-                  ],
+                GestureDetector(
+                  onTap: () {
+                    _removeOverlayIfVisible(); // 페이지 이동 전 오버레이 제거
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => LetterInquiryPage(
+                          date: DateFormat('yyyy-MM-dd').format(widget.selectedDate),
+                        ),
+                      ),
+                    );
+                  },
+                  child: Column(
+                    children: [
+                      Image.asset('assets/letter_icon.png'),
+                      SizedBox(height: 4),
+                      Text('오늘의 편지', style: TextStyle(fontSize: 10)),
+                    ],
+                  ),
                 ),
               ],
             ),
