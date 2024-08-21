@@ -26,6 +26,7 @@ class _HomePageState extends State<HomeScreens> {
   late DateTime _focusedDay;
   List<Map<String, dynamic>> _monthlyDiaryEntries = [];
   Map<String, dynamic>? _selectedDayEntry;
+  late Future<void> _initializationFuture;  // Future 타입 변수 선언
 
   @override
   void initState() {
@@ -37,9 +38,11 @@ class _HomePageState extends State<HomeScreens> {
       setState(() {});
     });
 
-    _fetchMonthlyDiaries(_focusedDay);
+    // 페이지가 로드될 때 데이터를 초기화하는 Future 실행
+    _initializationFuture = _fetchMonthlyDiaries(_focusedDay);
   }
 
+  // 매달 일기 데이터를 가져오는 Future 함수
   Future<void> _fetchMonthlyDiaries(DateTime month) async {
     String date = DateFormat('yyyy-MM-01').format(month);
 
@@ -70,6 +73,7 @@ class _HomePageState extends State<HomeScreens> {
     }
   }
 
+  // 특정 날짜의 일기 내용을 가져오는 Future 함수
   Future<void> _fetchDiaryContent(DateTime selectedDay) async {
     final response = await http.post(
       Uri.parse('http://192.168.0.184:8080/api/diary/selectdetail'),
@@ -102,6 +106,7 @@ class _HomePageState extends State<HomeScreens> {
     }
   }
 
+  // 로그아웃 함수
   Future<void> _signOut() async {
     await Supabase.instance.client.auth.signOut();
     final GoogleSignIn googleSignIn = GoogleSignIn();
@@ -112,6 +117,7 @@ class _HomePageState extends State<HomeScreens> {
     );
   }
 
+  // 새 일기 추가 페이지로 이동하는 함수
   void _navigateToAddDiaryEntryPage() {
     Navigator.of(context).push(
       MaterialPageRoute(
@@ -120,6 +126,7 @@ class _HomePageState extends State<HomeScreens> {
     );
   }
 
+  // 날짜를 선택할 때마다 해당 날짜의 일기 데이터를 가져오는 함수
   void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
     setState(() {
       _selectedDay = selectedDay;
@@ -129,6 +136,7 @@ class _HomePageState extends State<HomeScreens> {
     _fetchDiaryContent(selectedDay);
   }
 
+  // 일기 상세 페이지로 이동하는 함수
   void _navigateToDiaryNoImgPage(DateTime selectedDate) {
     Navigator.of(context).push(
       MaterialPageRoute(
@@ -140,62 +148,78 @@ class _HomePageState extends State<HomeScreens> {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-      body: Column(
-        children: [
-          SizedBox(height: 16),
-          // 달력 부분
-          Container(
-            margin: EdgeInsets.symmetric(horizontal: 16.0),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(8),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.1),
-                  spreadRadius: 2,
-                  blurRadius: 5,
-                  offset: Offset(0, 3),
+      // FutureBuilder로 페이지 초기화 및 데이터를 다시 로드
+      body: FutureBuilder<void>(
+        future: _initializationFuture,
+        builder: (context, snapshot) {
+          // 비동기 작업이 완료되기 전 로딩 표시
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            // 오류 발생 시 메시지 표시
+            return Center(child: Text('Error: ${snapshot.error}'));
+          } else {
+            // 비동기 작업이 완료되면 UI 구성
+            return Column(
+              children: [
+                SizedBox(height: 16),
+                // 달력 부분
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: 16.0),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(8),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.1),
+                        spreadRadius: 2,
+                        blurRadius: 5,
+                        offset: Offset(0, 3),
+                      ),
+                    ],
+                  ),
+                  child: TableCalendar(
+                    locale: 'ko_KR',
+                    firstDay: DateTime.utc(2020, 1, 1),
+                    lastDay: DateTime.utc(2100, 12, 31),
+                    focusedDay: _focusedDay,
+                    selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
+                    onDaySelected: _onDaySelected,
+                    onPageChanged: (focusedDay) {
+                      setState(() {
+                        _focusedDay = focusedDay;
+                        _selectedDayEntry = null;
+                      });
+                      _initializationFuture = _fetchMonthlyDiaries(focusedDay);  // 페이지 변경 시 월간 데이터를 다시 로드
+                    },
+                    headerStyle: HeaderStyle(
+                      formatButtonVisible: false,
+                      titleCentered: true,
+                    ),
+                  ),
+                ),
+                SizedBox(height: 16),
+
+                // 일기 목록을 위한 Expanded와 ListView.builder 사용
+                Expanded(
+                  child: _monthlyDiaryEntries.isEmpty
+                      ? _buildEmptyState()
+                      : SingleChildScrollView(
+                    child: _selectedDayEntry != null
+                        ? _buildDiaryEntry(_selectedDayEntry!['date'], _selectedDayEntry!['content'])
+                        : Column(
+                      children: _monthlyDiaryEntries.map((entry) =>
+                          _buildDiaryEntry(entry['date'], entry['content'])
+                      ).toList(),
+                    ),
+                  ),
                 ),
               ],
-            ),
-            child: TableCalendar(
-              locale: 'ko_KR',
-              firstDay: DateTime.utc(2020, 1, 1),
-              lastDay: DateTime.utc(2100, 12, 31),
-              focusedDay: _focusedDay,
-              selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
-              onDaySelected: _onDaySelected,
-              onPageChanged: (focusedDay) {
-                setState(() {
-                  _focusedDay = focusedDay;
-                  _selectedDayEntry = null;
-                });
-                _fetchMonthlyDiaries(focusedDay);
-              },
-              headerStyle: HeaderStyle(
-                formatButtonVisible: false,
-                titleCentered: true,
-              ),
-            ),
-          ),
-          SizedBox(height: 16),
-
-          // 일기 목록을 위한 Expanded와 ListView.builder 사용
-          Expanded(
-            child: _monthlyDiaryEntries.isEmpty
-                ? _buildEmptyState()
-                : SingleChildScrollView(
-              child: _selectedDayEntry != null
-                  ? _buildDiaryEntry(_selectedDayEntry!['date'], _selectedDayEntry!['content'])
-                  : Column(
-                children: _monthlyDiaryEntries.map((entry) =>
-                    _buildDiaryEntry(entry['date'], entry['content'])
-                ).toList(),
-              ),
-            ),
-          ),
-        ],
+            );
+          }
+        },
       ),
+      // 새 일기 추가 버튼
       floatingActionButton: FloatingActionButton(
         onPressed: _navigateToAddDiaryEntryPage,
         child: Icon(Icons.edit),
@@ -206,7 +230,7 @@ class _HomePageState extends State<HomeScreens> {
     );
   }
 
-  // 일기 항목을 생성
+  // 일기 항목을 생성하는 위젯
   Widget _buildDiaryEntry(String date, String content) {
     return GestureDetector(
       onTap: () => _navigateToDiaryNoImgPage(DateTime.parse(date)),
@@ -242,14 +266,14 @@ class _HomePageState extends State<HomeScreens> {
     );
   }
 
-  // 작성된 일기가 없을때
+  // 작성된 일기가 없을 때 보여줄 UI
   Widget _buildEmptyState() {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Opacity(
-            opacity: 0.5, // 0.0에서 1.0 사이의 값. 0.0은 완전 투명, 1.0은 완전 불투명
+            opacity: 0.5, // 투명도 설정
             child: Image.asset(
               'assets/wisely-diary-logo.png',
               height: 80,
