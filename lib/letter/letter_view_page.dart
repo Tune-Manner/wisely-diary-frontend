@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
+import 'letter_model.dart';
+import 'letter_service.dart';
 
 class LetterViewPage extends StatefulWidget {
   final int letterCode;
@@ -12,7 +12,8 @@ class LetterViewPage extends StatefulWidget {
 }
 
 class _LetterViewPageState extends State<LetterViewPage> {
-  Future<Map<String, dynamic>>? _letterDataFuture;
+  Future<Letter>? _letterDataFuture;
+  final LetterService _letterService = LetterService();
 
   @override
   void initState() {
@@ -20,21 +21,9 @@ class _LetterViewPageState extends State<LetterViewPage> {
     _letterDataFuture = _fetchLetterData();
   }
 
-  Future<Map<String, dynamic>> _fetchLetterData() async {
+  Future<Letter> _fetchLetterData() async {
     try {
-      final response = await http.get(
-        Uri.parse('http://10.0.2.2:8080/api/letter/${widget.letterCode}'),
-        headers: {'Content-Type': 'application/json'},
-      ).timeout(Duration(seconds: 10));
-
-      print('Response status: ${response.statusCode}');
-      print('Response body: ${response.body}');
-
-      if (response.statusCode == 200) {
-        return json.decode(response.body);
-      } else {
-        throw Exception('Failed to load letter: ${response.statusCode}');
-      }
+      return await _letterService.viewLetter(widget.letterCode);
     } catch (e) {
       print('Error fetching letter data: $e');
       rethrow;
@@ -63,7 +52,7 @@ class _LetterViewPageState extends State<LetterViewPage> {
         ),
         centerTitle: true,
       ),
-      body: FutureBuilder<Map<String, dynamic>>(
+      body: FutureBuilder<Letter>(
         future: _letterDataFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -86,7 +75,7 @@ class _LetterViewPageState extends State<LetterViewPage> {
               ),
             );
           } else if (snapshot.hasData) {
-            final letterData = snapshot.data!;
+            final letter = snapshot.data!;
             return SingleChildScrollView(
               padding: EdgeInsets.all(16.0),
               child: Column(
@@ -98,12 +87,12 @@ class _LetterViewPageState extends State<LetterViewPage> {
                   ),
                   SizedBox(height: 16),
                   Text(
-                    '작성일: ${letterData['createdAt'] ?? '알 수 없음'}',
+                    '작성일: ${letter.createdAt ?? '알 수 없음'}',
                     style: TextStyle(fontSize: 14, color: Colors.grey),
                   ),
                   SizedBox(height: 24),
                   Text(
-                    letterData['letterContents'] ?? '내용 없음',
+                    letter.letterContents ?? '내용 없음',
                     style: TextStyle(fontSize: 16),
                   ),
                   // 여기에 추가적인 편지 정보를 표시할 수 있습니다.
