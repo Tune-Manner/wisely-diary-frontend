@@ -113,8 +113,23 @@ class _TodayCartoonPageState extends State<TodayCartoonPage> {
 
   @override
   Widget build(BuildContext context) {
-    return CustomScaffold(
-      showAppBar: true,
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: const Color(0xfffdfbf0),
+        elevation: 0,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () => Navigator.pop(context),
+        ),
+        title: GestureDetector(
+          child: Image.asset(
+            'assets/wisely-diary-logo.png',
+            height: 30,
+            fit: BoxFit.contain,
+          ),
+        ),
+        centerTitle: true,
+      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),

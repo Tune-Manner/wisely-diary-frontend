@@ -82,7 +82,7 @@ class _MusicCreationStatusPageState extends State<MusicCreationStatusPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('음악 생성 중')),
+      appBar: AppBar(title: Text('음악 생성 중', style: TextStyle(fontSize: 16),)),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

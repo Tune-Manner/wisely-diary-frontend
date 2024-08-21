@@ -154,7 +154,7 @@ class _LetterCreationStatusPageState extends State<LetterCreationStatusPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('편지 생성 중')),
+      appBar: AppBar(title: Text('편지 생성 중', style: TextStyle(fontSize: 16),)),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

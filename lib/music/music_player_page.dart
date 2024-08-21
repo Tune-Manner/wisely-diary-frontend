@@ -210,6 +210,36 @@ class _MusicPlayerPageState extends State<MusicPlayerPage> {
               ),
             SizedBox(height: 16),
             Text(musicData['musicLyrics'] ?? 'No lyrics available'),
+            SizedBox(height: 24),
+            Center( // 버튼을 감싸는 Center 위젯 추가
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.white,
+                  backgroundColor: Color(0xFF8B69FF),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(Icons.arrow_back, size: 18),
+                    SizedBox(width: 8), // 아이콘과 텍스트 사이의 간격 조정
+                    Text(
+                      '다른 결과 확인하기',
+                      style: TextStyle(
+                        fontFamily: 'Pretendard',
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ],
         ),
       ),
