@@ -43,7 +43,7 @@ class _CartoonInquiryScreenState extends State<CartoonInquiryScreen> {
 
     try {
       final response = await http.get(
-        Uri.parse('http://10.0.2.2:8080/api/cartoon/inquiry?date=$formattedDate&memberId=${user.id}'),
+        Uri.parse('http://43.203.173.116:8080/api/cartoon/inquiry?date=$formattedDate&memberId=${user.id}'),
       );
 
       if (response.statusCode == 200) {
@@ -80,7 +80,7 @@ class _CartoonInquiryScreenState extends State<CartoonInquiryScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('${DateFormat('yyyy년 MM월 dd일').format(widget.selectedDate)}'),
-        backgroundColor: Color(0xFFFFF9F2),
+        backgroundColor: Color(0xFFFDFBF0),
       ),
       body: isLoading
           ? Center(child: CircularProgressIndicator())

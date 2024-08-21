@@ -48,7 +48,7 @@ class _HomePageState extends State<HomeScreens> {
 
     try {
       final response = await http.post(
-        Uri.parse('http://192.168.0.184:8080/api/diary/monthly'),
+        Uri.parse('http://43.203.173.116:8080/api/diary/monthly'),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({
           'date': date,
@@ -76,7 +76,7 @@ class _HomePageState extends State<HomeScreens> {
   // 특정 날짜의 일기 내용을 가져오는 Future 함수
   Future<void> _fetchDiaryContent(DateTime selectedDay) async {
     final response = await http.post(
-      Uri.parse('http://192.168.0.184:8080/api/diary/selectdetail'),
+      Uri.parse('http://43.203.173.116:8080/api/diary/selectdetail'),
       headers: {
         'Content-Type': 'application/json',
       },
@@ -135,7 +135,7 @@ class _HomePageState extends State<HomeScreens> {
   void _navigateToAddDiaryEntryPage() async {
     bool todayDiaryExists = await _checkTodayDiaryExists();
 
-    if (!todayDiaryExists) {
+    if (todayDiaryExists) {
       showDialog(
         context: context,
         builder: (BuildContext context) {
