@@ -53,7 +53,7 @@ class _HomePageState extends State<HomeScreens> {
 
     try {
       final response = await http.post(
-        Uri.parse('http://192.168.123.103:8080/api/diary/monthly'),
+        Uri.parse('http://192.168.0.184:8080/api/diary/monthly'),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({
           'date': date,
@@ -62,6 +62,7 @@ class _HomePageState extends State<HomeScreens> {
       );
 
       if (response.statusCode == 200) {
+        print("서버통신 성공");
         final List<dynamic> data = jsonDecode(response.body);
         setState(() {
           _monthlyDiaryEntries = data.map((item) => {
@@ -71,6 +72,7 @@ class _HomePageState extends State<HomeScreens> {
           _monthlyDiaryEntries.sort((a, b) => DateTime.parse(b['date']).compareTo(DateTime.parse(a['date'])));
         });
       } else {
+        print("서버통신 실패");
         print('Error fetching diary content: ${response.reasonPhrase}');
       }
     } catch (e) {
@@ -188,6 +190,10 @@ class _HomePageState extends State<HomeScreens> {
                       });
                       _fetchMonthlyDiaries(focusedDay);
                     },
+                    headerStyle: HeaderStyle(
+                      formatButtonVisible: false,
+                      titleCentered: true,
+                    ),
                   ),
                 ),
                 SizedBox(height: 16),
