@@ -73,12 +73,49 @@ class _HomePageState extends State<HomeScreens> {
     );
   }
 
-  void _navigateToAddDiaryEntryPage() {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => CreateDiaryPage(),
-      ),
-    );
+  Future<bool> _checkTodayDiaryExists() async {
+    final supabase = Supabase.instance.client;
+    final today = DateTime.now().toUtc().toString().split(' ')[0]; // Get today's date in UTC
+
+    final response = await supabase
+        .from('diary')
+        .select()
+        .eq('member_id', widget.userId)
+        .eq('diary_status', 'EXIST')
+        .gte('created_at', '$today 00:00:00')
+        .lte('created_at', '$today 23:59:59');
+
+    return response.length > 0;
+  }
+
+  void _navigateToAddDiaryEntryPage() async {
+    bool todayDiaryExists = await _checkTodayDiaryExists();
+
+    if (todayDiaryExists) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('알림'),
+            content: Text('이미 오늘 일기를 작성하셨습니다.'),
+            actions: <Widget>[
+              TextButton(
+                child: Text('확인'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    } else {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => CreateDiaryPage(),
+        ),
+      );
+    }
   }
 
   void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
@@ -98,19 +135,12 @@ class _HomePageState extends State<HomeScreens> {
   Widget build(BuildContext context) {
     print('Navigated to HomePage with memberId: ${widget.userId}');
 
-    List<Map<String, String>> filteredEntries = _diaryEntries.where((entry) {
-      DateTime entryDate = DateTime.parse(
-          entry['date']!.split(' ')[0].replaceAll('.', '-'));
-      return isSameDay(entryDate, _selectedDay);
-    }).toList();
-
     return CustomScaffold(
       body: Stack(
         children: [
           Column(
             children: [
               SizedBox(height: 16),
-              // 캘린더 위젯
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 16.0),
                 decoration: BoxDecoration(
@@ -130,17 +160,16 @@ class _HomePageState extends State<HomeScreens> {
                   lastDay: DateTime.utc(2100, 12, 31),
                   focusedDay: _focusedDay,
                   selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
-                  onDaySelected: _onDaySelected, // Updated
+                  onDaySelected: _onDaySelected,
                 ),
               ),
-              // 일기 항목들
               Expanded(
                 child: ListView.builder(
-                  itemCount: filteredEntries.length,
+                  itemCount: _diaryEntries.length,
                   itemBuilder: (context, index) {
                     return _buildDiaryEntry(
-                      filteredEntries[index]['date']!,
-                      filteredEntries[index]['summary']!,
+                      _diaryEntries[index]['date']!,
+                      _diaryEntries[index]['summary']!,
                     );
                   },
                 ),
@@ -149,10 +178,9 @@ class _HomePageState extends State<HomeScreens> {
           ),
         ],
       ),
-      // 플로팅 액션 버튼
       floatingActionButton: FloatingActionButton(
         onPressed: _navigateToAddDiaryEntryPage,
-        child: Icon(Icons.edit), // 펜 모양 아이콘으로 변경
+        child: Icon(Icons.edit),
         tooltip: '새 일기 추가',
         backgroundColor: Colors.yellow,
         foregroundColor: Colors.white,
