@@ -53,7 +53,7 @@ class _HomePageState extends State<HomeScreens> {
 
     try {
       final response = await http.post(
-        Uri.parse('http://192.168.123.103:8080/api/diary/monthly'),
+        Uri.parse('http://10.0.2.2:8080/api/diary/monthly'),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({
           'date': date,
@@ -80,7 +80,7 @@ class _HomePageState extends State<HomeScreens> {
 
   Future<void> _fetchDiaryContent(DateTime selectedDay) async {
     final response = await http.post(
-      Uri.parse('http://192.168.123.103:8080/api/diary/selectdetail'),
+      Uri.parse('http://10.0.2.2:8080/api/diary/selectdetail'),
       headers: {
         'Content-Type': 'application/json',
       },

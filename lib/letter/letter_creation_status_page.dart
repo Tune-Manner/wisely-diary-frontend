@@ -168,7 +168,7 @@ class _LetterCreationStatusPageState extends State<LetterCreationStatusPage> {
                 children: [
                   Image.network(_cartoonUrl!),
                   SizedBox(height: 10),
-                  Text('당신의 오늘 감정을 그려보았어요.'),
+                  Text('당신의 오늘 감정을 그리고 있어요.'),
                 ],
               ),
           ],

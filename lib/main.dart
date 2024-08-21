@@ -106,7 +106,7 @@ class MyApp extends StatelessWidget {
           final arguments = ModalRoute.of(context)!.settings.arguments
               as Map<String, dynamic>;
           final int diaryCode = arguments['diaryCode'];
-          return TodayCartoonPage(diaryCode: diaryCode);
+          return TodayCartoonPage(diaryCode: diaryCode,cartoonUrls: [],);
         },
       },
       onGenerateRoute: (settings) {

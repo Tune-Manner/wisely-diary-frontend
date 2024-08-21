@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:wisely_diary/music/music_creation_page.dart';
 import 'package:wisely_diary/today_cartoon.dart';
 import 'dart:io';
+import 'cartoon_creation_status.dart';
 import 'custom_scaffold.dart';
 import 'package:wisely_diary/letter/letter_creation_status_page.dart';
 
@@ -108,9 +109,7 @@ class DiarySummaryScreen extends StatelessWidget {
                   onPressed: () => Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => TodayCartoonPage(
-                        diaryCode: diaryCode,
-                      ),
+                      builder: (context) => CartoonCreationStatusPage(diaryCode: diaryCode),
                     ),
                   ),
                 ),
