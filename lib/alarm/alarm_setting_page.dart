@@ -235,7 +235,7 @@ class _AlarmSettingPageState extends State<AlarmSettingPage> {
               ),
               SizedBox(height: 16),
               Card(
-                color: Color(0xFFFFF0C1),
+                color: Color(0xFFFFFAE1),
                 child: SwitchListTile(
                   title: Text('알림 활성화'),
                   value: isAlarmEnabled,
@@ -255,7 +255,7 @@ class _AlarmSettingPageState extends State<AlarmSettingPage> {
                 SizedBox(height: 16),
               if (isAlarmEnabled)
                 Card(
-                  color: Color(0xFFFFF0C1),
+                  color: Color(0xFFFFFAE1),
                   child: ListTile(
                     title: Text('시간'),
                     subtitle: Center(

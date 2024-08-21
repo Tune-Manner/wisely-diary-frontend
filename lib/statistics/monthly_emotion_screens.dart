@@ -40,7 +40,6 @@ class MonthlyEmotionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFFFF9E2),
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
