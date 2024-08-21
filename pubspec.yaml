@@ -52,6 +52,9 @@ flutter:
     - family: HSSaemaul
       fonts:
         - asset: assets/fonts/HSSaemaul-Regular.woff
+    - family: SSRONET_Handwritten
+      fonts:
+        - asset: assets/fonts/SSRONET_Handwritten.ttf
 
   uses-material-design: true
   assets:

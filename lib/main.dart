@@ -89,6 +89,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Wisely Diary',
       theme: ThemeData(
+        fontFamily: 'SSRONET_Handwritten',
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
         scaffoldBackgroundColor: Color(0xFFFDFBF0),
