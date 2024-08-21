@@ -18,11 +18,17 @@ class _WaitPageState extends State<WaitPage> with TickerProviderStateMixin {
   final audioManager = AudioManager();
   late bool isPlaying;
   late double volume;
+  bool _showButton = false;
+  bool _showCounter = false;
+
+  late AnimationController _backgroundController;
+  late Animation<Color?> _colorAnimation1;
+  late Animation<Color?> _colorAnimation2;
+
   late AnimationController _fadeController1;
   late AnimationController _fadeController2;
   late Animation<double> _fadeAnimation1;
   late Animation<double> _fadeAnimation2;
-  bool _showCounter = false;
   String _currentText = '';
 
   @override
@@ -37,6 +43,21 @@ class _WaitPageState extends State<WaitPage> with TickerProviderStateMixin {
         });
       }
     });
+
+    _backgroundController = AnimationController(
+      duration: const Duration(seconds: 5),
+      vsync: this,
+    )..repeat(reverse: true);
+
+    _colorAnimation1 = ColorTween(
+      begin: Color(0xffFFB703),
+      end: Color(0xffFEFAE0),
+    ).animate(_backgroundController);
+
+    _colorAnimation2 = ColorTween(
+      begin: Color(0xffF6BD60),
+      end: Color(0xffEAE2B7),
+    ).animate(_backgroundController);
 
     _fadeController1 = AnimationController(
       duration: const Duration(seconds: 2),
@@ -79,13 +100,16 @@ class _WaitPageState extends State<WaitPage> with TickerProviderStateMixin {
           _counter--;
         });
       } else {
-        _timer?.cancel();
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => SelectTypePage(emotionNumber: widget.emotionNumber),
-          ),
-        );
+        setState(() {
+          _counter--;
+          _showCounter = false;
+        });
+        timer.cancel();
+        Future.delayed(Duration(milliseconds: 500), () {
+          setState(() {
+            _showButton = true;
+          });
+        });
       }
     });
   }
@@ -108,6 +132,7 @@ class _WaitPageState extends State<WaitPage> with TickerProviderStateMixin {
   @override
   void dispose() {
     _timer?.cancel();
+    _backgroundController.dispose();
     _fadeController1.dispose();
     _fadeController2.dispose();
     super.dispose();
@@ -145,42 +170,72 @@ class _WaitPageState extends State<WaitPage> with TickerProviderStateMixin {
           ),
         ],
       ),
-      body: Container(
-        color: const Color(0xfffdfbf0),
-        child: Stack(
-          children: [
-            Center(
-              child: AnimatedBuilder(
-                animation: Listenable.merge([_fadeAnimation1, _fadeAnimation2]),
-                builder: (context, child) {
-                  return Opacity(
-                    opacity: _fadeAnimation1.value + _fadeAnimation2.value,
-                    child: Text(
-                      _currentText,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 30,
-                        color: const Color(0xff2c2c2c),
-                        fontWeight: FontWeight.normal,
-                      ),
-                    ),
-                  );
-                },
+      body: AnimatedBuilder(
+        animation: _backgroundController,
+        builder: (context, child) {
+          return Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [_colorAnimation1.value!, _colorAnimation2.value!],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
               ),
             ),
-            if (_showCounter)
-              Center(
-                child: Text(
-                  '$_counter',
-                  style: TextStyle(
-                    fontSize: 60,
-                    color: const Color(0xff2c2c2c),
-                    fontWeight: FontWeight.bold,
+            child: Stack(
+              children: [
+                Center(
+                  child: AnimatedBuilder(
+                    animation: Listenable.merge([_fadeAnimation1, _fadeAnimation2]),
+                    builder: (context, child) {
+                      return Opacity(
+                        opacity: _fadeAnimation1.value + _fadeAnimation2.value,
+                        child: Text(
+                          _currentText,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 30,
+                            color: const Color(0xff2c2c2c),
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                      );
+                    },
                   ),
                 ),
-              ),
-          ],
-        ),
+                if (_showCounter)
+                  Center(
+                    child: Text(
+                      '$_counter',
+                      style: TextStyle(
+                        fontSize: 60,
+                        color: const Color(0xff2c2c2c),
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                if (_showButton)
+                  Center(
+                    child: Transform.translate(
+                      offset: Offset(0, -20),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => SelectTypePage(emotionNumber: widget.emotionNumber),
+                            ),
+                          );
+                        },
+                        child: Text('준비됐어요'),
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+          );
+        },
       ),
     );
   }
