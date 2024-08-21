@@ -104,7 +104,7 @@ class _CartoonInquiryScreenState extends State<CartoonInquiryScreen> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                '당신의 오늘 하루 기분을 그려보았어요.',
+                '당신의 오늘 하루 감정을 그려보았어요.',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
             ),
