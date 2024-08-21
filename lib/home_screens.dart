@@ -34,14 +34,18 @@ class _HomePageState extends State<HomeScreens> {
     _initializationFuture = _initializeHomeScreen();
   }
 
+  // Home 화면이 다시 보여질 때마다 초기화
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _initializationFuture = _initializeHomeScreen();
+  }
+
   Future<void> _initializeHomeScreen() async {
     _selectedDay = DateTime.now();
     _focusedDay = DateTime.now();
     await initializeDateFormatting('ko_KR', null);
     await _fetchMonthlyDiaries(_focusedDay);
-    setState(() {
-      _selectedDayEntry = null;
-    });
   }
 
   Future<void> _fetchMonthlyDiaries(DateTime month) async {
@@ -144,55 +148,66 @@ class _HomePageState extends State<HomeScreens> {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-      body: Column(
-        children: [
-          SizedBox(height: 16),
-          // 달력 부분
-          Container(
-            margin: EdgeInsets.symmetric(horizontal: 16.0),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(8),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.1),
-                  spreadRadius: 2,
-                  blurRadius: 5,
-                  offset: Offset(0, 3),
+      body: FutureBuilder<void>(
+        future: _initializationFuture,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          } else {
+            return Column(
+              children: [
+                SizedBox(height: 16),
+                // 달력 부분
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: 16.0),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(8),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.1),
+                        spreadRadius: 2,
+                        blurRadius: 5,
+                        offset: Offset(0, 3),
+                      ),
+                    ],
+                  ),
+                  child: TableCalendar(
+                    locale: 'ko_KR',
+                    firstDay: DateTime.utc(2020, 1, 1),
+                    lastDay: DateTime.utc(2100, 12, 31),
+                    focusedDay: _focusedDay,
+                    selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
+                    onDaySelected: _onDaySelected,
+                    onPageChanged: (focusedDay) {
+                      setState(() {
+                        _focusedDay = focusedDay;
+                        _selectedDayEntry = null;
+                      });
+                      _fetchMonthlyDiaries(focusedDay);
+                    },
+                  ),
+                ),
+                SizedBox(height: 16),
+
+                // 일기 목록을 위한 Expanded와 ListView.builder 사용
+                Expanded(
+                  child: _monthlyDiaryEntries.isEmpty
+                      ? _buildEmptyState()
+                      : SingleChildScrollView(
+                    child: Column(
+                      children: _monthlyDiaryEntries.map((entry) =>
+                          _buildDiaryEntry(entry['date'], entry['content'])
+                      ).toList(),
+                    ),
+                  ),
                 ),
               ],
-            ),
-            child: TableCalendar(
-              locale: 'ko_KR',
-              firstDay: DateTime.utc(2020, 1, 1),
-              lastDay: DateTime.utc(2100, 12, 31),
-              focusedDay: _focusedDay,
-              selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
-              onDaySelected: _onDaySelected,
-              onPageChanged: (focusedDay) {
-                setState(() {
-                  _focusedDay = focusedDay;
-                  _selectedDayEntry = null;
-                });
-                _fetchMonthlyDiaries(focusedDay);
-              },
-            ),
-          ),
-          SizedBox(height: 16),
-
-          // 일기 목록을 위한 Expanded와 ListView.builder 사용
-          Expanded(
-            child: _monthlyDiaryEntries.isEmpty
-                ? _buildEmptyState()
-                : SingleChildScrollView(
-              child: Column(
-                children: _monthlyDiaryEntries.map((entry) =>
-                    _buildDiaryEntry(entry['date'], entry['content'])
-                ).toList(),
-              ),
-            ),
-          ),
-        ],
+            );
+          }
+        },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _navigateToAddDiaryEntryPage,
