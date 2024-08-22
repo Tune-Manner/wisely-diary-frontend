@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2673fe56-8026-4891-8850-5bb081ab56e8" name="Changes" comment="feat : making loading in text_screens.dart">
-      <change afterPath="$PROJECT_DIR$/assets/deactive_cartoon_logo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/deactive_letter_logo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/deactive_music_logo.png" afterDir="false" />
+    <list default="true" id="2673fe56-8026-4891-8850-5bb081ab56e8" name="Changes" comment="feat : activating and deactivating hamburger button in date_select.dart page">
       <change beforePath="$PROJECT_DIR$/.dart_tool/package_config.json" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.dart_tool/package_config_subset" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config_subset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.dart_tool/version" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/version" afterDir="false" />
@@ -269,6 +266,11 @@
       <change beforePath="$PROJECT_DIR$/build/app/intermediates/merged_manifests/debug/output-metadata.json" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/merged_manifests/debug/output-metadata.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/app/intermediates/merged_native_libs/debug/out/lib/x86/libflutter.so" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/merged_native_libs/debug/out/lib/x86/libflutter.so" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/app/intermediates/merged_native_libs/debug/out/lib/x86_64/libflutter.so" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/merged_native_libs/debug/out/lib/x86_64/libflutter.so" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/merged_res/debug/mipmap-hdpi_ic_launcher.png.flat" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/merged_res/debug/mipmap-hdpi_ic_launcher.png.flat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/merged_res/debug/mipmap-mdpi_ic_launcher.png.flat" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/merged_res/debug/mipmap-mdpi_ic_launcher.png.flat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/merged_res/debug/mipmap-xhdpi_ic_launcher.png.flat" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/merged_res/debug/mipmap-xhdpi_ic_launcher.png.flat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/merged_res/debug/mipmap-xxhdpi_ic_launcher.png.flat" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/merged_res/debug/mipmap-xxhdpi_ic_launcher.png.flat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/intermediates/merged_res/debug/mipmap-xxxhdpi_ic_launcher.png.flat" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/merged_res/debug/mipmap-xxxhdpi_ic_launcher.png.flat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/app/intermediates/merged_res/debug/values-af_values-af.arsc.flat" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/merged_res/debug/values-af_values-af.arsc.flat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/app/intermediates/merged_res/debug/values-am_values-am.arsc.flat" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/merged_res/debug/values-am_values-am.arsc.flat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/app/intermediates/merged_res/debug/values-ar_values-ar.arsc.flat" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/intermediates/merged_res/debug/values-ar_values-ar.arsc.flat" afterDir="false" />
@@ -880,12 +882,10 @@
       <change beforePath="$PROJECT_DIR$/build/url_launcher_android/intermediates/symbol_list_with_package_name/debug/package-aware-r.txt" beforeDir="false" afterPath="$PROJECT_DIR$/build/url_launcher_android/intermediates/symbol_list_with_package_name/debug/package-aware-r.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/url_launcher_android/outputs/aar/url_launcher_android-debug.aar" beforeDir="false" afterPath="$PROJECT_DIR$/build/url_launcher_android/outputs/aar/url_launcher_android-debug.aar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/url_launcher_android/outputs/logs/manifest-merger-debug-report.txt" beforeDir="false" afterPath="$PROJECT_DIR$/build/url_launcher_android/outputs/logs/manifest-merger-debug-report.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/cartoon_creation_status.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cartoon_creation_status.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/date_select.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/date_select.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/diary_summary_screens.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/diary_summary_screens.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/home_screens.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/home_screens.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/record_screens.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/record_screens.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/text_screens.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/text_screens.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/member_information.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/member_information.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -910,25 +910,25 @@
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "ScreenRecorder.SavePath": "C:\\00_ILGI\\3.webm",
-    "WebServerToolWindowFactoryState": "false",
-    "dart.analysis.tool.window.visible": "false",
-    "io.flutter.reload.alreadyRun": "true",
-    "last_opened_file_path": "C:/00_ILGI/frontend/assets",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "AndroidSdkUpdater",
-    "show.migrate.to.gradle.popup": "false",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;ScreenRecorder.SavePath&quot;: &quot;C:\\00_ILGI\\3.webm&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
+    &quot;io.flutter.reload.alreadyRun&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/00_ILGI/frontend/assets&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;AndroidSdkUpdater&quot;,
+    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\00_ILGI\frontend\assets" />
@@ -957,7 +957,8 @@
       <workItem from="1724146513328" duration="182000" />
       <workItem from="1724200985408" duration="15093000" />
       <workItem from="1724218458139" duration="14119000" />
-      <workItem from="1724233559999" duration="7674000" />
+      <workItem from="1724233559999" duration="8149000" />
+      <workItem from="1724298044956" duration="11671000" />
     </task>
     <task id="LOCAL-00001" summary="feat : emotion_code drilling">
       <created>1723904304968</created>
@@ -1078,7 +1079,14 @@
       <option name="project" value="LOCAL" />
       <updated>1724229621553</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="feat : activating and deactivating hamburger button in date_select.dart page">
+      <created>1724241470573</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1724241470573</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1095,7 +1103,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="feature/cartoon-44-loading" />
+                        <option value="origin/dev" />
                       </list>
                     </value>
                   </entry>
@@ -1124,6 +1132,7 @@
     <MESSAGE value="feat : making cartoon loading page" />
     <MESSAGE value="feat : adding home button in diary_summary_screens.dart" />
     <MESSAGE value="feat : making loading in text_screens.dart" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat : making loading in text_screens.dart" />
+    <MESSAGE value="feat : activating and deactivating hamburger button in date_select.dart page" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat : activating and deactivating hamburger button in date_select.dart page" />
   </component>
 </project>

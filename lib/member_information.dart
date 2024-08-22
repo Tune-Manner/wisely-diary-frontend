@@ -39,7 +39,6 @@ class _MemberInformationPageState extends State<MemberInformationPage> {
       initialDate: DateTime.now(),
       firstDate: DateTime(1900),
       lastDate: DateTime.now(),
-      locale: const Locale('ko', 'KR'),
       builder: (BuildContext context, Widget? child) {
         return Theme(
           data: ThemeData.light().copyWith(
