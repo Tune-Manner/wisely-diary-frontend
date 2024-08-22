@@ -26,7 +26,7 @@ class _EditDiaryPageState extends State<EditDiaryPage> {
   }
 
   Future<void> _modifyDiaryContent() async {
-    final uri = Uri.parse('http://10.0.2.2:8080/api/modify/${widget.diaryCode}');
+    final uri = Uri.parse('http://43.203.173.116:8080/api/modify/${widget.diaryCode}');
 
     final response = await http.put(
       uri,
@@ -92,6 +92,11 @@ class _EditDiaryPageState extends State<EditDiaryPage> {
                       decoration: InputDecoration(
                         labelText: '일기 내용',
                         border: OutlineInputBorder(),
+                      ),
+                      style: TextStyle(
+                        fontFamily: 'ICHimchan', // 글씨체 적용
+                        fontSize: 16, // 원하는 글씨 크기 설정
+                        color: Colors.black, // 글씨 색상
                       ),
                     ),
                     SizedBox(height: 16),

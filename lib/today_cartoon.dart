@@ -65,7 +65,6 @@ class _TodayCartoonPageState extends State<TodayCartoonPage> {
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w500,
-                  fontFamily: 'Pretendard',
                 ),
                 textAlign: TextAlign.center,
               ),

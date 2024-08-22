@@ -129,7 +129,7 @@ class _MyAppState extends State<MyApp> {
       locale: const Locale('ko', 'KR'), // 기본 로케일을 한국어로 설정
       title: 'Wisely Diary',
       theme: ThemeData(
-        fontFamily: 'SSRONET_Handwritten',
+        fontFamily: 'NanumSquareRoundB',
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
         scaffoldBackgroundColor: Color(0xFFFDFBF0),

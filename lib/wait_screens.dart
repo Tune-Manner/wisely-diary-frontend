@@ -211,7 +211,7 @@ class _WaitPageState extends State<WaitPage> with TickerProviderStateMixin {
                           _currentText,
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            fontSize: 30,
+                            fontSize: 20,
                             color: const Color(0xff2c2c2c),
                             fontWeight: FontWeight.normal,
                           ),

@@ -49,7 +49,6 @@ class _DiaryNoImgPageState extends State<DiaryNoImgPage> {
         memberId = user.id;
       });
       await _loadDiaryData();
-      await _checkGiftStatus(); // 추가: 선물 상태 확인
     } else {
       print('User is not authenticated');
       setState(() {
@@ -266,6 +265,7 @@ class _DiaryNoImgPageState extends State<DiaryNoImgPage> {
     );
   }
 
+  // 선물 상자 토글
   void _toggleGiftMenu() {
     setState(() {
       if (!_isOverlayVisible) {
@@ -495,9 +495,10 @@ class _DiaryNoImgPageState extends State<DiaryNoImgPage> {
                         : SingleChildScrollView(
                       child: Text(
                         diaryContent ?? '일기 내용을 불러올 수 없습니다.',
-                        style: TextStyle(fontSize: 16, color: Colors.black),
+                        style: TextStyle(fontSize: 16, color: Colors.black,fontFamily: 'ICHimchan',),
                       ),
                     ),
+
                   ),
                 ),
               ],

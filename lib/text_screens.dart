@@ -86,7 +86,7 @@ class _TextPageState extends State<TextPage> {
     String sanitizedPrompt = prompt.replaceAll(RegExp(r'[\n\r\t]'), ' ');
 
     final response = await http.post(
-      Uri.parse('http://10.0.2.2:8080/api/generate'),
+      Uri.parse('http://43.203.173.116:8080/api/generate'),
       headers: {'Content-Type': 'application/json; charset=UTF-8'},
       body: jsonEncode({
         'prompt': sanitizedPrompt,
