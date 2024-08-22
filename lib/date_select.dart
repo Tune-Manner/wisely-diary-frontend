@@ -5,6 +5,8 @@ import 'dart:convert';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:wisely_diary/edit_diary_screens.dart';
 import 'cartoon_inquery.dart';
+import 'package:wisely_diary/letter/letter_inquiry_page.dart';
+import 'package:wisely_diary/music/music_inquiry_page.dart';
 
 class DiaryNoImgPage extends StatefulWidget {
   final DateTime selectedDate;
@@ -306,15 +308,25 @@ class _DiaryNoImgPageState extends State<DiaryNoImgPage> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                _buildGiftButton(
-                  imagePath: isMusicActive ? 'assets/music_icon.png' : 'assets/deactive_music_logo.png',
-                  label: '맞춤노래',
-                  isActive: isMusicActive,
+                GestureDetector(
                   onTap: () {
-                    if (isMusicActive) {
-                      // 음악 페이지로 이동
-                    }
+                    _removeOverlayIfVisible(); // 페이지 이동 전 오버레이 제거
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => MusicInquiryPage(
+                          date: DateFormat('yyyy-MM-dd').format(widget.selectedDate),
+                        ),
+                      ),
+                    );
                   },
+                  child: Column(
+                    children: [
+                      Image.asset('assets/music_icon.png'),
+                      SizedBox(height: 4),
+                      Text('맞춤노래', style: TextStyle(fontSize: 10)),
+                    ],
+                  ),
                 ),
                 SizedBox(height: 16),
                 _buildGiftButton(
@@ -334,15 +346,25 @@ class _DiaryNoImgPageState extends State<DiaryNoImgPage> {
                   },
                 ),
                 SizedBox(height: 16),
-                _buildGiftButton(
-                  imagePath: isLetterActive ? 'assets/letter_icon.png' : 'assets/deactive_letter_logo.png',
-                  label: '위로의 편지',
-                  isActive: isLetterActive,
+                GestureDetector(
                   onTap: () {
-                    if (isLetterActive) {
-                      // 편지 페이지로 이동
-                    }
+                    _removeOverlayIfVisible(); // 페이지 이동 전 오버레이 제거
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => LetterInquiryPage(
+                          date: DateFormat('yyyy-MM-dd').format(widget.selectedDate),
+                        ),
+                      ),
+                    );
                   },
+                  child: Column(
+                    children: [
+                      Image.asset('assets/letter_icon.png'),
+                      SizedBox(height: 4),
+                      Text('오늘의 편지', style: TextStyle(fontSize: 10)),
+                    ],
+                  ),
                 ),
               ],
             ),
