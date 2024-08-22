@@ -182,6 +182,7 @@ Widget build(BuildContext context) {
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
             builder: (context) => DiarySummaryScreen(
+              userId: state.userId,
               transcription: transcription,
               imageFiles: state.imageFiles,
               diaryCode: diaryCode!,

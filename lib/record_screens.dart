@@ -273,7 +273,8 @@ class _RecordScreenState extends State<RecordScreen>
                   return Opacity(
                     opacity: isRecording ? _controller.value : 1.0,
                     child: Text(
-                      isRecording ? '녹음 중입니다...' : '버튼을 눌러 녹음을 시작하세요',
+                      isRecording ? '녹음 중입니다...\n녹음을 종료하고 싶으시면 다시한번 버튼을 눌러주세요.' : '버튼을 눌러 녹음을 시작하세요',
+                      textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 16, color: Colors.black54),
                     ),
                   );
