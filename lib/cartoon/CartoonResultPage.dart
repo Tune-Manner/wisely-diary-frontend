@@ -15,7 +15,7 @@ class CartoonResultPage extends StatefulWidget {
 
 class _CartoonResultPageState extends State<CartoonResultPage> {
   late String cartoonUrl;
-  final String baseUrl = 'http://10.0.2.2:8080';
+  final String baseUrl = 'http://43.203.173.116:8080';
   bool isLoading = false;
 
   @override

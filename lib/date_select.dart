@@ -397,7 +397,7 @@ class _DiaryNoImgPageState extends State<DiaryNoImgPage> {
                         : SingleChildScrollView(
                             child: Text(
                               diaryContent ?? '일기 내용을 불러올 수 없습니다.',
-                              style: TextStyle(fontSize: 16, color: Colors.black),
+                              style: TextStyle(fontSize: 16, color: Colors.black, fontFamily: 'ICHimchan',),
                             ),
                           ),
                   ),

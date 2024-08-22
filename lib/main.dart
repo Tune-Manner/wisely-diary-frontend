@@ -89,7 +89,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Wisely Diary',
       theme: ThemeData(
-        fontFamily: 'ICHimchan',
+        fontFamily: 'NanumSquareRoundB',
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
         scaffoldBackgroundColor: Color(0xFFFDFBF0),

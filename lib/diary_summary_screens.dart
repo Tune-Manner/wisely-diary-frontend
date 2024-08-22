@@ -74,7 +74,7 @@ class DiarySummaryScreen extends StatelessWidget {
                         SizedBox(height: 10),
                         Text(
                           transcription,
-                          style: TextStyle(fontSize: 14, color: Colors.black),
+                          style: TextStyle(fontSize: 14, color: Colors.black, fontFamily: 'ICHimchan',),
                         ),
                         SizedBox(height: 10),
                         if (imageFiles.isNotEmpty)

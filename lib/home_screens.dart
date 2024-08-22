@@ -135,7 +135,7 @@ class _HomePageState extends State<HomeScreens> {
   void _navigateToAddDiaryEntryPage() async {
     bool todayDiaryExists = await _checkTodayDiaryExists();
 
-    if (todayDiaryExists) {
+    if (!todayDiaryExists) {
       showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -271,7 +271,7 @@ class _HomePageState extends State<HomeScreens> {
     return GestureDetector(
       onTap: () => _navigateToDiaryNoImgPage(DateTime.parse(date)),
       child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+        padding: EdgeInsets.symmetric(vertical: 8, horizontal: 30), // 날짜와 내용 전체에 적용되는 패딩
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -293,7 +293,7 @@ class _HomePageState extends State<HomeScreens> {
             SizedBox(height: 15),
             Text(
               content,
-              style: TextStyle(fontSize: 13, color: Colors.black),
+              style: TextStyle(fontSize: 14, color: Colors.black, fontFamily: 'ICHimchan'),
             ),
             Divider(height: 30),
           ],

@@ -46,6 +46,12 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^4.0.0
+  flutter_launcher_icons: ^0.9.2
+
+flutter_icons:
+  android: true
+  ios: false
+  image_path: "assets/main-app-logo.png"
 
 flutter:
   fonts:
@@ -55,9 +61,65 @@ flutter:
     - family: SSRONET_Handwritten
       fonts:
         - asset: assets/fonts/SSRONET_Handwritten.ttf
+    - family: OSeongandHanEum-Bold
+      fonts:
+        - asset: assets/fonts/OSeongandHanEum-Bold.ttf
+    - family: OSeongandHanEum-Regular
+      fonts:
+        - asset: assets/fonts/OSeongandHanEum-Regular.ttf
+    - family: NanumSquareRoundR
+      fonts:
+        - asset: assets/fonts/NanumSquareRoundR.ttf
+    - family: NanumSquareRoundL
+      fonts:
+        - asset: assets/fonts/NanumSquareRoundL.ttf
+    - family: NanumSquareRoundB
+      fonts:
+        - asset: assets/fonts/NanumSquareRoundB.ttf
+    - family: NanumSquareRoundEB
+      fonts:
+        - asset: assets/fonts/NanumSquareRoundEB.ttf
+    - family: SCDream1
+      fonts:
+        - asset: assets/fonts/SCDream1.otf
+    - family: SCDream2
+      fonts:
+        - asset: assets/fonts/SCDream2.otf
+    - family: SCDream3
+      fonts:
+        - asset: assets/fonts/SCDream3.otf
+    - family: SCDream4
+      fonts:
+        - asset: assets/fonts/SCDream4.otf
+    - family: SCDream5
+      fonts:
+        - asset: assets/fonts/SCDream5.otf
+    - family: SCDream6
+      fonts:
+        - asset: assets/fonts/SCDream6.otf
+    - family: SCDream7
+      fonts:
+        - asset: assets/fonts/SCDream7.otf
+    - family: SCDream8
+      fonts:
+        - asset: assets/fonts/SCDream8.otf
+    - family: SCDream9
+      fonts:
+        - asset: assets/fonts/SCDream9.otf
+    - family: NanumBarunpenR
+      fonts:
+        - asset: assets/fonts/NanumBarunpenR.ttf
+    - family: NanumBarunpenB
+      fonts:
+        - asset: assets/fonts/NanumBarunpenB.ttf
+    - family: ICHimchan
+      fonts:
+        - asset: assets/fonts/인천교육힘찬.ttf
+
 
   uses-material-design: true
   assets:
+    - assets/main-app-logo.png
     - assets/google_logo.png
     - assets/kakao_logo.png
     - assets/wisely-diary-logo.png

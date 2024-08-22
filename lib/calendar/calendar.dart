@@ -59,7 +59,7 @@ class _CalendarPageState extends State<CalendarPage> {
     final formattedDate = "${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}";
 
     final response = await http.get(
-      Uri.parse('http://10.0.2.2:8080/api/cartoon/inquiry?date=$formattedDate&memberId=$memberId'),
+      Uri.parse('http://43.203.173.116:8080/api/cartoon/inquiry?date=$formattedDate&memberId=$memberId'),
     );
 
     if (response.statusCode == 200) {

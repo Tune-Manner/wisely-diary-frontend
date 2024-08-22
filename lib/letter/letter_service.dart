@@ -8,7 +8,7 @@ class LetterNotReadyException implements Exception {
 }
 
 class LetterService {
-  final String baseUrl = 'http://10.0.2.2:8080/api';
+  final String baseUrl = 'http://43.203.173.116:8080/api';
 
   Future<Letter> getOrCreateLetter(int diaryCode) async {
     try {

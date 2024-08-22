@@ -2,7 +2,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class MusicService {
-  final String baseUrl = 'http://10.0.2.2:8080/api/music';
+  final String baseUrl = 'http://43.203.173.116:8080/api/music';
 
   Future<Map<String, dynamic>> getOrCreateMusicPlayback(int diaryCode) async {
     try {
