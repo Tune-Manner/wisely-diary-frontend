@@ -173,26 +173,9 @@ class _DiaryNoImgPageState extends State<DiaryNoImgPage> {
       print('Diary code is null');
       return;
     }
+    print("일기코드 $diaryCode");
 
     try {
-      // 음악 상태 확인
-      final musicResponse = await supabase
-          .from('music')
-          .select()
-          .eq('diary_code', diaryCode.toString())
-          .limit(1)
-          .maybeSingle();
-      isMusicActive = musicResponse != null;
-
-      // 만화 상태 확인
-      final cartoonResponse = await supabase
-          .from('cartoon')
-          .select()
-          .eq('diary_code', diaryCode.toString())
-          .limit(1)
-          .maybeSingle();
-      isCartoonActive = cartoonResponse != null;
-
       // 편지 상태 확인
       final letterResponse = await supabase
           .from('letter')
@@ -200,14 +183,40 @@ class _DiaryNoImgPageState extends State<DiaryNoImgPage> {
           .eq('diary_code', diaryCode.toString())
           .limit(1)
           .maybeSingle();
-      isLetterActive = letterResponse != null;
+      print("편지 응답 $letterResponse");
+      setState(() {
+        isLetterActive = letterResponse != null;
+      });
 
-      setState(() {});
+      // 만화 상태 확인
+      final cartoonResponse = await supabase
+          .from('cartoon')
+          .select()
+          .eq('diary_code', diaryCode.toString())
+          .eq('type','Cartoon')
+          .limit(1)
+          .maybeSingle();
+      setState(() {
+        isCartoonActive = cartoonResponse != null;
+      });
+      print("만화 응답 $cartoonResponse");
+
+      // 음악 상태 확인
+      final musicResponse = await supabase
+          .from('music')
+          .select()
+          .eq('diary_code', diaryCode.toString())
+          .limit(1)
+          .maybeSingle();
+      setState(() {
+        isMusicActive = musicResponse != null;
+      });
+      print("음악 응답 $musicResponse");
+
     } catch (e) {
       print('Error checking gift status: $e');
     }
   }
-
   void _editDiary() async {
     _removeOverlayIfVisible();
     final result = await Navigator.of(context).push(
@@ -308,25 +317,23 @@ class _DiaryNoImgPageState extends State<DiaryNoImgPage> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                GestureDetector(
+                _buildGiftButton(
+                  imagePath: isMusicActive ? 'assets/music_icon.png' : 'assets/deactive_music_logo.png',
+                  label: '맞춤노래',
+                  isActive: isMusicActive,
                   onTap: () {
-                    _removeOverlayIfVisible(); // 페이지 이동 전 오버레이 제거
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => MusicInquiryPage(
-                          date: DateFormat('yyyy-MM-dd').format(widget.selectedDate),
+                    if (isMusicActive) {
+                      _removeOverlayIfVisible(); // 페이지 이동 전 오버레이 제거
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => MusicInquiryPage(
+                            date: DateFormat('yyyy-MM-dd').format(widget.selectedDate),
+                          ),
                         ),
-                      ),
-                    );
+                      );
+                    }
                   },
-                  child: Column(
-                    children: [
-                      Image.asset('assets/music_icon.png'),
-                      SizedBox(height: 4),
-                      Text('맞춤노래', style: TextStyle(fontSize: 10)),
-                    ],
-                  ),
                 ),
                 SizedBox(height: 16),
                 _buildGiftButton(
@@ -346,25 +353,24 @@ class _DiaryNoImgPageState extends State<DiaryNoImgPage> {
                   },
                 ),
                 SizedBox(height: 16),
-                GestureDetector(
+                _buildGiftButton(
+                  imagePath: isLetterActive ? 'assets/letter_icon.png' : 'assets/deactive_letter_logo.png',
+                  label: '오늘의 편지',
+                  isActive: isLetterActive,
                   onTap: () {
-                    _removeOverlayIfVisible(); // 페이지 이동 전 오버레이 제거
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => LetterInquiryPage(
-                          date: DateFormat('yyyy-MM-dd').format(widget.selectedDate),
+                    if (isLetterActive) {
+                      _removeOverlayIfVisible(); // 페이지 이동 전 오버레이 제거
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => LetterInquiryPage(
+                            date: DateFormat('yyyy-MM-dd').format(widget.selectedDate),
+                            diaryCode:diaryCode
+                          ),
                         ),
-                      ),
-                    );
+                      );
+                    }
                   },
-                  child: Column(
-                    children: [
-                      Image.asset('assets/letter_icon.png'),
-                      SizedBox(height: 4),
-                      Text('오늘의 편지', style: TextStyle(fontSize: 10)),
-                    ],
-                  ),
                 ),
               ],
             ),
