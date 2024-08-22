@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2673fe56-8026-4891-8850-5bb081ab56e8" name="Changes" comment="feat : activating and deactivating hamburger button in date_select.dart page">
+    <list default="true" id="2673fe56-8026-4891-8850-5bb081ab56e8" name="Changes" comment="bug : fixing deactivating hamburger button error">
       <change beforePath="$PROJECT_DIR$/.dart_tool/package_config.json" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.dart_tool/package_config_subset" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config_subset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.dart_tool/version" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/version" afterDir="false" />
@@ -882,10 +882,13 @@
       <change beforePath="$PROJECT_DIR$/build/url_launcher_android/intermediates/symbol_list_with_package_name/debug/package-aware-r.txt" beforeDir="false" afterPath="$PROJECT_DIR$/build/url_launcher_android/intermediates/symbol_list_with_package_name/debug/package-aware-r.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/url_launcher_android/outputs/aar/url_launcher_android-debug.aar" beforeDir="false" afterPath="$PROJECT_DIR$/build/url_launcher_android/outputs/aar/url_launcher_android-debug.aar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/url_launcher_android/outputs/logs/manifest-merger-debug-report.txt" beforeDir="false" afterPath="$PROJECT_DIR$/build/url_launcher_android/outputs/logs/manifest-merger-debug-report.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/cartoon_creation_status.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cartoon_creation_status.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/date_select.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/date_select.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/home_screens.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/home_screens.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/letter/letter_inquiry_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/letter/letter_inquiry_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/letter/letter_service.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/letter/letter_service.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/member_information.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/member_information.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -958,7 +961,7 @@
       <workItem from="1724200985408" duration="15093000" />
       <workItem from="1724218458139" duration="14119000" />
       <workItem from="1724233559999" duration="8149000" />
-      <workItem from="1724298044956" duration="11671000" />
+      <workItem from="1724298044956" duration="18284000" />
     </task>
     <task id="LOCAL-00001" summary="feat : emotion_code drilling">
       <created>1723904304968</created>
@@ -1086,7 +1089,14 @@
       <option name="project" value="LOCAL" />
       <updated>1724241470573</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="bug : fixing deactivating hamburger button error">
+      <created>1724310064293</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1724310064293</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1133,6 +1143,7 @@
     <MESSAGE value="feat : adding home button in diary_summary_screens.dart" />
     <MESSAGE value="feat : making loading in text_screens.dart" />
     <MESSAGE value="feat : activating and deactivating hamburger button in date_select.dart page" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat : activating and deactivating hamburger button in date_select.dart page" />
+    <MESSAGE value="bug : fixing deactivating hamburger button error" />
+    <option name="LAST_COMMIT_MESSAGE" value="bug : fixing deactivating hamburger button error" />
   </component>
 </project>

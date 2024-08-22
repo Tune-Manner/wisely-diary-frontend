@@ -181,7 +181,7 @@ class _DiaryNoImgPageState extends State<DiaryNoImgPage> {
       final letterResponse = await supabase
           .from('letter')
           .select()
-          .eq('diary_code', diaryCode.toString())  // 여기를 수정했습니다
+          .eq('diary_code', diaryCode.toString())
           .limit(1)
           .maybeSingle();
       print("편지 응답 $letterResponse");
@@ -194,6 +194,7 @@ class _DiaryNoImgPageState extends State<DiaryNoImgPage> {
           .from('cartoon')
           .select()
           .eq('diary_code', diaryCode.toString())
+          .eq('type','Cartoon')
           .limit(1)
           .maybeSingle();
       setState(() {
@@ -364,6 +365,7 @@ class _DiaryNoImgPageState extends State<DiaryNoImgPage> {
                         MaterialPageRoute(
                           builder: (context) => LetterInquiryPage(
                             date: DateFormat('yyyy-MM-dd').format(widget.selectedDate),
+                            diaryCode:diaryCode
                           ),
                         ),
                       );
