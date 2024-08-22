@@ -119,7 +119,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       title: 'Wisely Diary',
       theme: ThemeData(
-        fontFamily: 'SSRONET_Handwritten',
+        fontFamily: 'NanumSquareRoundB',
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
         scaffoldBackgroundColor: Color(0xFFFDFBF0),

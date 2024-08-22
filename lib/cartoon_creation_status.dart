@@ -80,7 +80,7 @@ class _CartoonCreationStatusPageState extends State<CartoonCreationStatusPage> {
 
   Future<List<String>> _getExistingCartoons(String userId, String date) async {
     final response = await http.get(
-      Uri.parse('http://10.0.2.2:8080/api/cartoon/inquiry?date=$date&memberId=$userId'),
+      Uri.parse('http://43.203.173.116:8080/api/cartoon/inquiry?date=$date&memberId=$userId'),
     );
 
     if (response.statusCode == 200) {
@@ -95,7 +95,7 @@ class _CartoonCreationStatusPageState extends State<CartoonCreationStatusPage> {
 
   Future<void> _createCartoon(String userId) async {
     final response = await http.post(
-      Uri.parse('http://10.0.2.2:8080/api/cartoon/create'),
+      Uri.parse('http://43.203.173.116:8080/api/cartoon/create'),
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode({
         'diaryCode': widget.diaryCode,

@@ -86,7 +86,7 @@ class _LetterCreationStatusPageState extends State<LetterCreationStatusPage> {
   Future<String?> _getExistingCartoon(String userId) async {
     try {
       final response = await http.get(
-        Uri.parse('http://10.0.2.2:8080/api/cartoon/inquiry?date=${DateTime.now().toIso8601String().split('T')[0]}&memberId=$userId'),
+        Uri.parse('http://43.203.173.116:8080/api/cartoon/inquiry?date=${DateTime.now().toIso8601String().split('T')[0]}&memberId=$userId'),
       );
 
       if (response.statusCode == 200) {
@@ -110,7 +110,7 @@ class _LetterCreationStatusPageState extends State<LetterCreationStatusPage> {
   Future<void> _createLetterCartoon(String userId) async {
     try {
       final response = await http.post(
-        Uri.parse('http://10.0.2.2:8080/api/cartoon/letterCartoon/create'),
+        Uri.parse('http://43.203.173.116:8080/api/cartoon/letterCartoon/create'),
         headers: {
           'Content-Type': 'application/json',
         },

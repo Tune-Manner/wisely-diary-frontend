@@ -14,7 +14,7 @@ class CartoonCreationPage extends StatefulWidget {
 }
 
 class _CartoonCreationPageState extends State<CartoonCreationPage> {
-  final String baseUrl = 'http://10.0.2.2:8080';
+  final String baseUrl = 'http://43.203.173.116:8080';
   bool isLoading = false;
 
   Future<void> createCartoon() async {

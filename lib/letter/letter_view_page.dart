@@ -93,7 +93,7 @@ class _LetterViewPageState extends State<LetterViewPage> {
                   SizedBox(height: 24),
                   Text(
                     letter.letterContents ?? '내용 없음',
-                    style: TextStyle(fontSize: 16),
+                    style: TextStyle(fontSize: 16, fontFamily: 'ICHimchan'),
                   ),
                   SizedBox(height: 24),
                   Divider(thickness: 2),

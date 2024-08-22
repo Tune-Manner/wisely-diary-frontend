@@ -50,7 +50,7 @@ class _HomePageState extends State<HomeScreens> {
 
     try {
       final response = await http.post(
-        Uri.parse('http://10.0.2.2:8080/api/diary/monthly'),
+        Uri.parse('http://43.203.173.116:8080/api/diary/monthly'),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({
           'date': date,
@@ -87,7 +87,7 @@ class _HomePageState extends State<HomeScreens> {
   // 특정 날짜의 일기 내용을 가져오는 Future 함수
   Future<void> _fetchDiaryContent(DateTime selectedDay) async {
     final response = await http.post(
-      Uri.parse('http://10.0.2.2:8080/api/diary/selectdetail'),
+      Uri.parse('http://43.203.173.116:8080/api/diary/selectdetail'),
       headers: {
         'Content-Type': 'application/json',
       },
@@ -207,14 +207,18 @@ DateTime _stripTime(DateTime date) {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
+      // FutureBuilder로 페이지 초기화 및 데이터를 다시 로드
       body: FutureBuilder<void>(
         future: _initializationFuture,
         builder: (context, snapshot) {
+          // 비동기 작업이 완료되기 전 로딩 표시
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
+            // 오류 발생 시 메시지 표시
             return Center(child: Text('Error: ${snapshot.error}'));
           } else {
+            // 비동기 작업이 완료되면 UI 구성
             return Column(
               children: [
                 SizedBox(height: 16),
@@ -273,6 +277,7 @@ Widget _buildCalendar() {
         formatButtonVisible: false,
         titleCentered: true,
       ),
+      daysOfWeekHeight: 20,
       calendarBuilders: CalendarBuilders(
         defaultBuilder: (context, date, _) {
           DateTime strippedDate = _stripTime(date);
@@ -320,7 +325,7 @@ Widget _buildCalendar() {
     return GestureDetector(
       onTap: () => _navigateToDiaryNoImgPage(DateTime.parse(date)),
       child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+        padding: EdgeInsets.symmetric(vertical: 8, horizontal: 30), // 날짜와 내용 전체에 적용되는 패딩
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -342,7 +347,7 @@ Widget _buildCalendar() {
             SizedBox(height: 15),
             Text(
               content,
-              style: TextStyle(fontSize: 13, color: Colors.black),
+              style: TextStyle(fontSize: 14, color: Colors.black, fontFamily: 'ICHimchan'),
             ),
             Divider(height: 30),
           ],

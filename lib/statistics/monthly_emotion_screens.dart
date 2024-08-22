@@ -246,7 +246,7 @@ class MonthlyEmotionScreen extends StatelessWidget {
 
     final memberId = user.id;
     String todayDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
-    final url = Uri.parse('http://192.168.123.103:8080/api/statistics/inquire');
+    final url = Uri.parse('http://43.203.173.116:8080/api/statistics/inquire');
     final response = await http.post(
       url,
       headers: {"Content-Type": "application/json"},
