@@ -13,11 +13,13 @@ class DiarySummaryScreen extends StatelessWidget {
   final String transcription;
   final List<File> imageFiles;
   final int diaryCode;
+  final String userId;
 
   DiarySummaryScreen({
     required this.transcription,
     required this.imageFiles,
     required this.diaryCode,
+    required this.userId,
   });
 
   @override
@@ -156,32 +158,37 @@ class DiarySummaryScreen extends StatelessWidget {
     );
   }
 
-  void _showConfirmationDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text("잠깐! 확인해주세요."),
-          content: Text("음악, 만화, 편지를 생성하지 않았을 경우\n현재 페이지의 일기만 저장됩니다.\n메인화면으로 이동할까요?"),
-          actions: <Widget>[
-            TextButton(
-              child: Text("취소"),
-              onPressed: () {
-                Navigator.of(context).pop(); // 다이얼로그 닫기
-              },
-            ),
-            TextButton(
-              child: Text("확인"),
-              onPressed: () {
-                Navigator.of(context).pop(); // 다이얼로그 닫기
-                Navigator.pushNamed(context, '/home'); // 메인 화면으로 이동
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
+ void _showConfirmationDialog(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text("잠깐! 확인해주세요."),
+        content: Text("음악, 만화, 편지를 생성하지 않았을 경우\n현재 페이지의 일기만 저장됩니다.\n메인화면으로 이동할까요?"),
+        actions: <Widget>[
+          TextButton(
+            child: Text("취소"),
+            onPressed: () {
+              Navigator.of(context).pop(); // 다이얼로그 닫기
+            },
+          ),
+          TextButton(
+            child: Text("확인"),
+            onPressed: () {
+              Navigator.of(context).pop(); // 다이얼로그 닫기
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => HomeScreens(userId: userId),
+                ),
+              );
+            },
+          ),
+        ],
+      );
+    },
+  );
+}
 
 
   Widget _buildButton(BuildContext context, {required String iconPath, required String label, required VoidCallback onPressed}) {

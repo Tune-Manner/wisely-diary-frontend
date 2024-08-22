@@ -78,7 +78,37 @@ void main() async {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  String? memberId;
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchUserId();
+  }
+
+  Future<void> _fetchUserId() async {
+    final user = Supabase.instance.client.auth.currentUser;
+    if (user != null) {
+      final memberResponse = await Supabase.instance.client
+          .from('member')
+          .select('member_id')
+          .eq('member_id', user.id)
+          .single();
+
+      setState(() {
+        memberId = memberResponse['member_id'];
+      });
+
+      print('Fetched memberId: $memberId');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
@@ -108,14 +138,22 @@ class MyApp extends StatelessWidget {
           final arguments = ModalRoute.of(context)!.settings.arguments
               as Map<String, dynamic>;
           final int diaryCode = arguments['diaryCode'];
-          return TodayCartoonPage(diaryCode: diaryCode,cartoonUrls: [],);
+          return TodayCartoonPage(diaryCode: diaryCode, cartoonUrls: []);
         },
       },
       onGenerateRoute: (settings) {
+        if (memberId == null) {
+          return MaterialPageRoute(
+            builder: (context) => Scaffold(
+              body: Center(child: CircularProgressIndicator()),
+            ),
+          );
+        }
+
         if (settings.name == '/home') {
           final String userId = settings.arguments as String? ?? '';
           return MaterialPageRoute(
-            builder: (context) => HomeScreens(userId: userId),
+            builder: (context) => HomeScreens(userId: memberId!),
           );
         }
         if (settings.name == '/wait') {
@@ -164,6 +202,7 @@ class MyApp extends StatelessWidget {
 
           return MaterialPageRoute(
             builder: (context) => DiarySummaryScreen(
+              userId: memberId!,
               transcription: transcription,
               imageFiles: imageFiles,
               diaryCode: diaryCode,
