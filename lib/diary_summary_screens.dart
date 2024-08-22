@@ -5,7 +5,9 @@ import 'dart:io';
 import 'cartoon_creation_status.dart';
 import 'custom_scaffold.dart';
 import 'package:wisely_diary/letter/letter_creation_status_page.dart';
-import 'package:wisely_diary/main.dart';  // Added for MyApp navigation
+import 'package:wisely_diary/main.dart';
+
+import 'home_screens.dart';  // Added for MyApp navigation
 
 class DiarySummaryScreen extends StatelessWidget {
   final String transcription;
@@ -67,10 +69,6 @@ class DiarySummaryScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          '일기 코드: $diaryCode', // diaryCode 출력, 추후에 삭제해야함
-                          style: TextStyle(fontSize: 14, color: Colors.black),
-                        ),
                         SizedBox(height: 10),
                         Text(
                           transcription,

@@ -48,8 +48,8 @@ class _RecordScreenState extends State<RecordScreen>
     _controller = AnimationController(
       duration: const Duration(seconds: 1),
       vsync: this,
-    ); 
- 
+    );
+
     audioManager.player.playerStateStream.listen((state) {
       setState(() {
         isPlaying = state.playing;
@@ -162,7 +162,7 @@ class _RecordScreenState extends State<RecordScreen>
     String finalPrompt = "위 내용을 포함한 편지 형식이 아닌 일기를 작성해주세요: $sanitizedPrompt";
 
     final response = await http.post(
-      Uri.parse('http://192.168.0.43:8080/api/generate'),
+      Uri.parse('http://10.0.2.2:8080/api/generate'),
       headers: {'Content-Type': 'application/json; charset=UTF-8'},
       body: jsonEncode({
         'prompt': finalPrompt,
@@ -238,7 +238,7 @@ class _RecordScreenState extends State<RecordScreen>
                     String? filePath = await stopRecording();
                     if (filePath != null) {
                       Map<String, dynamic> diaryData =
-                          await sendFileToBackend(filePath);
+                      await sendFileToBackend(filePath);
                       String transcription = diaryData['diaryEntry'];
                       int diaryCode = diaryData['diaryCode'];
 
