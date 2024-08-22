@@ -21,6 +21,7 @@ void showNotification() async {
     importance: Importance.max,
     priority: Priority.high,
     showWhen: true,
+    icon: 'notification_logo',
   );
 
   const platformChannelSpecifics = NotificationDetails(android: androidPlatformChannelSpecifics);

@@ -232,6 +232,7 @@ class _HomePageState extends State<HomeScreens> {
                       formatButtonVisible: false,
                       titleCentered: true,
                     ),
+                    daysOfWeekHeight: 20,
                   ),
                 ),
                 SizedBox(height: 16),
