@@ -12,6 +12,7 @@ import 'AudioManager.dart';
 import 'dart:io';
 import 'package:http_parser/http_parser.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:permission_handler/permission_handler.dart'; // 추가된 패키지
 
 class RecordScreen extends StatefulWidget {
   final int emotionNumber;
@@ -81,7 +82,17 @@ class _RecordScreenState extends State<RecordScreen>
     }
   }
 
+  Future<void> _requestMicrophonePermission() async {
+    PermissionStatus status = await Permission.microphone.request();
+
+    if (!status.isGranted) {
+      throw Exception('Microphone permission not granted');
+    }
+  }
+
   Future<void> startRecording() async {
+    await _requestMicrophonePermission(); // 권한 요청
+
     final Directory appDocumentsDir = await getApplicationDocumentsDirectory();
     final String filePath = p.join(appDocumentsDir.path, "recording.wav");
 
@@ -143,8 +154,7 @@ class _RecordScreenState extends State<RecordScreen>
 
       var jsonData = jsonDecode(responseData.body);
 
-      String? prompt = jsonData['transcription'] ??
-          jsonData['text'];
+      String? prompt = jsonData['transcription'] ?? jsonData['text'];
       if (prompt == null) {
         throw Exception('Transcription or text is missing in the response.');
       }
@@ -183,6 +193,52 @@ class _RecordScreenState extends State<RecordScreen>
       };
     } else {
       throw Exception('Failed to generate diary entry');
+    }
+  }
+
+  Future<void> handleStopRecordingAndNavigate() async {
+    // 로딩 다이얼로그 표시
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext dialogContext) {
+        return Dialog(
+          backgroundColor: Colors.white,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                CircularProgressIndicator(),
+                SizedBox(width: 20),
+                Text("당신의 일기를 분석 중이에요.."),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+
+    try {
+      String? filePath = await stopRecording();
+      if (filePath != null) {
+        Map<String, dynamic> diaryData = await sendFileToBackend(filePath);
+        String transcription = diaryData['diaryEntry'];
+        int diaryCode = diaryData['diaryCode'];
+
+        print('Navigating to AddPhotoScreen with diaryCode: $diaryCode');
+
+        // 로딩 다이얼로그 닫기
+        Navigator.of(context).pop();
+
+        // 다음 페이지로 이동
+        navigateToAddPhotoScreen(transcription, diaryCode);
+      }
+    } catch (e) {
+      Navigator.of(context).pop(); // 에러 발생 시 로딩 다이얼로그 닫기
+      print('Error occurred: $e');
+      // 에러 처리 (예: 사용자에게 알림)
     }
   }
 
@@ -235,18 +291,7 @@ class _RecordScreenState extends State<RecordScreen>
               GestureDetector(
                 onTap: () async {
                   if (isRecording) {
-                    String? filePath = await stopRecording();
-                    if (filePath != null) {
-                      Map<String, dynamic> diaryData =
-                      await sendFileToBackend(filePath);
-                      String transcription = diaryData['diaryEntry'];
-                      int diaryCode = diaryData['diaryCode'];
-
-                      print(
-                          'Navigating to AddPhotoScreen with diaryCode: $diaryCode');
-
-                      navigateToAddPhotoScreen(transcription, diaryCode);
-                    }
+                    await handleStopRecordingAndNavigate(); // 수정된 부분
                   } else {
                     await startRecording();
                   }
