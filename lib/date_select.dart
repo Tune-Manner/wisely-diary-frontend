@@ -5,6 +5,8 @@ import 'dart:convert';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:wisely_diary/edit_diary_screens.dart';
 import 'cartoon_inquery.dart';
+import 'package:wisely_diary/letter/letter_inquiry_page.dart';
+import 'package:wisely_diary/music/music_inquiry_page.dart';
 
 class DiaryNoImgPage extends StatefulWidget {
   final DateTime selectedDate;
@@ -26,6 +28,11 @@ class _DiaryNoImgPageState extends State<DiaryNoImgPage> {
   String? memberId;
   OverlayEntry? _overlayEntry;
   bool _isOverlayVisible = false;
+
+  // 추가: 각 기능의 활성화 상태를 저장할 변수
+  bool isMusicActive = false;
+  bool isCartoonActive = false;
+  bool isLetterActive = false;
 
   final supabase = Supabase.instance.client;
 
@@ -63,7 +70,7 @@ class _DiaryNoImgPageState extends State<DiaryNoImgPage> {
 
     try {
       final response = await http.post(
-        Uri.parse('http://43.203.173.116:8080/api/diary/selectdetail'),
+        Uri.parse('http://10.0.2.2:8080/api/diary/selectdetail'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
@@ -91,7 +98,7 @@ class _DiaryNoImgPageState extends State<DiaryNoImgPage> {
       return;
     }
 
-    final url = Uri.parse('http://43.203.173.116:8080/api/images/diary/$diaryCode');
+    final url = Uri.parse('http://10.0.2.2:8080/api/images/diary/$diaryCode');
     try {
       final response = await http.get(url, headers: {
         'Accept': 'application/json',
@@ -121,7 +128,7 @@ class _DiaryNoImgPageState extends State<DiaryNoImgPage> {
       return;
     }
 
-    final url = Uri.parse('http://43.203.173.116:8080/api/diary/selectdetail');
+    final url = Uri.parse('http://10.0.2.2:8080/api/diary/selectdetail');
     try {
       final response = await http.post(
         url,
@@ -161,8 +168,48 @@ class _DiaryNoImgPageState extends State<DiaryNoImgPage> {
     }
   }
 
+  Future<void> _checkGiftStatus() async {
+    if (diaryCode == null) {
+      print('Diary code is null');
+      return;
+    }
+
+    try {
+      // 음악 상태 확인
+      final musicResponse = await supabase
+          .from('music')
+          .select()
+          .eq('diary_code', diaryCode.toString())
+          .limit(1)
+          .maybeSingle();
+      isMusicActive = musicResponse != null;
+
+      // 만화 상태 확인
+      final cartoonResponse = await supabase
+          .from('cartoon')
+          .select()
+          .eq('diary_code', diaryCode.toString())
+          .limit(1)
+          .maybeSingle();
+      isCartoonActive = cartoonResponse != null;
+
+      // 편지 상태 확인
+      final letterResponse = await supabase
+          .from('letter')
+          .select()
+          .eq('diary_code', diaryCode.toString())
+          .limit(1)
+          .maybeSingle();
+      isLetterActive = letterResponse != null;
+
+      setState(() {});
+    } catch (e) {
+      print('Error checking gift status: $e');
+    }
+  }
+
   void _editDiary() async {
-    _removeOverlayIfVisible(); // 페이지 이동 전 오버레이 제거
+    _removeOverlayIfVisible();
     final result = await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => EditDiaryPage(
@@ -230,10 +277,9 @@ class _DiaryNoImgPageState extends State<DiaryNoImgPage> {
     }
   }
 
-  // 페이지가 닫힐 때 오버레이가 남아있지 않도록 제거
   @override
   void dispose() {
-    _removeOverlayIfVisible(); // dispose 시 오버레이 제거
+    _removeOverlayIfVisible();
     super.dispose();
   }
 
@@ -262,12 +308,42 @@ class _DiaryNoImgPageState extends State<DiaryNoImgPage> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Column(
-                  children: [
-                    Image.asset('assets/music_icon.png'),
-                    SizedBox(height: 4),
-                    Text('맞춤노래', style: TextStyle(fontSize: 10)),
-                  ],
+                GestureDetector(
+                  onTap: () {
+                    _removeOverlayIfVisible(); // 페이지 이동 전 오버레이 제거
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => MusicInquiryPage(
+                          date: DateFormat('yyyy-MM-dd').format(widget.selectedDate),
+                        ),
+                      ),
+                    );
+                  },
+                  child: Column(
+                    children: [
+                      Image.asset('assets/music_icon.png'),
+                      SizedBox(height: 4),
+                      Text('맞춤노래', style: TextStyle(fontSize: 10)),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 16),
+                _buildGiftButton(
+                  imagePath: isCartoonActive ? 'assets/cuttoon_icon.png' : 'assets/deactive_cartoon_logo.png',
+                  label: '하루만화',
+                  isActive: isCartoonActive,
+                  onTap: () {
+                    if (isCartoonActive) {
+                      _removeOverlayIfVisible();
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => CartoonInquiryScreen(selectedDate: widget.selectedDate),
+                        ),
+                      );
+                    }
+                  },
                 ),
                 SizedBox(height: 16),
                 GestureDetector(
@@ -276,29 +352,44 @@ class _DiaryNoImgPageState extends State<DiaryNoImgPage> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => CartoonInquiryScreen(selectedDate: widget.selectedDate),
+                        builder: (context) => LetterInquiryPage(
+                          date: DateFormat('yyyy-MM-dd').format(widget.selectedDate),
+                        ),
                       ),
                     );
                   },
                   child: Column(
                     children: [
-                      Image.asset('assets/cuttoon_icon.png'),
+                      Image.asset('assets/letter_icon.png'),
                       SizedBox(height: 4),
-                      Text('하루만화', style: TextStyle(fontSize: 10)),
+                      Text('오늘의 편지', style: TextStyle(fontSize: 10)),
                     ],
                   ),
-                ),
-                SizedBox(height: 16),
-                Column(
-                  children: [
-                    Image.asset('assets/letter_icon.png'),
-                    SizedBox(height: 4),
-                    Text('위로의 편지', style: TextStyle(fontSize: 10)),
-                  ],
                 ),
               ],
             ),
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildGiftButton({
+    required String imagePath,
+    required String label,
+    required bool isActive,
+    required VoidCallback onTap,
+  }) {
+    return GestureDetector(
+      onTap: isActive ? onTap : null,
+      child: Opacity(
+        opacity: isActive ? 1.0 : 0.5,
+        child: Column(
+          children: [
+            Image.asset(imagePath),
+            SizedBox(height: 4),
+            Text(label, style: TextStyle(fontSize: 10)),
+          ],
         ),
       ),
     );
@@ -313,13 +404,13 @@ class _DiaryNoImgPageState extends State<DiaryNoImgPage> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () {
-            _removeOverlayIfVisible(); // 뒤로 가기 전 오버레이 제거
+            _removeOverlayIfVisible();
             Navigator.pop(context);
           },
         ),
         title: GestureDetector(
           onTap: () {
-            _removeOverlayIfVisible(); // 홈으로 가기 전 오버레이 제거
+            _removeOverlayIfVisible();
             Navigator.pushReplacementNamed(context, '/home');
           },
           child: Image.asset(
@@ -343,6 +434,7 @@ class _DiaryNoImgPageState extends State<DiaryNoImgPage> {
       body: Stack(
         children: [
           Container(
+            color: Color(0xFFFFF9F2),
             padding: EdgeInsets.all(16.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -395,11 +487,12 @@ class _DiaryNoImgPageState extends State<DiaryNoImgPage> {
                     child: isLoading
                         ? Center(child: CircularProgressIndicator())
                         : SingleChildScrollView(
-                            child: Text(
-                              diaryContent ?? '일기 내용을 불러올 수 없습니다.',
-                              style: TextStyle(fontSize: 16, color: Colors.black, fontFamily: 'ICHimchan',),
-                            ),
-                          ),
+                      child: Text(
+                        diaryContent ?? '일기 내용을 불러올 수 없습니다.',
+                        style: TextStyle(fontSize: 16, color: Colors.black,fontFamily: 'ICHimchan',),
+                      ),
+                    ),
+
                   ),
                 ),
               ],

@@ -58,6 +58,30 @@ class _TextPageState extends State<TextPage> {
     }
   }
 
+  void _showLoadingDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false, // Prevents closing the dialog by tapping outside
+      builder: (BuildContext context) {
+        return Dialog(
+          backgroundColor: Colors.white,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                CircularProgressIndicator(),
+                SizedBox(width: 20),
+                Text("당신의 일기를 분석 중이에요.."),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   Future<Map<String, dynamic>> generateDiaryEntry(String prompt) async {
     String sanitizedPrompt = prompt.replaceAll(RegExp(r'[\n\r\t]'), ' ');
 
@@ -87,42 +111,76 @@ class _TextPageState extends State<TextPage> {
     }
   }
 
-void _navigateToAddPhotoScreen() async {
-  if (memberId == null || memberName == null) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('사용자 정보를 불러오는 중입니다. 잠시 후 다시 시도해주세요.')),
-    );
-    return;
+  void _navigateToAddPhotoScreen() async {
+    if (memberId == null || memberName == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('사용자 정보를 불러오는 중입니다. 잠시 후 다시 시도해주세요.')),
+      );
+      return;
+    }
+
+    final prompt = '이 내용으로 정성스러운 하루 일기를 작성해주세요: ${_textEditingController.text}';
+
+    try {
+      // Show loading dialog
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext dialogContext) {
+          return Dialog(
+            backgroundColor: Colors.white,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            child: Padding(
+              padding: const EdgeInsets.all(20),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  CircularProgressIndicator(),
+                  SizedBox(width: 20),
+                  Text("당신의 일기를 분석 중이에요.."),
+                ],
+              ),
+            ),
+          );
+        },
+      );
+
+      // Generate diary entry
+      final diaryData = await generateDiaryEntry(prompt);
+
+      // Close the loading dialog
+      Navigator.of(context, rootNavigator: true).pop();
+
+      // Navigate to the next screen
+      if (mounted) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => BlocProvider(
+              create: (context) => AddPhotoBloc(
+                audioManager: AudioManager(),
+                transcription: diaryData['diaryEntry'],
+                diaryCode: diaryData['diaryCode'],
+              ),
+              child: AddPhotoScreen(
+                transcription: diaryData['diaryEntry'],
+                diaryCode: diaryData['diaryCode'],
+              ),
+            ),
+          ),
+        );
+      }
+    } catch (e) {
+      // Close the loading dialog in case of an error
+      Navigator.of(context, rootNavigator: true).pop();
+
+      print('Failed to generate diary entry: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('일기 생성에 실패했습니다. 나중에 다시 시도해주세요.')),
+      );
+    }
   }
 
-  final prompt = '이 내용으로 정성스러운 하루 일기를 작성해주세요: ${_textEditingController.text}';
-
-  try {
-    final diaryData = await generateDiaryEntry(prompt);
-
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => BlocProvider(
-          create: (context) => AddPhotoBloc(
-            audioManager: AudioManager(), 
-            transcription: diaryData['diaryEntry'],
-            diaryCode: diaryData['diaryCode'],
-          ),
-          child: AddPhotoScreen(
-            transcription: diaryData['diaryEntry'],
-            diaryCode: diaryData['diaryCode'],
-          ),
-        ),
-      ),
-    );
-  } catch (e) {
-    print('Failed to generate diary entry: $e');
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('일기 생성에 실패했습니다. 나중에 다시 시도해주세요.')),
-    );
-  }
-}
 
   void togglePlayPause() {
     if (isPlaying) {
@@ -173,16 +231,16 @@ void _navigateToAddPhotoScreen() async {
       ),
       body: GestureDetector(
         onTap: () {
-          FocusScope.of(context).unfocus(); 
+          FocusScope.of(context).unfocus();
         },
         child: SingleChildScrollView(
           child: Container(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
-            color: const Color(0xfffdfbf0), 
+            color: const Color(0xfffdfbf0),
             child: Column(
               children: [
-                SizedBox(height: MediaQuery.of(context).size.height * 0.15), 
+                SizedBox(height: MediaQuery.of(context).size.height * 0.15),
                 Text(
                   '가장 기억에 남는 상황이 있었나요?\n언제, 어떤 상황이었나요?',
                   textAlign: TextAlign.center,
@@ -199,7 +257,7 @@ void _navigateToAddPhotoScreen() async {
                   width: 120,
                   height: 120,
                 ),
-                SizedBox(height: 40), 
+                SizedBox(height: 40),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 40.0),
                   child: Container(
@@ -211,7 +269,7 @@ void _navigateToAddPhotoScreen() async {
                     ),
                     child: TextField(
                       controller: _textEditingController,
-                      focusNode: _focusNode, 
+                      focusNode: _focusNode,
                       maxLines: 5,
                       decoration: InputDecoration.collapsed(
                         hintText: '이곳에 상황을 입력해주세요',
@@ -221,7 +279,7 @@ void _navigateToAddPhotoScreen() async {
                 ),
                 SizedBox(height: 20),
                 GestureDetector(
-                  onTap: _navigateToAddPhotoScreen, 
+                  onTap: _navigateToAddPhotoScreen,
                   child: Container(
                     width: 221,
                     height: 54,

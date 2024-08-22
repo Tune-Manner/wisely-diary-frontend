@@ -45,4 +45,26 @@ class LetterService {
       throw Exception('Failed to view letter: ${response.statusCode}');
     }
   }
+
+  Future<List<Letter>> inquiryLetter(String date, String memberId) async {
+    try {
+      final response = await http.get(
+        Uri.parse('$baseUrl/letter/inquiry?date=$date&memberId=$memberId'),
+        headers: {
+          'Accept': 'application/json; charset=UTF-8',
+        },
+      );
+
+      if (response.statusCode == 200) {
+        List<dynamic> letterDataList = json.decode(utf8.decode(response.bodyBytes));
+        return letterDataList.map((data) => Letter.fromJson(data)).toList();
+      } else if (response.statusCode == 204) {
+        return [];
+      } else {
+        throw Exception('Failed to inquiry letters: ${response.statusCode}');
+      }
+    } catch (e) {
+      throw Exception('서버 연결에 실패했습니다. 잠시 후 다시 시도해주세요.');
+    }
+  }
 }
