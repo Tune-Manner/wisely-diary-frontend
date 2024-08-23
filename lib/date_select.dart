@@ -70,7 +70,7 @@ class _DiaryNoImgPageState extends State<DiaryNoImgPage> {
 
     try {
       final response = await http.post(
-        Uri.parse('http://10.0.2.2:8080/api/diary/selectdetail'),
+        Uri.parse('http://43.203.173.116:8080/api/diary/selectdetail'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
@@ -98,7 +98,7 @@ class _DiaryNoImgPageState extends State<DiaryNoImgPage> {
       return;
     }
 
-    final url = Uri.parse('http://10.0.2.2:8080/api/images/diary/$diaryCode');
+    final url = Uri.parse('http://43.203.173.116:8080/api/images/diary/$diaryCode');
     try {
       final response = await http.get(url, headers: {
         'Accept': 'application/json',
@@ -128,7 +128,7 @@ class _DiaryNoImgPageState extends State<DiaryNoImgPage> {
       return;
     }
 
-    final url = Uri.parse('http://10.0.2.2:8080/api/diary/selectdetail');
+    final url = Uri.parse('http://43.203.173.116:8080/api/diary/selectdetail');
     try {
       final response = await http.post(
         url,
@@ -440,7 +440,6 @@ class _DiaryNoImgPageState extends State<DiaryNoImgPage> {
       body: Stack(
         children: [
           Container(
-            color: Color(0xFFFFF9F2),
             padding: EdgeInsets.all(16.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
