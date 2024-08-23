@@ -170,25 +170,31 @@ class _MusicPlayerPageState extends State<MusicPlayerPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 10),
             Text('제목: ${musicData['musicTitle'] ?? 'No Title'}',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
             SizedBox(height: 16),
-            if (_controller != null && _controller!.value.isInitialized)
-              Column(
+            if (_controller != null && _controller!.value.isInitialized) ...[
+              AspectRatio(
+                aspectRatio: _controller!.value.aspectRatio,
+                child: VideoPlayer(_controller!),
+              ),
+              VideoProgressIndicator(_controller!, allowScrubbing: true),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  AspectRatio(
-                    aspectRatio: _controller!.value.aspectRatio,
-                    child: VideoPlayer(_controller!),
+                  IconButton(
+                    icon: Icon(_controller!.value.isPlaying ? Icons.pause : Icons.play_arrow),
+                    onPressed: () {
+                      setState(() {
+                        _controller!.value.isPlaying
+                            ? _controller!.pause()
+                            : _controller!.play();
+                      });
+                    },
                   ),
-                  VideoProgressIndicator(_controller!, allowScrubbing: true),
-                  SizedBox(height: 16),
-                  _buildVolumeSlider(),
-                  SizedBox(height: 16),
-                  _buildPlayPauseButton(),
                 ],
-              )
-            else if (_isVideoGenerating)
+              ),
+            ] else if (_isVideoGenerating)
               Center(
                 child: Column(
                   children: [
@@ -209,9 +215,12 @@ class _MusicPlayerPageState extends State<MusicPlayerPage> {
                 ),
               ),
             SizedBox(height: 16),
-            Text(musicData['musicLyrics'] ?? 'No lyrics available'),
+            Text('가사:', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+            SizedBox(height: 8),
+            Text(musicData['musicLyrics'] ?? '가사 없음',
+                style: TextStyle(fontSize: 14)),
             SizedBox(height: 24),
-            Center( // 버튼을 감싸는 Center 위젯 추가
+            Center(
               child: ElevatedButton(
                 onPressed: () {
                   Navigator.pop(context);
@@ -228,7 +237,7 @@ class _MusicPlayerPageState extends State<MusicPlayerPage> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Icon(Icons.arrow_back, size: 18),
-                    SizedBox(width: 8), // 아이콘과 텍스트 사이의 간격 조정
+                    SizedBox(width: 8),
                     Text(
                       '다른 결과 확인하기',
                       style: TextStyle(
