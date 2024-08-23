@@ -12,8 +12,8 @@ class MyPage extends StatefulWidget {
 
 class _MyPageState extends State<MyPage> {
   // 예시 회원 데이터
-  String userName = '홍길동';
-  String userEmail = 'tune@mail.com';
+  String userName = '';
+  String userEmail = '';
 
   @override
   void initState() {
