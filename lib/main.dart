@@ -118,6 +118,7 @@ class _MyAppState extends State<MyApp> {
     ));
 
     return MaterialApp(
+      debugShowCheckedModeBanner: false, // debug 표시 숨김
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
