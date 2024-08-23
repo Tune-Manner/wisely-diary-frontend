@@ -8,7 +8,7 @@ class CreateDiaryPage extends StatefulWidget {
   _CreateDiaryPageState createState() => _CreateDiaryPageState();
 }
 
-class _CreateDiaryPageState extends State<CreateDiaryPage> {
+class _CreateDiaryPageState extends State<CreateDiaryPage> with WidgetsBindingObserver {
   final audioManager = AudioManager();
   late bool isPlaying;
   late double volume;
@@ -30,6 +30,7 @@ class _CreateDiaryPageState extends State<CreateDiaryPage> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     audioManager.initAudio();
     isPlaying = audioManager.player.playing;
     volume = audioManager.player.volume;
@@ -42,6 +43,20 @@ class _CreateDiaryPageState extends State<CreateDiaryPage> {
         });
       }
     });
+  }
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    // 페이지가 dispose될 때 음악을 멈춤
+    audioManager.player.stop();
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      audioManager.player.stop();
+    }
   }
 
   Future<void> _fetchUserName() async {
@@ -196,7 +211,7 @@ class _CreateDiaryPageState extends State<CreateDiaryPage> {
           // Start playing the emotion music
           playEmotionMusic(label);
 
-          // Navigate to the next page immediately
+          await playEmotionMusic(label);
           Navigator.push(
             context,
             MaterialPageRoute(
