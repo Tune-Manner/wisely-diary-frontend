@@ -72,9 +72,8 @@ class _CartoonInquiryScreenState extends State<CartoonInquiryScreen> {
   Widget build(BuildContext context) {
     print('Building widget with cartoons: $cartoons');
 
-    // 'Cartoon'과 'Letter'로 데이터를 분리합니다.
+    // 'Cartoon'으로 데이터를 분리
     final cartoonList = cartoons.where((cartoon) => cartoon['type']?.toString().toLowerCase() == "cartoon").toList();
-    final letterList = cartoons.where((cartoon) => cartoon['type']?.toString().toLowerCase() == "letter").toList();
 
 
     return Scaffold(
@@ -99,16 +98,6 @@ class _CartoonInquiryScreenState extends State<CartoonInquiryScreen> {
               ),
             ),
             ...cartoonList.map((cartoon) => buildCartoonItem(cartoon)).toList(),
-          ],
-          if (letterList.isNotEmpty) ...[
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                '당신의 오늘 하루 감정을 그려보았어요.',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-            ),
-            ...letterList.map((cartoon) => buildCartoonItem(cartoon)).toList(),
           ],
         ],
       ),
