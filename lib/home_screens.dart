@@ -323,7 +323,15 @@ Widget _buildCalendar() {
   // 일기 항목을 생성하는 위젯
   Widget _buildDiaryEntry(String date, String content) {
     return GestureDetector(
-      onTap: () => _navigateToDiaryNoImgPage(DateTime.parse(date)),
+      onTap: () {
+        if (_hasDiary[DateTime.parse(date)] == true) {
+          // 실제 일기가 존재하는 경우에만 상세 페이지로 이동
+          _navigateToDiaryNoImgPage(DateTime.parse(date));
+        } else {
+          // 실제 일기가 없는 경우 (안내 메시지인 경우)
+          print('이 날짜에는 일기가 없습니다.');
+        }
+      },
       child: Padding(
         padding: EdgeInsets.symmetric(vertical: 8, horizontal: 30), // 날짜와 내용 전체에 적용되는 패딩
         child: Column(
@@ -356,7 +364,7 @@ Widget _buildCalendar() {
     );
   }
 
-  // 작성된 일기가 없을 때 보여줄 UI
+  // 작성된 일기가 한개도 없을 때 보여줄 UI
   Widget _buildEmptyState() {
     return Center(
       child: Column(
