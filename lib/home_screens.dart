@@ -175,7 +175,7 @@ class _HomePageState extends State<HomeScreens> {
         ),
       )
           .then((_) {
-        _fetchMonthlyDiaries(_focusedDay); // 새 일기 작성 후 데이터를 새로 고침
+        _fetchMonthlyDiaries(_focusedDay);
       });
     }
   }
@@ -333,7 +333,7 @@ Widget _buildCalendar() {
         }
       },
       child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 8, horizontal: 30), // 날짜와 내용 전체에 적용되는 패딩
+        padding: EdgeInsets.symmetric(vertical: 8, horizontal: 30),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -364,14 +364,26 @@ Widget _buildCalendar() {
     );
   }
 
-  // 작성된 일기가 한개도 없을 때 보여줄 UI
+  // 작성된 일기가 없을 때 보여줄 UI
   Widget _buildEmptyState() {
+
+    DateTime now = DateTime.now();
+    String message;
+
+    if (_focusedDay.year == now.year && _focusedDay.month == now.month) {
+      message = '작성한 일기가 없습니다.\n일기를 작성해보세요!';
+    } else if (_focusedDay.isBefore(DateTime(now.year, now.month, 1))) {
+      message = '작성할 수 있는 기간이 지났습니다';
+    } else {
+      message = '작성할 수 있는 기간이 아닙니다';
+    }
+
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Opacity(
-            opacity: 0.5, // 투명도 설정
+            opacity: 0.5,
             child: Image.asset(
               'assets/wisely-diary-logo.png',
               height: 80,
@@ -379,7 +391,7 @@ Widget _buildCalendar() {
           ),
           SizedBox(height: 16),
           Text(
-            '작성한 일기가 없습니다.\n일기를 작성해보세요!',
+            message,
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 16,
