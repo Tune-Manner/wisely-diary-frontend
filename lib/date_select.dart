@@ -49,6 +49,7 @@ class _DiaryNoImgPageState extends State<DiaryNoImgPage> {
         memberId = user.id;
       });
       await _loadDiaryData();
+      await _checkGiftStatus();
     } else {
       print('User is not authenticated');
       setState(() {
