@@ -7,11 +7,9 @@ import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart' as kakao;
-import 'package:gotrue/src/types/user.dart' as gotrue;
 import 'package:wisely_diary/alarm/alarm_setting_page.dart';
 import 'package:wisely_diary/statistics/monthly_emotion_screens.dart';
 import 'package:wisely_diary/today_cartoon.dart';
-import 'WelcomePage.dart';
 import 'add_photo_screens.dart';
 import 'diary_summary_screens.dart';
 import 'custom_scaffold.dart';
@@ -22,12 +20,13 @@ import 'member_information.dart';
 import 'test_page.dart';
 import 'login_screens.dart';
 import 'create_diary_screens.dart';
-
 import 'wait_screens.dart';
 import 'select_type_screens.dart';
 import 'record_screens.dart';
 import 'text_screens.dart';
 import 'my_page.dart';
+import 'package:gotrue/src/types/user.dart' as gotrue;
+
 
 // FCM 관련 import
 import 'package:firebase_core/firebase_core.dart';
@@ -46,8 +45,6 @@ import 'package:intl/date_symbol_data_local.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // await dotenv.load(fileName: ".env");
-
   // Firebase 초기화
   await Firebase.initializeApp();
 
@@ -58,23 +55,20 @@ void main() async {
   await FCMHelper.createNotificationChannel();
   await FCMHelper.setupFlutterNotifications();
 
-  //supabase초기화
+  // Supabase 초기화
   await Supabase.initialize(
     url: 'https://rgsasjlstibbmhvrjoiv.supabase.co',
-    anonKey:
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJnc2FzamxzdGliYm1odnJqb2l2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjE3MDU2MjksImV4cCI6MjAzNzI4MTYyOX0.UlabKu0o_X1QnMsq8av05DKNRc4fjOAb01fcMpkcuRs',
+    anonKey: 'YOUR_SUPABASE_ANON_KEY',
   );
 
-  // 안드로이드 알람 매니처 초기화
+  // 안드로이드 알람 매니저 초기화
   await AndroidAlarmManager.initialize();
 
-  // 카카오 sdk초기화
-  kakao.KakaoSdk.init(nativeAppKey: '2eb8687682cf67f94363bcca7b3125a4');
+  // Kakao SDK 초기화
+  kakao.KakaoSdk.init(nativeAppKey: 'YOUR_KAKAO_APP_KEY');
 
   // 로케일 초기화
   await initializeDateFormatting('ko_KR', null);
-
-  print('App initialized with FCM.');
 
   runApp(MyApp());
 }
@@ -105,9 +99,59 @@ class _MyAppState extends State<MyApp> {
       setState(() {
         memberId = memberResponse['member_id'];
       });
-
-      print('Fetched memberId: $memberId');
     }
+  }
+
+  Future<void> _signOut() async {
+    await Supabase.instance.client.auth.signOut();
+    final GoogleSignIn googleSignIn = GoogleSignIn();
+    await googleSignIn.signOut();
+
+    if (!mounted) return;
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => MyApp()),
+      (Route<dynamic> route) => false,
+    );
+  }
+
+  Future<void> _saveUserToDatabase(gotrue.User user) async {
+    final userData = {
+      'member_code': int.parse(user.id.hashCode.toString()),
+      'member_email': user.email,
+      'join_at': DateTime.now().toIso8601String(),
+      'member_name': user.userMetadata?['full_name'],
+      'member_status': 'active',
+      'password': 'password',
+      'member_id': user.id,
+    };
+
+    final response = await Supabase.instance.client
+        .from('member')
+        .upsert(userData)
+        .maybeSingle();
+  }
+
+  Future<void> _saveKakaoUserToDatabase(
+      gotrue.User user, String memberName) async {
+    final userData = {
+      'member_code': int.parse(user.id.hashCode.toString()),
+      'member_email': user.email,
+      'join_at': DateTime.now().toIso8601String(),
+      'member_name': memberName,
+      'member_status': 'active',
+      'password': 'password',
+      'member_id': user.id,
+    };
+
+    final response = await Supabase.instance.client
+        .from('member')
+        .upsert(userData)
+        .maybeSingle();
+
+    final updateResponse = await Supabase.instance.client.auth.updateUser(
+      UserAttributes(data: {'full_name': memberName}),
+    );
   }
 
   @override
@@ -116,17 +160,17 @@ class _MyAppState extends State<MyApp> {
       statusBarColor: Colors.transparent,
       statusBarIconBrightness: Brightness.dark,
     ));
-
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: [
-        const Locale('ko', 'KR'), // 한국어
+        const Locale('ko', 'KR'),
       ],
-      locale: const Locale('ko', 'KR'), // 기본 로케일을 한국어로 설정
+      locale: const Locale('ko', 'KR'),
       title: 'Wisely Diary',
       theme: ThemeData(
         fontFamily: 'NanumSquareRoundB',
@@ -145,8 +189,8 @@ class _MyAppState extends State<MyApp> {
         '/statistics': (context) => MonthlyEmotionScreen(),
         '/notifications': (context) => AlarmSettingPage(),
         '/today-cartoon': (context) {
-          final arguments = ModalRoute.of(context)!.settings.arguments
-              as Map<String, dynamic>;
+          final arguments =
+              ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
           final int diaryCode = arguments['diaryCode'];
           return TodayCartoonPage(diaryCode: diaryCode, cartoonUrls: []);
         },
