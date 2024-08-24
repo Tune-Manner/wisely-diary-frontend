@@ -26,6 +26,7 @@ import 'record_screens.dart';
 import 'text_screens.dart';
 import 'my_page.dart';
 import 'package:gotrue/src/types/user.dart' as gotrue;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 
 // FCM 관련 import
@@ -45,6 +46,9 @@ import 'package:intl/date_symbol_data_local.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  // .env 파일 로드
+  await dotenv.load(fileName: ".env");
+
   // Firebase 초기화
   await Firebase.initializeApp();
 
@@ -57,15 +61,15 @@ void main() async {
 
   // Supabase 초기화
   await Supabase.initialize(
-    url: 'https://rgsasjlstibbmhvrjoiv.supabase.co',
-    anonKey: 'YOUR_SUPABASE_ANON_KEY',
+    url: dotenv.env['SUPABASE_URL'] ?? '',
+    anonKey: dotenv.env['SUPABASE_KEY'] ?? '',
   );
 
   // 안드로이드 알람 매니저 초기화
   await AndroidAlarmManager.initialize();
 
   // Kakao SDK 초기화
-  kakao.KakaoSdk.init(nativeAppKey: 'YOUR_KAKAO_APP_KEY');
+  kakao.KakaoSdk.init(nativeAppKey: dotenv.env['KAKAO_APP_KEY'] ?? '');
 
   // 로케일 초기화
   await initializeDateFormatting('ko_KR', null);
