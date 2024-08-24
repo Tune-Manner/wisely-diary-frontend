@@ -27,6 +27,9 @@
 # packages file containing multi-root paths
 **/.packages.generated
 
+# .env
+**/.env
+
 # Flutter/Dart/Pub related
 **/doc/api/
 **/.dart_tool/
