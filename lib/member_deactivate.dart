@@ -61,10 +61,15 @@ class _MemberDeactivatePageState extends State<MemberDeactivatePage> {
         print("회원 탈퇴 결과: $response");
 
         // 2. Supabase 인증에서 사용자 삭제
-        // await dotenv.load(); // .env 파일 로드
+        await dotenv.load(); // .env 파일 로드
 
-        final supabaseUrl = "https://rgsasjlstibbmhvrjoiv.supabase.co";
-        final supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJnc2FzamxzdGliYm1odnJqb2l2Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcyMTcwNTYyOSwiZXhwIjoyMDM3MjgxNjI5fQ.KTyocsc_Pdl3v-J0T1O56Z_yeSCvi9G9TrnZ4k0FIlc";
+        final supabaseUrl = dotenv.env['SUPABASE_URL'];
+        final supabaseKey = dotenv.env['SUPABASE_KEY'];
+
+        if (supabaseUrl == null || supabaseKey == null) {
+          throw Exception('Supabase 설정을 찾을 수 없습니다. .env 파일을 확인해 주세요.');
+        }
+
         final deleteUrl = '$supabaseUrl/auth/v1/admin/users/${user.id}';
         final deleteResponse = await http.delete(
           Uri.parse(deleteUrl),
