@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'dart:io';
+import 'package:path/path.dart' as path;
 import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
+import 'package:http_parser/http_parser.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'dart:convert';
 import 'package:image_picker_platform_interface/image_picker_platform_interface.dart';
@@ -46,6 +48,7 @@ class AddPhotoState {
   final String? error;
   final bool navigateToSummary;
   final int? diaryCode;
+  final bool isUploading;  // 새로 추가된 필드: 업로드 상태를 추적
 
   const AddPhotoState({
     required this.imageFiles,
@@ -55,7 +58,7 @@ class AddPhotoState {
     this.error,
     this.navigateToSummary = false,
     this.diaryCode,
-
+    this.isUploading = false,  // 기본값은 false
   });
 
   AddPhotoState copyWith({
@@ -66,6 +69,7 @@ class AddPhotoState {
     String? error,
     bool? navigateToSummary,
     int? diaryCode,
+    bool? isUploading,
   }) {
     return AddPhotoState(
       imageFiles: imageFiles ?? this.imageFiles,
@@ -75,6 +79,7 @@ class AddPhotoState {
       error: error ?? this.error,
       navigateToSummary: navigateToSummary ?? this.navigateToSummary,
       diaryCode: diaryCode ?? this.diaryCode,
+      isUploading: isUploading ?? this.isUploading,  // 새 필드 포함
     );
   }
 }
@@ -147,9 +152,78 @@ class AddPhotoBloc extends Bloc<AddPhotoEvent, AddPhotoState> {
     }
   }
 
-  void _onCreateDiary(CreateDiary event, Emitter<AddPhotoState> emit) {
-    audioManager.player.setVolume(0);
-    emit(state.copyWith(navigateToSummary: true));
+  Future<void> _onCreateDiary(CreateDiary event, Emitter<AddPhotoState> emit) async {
+    emit(state.copyWith(isUploading: true));  // 업로드 시작을 상태에 반영
+    try {
+      await _uploadImages();  // 이미지 업로드 실행
+      audioManager.player.setVolume(0);
+      emit(state.copyWith(navigateToSummary: true, isUploading: false));  // 업로드 완료 후 상태 업데이트
+    } catch (e) {
+      logger.e('일기 생성 중 오류 발생: $e');
+      emit(state.copyWith(error: '일기 생성 실패: $e', isUploading: false));  // 오류 발생 시 상태 업데이트
+    }
+  }
+
+  Future<void> _uploadImages() async {
+    final url = Uri.parse('http://43.203.173.116:8080/api/images/upload');
+    var request = http.MultipartRequest('POST', url);
+
+    request.fields['diaryCode'] = state.diaryCode.toString();
+
+    logger.i('이미지 업로드 시작: ${state.imageFiles.length}개의 파일');
+
+    for (var i = 0; i < state.imageFiles.length; i++) {
+      var file = state.imageFiles[i];
+      var stream = http.ByteStream(file.openRead());
+      var length = await file.length();
+
+      var extension = path.extension(file.path).toLowerCase();
+      var mimeType = _getMimeType(extension);
+
+      var multipartFile = http.MultipartFile(
+        'images',
+        stream,
+        length,
+        filename: path.basename(file.path),
+        contentType: mimeType,
+      );
+
+      request.files.add(multipartFile);
+      logger.d('파일 추가됨: ${multipartFile.filename}, MIME 타입: ${mimeType.mimeType}');
+    }
+
+    try {
+      var response = await request.send();
+      if (response.statusCode == 200) {
+        var responseBody = await response.stream.bytesToString();
+        logger.i('이미지 업로드 성공: ${response.statusCode}, 응답: $responseBody');
+      } else {
+        var responseBody = await response.stream.bytesToString();
+        logger.e('이미지 업로드 실패: ${response.statusCode}, 응답: $responseBody');
+        throw Exception('이미지 업로드 실패: ${response.statusCode}, $responseBody');
+      }
+    } catch (e) {
+      logger.e('이미지 업로드 중 오류 발생: $e');
+      rethrow;
+    }
+  }
+
+  MediaType _getMimeType(String extension) {
+    switch (extension) {
+      case '.jpg':
+      case '.jpeg':
+        return MediaType('image', 'jpeg');
+      case '.png':
+        return MediaType('image', 'png');
+      case '.gif':
+        return MediaType('image', 'gif');
+      case '.bmp':
+        return MediaType('image', 'bmp');
+      case '.webp':
+        return MediaType('image', 'webp');
+      default:
+        return MediaType('application', 'octet-stream');  // 기본값
+    }
   }
 }
 
