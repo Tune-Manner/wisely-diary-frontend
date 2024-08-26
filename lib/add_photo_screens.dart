@@ -169,43 +169,50 @@ class AddPhotoBloc extends Bloc<AddPhotoEvent, AddPhotoState> {
     var request = http.MultipartRequest('POST', url);
 
     request.fields['diaryCode'] = state.diaryCode.toString();
+    logger.i('일기 코드 추가: ${state.diaryCode}');
 
-    logger.i('이미지 업로드 시작: ${state.imageFiles.length}개의 파일');
+    if (state.imageFiles.isNotEmpty) {
+      logger.i('이미지 업로드 시작: ${state.imageFiles.length}개의 파일');
 
-    for (var i = 0; i < state.imageFiles.length; i++) {
-      var file = state.imageFiles[i];
-      var stream = http.ByteStream(file.openRead());
-      var length = await file.length();
+      for (var i = 0; i < state.imageFiles.length; i++) {
+        var file = state.imageFiles[i];
+        var stream = http.ByteStream(file.openRead());
+        var length = await file.length();
 
-      var extension = path.extension(file.path).toLowerCase();
-      var mimeType = _getMimeType(extension);
+        var extension = path.extension(file.path).toLowerCase();
+        var mimeType = _getMimeType(extension);
 
-      var multipartFile = http.MultipartFile(
-        'images',
-        stream,
-        length,
-        filename: path.basename(file.path),
-        contentType: mimeType,
-      );
+        var multipartFile = http.MultipartFile(
+          'images',
+          stream,
+          length,
+          filename: path.basename(file.path),
+          contentType: mimeType,
+        );
 
-      request.files.add(multipartFile);
-      logger.d('파일 추가됨: ${multipartFile.filename}, MIME 타입: ${mimeType.mimeType}');
+        request.files.add(multipartFile);
+        logger.d('파일 추가됨: ${multipartFile.filename}, MIME 타입: ${mimeType.mimeType}');
+      }
+    } else {
+      logger.i('이미지가 없습니다. diaryCode만 전송합니다.');
     }
 
     try {
+      logger.i('서버로 요청 전송 중...');
       var response = await request.send();
+      var responseBody = await response.stream.bytesToString();
+
       if (response.statusCode == 200) {
-        var responseBody = await response.stream.bytesToString();
-        logger.i('이미지 업로드 성공: ${response.statusCode}, 응답: $responseBody');
+        logger.i('요청 성공: ${response.statusCode}, 응답: $responseBody');
       } else {
-        var responseBody = await response.stream.bytesToString();
-        logger.e('이미지 업로드 실패: ${response.statusCode}, 응답: $responseBody');
-        throw Exception('이미지 업로드 실패: ${response.statusCode}, $responseBody');
+        logger.e('요청 실패: ${response.statusCode}, 응답: $responseBody');
+        throw Exception('요청 실패: ${response.statusCode}, $responseBody');
       }
     } catch (e) {
-      logger.e('이미지 업로드 중 오류 발생: $e');
+      logger.e('요청 중 오류 발생: $e');
       rethrow;
     }
+  }
   }
 
   MediaType _getMimeType(String extension) {
