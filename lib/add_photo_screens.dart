@@ -5,9 +5,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'dart:convert';
-import 'package:image_picker_platform_interface/image_picker_platform_interface.dart';
-import 'package:image_picker_android/image_picker_android.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logger/logger.dart';
 import 'AudioManager.dart';
@@ -15,14 +12,7 @@ import 'diary_summary_screens.dart';
 
 final logger = Logger(printer: PrettyPrinter());
 
-void configureAndroidPhotoPicker() {
-  final ImagePickerPlatform imagePickerImplementation = ImagePickerPlatform.instance;
-  if (imagePickerImplementation is ImagePickerAndroid) {
-    imagePickerImplementation.useAndroidPhotoPicker = true;
-  }
-}
-
-abstract class AddPhotoEvent {}
+class AddPhotoEvent {}
 
 class AddPhotos extends AddPhotoEvent {}
 
@@ -316,6 +306,8 @@ class AddPhotoView extends StatelessWidget {
         children: [
           _buildPhotoButtonWithInstruction(context),
           const SizedBox(height: 40),
+          _buildImageList(state),
+          const SizedBox(height: 40),
           _buildCreateDiaryButton(context),
         ],
       ),
@@ -341,6 +333,49 @@ class AddPhotoView extends StatelessWidget {
       ],
     );
   }
+
+Widget _buildImageList(AddPhotoState state) {
+  return state.imageFiles.isNotEmpty
+      ? Container(
+          height: 150,
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: state.imageFiles.length,
+            itemBuilder: (context, index) {
+              return Stack(
+                children: [
+                  Container(
+                    margin: EdgeInsets.all(8.0),
+                    child: Image.file(state.imageFiles[index], fit: BoxFit.cover),
+                  ),
+                  Positioned(
+                    right: 10, // 오른쪽에서 4만큼 떨어지게 조정
+                    top: 10,   // 위에서 4만큼 떨어지게 조정
+                    child: GestureDetector(
+                      onTap: () => context.read<AddPhotoBloc>().add(RemovePhoto(index)),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white, // 흰색 배경
+                          shape: BoxShape.circle, // 원형 모양
+                        ),
+                        padding: EdgeInsets.all(2), // 패딩 크기
+                        child: Icon(
+                          Icons.close,
+                          color: Colors.red, // X 아이콘의 색상
+                          size: 16, // 아이콘 크기
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              );
+            },
+          ),
+        )
+      : Container();
+}
+
+
 
   Widget _buildCreateDiaryButton(BuildContext context) {
     return Padding(
