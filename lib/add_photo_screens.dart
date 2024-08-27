@@ -48,7 +48,7 @@ class AddPhotoState {
   final String? error;
   final bool navigateToSummary;
   final int? diaryCode;
-  final bool isUploading;  // 새로 추가된 필드: 업로드 상태를 추적
+  final bool isUploading;
 
   const AddPhotoState({
     required this.imageFiles,
@@ -58,7 +58,7 @@ class AddPhotoState {
     this.error,
     this.navigateToSummary = false,
     this.diaryCode,
-    this.isUploading = false,  // 기본값은 false
+    this.isUploading = false,
   });
 
   AddPhotoState copyWith({
@@ -79,12 +79,11 @@ class AddPhotoState {
       error: error ?? this.error,
       navigateToSummary: navigateToSummary ?? this.navigateToSummary,
       diaryCode: diaryCode ?? this.diaryCode,
-      isUploading: isUploading ?? this.isUploading,  // 새 필드 포함
+      isUploading: isUploading ?? this.isUploading,
     );
   }
 }
 
-// BLoC
 class AddPhotoBloc extends Bloc<AddPhotoEvent, AddPhotoState> {
   final AudioManager audioManager;
   final String transcription;
@@ -153,14 +152,14 @@ class AddPhotoBloc extends Bloc<AddPhotoEvent, AddPhotoState> {
   }
 
   Future<void> _onCreateDiary(CreateDiary event, Emitter<AddPhotoState> emit) async {
-    emit(state.copyWith(isUploading: true));  // 업로드 시작을 상태에 반영
+    emit(state.copyWith(isUploading: true));
     try {
-      await _uploadImages();  // 이미지 업로드 실행
+      await _uploadImages();
       audioManager.player.setVolume(0);
-      emit(state.copyWith(navigateToSummary: true, isUploading: false));  // 업로드 완료 후 상태 업데이트
+      emit(state.copyWith(navigateToSummary: true, isUploading: false));
     } catch (e) {
       logger.e('일기 생성 중 오류 발생: $e');
-      emit(state.copyWith(error: '일기 생성 실패: $e', isUploading: false));  // 오류 발생 시 상태 업데이트
+      emit(state.copyWith(error: '일기 생성 실패: $e', isUploading: false));
     }
   }
 
@@ -169,7 +168,6 @@ class AddPhotoBloc extends Bloc<AddPhotoEvent, AddPhotoState> {
     var request = http.MultipartRequest('POST', url);
 
     request.fields['diaryCode'] = state.diaryCode.toString();
-    logger.i('일기 코드 추가: ${state.diaryCode}');
 
     if (state.imageFiles.isNotEmpty) {
       logger.i('이미지 업로드 시작: ${state.imageFiles.length}개의 파일');
@@ -198,7 +196,6 @@ class AddPhotoBloc extends Bloc<AddPhotoEvent, AddPhotoState> {
     }
 
     try {
-      logger.i('서버로 요청 전송 중...');
       var response = await request.send();
       var responseBody = await response.stream.bytesToString();
 
@@ -229,12 +226,11 @@ class AddPhotoBloc extends Bloc<AddPhotoEvent, AddPhotoState> {
       case '.webp':
         return MediaType('image', 'webp');
       default:
-        return MediaType('application', 'octet-stream');  // 기본값
+        return MediaType('application', 'octet-stream');
     }
   }
 
 
-// UI
 class AddPhotoScreen extends StatelessWidget {
   final String transcription;
   final int diaryCode;
@@ -246,7 +242,6 @@ class AddPhotoScreen extends StatelessWidget {
     return AddPhotoView(transcription: transcription);
   }
 }
-
 
 class AddPhotoView extends StatelessWidget {
   final String transcription;
@@ -287,53 +282,70 @@ class AddPhotoView extends StatelessWidget {
     );
   }
 
-}
-
-
-AppBar _buildAppBar(BuildContext context, AddPhotoState state) {
-  return AppBar(
-    backgroundColor: const Color(0xfffdfbf0),
-    elevation: 0,
-    leading: IconButton(
-      icon: const Icon(Icons.arrow_back, color: Colors.black),
-      onPressed: () => Navigator.of(context).pop(),
-    ),
-    title: Image.asset(
-      'assets/wisely-diary-logo.png',
-      height: 30,
-      fit: BoxFit.contain,
-    ),
-    centerTitle: true,
-    actions: [
-      IconButton(
-        icon: Icon(state.isPlaying ? Icons.pause : Icons.play_arrow),
-        onPressed: () => context.read<AddPhotoBloc>().add(TogglePlayPause()),
+  AppBar _buildAppBar(BuildContext context, AddPhotoState state) {
+    return AppBar(
+      backgroundColor: const Color(0xfffdfbf0),
+      elevation: 0,
+      leading: IconButton(
+        icon: const Icon(Icons.arrow_back, color: Colors.black),
+        onPressed: () => Navigator.of(context).pop(),
       ),
-      SizedBox(
-        width: 100,
-        child: Slider(
-          value: state.volume,
-          min: 0.0,
-          max: 1.0,
-          onChanged: (newVolume) => context.read<AddPhotoBloc>().add(ChangeVolume(newVolume)),
+      title: Image.asset(
+        'assets/wisely-diary-logo.png',
+        height: 30,
+        fit: BoxFit.contain,
+      ),
+      centerTitle: true,
+      actions: [
+        IconButton(
+          icon: Icon(state.isPlaying ? Icons.pause : Icons.play_arrow),
+          onPressed: () => context.read<AddPhotoBloc>().add(TogglePlayPause()),
         ),
-      ),
-    ],
-  );
-}
-
-Widget _buildBody(BuildContext context, AddPhotoState state) {
-  return Container(
-    color: const Color(0xfffdfbf0),
-    child: Column(
-      children: [
-        _buildTopButtons(context),
-        const SizedBox(height: 20),
-        Expanded(child: _buildPhotoGrid(context, state)),
+        SizedBox(
+          width: 100,
+          child: Slider(
+            value: state.volume,
+            min: 0.0,
+            max: 1.0,
+            onChanged: (newVolume) => context.read<AddPhotoBloc>().add(ChangeVolume(newVolume)),
+          ),
+        ),
       ],
-    ),
-  );
-}
+    );
+  }
+
+  Widget _buildBody(BuildContext context, AddPhotoState state) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          _buildPhotoButtonWithInstruction(context),
+          const SizedBox(height: 40),
+          _buildCreateDiaryButton(context),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildPhotoButtonWithInstruction(BuildContext context) {
+    return Column(
+      children: [
+        Text(
+          '이미지를 첨부하려면 눌러주세요.',
+          style: TextStyle(fontSize: 16, color: Colors.black54),
+        ),
+        const SizedBox(height: 10),
+        GestureDetector(
+          onTap: () => context.read<AddPhotoBloc>().add(AddPhotos()),
+          child: Image.asset(
+            'assets/File plus.png',
+            height: 100,
+            width: 100,
+          ),
+        ),
+      ],
+    );
+  }
 
 Widget _buildTopButtons(BuildContext context) {
   return Padding(
@@ -400,4 +412,18 @@ Widget _buildPhotoGrid(BuildContext context, AddPhotoState state) {
       );
     },
   );
+}
+  Widget _buildCreateDiaryButton(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: ElevatedButton(
+        onPressed: () => context.read<AddPhotoBloc>().add(CreateDiary()),
+        child: const Text('일기 생성하기'),
+        style: ElevatedButton.styleFrom(
+          padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 32),
+          textStyle: const TextStyle(fontSize: 18),
+        ),
+      ),
+    );
+  }
 }
