@@ -48,7 +48,7 @@ class AddPhotoState {
   final String? error;
   final bool navigateToSummary;
   final int? diaryCode;
-  final bool isUploading;  // 새로 추가된 필드: 업로드 상태를 추적
+  final bool isUploading;
 
   const AddPhotoState({
     required this.imageFiles,
@@ -58,7 +58,7 @@ class AddPhotoState {
     this.error,
     this.navigateToSummary = false,
     this.diaryCode,
-    this.isUploading = false,  // 기본값은 false
+    this.isUploading = false,
   });
 
   AddPhotoState copyWith({
@@ -79,12 +79,11 @@ class AddPhotoState {
       error: error ?? this.error,
       navigateToSummary: navigateToSummary ?? this.navigateToSummary,
       diaryCode: diaryCode ?? this.diaryCode,
-      isUploading: isUploading ?? this.isUploading,  // 새 필드 포함
+      isUploading: isUploading ?? this.isUploading,
     );
   }
 }
 
-// BLoC
 class AddPhotoBloc extends Bloc<AddPhotoEvent, AddPhotoState> {
   final AudioManager audioManager;
   final String transcription;
@@ -92,11 +91,11 @@ class AddPhotoBloc extends Bloc<AddPhotoEvent, AddPhotoState> {
 
   AddPhotoBloc({required this.audioManager, required this.transcription, required this.diaryCode})
       : super(AddPhotoState(
-          imageFiles: [],
-          isPlaying: audioManager.player.playing,
-          volume: audioManager.player.volume,
-          diaryCode: diaryCode,
-        )) {
+    imageFiles: [],
+    isPlaying: audioManager.player.playing,
+    volume: audioManager.player.volume,
+    diaryCode: diaryCode,
+  )) {
     on<AddPhotos>(_onAddPhotos);
     on<RemovePhoto>(_onRemovePhoto);
     on<TogglePlayPause>(_onTogglePlayPause);
@@ -153,14 +152,14 @@ class AddPhotoBloc extends Bloc<AddPhotoEvent, AddPhotoState> {
   }
 
   Future<void> _onCreateDiary(CreateDiary event, Emitter<AddPhotoState> emit) async {
-    emit(state.copyWith(isUploading: true));  // 업로드 시작을 상태에 반영
+    emit(state.copyWith(isUploading: true));
     try {
-      await _uploadImages();  // 이미지 업로드 실행
+      await _uploadImages();
       audioManager.player.setVolume(0);
-      emit(state.copyWith(navigateToSummary: true, isUploading: false));  // 업로드 완료 후 상태 업데이트
+      emit(state.copyWith(navigateToSummary: true, isUploading: false));
     } catch (e) {
       logger.e('일기 생성 중 오류 발생: $e');
-      emit(state.copyWith(error: '일기 생성 실패: $e', isUploading: false));  // 오류 발생 시 상태 업데이트
+      emit(state.copyWith(error: '일기 생성 실패: $e', isUploading: false));
     }
   }
 
@@ -170,42 +169,47 @@ class AddPhotoBloc extends Bloc<AddPhotoEvent, AddPhotoState> {
 
     request.fields['diaryCode'] = state.diaryCode.toString();
 
-    logger.i('이미지 업로드 시작: ${state.imageFiles.length}개의 파일');
+    if (state.imageFiles.isNotEmpty) {
+      logger.i('이미지 업로드 시작: ${state.imageFiles.length}개의 파일');
 
-    for (var i = 0; i < state.imageFiles.length; i++) {
-      var file = state.imageFiles[i];
-      var stream = http.ByteStream(file.openRead());
-      var length = await file.length();
+      for (var i = 0; i < state.imageFiles.length; i++) {
+        var file = state.imageFiles[i];
+        var stream = http.ByteStream(file.openRead());
+        var length = await file.length();
 
-      var extension = path.extension(file.path).toLowerCase();
-      var mimeType = _getMimeType(extension);
+        var extension = path.extension(file.path).toLowerCase();
+        var mimeType = _getMimeType(extension);
 
-      var multipartFile = http.MultipartFile(
-        'images',
-        stream,
-        length,
-        filename: path.basename(file.path),
-        contentType: mimeType,
-      );
+        var multipartFile = http.MultipartFile(
+          'images',
+          stream,
+          length,
+          filename: path.basename(file.path),
+          contentType: mimeType,
+        );
 
-      request.files.add(multipartFile);
-      logger.d('파일 추가됨: ${multipartFile.filename}, MIME 타입: ${mimeType.mimeType}');
+        request.files.add(multipartFile);
+        logger.d('파일 추가됨: ${multipartFile.filename}, MIME 타입: ${mimeType.mimeType}');
+      }
+    } else {
+      logger.i('이미지가 없습니다. diaryCode만 전송합니다.');
     }
 
     try {
       var response = await request.send();
+      var responseBody = await response.stream.bytesToString();
+
       if (response.statusCode == 200) {
-        var responseBody = await response.stream.bytesToString();
-        logger.i('이미지 업로드 성공: ${response.statusCode}, 응답: $responseBody');
+        logger.i('요청 성공: ${response.statusCode}, 응답: $responseBody');
       } else {
-        var responseBody = await response.stream.bytesToString();
-        logger.e('이미지 업로드 실패: ${response.statusCode}, 응답: $responseBody');
-        throw Exception('이미지 업로드 실패: ${response.statusCode}, $responseBody');
+        logger.e('요청 실패: ${response.statusCode}, 응답: $responseBody');
+        throw Exception('요청 실패: ${response.statusCode}, $responseBody');
       }
     } catch (e) {
-      logger.e('이미지 업로드 중 오류 발생: $e');
+      logger.e('요청 중 오류 발생: $e');
       rethrow;
     }
+  }
   }
 
   MediaType _getMimeType(String extension) {
@@ -222,12 +226,11 @@ class AddPhotoBloc extends Bloc<AddPhotoEvent, AddPhotoState> {
       case '.webp':
         return MediaType('image', 'webp');
       default:
-        return MediaType('application', 'octet-stream');  // 기본값
+        return MediaType('application', 'octet-stream');
     }
   }
-}
 
-// UI
+
 class AddPhotoScreen extends StatelessWidget {
   final String transcription;
   final int diaryCode;
@@ -240,48 +243,44 @@ class AddPhotoScreen extends StatelessWidget {
   }
 }
 
-
 class AddPhotoView extends StatelessWidget {
   final String transcription;
 
   const AddPhotoView({Key? key, required this.transcription}) : super(key: key);
 
   @override
-Widget build(BuildContext context) {
-  return BlocConsumer<AddPhotoBloc, AddPhotoState>(
-    listener: (context, state) {
-      if (state.navigateToSummary) {
-        final diaryCode = state.diaryCode;
+  Widget build(BuildContext context) {
+    return BlocConsumer<AddPhotoBloc, AddPhotoState>(
+      listener: (context, state) {
+        if (state.navigateToSummary) {
+          final diaryCode = state.diaryCode;
 
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(
-            builder: (context) => DiarySummaryScreen(
-              userId: state.userId,
-              transcription: transcription,
-              imageFiles: state.imageFiles,
-              diaryCode: diaryCode!,
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+              builder: (context) => DiarySummaryScreen(
+                userId: state.userId,
+                transcription: transcription,
+                imageFiles: state.imageFiles,
+                diaryCode: diaryCode!,
+              ),
             ),
-          ),
+          );
+          context.read<AddPhotoBloc>().emit(state.copyWith(navigateToSummary: false));
+        }
+        if (state.error != null) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(state.error!)),
+          );
+        }
+      },
+      builder: (context, state) {
+        return Scaffold(
+          appBar: _buildAppBar(context, state),
+          body: _buildBody(context, state),
         );
-        context.read<AddPhotoBloc>().emit(state.copyWith(navigateToSummary: false));
-      }
-      if (state.error != null) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(state.error!)),
-        );
-      }
-    },
-    builder: (context, state) {
-      return Scaffold(
-        appBar: _buildAppBar(context, state),
-        body: _buildBody(context, state),
-      );
-    },
-  );
-}
-
-}
-
+      },
+    );
+  }
 
   AppBar _buildAppBar(BuildContext context, AddPhotoState state) {
     return AppBar(
@@ -316,81 +315,115 @@ Widget build(BuildContext context) {
   }
 
   Widget _buildBody(BuildContext context, AddPhotoState state) {
-    return Container(
-      color: const Color(0xfffdfbf0),
+    return Center(
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          _buildTopButtons(context),
-          const SizedBox(height: 20),
-          Expanded(child: _buildPhotoGrid(context, state)),
+          _buildPhotoButtonWithInstruction(context),
+          const SizedBox(height: 40),
+          _buildCreateDiaryButton(context),
         ],
       ),
     );
   }
 
-  Widget _buildTopButtons(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Row(
-        children: [
-          Expanded(
-            child: ElevatedButton.icon(
-              onPressed: () => context.read<AddPhotoBloc>().add(AddPhotos()),
-              icon: const Icon(Icons.add_photo_alternate),
-              label: const Text('사진 추가'),
-              style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(vertical: 12),
-                textStyle: const TextStyle(fontSize: 16),
-              ),
-            ),
+  Widget _buildPhotoButtonWithInstruction(BuildContext context) {
+    return Column(
+      children: [
+        Text(
+          '이미지를 첨부하려면 눌러주세요.',
+          style: TextStyle(fontSize: 16, color: Colors.black54),
+        ),
+        const SizedBox(height: 10),
+        GestureDetector(
+          onTap: () => context.read<AddPhotoBloc>().add(AddPhotos()),
+          child: Image.asset(
+            'assets/File plus.png',
+            height: 100,
+            width: 100,
           ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: ElevatedButton(
-              onPressed: () => context.read<AddPhotoBloc>().add(CreateDiary()),
-              child: const Text('일기 생성하기'),
-              style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(vertical: 12),
-                textStyle: const TextStyle(fontSize: 16),
-              ),
-            ),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
-  Widget _buildPhotoGrid(BuildContext context, AddPhotoState state) {
-    return GridView.builder(
-      padding: const EdgeInsets.all(16),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 3,
-        crossAxisSpacing: 10,
-        mainAxisSpacing: 10,
-      ),
-      itemCount: state.imageFiles.length,
-      itemBuilder: (context, index) {
-        return Stack(
-          fit: StackFit.expand,
-          children: [
-            Image.file(state.imageFiles[index], fit: BoxFit.cover),
-            Positioned(
-              top: 5,
-              right: 5,
-              child: GestureDetector(
-                onTap: () => context.read<AddPhotoBloc>().add(RemovePhoto(index)),
-                child: Container(
-                  padding: const EdgeInsets.all(2),
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    shape: BoxShape.circle,
-                  ),
-                  child: const Icon(Icons.close, size: 20, color: Colors.red),
+Widget _buildTopButtons(BuildContext context) {
+  return Padding(
+    padding: const EdgeInsets.all(16.0),
+    child: Row(
+      children: [
+        Expanded(
+          child: ElevatedButton.icon(
+            onPressed: () => context.read<AddPhotoBloc>().add(AddPhotos()),
+            icon: const Icon(Icons.add_photo_alternate),
+            label: const Text('사진 추가'),
+            style: ElevatedButton.styleFrom(
+              padding: const EdgeInsets.symmetric(vertical: 12),
+              textStyle: const TextStyle(fontSize: 16),
+            ),
+          ),
+        ),
+        const SizedBox(width: 16),
+        Expanded(
+          child: ElevatedButton(
+            onPressed: () => context.read<AddPhotoBloc>().add(CreateDiary()),
+            child: const Text('일기 생성하기'),
+            style: ElevatedButton.styleFrom(
+              padding: const EdgeInsets.symmetric(vertical: 12),
+              textStyle: const TextStyle(fontSize: 16),
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget _buildPhotoGrid(BuildContext context, AddPhotoState state) {
+  return GridView.builder(
+    padding: const EdgeInsets.all(16),
+    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+      crossAxisCount: 3,
+      crossAxisSpacing: 10,
+      mainAxisSpacing: 10,
+    ),
+    itemCount: state.imageFiles.length,
+    itemBuilder: (context, index) {
+      return Stack(
+        fit: StackFit.expand,
+        children: [
+          Image.file(state.imageFiles[index], fit: BoxFit.cover),
+          Positioned(
+            top: 5,
+            right: 5,
+            child: GestureDetector(
+              onTap: () => context.read<AddPhotoBloc>().add(RemovePhoto(index)),
+              child: Container(
+                padding: const EdgeInsets.all(2),
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  shape: BoxShape.circle,
                 ),
+                child: const Icon(Icons.close, size: 20, color: Colors.red),
               ),
             ),
-          ],
-        );
-      },
+          ),
+        ],
+      );
+    },
+  );
+}
+  Widget _buildCreateDiaryButton(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: ElevatedButton(
+        onPressed: () => context.read<AddPhotoBloc>().add(CreateDiary()),
+        child: const Text('일기 생성하기'),
+        style: ElevatedButton.styleFrom(
+          padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 32),
+          textStyle: const TextStyle(fontSize: 18),
+        ),
+      ),
     );
   }
+}
