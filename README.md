@@ -29,7 +29,7 @@
 
 ## 🎬 시연 영상
 
-[![일기로운 슬기생활 시연 영상](https://img.youtube.com/vi/5EeO8-8vTME/0.jpg)](https://www.youtube.com/watch?v=5EeO8-8vTME)
+[![일기로운 슬기생활 시연 영상](https://img.youtube.com/vi/5EeO8-8vTME/0.jpg)](https://www.youtube.com/watch?v=iRFP2KpsSoI)
 
 
 ## 💻 개발 환경
